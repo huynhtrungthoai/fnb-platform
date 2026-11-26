@@ -1,0 +1,19 @@
+{
+  "name": "fnb-platform",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.29.0",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "verify": "turbo run typecheck test build"
+  },
+  "devDependencies": {
+    "turbo": "catalog:"
+  }
+}

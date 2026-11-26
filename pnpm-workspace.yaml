@@ -1,0 +1,10 @@
+packages:
+  - 'apps/*'
+  - 'packages/*'
+
+# Shared versions. Checked against the registry on 2026-11-26 (plans/02-repo-setup.md section 3).
+catalog:
+  turbo: ^2.11.13
+
+# Dependency build scripts are blocked unless listed here (pnpm 11).
+allowBuilds: {}
