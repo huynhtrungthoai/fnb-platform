@@ -64,7 +64,7 @@ Kết quả: clone repo, chạy 3 lệnh là có API + Admin + POS trống chạ
 
 - [x] **M0-01** Khởi tạo pnpm workspace + Turborepo, ghim `packageManager`, `.nvmrc`, `.editorconfig`
 - [x] **M0-02** `packages/config`: tsconfig strict, ESLint flat config với các rule bắt buộc (`docs/code-style.md` mục 5), Prettier
-- [ ] **M0-03** `docker-compose.yml`: Postgres 17, Redis, MinIO; file `.env.example`
+- [~] **M0-03** `docker-compose.yml`: Postgres 17, Redis, MinIO; file `.env.example` — *File đã viết, `docker compose config` hợp lệ. **Chưa kiểm:** chưa chạy `docker compose up` vì Docker daemon tắt trên máy dev (2026-11-26); chưa thử image MinIO `cgr.dev/chainguard/minio` (image `minio/minio` không kéo được từ Docker Hub). Tick khi đã bật Docker và ba dịch vụ lên `healthy`.*
 - [ ] **M0-04** `apps/api`: NestJS khung, endpoint `/health`, đọc và kiểm tra biến môi trường
 - [ ] **M0-05** `packages/contract`, `packages/utils` (tiền VND, ngày giờ, UUID v7) kèm unit test
 - [ ] **M0-06** `packages/design-tokens`: `tokens.json` ba lớp `palette` → `semantic` (sáng/tối) → `theme` (`admin`, `pos` trước) + bộ sinh biến CSS/Tailwind 4 theo `data-theme` × `data-mode` và theme native (03 mục 5); giá trị màu, bo góc, phông lấy từ 07; `contrast.test.ts` kiểm tương phản mọi theme × hai chế độ (07 mục 3)
