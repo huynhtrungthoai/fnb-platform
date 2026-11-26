@@ -93,7 +93,7 @@ Rule ESLint bắt buộc (mức error):
 | `i18next/no-literal-string` (JSX trong `apps/`) | Không viết cứng chuỗi hiển thị |
 | `no-restricted-imports` trong `apps/*/src` | Thư viện UI gốc chỉ được import trong `packages/ui-*`; app chỉ import `ui-*` của nền tảng mình; cấm import từ app khác |
 | `no-restricted-syntax` trong `apps/*` và `packages/ui-*` | Cấm mã màu viết cứng và `style={{…}}` với giá trị tuỳ ý |
-| `import/no-cycle`, thứ tự import | Không phụ thuộc vòng |
+| `import-x/no-cycle`, `import-x/order` (plugin `eslint-plugin-import-x`, bản hỗ trợ ESLint 10) | Không phụ thuộc vòng, thứ tự import |
 | `no-console` (trừ `warn`, `error`) | Dùng logger |
 
 Không bật `no-unnecessary-condition`: rule này mâu thuẫn với quy tắc phòng thủ ở mục 3.

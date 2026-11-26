@@ -10,10 +10,18 @@
   "scripts": {
     "build": "turbo run build",
     "typecheck": "turbo run typecheck",
+    "lint": "turbo run lint && eslint \"*.mjs\"",
+    "lint:fix": "turbo run lint -- --fix && eslint \"*.mjs\" --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "test": "turbo run test",
-    "verify": "turbo run typecheck test build"
+    "verify": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm test && pnpm build"
   },
   "devDependencies": {
-    "turbo": "catalog:"
+    "@fnb/config": "workspace:*",
+    "eslint": "catalog:",
+    "prettier": "catalog:",
+    "turbo": "catalog:",
+    "typescript": "catalog:"
   }
 }

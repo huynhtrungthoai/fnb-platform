@@ -16,7 +16,7 @@ Cập nhật lần cuối: **2026-11-26**
 | Giai đoạn | Mốc | Nội dung | Trạng thái | Task |
 |---|---|---|---|---|
 | Chuẩn bị | P | Tài liệu, quy chuẩn, chốt quyết định | Đang làm | 10/13 |
-| GĐ 0 | M0 | Scaffold monorepo | Đang làm | 1/14 |
+| GĐ 0 | M0 | Scaffold monorepo | Đang làm | 2/14 |
 | GĐ 0 | M1 | Nền tảng: auth, phân quyền, chi nhánh, realtime, hàng đợi | Chưa bắt đầu | 0/26 |
 | GĐ 1 | M2 | Thực đơn | Chưa bắt đầu | 0/16 |
 | GĐ 1 | M3 | POS bán hàng, ca, sổ quỹ, máy in và mẫu in, offline | Chưa bắt đầu | 0/34 |
@@ -63,7 +63,7 @@ Thứ tự phụ thuộc: `M0 → M1 → M2 → M3 → (M4, M5, M6 song song đ�
 Kết quả: clone repo, chạy 3 lệnh là có API + Admin + POS trống chạy được, CI xanh.
 
 - [x] **M0-01** Khởi tạo pnpm workspace + Turborepo, ghim `packageManager`, `.nvmrc`, `.editorconfig`
-- [ ] **M0-02** `packages/config`: tsconfig strict, ESLint flat config với các rule bắt buộc (`docs/code-style.md` mục 5), Prettier
+- [x] **M0-02** `packages/config`: tsconfig strict, ESLint flat config với các rule bắt buộc (`docs/code-style.md` mục 5), Prettier
 - [ ] **M0-03** `docker-compose.yml`: Postgres 17, Redis, MinIO; file `.env.example`
 - [ ] **M0-04** `apps/api`: NestJS khung, endpoint `/health`, đọc và kiểm tra biến môi trường
 - [ ] **M0-05** `packages/contract`, `packages/utils` (tiền VND, ngày giờ, UUID v7) kèm unit test

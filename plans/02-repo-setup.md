@@ -5,7 +5,8 @@
 ```
 fnb-platform/
   AGENTS.md  CLAUDE.md  README.md  LICENSE
-  .editorconfig  .gitignore  .nvmrc  .prettierrc  .prettierignore
+  .editorconfig  .gitignore  .nvmrc  .prettierignore
+  eslint.config.mjs  prettier.config.mjs      (cả hai chỉ gọi lại cấu hình trong packages/config)
   .githooks/pre-commit
   .github/workflows/ci.yml
   package.json  pnpm-workspace.yaml  turbo.json  docker-compose.yml  .env.example
@@ -63,7 +64,7 @@ Cấu trúc một module API: `src/modules/<domain>/` gồm `<domain>.module.ts`
 | `api-client` | `contract`, `utils` | `design-tokens`, mã giao diện |
 | `contract` | `zod` | mọi package khác |
 
-ESLint (`no-restricted-imports`, `import/no-cycle`) kiểm tra các ràng buộc này.
+ESLint (`no-restricted-imports`, `import-x/no-restricted-paths`, `import-x/no-cycle`) kiểm tra các ràng buộc này.
 
 ## 3. Công cụ
 
@@ -72,14 +73,14 @@ ESLint (`no-restricted-imports`, `import/no-cycle`) kiểm tra các ràng buộc
 | Runtime | Node | 24 (`.nvmrc`) |
 | Quản lý package | pnpm qua corepack | 11.29.0 (ghim `packageManager`; 12.23 lỗi trên máy dev) |
 | Chạy task | Turborepo | 2.11 |
-| Ngôn ngữ | TypeScript | 6.0 (05: D-11) |
+| Ngôn ngữ | TypeScript | 6.0.3, ghim `~6.0.3` (05: D-11) |
 | API | NestJS | 12 (05: D-10) |
 | CSDL | PostgreSQL + Drizzle ORM + drizzle-kit | 17 · 0.45 |
 | Validate | Zod | 4.6 |
 | Web | Vite, React, TanStack Router, TanStack Query | 8 · 19.3 · 1.170 · 5 |
 | CSS | Tailwind | 4.3 |
 | Đa ngôn ngữ | i18next + react-i18next | xác nhận ở M0 (40) |
-| Lint | ESLint flat config + typescript-eslint | 10 · 8.74 |
+| Lint | ESLint flat config + typescript-eslint + `eslint-plugin-import-x` (bản `eslint-plugin-import` 2.32 chưa hỗ trợ ESLint 10) | 10.15 · 8.74 · 4.18 |
 | Format | Prettier + plugin Tailwind | 3.10 |
 | Test | Vitest, Testcontainers, Playwright | 5 · 12 |
 | Hạ tầng local | Docker Compose: Postgres, Redis, MinIO | |

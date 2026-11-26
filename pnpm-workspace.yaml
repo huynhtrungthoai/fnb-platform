@@ -4,7 +4,20 @@ packages:
 
 # Shared versions. Checked against the registry on 2026-11-26 (plans/02-repo-setup.md section 3).
 catalog:
+  '@eslint/js': ^10.0.1
+  eslint: ^10.15.0
+  eslint-config-prettier: ^10.1.8
+  eslint-import-resolver-typescript: ^4.4.5
+  eslint-plugin-i18next: ^6.1.5
+  eslint-plugin-import-x: ^4.18.1
+  eslint-plugin-react-hooks: ^7.1.1
+  globals: ^17.14.0
+  prettier: ^3.10.1
+  prettier-plugin-tailwindcss: ^0.8.1
   turbo: ^2.11.13
+  # TypeScript stays on 6.0.x until the NestJS and typescript-eslint toolchain supports 7 (D-11).
+  typescript: ~6.0.3
+  typescript-eslint: ^8.74.0
 
 # Dependency build scripts are blocked unless listed here (pnpm 11).
 allowBuilds: {}
