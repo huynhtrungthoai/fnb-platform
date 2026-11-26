@@ -8,6 +8,8 @@ import reactHooks from 'eslint-plugin-react-hooks';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
+import { createBoundaryConfigs } from './boundaries.mjs';
+
 const TS_FILES = ['**/*.{ts,tsx,mts,cts}'];
 const JS_FILES = ['**/*.{js,mjs,cjs}'];
 const TEST_FILES = ['**/*.test.{ts,tsx}', '**/*.e2e.ts', '**/test/**'];
@@ -118,6 +120,8 @@ export function createConfig({ rootDir }) {
         'i18next/no-literal-string': ['error', { framework: 'react', mode: 'jsx-text-only' }],
       },
     },
+    // Import boundaries and token-only UI code (M0-14).
+    ...createBoundaryConfigs({ rootDir, importX }),
     {
       files: TEST_FILES,
       rules: {

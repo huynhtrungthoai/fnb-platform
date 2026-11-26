@@ -64,7 +64,7 @@ Cấu trúc một module API: `src/modules/<domain>/` gồm `<domain>.module.ts`
 | `api-client` | `contract`, `utils` | `design-tokens`, mã giao diện |
 | `contract` | `zod` | mọi package khác |
 
-ESLint (`no-restricted-imports`, `import-x/no-restricted-paths`, `import-x/no-cycle`) kiểm tra các ràng buộc này.
+ESLint (`no-restricted-imports`, `import-x/no-restricted-paths`, `import-x/no-cycle`) kiểm tra các ràng buộc này. Cấu hình: `packages/config/eslint/boundaries.mjs` (M0-14); test: `scripts/eslint-boundaries.test.mjs`. `packages/utils` không import package nào trong workspace; `packages/i18n` chỉ import `contract` và `utils`, không import React (app truyền `initReactI18next` vào `createI18n`).
 
 ## 3. Công cụ
 

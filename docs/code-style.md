@@ -91,10 +91,13 @@ Rule ESLint bắt buộc (mức error):
 | `@typescript-eslint/prefer-optional-chain` | `?.` thay cho chuỗi `&&` |
 | `react-hooks/rules-of-hooks`, `react-hooks/exhaustive-deps` | Hook đúng cách |
 | `i18next/no-literal-string` (JSX trong `apps/`) | Không viết cứng chuỗi hiển thị |
-| `no-restricted-imports` trong `apps/*/src` | Thư viện UI gốc chỉ được import trong `packages/ui-*`; app chỉ import `ui-*` của nền tảng mình; cấm import từ app khác |
-| `no-restricted-syntax` trong `apps/*` và `packages/ui-*` | Cấm mã màu viết cứng và `style={{…}}` với giá trị tuỳ ý |
+| `no-restricted-imports` (theo từng thư mục) | Thư viện UI gốc chỉ được import trong `packages/ui-*`; app chỉ import `ui-*` của nền tảng mình; cấm import từ app khác; ràng buộc giữa các package (`plans/02-repo-setup.md` mục 2) |
+| `import-x/no-restricted-paths` | Cấm import tương đối sang app khác; package không import từ `apps/` |
+| `no-restricted-syntax` trong app giao diện và `packages/ui-*` | Cấm mã màu viết cứng (`#fff`, `rgb()`), class Tailwind giá trị tuỳ ý (`w-[137px]`) và thuộc tính `style`. Cho phép biến thể trạng thái (`data-[state=open]:`) và giá trị trỏ tới biến CSS (`w-(--radix-…)`) |
 | `import-x/no-cycle`, `import-x/order` (plugin `eslint-plugin-import-x`, bản hỗ trợ ESLint 10) | Không phụ thuộc vòng, thứ tự import |
 | `no-console` (trừ `warn`, `error`) | Dùng logger |
+
+Các rule ranh giới nằm ở `packages/config/eslint/boundaries.mjs`; thêm app mới thì khai báo nền tảng của nó trong `APP_PLATFORMS` ở file đó. `scripts/eslint-boundaries.test.mjs` (chạy trong `pnpm test`) kiểm từng rule có bắt đúng.
 
 Không bật `no-unnecessary-condition`: rule này mâu thuẫn với quy tắc phòng thủ ở mục 3.
 
