@@ -204,6 +204,14 @@ Các nhóm Bếp, Thủ kho, Kế toán vẫn có sẵn để dùng khi cần (0
 | Quyền | Theo mục đích: `user_avatar` cần `user.manage` (M1). M2 thêm `product` (`menu.manage`), M3 thêm chứng từ. `PATCH /users/:id` chỉ nhận `avatarMediaId` là ảnh `user_avatar` |
 | Nhật ký | `media.upload` |
 
+### Seed (M1-16)
+
+| Mục | Quy định |
+|---|---|
+| Lệnh | `pnpm db:seed`, chạy lại bao nhiêu lần cũng được: danh mục quyền và bảy nhóm mặc định → super admin → chi nhánh mẫu |
+| Super admin | Chỉ tạo khi chưa có tài khoản `credential_type = password`: tên `SEED_OWNER_USERNAME` (mặc định `owner`), mật khẩu `SEED_OWNER_PASSWORD`, PIN POS `SEED_OWNER_PIN`, nhóm Chủ ở tất cả chi nhánh. Thiếu mật khẩu hay PIN thì sinh ngẫu nhiên và in ra một lần; ở production từ chối mật khẩu bắt đầu bằng `dev-only-`. Giá trị dev nằm trong `.env.example` |
+| Chi nhánh mẫu | Chỉ tạo khi chưa có chi nhánh nào: `SEED_BRANCH_CODE` / `SEED_BRANCH_NAME`, cấu hình mặc định |
+
 ### Xác thực trên POS
 
 | Lớp | Cách làm |

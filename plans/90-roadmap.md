@@ -17,7 +17,7 @@ Cập nhật lần cuối: **2026-11-26**
 |---|---|---|---|---|
 | Chuẩn bị | P | Tài liệu, quy chuẩn, chốt quyết định | Đang làm | 10/13 |
 | GĐ 0 | M0 | Scaffold monorepo | Đang làm | 13/14 |
-| GĐ 0 | M1 | Nền tảng: auth, phân quyền, chi nhánh, realtime, hàng đợi | Đang làm | 16/26 |
+| GĐ 0 | M1 | Nền tảng: auth, phân quyền, chi nhánh, realtime, hàng đợi | Đang làm | 17/26 |
 | GĐ 1 | M2 | Thực đơn | Chưa bắt đầu | 0/16 |
 | GĐ 1 | M3 | POS bán hàng, ca, sổ quỹ, máy in và mẫu in, offline | Chưa bắt đầu | 0/34 |
 | GĐ 1 | M4 | Bếp (phần bàn hoãn, D-26) | Chưa bắt đầu | 0/9 (6 hoãn) |
@@ -100,7 +100,7 @@ Nghiệp vụ
 - [x] **M1-13** Thiết bị POS: đăng ký, thu hồi, token thiết bị, phiên nhân viên bằng PIN — CORE-30, 31, 33
 - [x] **M1-14** Audit log: interceptor ghi + API tra cứu — CORE-40
 - [x] **M1-15** Upload ảnh lên lưu trữ S3 — CORE-42
-- [ ] **M1-16** Seed: tài khoản Chủ, một chi nhánh mẫu
+- [x] **M1-16** Seed: tài khoản Chủ, một chi nhánh mẫu
 - [ ] **M1-25** Hạ tầng hàng đợi BullMQ trên Redis: module chung, thử lại, job lỗi (D-25)
 - [ ] **M1-26** Gateway Socket.IO (xác thực, room chi nhánh, Redis adapter) và socket client trong `api-client`: tự kết nối lại, tải lại dữ liệu khi kết nối lại, trạng thái mất kết nối (D-25)
 

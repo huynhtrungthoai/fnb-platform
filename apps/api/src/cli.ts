@@ -3,7 +3,7 @@ import 'reflect-metadata';
 import { loadEnv } from './config/env.js';
 import { createDatabase, createPool } from './db/database.js';
 import { runMigrations } from './db/migrate.js';
-import { runSeed } from './db/seed.js';
+import { runSeed, seedSteps } from './db/seed.js';
 import { generatePassword, resetOwnerPassword } from './modules/users/reset-owner-password.js';
 
 import type { Env } from './config/env.js';
@@ -37,7 +37,7 @@ const COMMANDS: Record<string, Command> = {
     }),
   seed: (env) =>
     withDatabase(env, async (db) => {
-      await runSeed(db, undefined, print);
+      await runSeed(db, seedSteps(env, print), print);
       print('Seed completed.');
     }),
   /** New super admin password: from NEW_OWNER_PASSWORD, or a generated one printed once. */

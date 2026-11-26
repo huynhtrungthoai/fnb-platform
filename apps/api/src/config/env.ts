@@ -30,6 +30,24 @@ const envSchema = z.object({
   LOGIN_RATE_LIMIT_MAX: z.coerce.number().int().min(1).default(10),
   LOGIN_RATE_LIMIT_WINDOW_SECONDS: z.coerce.number().int().min(1).default(60),
   DATABASE_URL: z.url({ protocol: /^postgres(ql)?$/ }),
+  // Seed (M1-16): the super admin and a sample branch. Unset secrets are generated and printed.
+  SEED_OWNER_USERNAME: z
+    .string()
+    .trim()
+    .toLowerCase()
+    .regex(/^[a-z0-9]{3,30}$/)
+    .default('owner'),
+  SEED_OWNER_FULL_NAME: z.string().trim().min(1).default('Owner'),
+  SEED_OWNER_PASSWORD: z.string().optional(),
+  SEED_OWNER_PIN: z
+    .string()
+    .regex(/^\d{6}$/)
+    .optional(),
+  SEED_BRANCH_CODE: z
+    .string()
+    .regex(/^[A-Z0-9]{2,6}$/)
+    .default('Q1'),
+  SEED_BRANCH_NAME: z.string().trim().min(1).default('Sample branch'),
   REDIS_URL: z.url({ protocol: /^rediss?$/ }),
   S3_ENDPOINT: z.url({ protocol: /^https?$/ }),
   S3_REGION: z.string().min(1),
