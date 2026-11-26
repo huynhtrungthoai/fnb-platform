@@ -70,7 +70,7 @@ Kết quả: clone repo, chạy 3 lệnh là có API + Admin + POS trống chạ
 - [x] **M0-06** `packages/design-tokens`: `tokens.json` ba lớp `palette` → `semantic` (sáng/tối) → `theme` (`admin`, `pos` trước) + bộ sinh biến CSS/Tailwind 4 theo `data-theme` × `data-mode` và theme native (03 mục 5); giá trị màu, bo góc, phông lấy từ 07; `contrast.test.ts` kiểm tương phản mọi theme × hai chế độ (07 mục 3)
 - [x] **M0-07** `packages/ui-web` và `packages/ui-pos` nền (shadcn trên token, README); `apps/admin` (theme `admin`) và `apps/pos` (theme `pos`): Vite + React + TanStack Router, trang mẫu `/dev/components`; `LanguageSwitcher` và `ThemeSwitcher` (Theo hệ thống / Sáng / Tối, lưu trên thiết bị) chạy được (03 mục 5.3, 7, 10)
 - [x] **M0-08** Script gốc: `dev`, `build`, `typecheck`, `lint`, `lint:fix`, `format`, `format:check`, `test`, `verify`, `db:*`, `infra:*`
-- [ ] **M0-09** GitHub Actions chạy `pnpm verify`
+- [~] **M0-09** GitHub Actions chạy `pnpm verify` — *Đã thêm `.github/workflows/ci.yml` (YAML hợp lệ; cùng chuỗi lệnh `pnpm install --frozen-lockfile && pnpm verify` đã chạy xanh trên một bản clone sạch ở máy dev). **Chưa kiểm:** workflow chưa chạy trên GitHub vì chưa push. Tick sau lần push đầu tiên có CI xanh.*
 - [ ] **M0-10** Cập nhật `AGENTS.md` (trạng thái, lệnh thật) và `README.md` (cách chạy); ghi rõ `brands/` không thuộc giấy phép MIT (01 mục 1)
 - [x] **M0-11** `packages/i18n`: i18next, `locales/vi` và `locales/en`, kiểu của key, `formatMoney`, `formatDate`, `localize` (40 mục 10)
 - [x] **M0-12** `scripts/check-filenames.mjs` và `scripts/check-i18n.mjs`, gắn vào `pnpm lint`
