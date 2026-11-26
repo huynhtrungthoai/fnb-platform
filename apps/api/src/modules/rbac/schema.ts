@@ -12,6 +12,7 @@ import {
 
 import { localizedText, standardColumns, timestamps } from '../../db/columns.js';
 import { branches } from '../branches/schema.js';
+import { users } from '../users/schema.js';
 
 import type { RoleLimits } from '@fnb/contract';
 
@@ -70,7 +71,9 @@ export const userRoleAssignments = pgTable(
   'user_role_assignments',
   {
     ...standardColumns(),
-    userId: uuid('user_id').notNull(),
+    userId: uuid('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
     // Branches are never deleted, only deactivated, so no cascade is needed.
     branchId: uuid('branch_id').references(() => branches.id),
     roleId: uuid('role_id')

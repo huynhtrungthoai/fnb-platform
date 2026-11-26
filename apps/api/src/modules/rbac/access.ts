@@ -9,6 +9,8 @@ export interface RoleGrant {
   roleCode: string | null;
   roleName: LocalizedText;
   roleVersion: number;
+  /** The locked owner group. Used to protect owner accounts, never to grant anything. */
+  isLocked: boolean;
   permissions: PermissionCode[];
   limits: RoleLimits;
 }
@@ -127,3 +129,39 @@ export const reachesBranch = (reach: BranchReach, branchId: string): boolean =>
 export function toPermissionCodes(codes: readonly string[]): PermissionCode[] {
   return codes.filter(isPermissionCode);
 }
+
+/**
+ * Permissions a caller could hand out through an assignment at a branch (`null`: the
+ * all-branches assignment). A branch assignment never carries business permissions.
+ */
+export function grantablePermissions(
+  access: UserAccess,
+  branchId: string | null,
+): PermissionCode[] {
+  if (branchId === null) {
+    return access.allBranches?.permissions ?? [];
+  }
+  return resolveEffectiveAccess(access, branchId)?.permissions ?? [];
+}
+
+/** Permissions of a grant that take effect on an assignment at a branch (`null`: all branches). */
+export function effectivePermissionsOfGrant(
+  permissions: readonly PermissionCode[],
+  branchId: string | null,
+): PermissionCode[] {
+  return branchId === null
+    ? [...permissions]
+    : permissions.filter((code) => !isBusinessScope(code));
+}
+
+/** Permissions in `wanted` that `held` does not contain. Empty when nothing would be escalated. */
+export function missingPermissions(
+  held: readonly PermissionCode[],
+  wanted: readonly PermissionCode[],
+): PermissionCode[] {
+  const heldSet = new Set(held);
+  return wanted.filter((code) => !heldSet.has(code));
+}
+
+/** True when the user holds the locked owner group on an all-branches assignment. */
+export const isOwnerAccess = (access: UserAccess): boolean => access.allBranches?.isLocked ?? false;

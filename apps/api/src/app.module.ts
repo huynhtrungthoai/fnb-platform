@@ -10,6 +10,7 @@ import { BranchesModule } from './modules/branches/branches.module.js';
 import { DocsModule } from './modules/docs/docs.module.js';
 import { HealthModule } from './modules/health/health.module.js';
 import { RbacModule } from './modules/rbac/rbac.module.js';
+import { UsersModule } from './modules/users/users.module.js';
 import { RedisModule } from './redis/redis.module.js';
 
 @Module({
@@ -25,6 +26,7 @@ import { RedisModule } from './redis/redis.module.js';
     DocsModule,
     HealthModule,
     RbacModule,
+    UsersModule,
   ],
 })
 export class AppModule {}

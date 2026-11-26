@@ -12,6 +12,12 @@ export const AUDIT_ACTIONS = [
   'branch.deactivate',
   'branch.activate',
   'branch.settings_update',
+  'user.create',
+  'user.update',
+  'user.disable',
+  'user.enable',
+  'user.assign_role',
+  'user.unassign_role',
 ] as const satisfies readonly string[];
 
 /** An action written to the audit log. */

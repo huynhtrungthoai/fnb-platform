@@ -11,5 +11,9 @@
   "TOKEN_EXPIRED": "Phiên đăng nhập đã hết hạn. Đăng nhập lại để tiếp tục.",
   "BRANCH_REQUIRED": "Chọn một chi nhánh để tiếp tục.",
   "BRANCH_CODE_TAKEN": "Mã chi nhánh này đã được dùng. Chọn mã khác.",
-  "BRANCH_INACTIVE": "Chi nhánh này đã ngừng hoạt động."
+  "BRANCH_INACTIVE": "Chi nhánh này đã ngừng hoạt động.",
+  "USERNAME_TAKEN": "Tên đăng nhập này đã có người dùng. Chọn tên khác.",
+  "CANNOT_MODIFY_SELF": "Bạn không tự thực hiện thao tác này cho chính mình được.",
+  "ROLE_ESCALATION": "Bạn chỉ cấp được những quyền chính mình đang có.",
+  "LAST_OWNER": "Phải luôn còn ít nhất một tài khoản Chủ đang hoạt động."
 }

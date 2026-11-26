@@ -1,10 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { errors, jwtVerify, SignJWT } from 'jose';
 
-import { AppError } from '../../common/errors/app-error.js';
-import { ENV } from '../../config/env.js';
+import { AppError } from '../../../common/errors/app-error.js';
+import { ENV } from '../../../config/env.js';
 
-import type { Env } from '../../config/env.js';
+import type { Env } from '../../../config/env.js';
 
 /** What an access token says. It carries no permissions: those are read per request. */
 export interface AccessTokenClaims {

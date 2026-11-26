@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { DEFAULT_DAY_CUTOFF, DEFAULT_TIME_ZONE, getBusinessDate } from '@fnb/utils';
 
 import { AppError, notFound } from '../../common/errors/app-error.js';
+import { isUniqueViolation } from '../../db/errors.js';
 import { AuditService } from '../audit/audit.service.js';
 import { BranchesRepository } from './branches.repository.js';
 
@@ -30,7 +31,6 @@ export const DEFAULT_BRANCH_SETTINGS = {
 } as const;
 
 const DAY_MS = 86_400_000;
-const POSTGRES_UNIQUE_VIOLATION = '23505';
 
 const toBps = (percent: number): number => Math.round(percent * 100);
 const toPercent = (bps: number): number => bps / 100;
@@ -38,17 +38,6 @@ const toPercent = (bps: number): number => bps / 100;
 /** The calendar day after an ISO date. */
 export function nextIsoDate(isoDate: string): string {
   return new Date(Date.parse(`${isoDate}T00:00:00Z`) + DAY_MS).toISOString().slice(0, 10);
-}
-
-function isUniqueViolation(error: unknown): boolean {
-  const candidates = [error, error instanceof Error ? error.cause : undefined];
-  return candidates.some(
-    (candidate) =>
-      typeof candidate === 'object' &&
-      candidate !== null &&
-      'code' in candidate &&
-      candidate.code === POSTGRES_UNIQUE_VIOLATION,
-  );
 }
 
 /** Converts a branch row to the response shape. */

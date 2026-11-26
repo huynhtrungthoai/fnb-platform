@@ -3,12 +3,13 @@ import { eq } from 'drizzle-orm';
 import { uuidv7 } from '@fnb/utils';
 
 import { BRANCH_HEADER } from '../common/decorators/access.decorators.js';
-import { AccessTokenService } from '../modules/auth/access-token.service.js';
-import { SessionStore } from '../modules/auth/session-store.js';
+import { AccessTokenService } from '../modules/auth/session/access-token.service.js';
+import { SessionStore } from '../modules/auth/session/session-store.js';
 import { DEFAULT_BRANCH_SETTINGS } from '../modules/branches/branches.service.js';
 import { branches, branchSettings } from '../modules/branches/schema.js';
 import { RbacService } from '../modules/rbac/rbac.service.js';
 import { rolePermissions, roles, userRoleAssignments } from '../modules/rbac/schema.js';
+import { users } from '../modules/users/schema.js';
 
 import type { TestApp } from './test-app.js';
 import type { DefaultRoleCode, PermissionCode } from '@fnb/contract';
@@ -44,11 +45,33 @@ export async function createCustomRole(
   return roleId;
 }
 
+/**
+ * Makes sure an account exists for the id, without a PIN (tests sign in through `openSession`).
+ * The username is derived from the id so it stays unique.
+ */
+export async function ensureUser(
+  test: TestApp,
+  userId: string,
+  values: { fullName?: string; isActive?: boolean } = {},
+): Promise<void> {
+  await test.db
+    .insert(users)
+    .values({
+      id: userId,
+      username: `u${userId.replaceAll('-', '').slice(-16)}`,
+      fullName: values.fullName ?? 'Test user',
+      isActive: values.isActive ?? true,
+      mustChangePin: false,
+    })
+    .onConflictDoNothing();
+}
+
 /** Assigns a group to a user at a branch; `branchId: null` is the all-branches assignment. */
 export async function assignRole(
   test: TestApp,
   assignment: { userId: string; branchId: string | null; roleId: string },
 ): Promise<void> {
+  await ensureUser(test, assignment.userId);
   await test.db.insert(userRoleAssignments).values(assignment);
   await test.app.get(RbacService).invalidateUsers([assignment.userId]);
 }

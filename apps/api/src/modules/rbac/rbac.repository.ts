@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { and, eq, inArray } from 'drizzle-orm';
+import { and, eq, inArray, isNull } from 'drizzle-orm';
 
 import { DB } from '../../db/database.js';
 import { permissions, rolePermissions, roles, userRoleAssignments } from './schema.js';
@@ -68,4 +68,81 @@ export class RbacRepository {
       .where(eq(userRoleAssignments.roleId, roleId));
     return rows.map((row) => row.userId);
   }
+
+  /** Assignments with their group, optionally only those of some users. */
+  listAssignments(
+    userIds?: readonly string[],
+    executor: Executor = this.db,
+  ): Promise<AssignmentWithUserRow[]> {
+    if (userIds?.length === 0) {
+      return Promise.resolve([]);
+    }
+    return executor
+      .select({
+        userId: userRoleAssignments.userId,
+        branchId: userRoleAssignments.branchId,
+        roleId: roles.id,
+        roleCode: roles.code,
+        roleName: roles.name,
+        isLocked: roles.isLocked,
+        updatedAt: userRoleAssignments.updatedAt,
+      })
+      .from(userRoleAssignments)
+      .innerJoin(roles, eq(roles.id, userRoleAssignments.roleId))
+      .where(userIds ? inArray(userRoleAssignments.userId, [...userIds]) : undefined);
+  }
+
+  async findRole(roleId: string, executor: Executor = this.db): Promise<RoleRow | undefined> {
+    const [row] = await executor.select().from(roles).where(eq(roles.id, roleId));
+    return row;
+  }
+
+  /** Sets the group of a user at a branch (`null`: all branches), replacing an existing one. */
+  async upsertAssignment(
+    values: { userId: string; branchId: string | null; roleId: string; createdBy: string | null },
+    executor: Executor = this.db,
+  ): Promise<void> {
+    // NULLS NOT DISTINCT is on the constraint, so a conflict target with a null branch works too.
+    await executor
+      .insert(userRoleAssignments)
+      .values(values)
+      .onConflictDoUpdate({
+        target: [userRoleAssignments.userId, userRoleAssignments.branchId],
+        set: { roleId: values.roleId, updatedAt: new Date() },
+      });
+  }
+
+  /** Removes the assignment of a user at a branch (`null`: all branches). Returns the removed group id. */
+  async deleteAssignment(
+    userId: string,
+    branchId: string | null,
+    executor: Executor = this.db,
+  ): Promise<string | undefined> {
+    const [row] = await executor
+      .delete(userRoleAssignments)
+      .where(
+        and(
+          eq(userRoleAssignments.userId, userId),
+          branchId === null
+            ? isNull(userRoleAssignments.branchId)
+            : eq(userRoleAssignments.branchId, branchId),
+        ),
+      )
+      .returning({ roleId: userRoleAssignments.roleId });
+    return row?.roleId;
+  }
 }
+
+/** An assignment of some user, joined with its group. */
+export interface AssignmentWithUserRow {
+  userId: string;
+  branchId: string | null;
+  roleId: string;
+  roleCode: string | null;
+  roleName: (typeof roles.$inferSelect)['name'];
+  isLocked: boolean;
+  updatedAt: Date;
+}
+
+/** A permission group row. */
+export type RoleRow = typeof roles.$inferSelect;

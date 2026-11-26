@@ -11,5 +11,9 @@
   "TOKEN_EXPIRED": "Your session has expired. Sign in again to continue.",
   "BRANCH_REQUIRED": "Choose a branch to continue.",
   "BRANCH_CODE_TAKEN": "This branch code is already in use. Choose another one.",
-  "BRANCH_INACTIVE": "This branch is no longer active."
+  "BRANCH_INACTIVE": "This branch is no longer active.",
+  "USERNAME_TAKEN": "This username is already taken. Choose another one.",
+  "CANNOT_MODIFY_SELF": "You cannot do this to your own account.",
+  "ROLE_ESCALATION": "You can only grant permissions you hold yourself.",
+  "LAST_OWNER": "At least one active owner account must remain."
 }

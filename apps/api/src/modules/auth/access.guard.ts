@@ -14,8 +14,8 @@ import {
 import { AppError } from '../../common/errors/app-error.js';
 import { branchReach, reachesAnyBranch, resolveEffectiveAccess } from '../rbac/access.js';
 import { permissionDenied, RbacService } from '../rbac/rbac.service.js';
-import { AccessTokenService } from './access-token.service.js';
-import { SessionStore } from './session-store.js';
+import { AccessTokenService } from './session/access-token.service.js';
+import { SessionStore } from './session/session-store.js';
 
 import type {
   AuthContext,

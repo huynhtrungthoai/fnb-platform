@@ -17,6 +17,7 @@ const grant = (code: string, permissions: PermissionCode[]): RoleGrant => ({
   roleCode: code,
   roleName: { vi: code },
   roleVersion: 1,
+  isLocked: false,
   permissions,
   limits: { maxDiscountPercent: null, maxPayOutAmount: null, maxRefundAmount: null },
 });

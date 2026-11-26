@@ -124,6 +124,20 @@ Các nhóm Bếp, Thủ kho, Kế toán vẫn có sẵn để dùng khi cần (0
 | Nhật ký | `branch.create`, `branch.update`, `branch.deactivate`, `branch.activate` ghi ở cấp doanh nghiệp; `branch.settings_update` ghi theo chi nhánh |
 | Chưa làm ở M1 | Các ô trong mockup `admin-branches` thuộc mốc khác: làm tròn tiền (POS-15, M3), bán kính chấm công GPS (HR-21, M9), phương thức thanh toán tại chi nhánh (M5), tab Thiết bị (M1-21) |
 
+### Nhân viên và gán nhóm (M1-07)
+
+| Mục | Quy định |
+|---|---|
+| Bảng | `users` (module `users`): `username` (duy nhất), `full_name`, `phone`, `avatar_media_id`, `credential_type`, `pin_hash`, `password_hash`, `must_change_pin`, `failed_attempts`, `locked_at`, `locked_until`, `is_active`, `last_login_at`. Không xoá tài khoản, chỉ vô hiệu hoá. `user_role_assignments.user_id` tham chiếu `users.id` |
+| Endpoint | `GET /users` (lọc `search`, `status`: `active`/`disabled`/`locked`/`all`, `branchId`, `roleId`; phân trang), `GET /users/:id`, `GET /users/:id/access` (quyền thực tế từng chi nhánh, CORE-29), `POST /users`, `PATCH /users/:id`, `POST /users/:id/disable` / `enable`, `PUT /users/:id/assignments` (`{ branchId \| null, roleId }`), `DELETE /users/:id/assignments/:branchId` (`all` = bản gán tất cả chi nhánh) |
+| Ai thấy ai | Người gọi thấy nhân viên được gán ở chi nhánh mình có `user.view`, chỉ kèm các bản gán ở những chi nhánh đó và bản "tất cả chi nhánh". Nhân viên chỉ có bản gán "tất cả chi nhánh" hoặc chưa được gán thì chỉ người được gán tất cả chi nhánh thấy. Không thấy thì trả `404` |
+| Tạo | Cần `user.manage` **và** `role.assign` tại mọi nơi gán, và chỉ cấp được quyền mình có ở đó (`403 ROLE_ESCALATION`, kèm `missingPermissions`). PIN ban đầu là PIN tạm (`must_change_pin = true`). Trùng tên đăng nhập: `409 USERNAME_TAKEN` |
+| Sửa, vô hiệu hoá | `user.manage` tại mọi chi nhánh nhân viên đó được gán, và người gọi phải có ít nhất các quyền của nhân viên ở đó. Vô hiệu hoá thu hồi mọi phiên ngay. Không tự vô hiệu hoá mình (`409 CANNOT_MODIFY_SELF`) |
+| Gán, gỡ nhóm | `role.assign` tại nơi gán; không tự gán cho mình; không đổi nhóm của người đang có nhiều quyền hơn mình ở đó. Nhóm Chủ chỉ do người thuộc nhóm Chủ gán, và chỉ ở bản "tất cả chi nhánh" |
+| Chủ cuối cùng | Không vô hiệu hoá, gỡ hay đổi nhóm của tài khoản Chủ đang hoạt động cuối cùng (`409 LAST_OWNER`) |
+| Nhật ký | `user.create`, `user.update`, `user.disable`, `user.enable`, `user.assign_role`, `user.unassign_role`; ghi theo chi nhánh khi thao tác chỉ chạm một chi nhánh, còn lại ở cấp doanh nghiệp. Mã băm không bao giờ vào log hay phản hồi |
+| Làm ở task khác | Đăng nhập, phiên (M1-08); đổi, đặt lại PIN, mở khoá (M1-09); ảnh đại diện (M1-15) |
+
 ### Audit log (M1-14)
 
 | Mục | Quy định |

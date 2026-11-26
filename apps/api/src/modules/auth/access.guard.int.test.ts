@@ -23,7 +23,7 @@ import {
 import { createTestApp } from '../../test/test-app.js';
 import { RbacService } from '../rbac/rbac.service.js';
 import { rolePermissions } from '../rbac/schema.js';
-import { SessionStore } from './session-store.js';
+import { SessionStore } from './session/session-store.js';
 
 import type { AuthContext } from '../../common/decorators/access.decorators.js';
 import type { TestApp } from '../../test/test-app.js';

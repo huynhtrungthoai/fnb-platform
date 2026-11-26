@@ -43,6 +43,13 @@
       "when": 1795712359643,
       "tag": "0005_branches",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1795713010889,
+      "tag": "0006_users",
+      "breakpoints": true
     }
   ]
 }
