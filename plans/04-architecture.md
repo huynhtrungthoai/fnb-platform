@@ -124,6 +124,7 @@ Quy tắc: module chỉ ghi vào bảng của mình. Muốn thay đổi dữ li�
 
 - Mã lỗi khai báo ở `packages/contract/src/errors.ts` (`ERROR_CODES`); trạng thái HTTP của từng mã ở `apps/api/src/common/errors/app-error.ts` (`ERROR_STATUS`); bản dịch ở namespace `errors` của `packages/i18n`, `check-i18n` chặn mã thiếu bản dịch.
 - Service ném `AppError(code, message, { params })`; `AllExceptionsFilter` dựng thân lỗi. Lỗi không lường trước trả `INTERNAL_ERROR`, không lộ thông báo gốc.
+- Validate (M1-03, D-10): `@ZBody(schema)`, `@ZQuery(schema)`, `@ZParam(name, schema)`, `@UuidParam()` trong `apps/api/src/common/zod/` parse bằng schema Zod của `@fnb/contract` và ghi schema lên handler; `@ZResponse(schema, { isPage })` mô tả `data`. Tài liệu OpenAPI 3.1 sinh từ các schema đó bằng `z.toJSONSchema`, xem ở `GET /openapi.json` (không phục vụ khi `NODE_ENV=production`).
 - Controller trả giá trị thường hoặc `Paginated`; `ResponseInterceptor` bọc. `@RawResponse()` chỉ dùng cho `/health`, `/openapi.json` và luồng file.
 
 ## Phân quyền
