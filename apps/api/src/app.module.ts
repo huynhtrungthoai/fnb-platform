@@ -9,6 +9,7 @@ import { AuthModule } from './modules/auth/auth.module.js';
 import { BranchesModule } from './modules/branches/branches.module.js';
 import { DocsModule } from './modules/docs/docs.module.js';
 import { HealthModule } from './modules/health/health.module.js';
+import { MediaModule } from './modules/media/media.module.js';
 import { RbacModule } from './modules/rbac/rbac.module.js';
 import { UsersModule } from './modules/users/users.module.js';
 import { RedisModule } from './redis/redis.module.js';
@@ -25,6 +26,7 @@ import { RedisModule } from './redis/redis.module.js';
     BranchesModule,
     DocsModule,
     HealthModule,
+    MediaModule,
     RbacModule,
     UsersModule,
   ],

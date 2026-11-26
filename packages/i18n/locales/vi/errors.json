@@ -28,5 +28,7 @@
   "ROLE_NOT_SYSTEM": "Chỉ nhóm mặc định mới khôi phục về mặc định được.",
   "ROLE_IN_USE": "Chuyển {{count}} người trong nhóm sang nhóm khác trước khi xoá.",
   "DEVICE_INVALID": "Máy này chưa được đăng ký. Đăng ký lại.",
-  "DEVICE_REVOKED": "Máy này đã bị thu hồi. Nhờ quản lý đăng ký lại."
+  "DEVICE_REVOKED": "Máy này đã bị thu hồi. Nhờ quản lý đăng ký lại.",
+  "MEDIA_UNSUPPORTED": "Chọn ảnh JPEG, PNG hoặc WebP.",
+  "MEDIA_TOO_LARGE": "Ảnh quá lớn. Chọn ảnh dưới 10 MB."
 }

@@ -6,6 +6,7 @@ export * from '../modules/audit/schema.js';
 export * from '../modules/auth/schema.js';
 export * from '../modules/branches/schema.js';
 export * from '../modules/devices/schema.js';
+export * from '../modules/media/schema.js';
 export * from '../modules/rbac/schema.js';
 export * from '../modules/system/schema.js';
 export * from '../modules/users/schema.js';

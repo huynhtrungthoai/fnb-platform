@@ -27,6 +27,7 @@ export const AUDIT_ACTIONS = [
   'user.reset_pin',
   'user.unlock',
   'approval.grant',
+  'media.upload',
   'device.register',
   'device.revoke',
   'device.session_open',

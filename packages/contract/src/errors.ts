@@ -33,6 +33,8 @@ export const ERROR_CODES = [
   'ROLE_IN_USE',
   'DEVICE_INVALID',
   'DEVICE_REVOKED',
+  'MEDIA_UNSUPPORTED',
+  'MEDIA_TOO_LARGE',
   'INTERNAL_ERROR',
 ] as const;
 

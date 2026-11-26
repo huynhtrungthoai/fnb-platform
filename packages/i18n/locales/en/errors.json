@@ -28,5 +28,7 @@
   "ROLE_NOT_SYSTEM": "Only default groups can be restored to their defaults.",
   "ROLE_IN_USE": "Move the {{count}} people in this group to another group before deleting it.",
   "DEVICE_INVALID": "This device is not registered. Register it again.",
-  "DEVICE_REVOKED": "This device has been revoked. Ask a manager to register it again."
+  "DEVICE_REVOKED": "This device has been revoked. Ask a manager to register it again.",
+  "MEDIA_UNSUPPORTED": "Choose a JPEG, PNG or WebP image.",
+  "MEDIA_TOO_LARGE": "The image is too large. Choose one under 10 MB."
 }

@@ -194,6 +194,16 @@ Các nhóm Bếp, Thủ kho, Kế toán vẫn có sẵn để dùng khi cần (0
 | Bí mật | Mọi khoá có tên chứa `pin`, `password`, `secret`, `token`, `hash` bị thay bằng `[redacted]` trước khi lưu |
 | Tra cứu | `GET /audit-logs` (quyền `audit.view`): lọc theo người, hành động (`user.create` hoặc tiền tố `user.`), đối tượng, khoảng thời gian; phân trang, mới nhất trước. Mặc định chỉ thấy log của chi nhánh đang chọn; `scope=business` xem log cấp doanh nghiệp, chỉ dành cho người được gán tất cả chi nhánh |
 
+### Upload ảnh (M1-15)
+
+| Mục | Quy định |
+|---|---|
+| Endpoint | `POST /media?purpose=<mục đích>` với body là **byte của ảnh** và `Content-Type` `image/jpeg`, `image/png` hoặc `image/webp`, tối đa 10 MB (`413 MEDIA_TOO_LARGE`; loại khác hay ảnh hỏng: `415 MEDIA_UNSUPPORTED`). `GET /media/:id` (cần đăng nhập) trả thông tin; `GET /media/:id/content?variant=full\|thumb` trả ảnh, công khai như link CDN (id là UUID ngẫu nhiên) |
+| Xử lý | `sharp`: xoay theo EXIF rồi bỏ mọi metadata (GPS, máy ảnh), thu về tối đa 1600 px (WebP chất lượng 80) và ảnh thu nhỏ 320 px (WebP 75). Không giữ file gốc |
+| Lưu trữ | Giao thức S3 (`@aws-sdk/client-s3`, `forcePathStyle`), key `media/<id>.webp` và `media/<id>-thumb.webp`; bảng `media` (`purpose`, `storage_key`, `thumb_key`, kích thước, dung lượng trước và sau nén, `branch_id` cho chứng từ của chi nhánh). API tự tạo bucket khi thiếu (MinIO local). Test dùng `MemoryObjectStorage`, không gọi MinIO |
+| Quyền | Theo mục đích: `user_avatar` cần `user.manage` (M1). M2 thêm `product` (`menu.manage`), M3 thêm chứng từ. `PATCH /users/:id` chỉ nhận `avatarMediaId` là ảnh `user_avatar` |
+| Nhật ký | `media.upload` |
+
 ### Xác thực trên POS
 
 | Lớp | Cách làm |

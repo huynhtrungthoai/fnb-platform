@@ -216,6 +216,7 @@ export class RolesService {
 }
 
 function toRole(row: RoleRecord, codes: readonly string[], memberCount: number): Role {
+  const held = new Set(toPermissionCodes(codes));
   return {
     id: row.id,
     code: row.code,
@@ -224,7 +225,10 @@ function toRole(row: RoleRecord, codes: readonly string[], memberCount: number):
     isSystem: row.isSystem,
     isLocked: row.isLocked,
     // The owner group holds every permission, including ones a later release adds.
-    permissions: row.isLocked ? [...PERMISSION_CODES] : toPermissionCodes(codes),
+    // Catalog order, so a group always reads the same way.
+    permissions: row.isLocked
+      ? [...PERMISSION_CODES]
+      : PERMISSION_CODES.filter((code) => held.has(code)),
     limits: row.limits,
     version: row.version,
     memberCount,

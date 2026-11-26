@@ -7,6 +7,7 @@ import { isUniqueViolation } from '../../db/errors.js';
 import { AuditService } from '../audit/audit.service.js';
 import { SessionService } from '../auth/session/session.service.js';
 import { BranchesService } from '../branches/branches.service.js';
+import { MediaService } from '../media/media.service.js';
 import {
   branchReach,
   effectivePermissionsOfGrant,
@@ -90,6 +91,7 @@ export class UsersService {
     private readonly sessions: SessionService,
     private readonly hasher: CredentialHasher,
     private readonly audit: AuditService,
+    private readonly media: MediaService,
     @Inject(DB) private readonly db: Database,
   ) {}
 
@@ -210,6 +212,12 @@ export class UsersService {
   /** Name, phone, photo. The username never changes. */
   async update(caller: AuthContext, id: string, input: UpdateUser): Promise<UserWithAssignments> {
     const before = await this.requireManageable(caller, id, 'user.manage');
+    if (
+      input.avatarMediaId &&
+      !(await this.media.isOfPurpose(input.avatarMediaId, 'user_avatar'))
+    ) {
+      throw notFound('media', input.avatarMediaId);
+    }
     const row = (await this.repository.update(id, input)) ?? before.row;
     const after = toUser(row);
     this.audit.describe({

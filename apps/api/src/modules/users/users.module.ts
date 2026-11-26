@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 
 import { SessionModule } from '../auth/session/session.module.js';
 import { BranchesModule } from '../branches/branches.module.js';
+import { MediaModule } from '../media/media.module.js';
 import { RbacModule } from '../rbac/rbac.module.js';
 import { CredentialHasher } from './credential-hasher.js';
 import { UserCredentialsService } from './user-credentials.service.js';
@@ -11,7 +12,7 @@ import { UsersService } from './users.service.js';
 
 /** Staff accounts and their groups per branch (CORE-10, CORE-11). */
 @Module({
-  imports: [RbacModule, SessionModule, BranchesModule],
+  imports: [RbacModule, SessionModule, BranchesModule, MediaModule],
   controllers: [UsersController],
   providers: [UsersRepository, UsersService, UserCredentialsService, CredentialHasher],
   exports: [UsersService, UserCredentialsService, CredentialHasher],
