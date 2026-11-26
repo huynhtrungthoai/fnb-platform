@@ -114,6 +114,18 @@ Quy tắc: module chỉ ghi vào bảng của mình. Muốn thay đổi dữ li�
 11. **Tên hiển thị của dữ liệu danh mục lưu hai ngôn ngữ** dạng `{vi, en}` (`jsonb`); `vi` bắt buộc, `en` tuỳ chọn và lùi về `vi` khi thiếu. Chi tiết: [40-i18n-copy.md](40-i18n-copy.md) mục 4.
 12. **API trả mã lỗi, không trả câu chữ.** Client dịch mã sang ngôn ngữ đang dùng.
 
+## Định dạng API (M1-02)
+
+| Trường hợp | Thân phản hồi |
+|---|---|
+| Thành công, một giá trị | `{ "data": … }` (`data: null` khi không có gì trả về) |
+| Thành công, danh sách | `{ "data": [...], "meta": { "page", "pageSize", "total", "totalPages" } }`; query `?page=1&pageSize=20`, `pageSize` tối đa 100 |
+| Lỗi | `{ "error": { "code", "params"?, "issues"?, "requestId"? } }`; `issues` là `[{ path, rule }]` khi `VALIDATION_FAILED` |
+
+- Mã lỗi khai báo ở `packages/contract/src/errors.ts` (`ERROR_CODES`); trạng thái HTTP của từng mã ở `apps/api/src/common/errors/app-error.ts` (`ERROR_STATUS`); bản dịch ở namespace `errors` của `packages/i18n`, `check-i18n` chặn mã thiếu bản dịch.
+- Service ném `AppError(code, message, { params })`; `AllExceptionsFilter` dựng thân lỗi. Lỗi không lường trước trả `INTERNAL_ERROR`, không lộ thông báo gốc.
+- Controller trả giá trị thường hoặc `Paginated`; `ResponseInterceptor` bọc. `@RawResponse()` chỉ dùng cho `/health`, `/openapi.json` và luồng file.
+
 ## Phân quyền
 
 Đặc tả đầy đủ: [06-permissions.md](06-permissions.md).

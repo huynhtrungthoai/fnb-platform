@@ -31,6 +31,7 @@
     "@nestjs/testing": "catalog:",
     "@swc/core": "catalog:",
     "@types/node": "catalog:",
+    "@types/express": "catalog:",
     "@types/pg": "catalog:",
     "@types/supertest": "catalog:",
     "drizzle-kit": "catalog:",

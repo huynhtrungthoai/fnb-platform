@@ -7,8 +7,7 @@
  *   - no value is empty
  *   - `{{parameters}}` match between the two languages
  *
- * The check that every error code in `@fnb/contract` has a translation is added with the
- * `errors` namespace in M1.
+ *   - every error code of `@fnb/contract` has a key in the `errors` namespace
  */
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
@@ -191,9 +190,54 @@ export function checkLocales(i18nRoot) {
   return problems;
 }
 
+/**
+ * Reads the error codes out of the contract source, so the check needs no build.
+ * @param {string} source Text of `packages/contract/src/errors.ts`.
+ * @returns {string[]}
+ */
+export function extractErrorCodes(source) {
+  const list = /ERROR_CODES\s*=\s*\[([^\]]*)\]/.exec(source)?.[1] ?? '';
+  return [...list.matchAll(/'([A-Z0-9_]+)'/g)].map((match) => match[1] ?? '');
+}
+
+/**
+ * Every error code needs a translation in both languages.
+ * @param {string[]} codes
+ * @param {Record<string, unknown>} translations Parsed `errors.json` by locale.
+ * @returns {string[]}
+ */
+export function checkErrorCodes(codes, translations) {
+  const problems = [];
+  for (const [locale, entries] of Object.entries(translations)) {
+    const keys = flattenKeys(entries);
+    for (const code of codes) {
+      if (!keys.has(code)) {
+        problems.push(`${locale}/errors: missing translation of error code "${code}"`);
+      }
+    }
+  }
+  return problems;
+}
+
 function main() {
   const repoRoot = resolve(fileURLToPath(import.meta.url), '../..');
-  const problems = checkLocales(join(repoRoot, 'packages', 'i18n'));
+  const i18nRoot = join(repoRoot, 'packages', 'i18n');
+  const problems = checkLocales(i18nRoot);
+
+  const errorsSource = join(repoRoot, 'packages', 'contract', 'src', 'errors.ts');
+  const codes = existsSync(errorsSource)
+    ? extractErrorCodes(readFileSync(errorsSource, 'utf8'))
+    : [];
+  if (codes.length === 0) {
+    problems.push('no error codes found in packages/contract/src/errors.ts');
+  }
+  /** @type {Record<string, unknown>} */
+  const translations = {};
+  for (const locale of ['vi', 'en']) {
+    const filePath = join(i18nRoot, 'locales', locale, 'errors.json');
+    translations[locale] = existsSync(filePath) ? readJson(filePath) : {};
+  }
+  problems.push(...checkErrorCodes(codes, translations));
 
   if (problems.length > 0) {
     console.error(`check-i18n: ${problems.length} problem(s)`);

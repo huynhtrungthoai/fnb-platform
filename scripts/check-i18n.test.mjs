@@ -3,7 +3,14 @@ import { resolve } from 'node:path';
 import { describe, it } from 'node:test';
 import { fileURLToPath } from 'node:url';
 
-import { checkLocales, compareNamespace, extractParameters, flattenKeys } from './check-i18n.mjs';
+import {
+  checkErrorCodes,
+  checkLocales,
+  compareNamespace,
+  extractErrorCodes,
+  extractParameters,
+  flattenKeys,
+} from './check-i18n.mjs';
 
 describe('flattenKeys', () => {
   it('flattens nested objects into dotted keys', () => {
@@ -74,5 +81,21 @@ describe('checkLocales', () => {
   it('reports a folder without locale files', () => {
     const problems = checkLocales(resolve(fileURLToPath(import.meta.url), '../does-not-exist'));
     assert.ok(problems.some((problem) => problem.includes('no locale files found')));
+  });
+});
+
+describe('error codes', () => {
+  it('reads the codes from the contract source', () => {
+    const source =
+      "export const ERROR_CODES = [\n  'NOT_FOUND',\n  'ORDER_ALREADY_PAID',\n] as const;";
+    assert.deepEqual(extractErrorCodes(source), ['NOT_FOUND', 'ORDER_ALREADY_PAID']);
+  });
+
+  it('reports a code without a translation in either language', () => {
+    const problems = checkErrorCodes(['NOT_FOUND', 'CONFLICT'], {
+      vi: { NOT_FOUND: 'Không tìm thấy', CONFLICT: 'Trùng' },
+      en: { NOT_FOUND: 'Not found' },
+    });
+    assert.deepEqual(problems, ['en/errors: missing translation of error code "CONFLICT"']);
   });
 });
