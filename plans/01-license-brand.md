@@ -7,7 +7,7 @@
 | Giấy phép của repo | MIT (`/LICENSE`), © 2026 Huynh Trung Thoai |
 | Mục đích | Dùng nội bộ cho doanh nghiệp của chủ dự án |
 | Code sao chép từ nguồn khác | Không có (00) |
-| Tài sản thương hiệu (`brands/`: logo, ảnh quán) | **Không** thuộc giấy phép MIT; mọi quyền thuộc chủ thương hiệu. Ghi rõ điều này trong `LICENSE` hoặc `brands/README.md` ở M0-10 |
+| Tài sản thương hiệu (`brands/`: logo, ảnh quán) | **Không** thuộc giấy phép MIT; mọi quyền thuộc chủ thương hiệu. Đã ghi ở mục "Giấy phép" của `README.md` (M0-10); `LICENSE` và `brands/` giữ nguyên |
 
 ### 1.1 Thư viện phụ thuộc
 

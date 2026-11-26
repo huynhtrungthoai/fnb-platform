@@ -6,7 +6,7 @@ File này là nguồn quy tắc duy nhất cho mọi AI agent (Claude Code, Code
 
 Hệ thống quản lý nhà hàng/quán ăn cho **một doanh nghiệp, nhiều chi nhánh** (không phải SaaS multi-tenant): Web Admin, POS web, màn hình bếp, POS Android (Expo), web khách hàng, app khách hàng (Expo), Zalo Mini App. Làm theo giai đoạn, Admin + POS web trước. Hệ thống hỗ trợ **hai ngôn ngữ: tiếng Việt và tiếng Anh**.
 
-**Trạng thái (2026-11-26): đang lập kế hoạch.** Repo chỉ có tài liệu; chưa có code, chưa có `package.json`, chưa có lệnh nào chạy được. Kiểm tra trước khi giả định một file hay lệnh tồn tại. Khi mốc M0 xong, cập nhật đoạn này và mục "Lệnh".
+**Trạng thái (2026-11-26): xong M0 (scaffold), chưa có nghiệp vụ.** Đã có: monorepo pnpm + Turborepo; `apps/api` (NestJS 12, chỉ có `/health`), `apps/admin` và `apps/pos` (trang chủ tạm và trang mẫu `/dev/components`); `packages/config`, `contract`, `utils`, `i18n`, `design-tokens` (theme `admin`, `pos`), `ui-web`, `ui-pos`. Chưa có: CSDL và migration, đăng nhập, phân quyền, `packages/api-client`, `packages/pos-core`, mọi màn hình nghiệp vụ (từ M1). Kiểm tra trước khi giả định một file hay lệnh tồn tại; task tiếp theo xem `plans/90-roadmap.md`.
 
 ## Code nằm ở đâu
 
@@ -111,18 +111,31 @@ Nếu code và plan mâu thuẫn, dừng lại và nói rõ. Plan sai thì sửa
 
 ## Lệnh
 
-Chưa có; được định nghĩa ở M0 (`plans/02-repo-setup.md` mục 5). Dự kiến:
+Dùng Node 24 (`.nvmrc`) và pnpm 11.29.0 (ghim ở `packageManager`; bản 12.23 lỗi qua corepack trên máy dev). Chạy từ gốc repo.
 
 ```bash
-docker compose up -d            # postgres, redis, minio
-pnpm dev                        # api + admin + pos
-pnpm verify                     # typecheck + lint + format check + test + build
-pnpm lint && pnpm format        # eslint, prettier
-pnpm test -- <path>             # chạy một file test
-pnpm db:migrate && pnpm db:seed
+pnpm install                    # cài phụ thuộc
+git config core.hooksPath .githooks   # bật pre-commit, một lần sau khi clone
+pnpm infra:up                   # postgres (5433), redis (6379), minio (9000); infra:down / infra:ps / infra:logs
+pnpm dev                        # api :4000 + admin :5173 + pos :5174
+pnpm verify                     # typecheck + lint + format:check + test + build; phải xanh trước khi xong task
+pnpm typecheck | pnpm lint | pnpm lint:fix | pnpm format | pnpm format:check | pnpm build
+pnpm test                       # mọi test
+pnpm test -- <path>             # một file test, ví dụ: pnpm test -- packages/utils/src/money.test.ts
+pnpm --filter @fnb/admin dev    # chỉ một app hay package (tên: @fnb/api, @fnb/admin, @fnb/pos, @fnb/ui-web…)
 ```
 
-Dùng Node 24 và pnpm 11.29.0 (bản 12.23 lỗi qua corepack trên máy dev).
+| Điều cần biết | Chi tiết |
+|---|---|
+| Biến môi trường | Một file `.env` ở gốc repo (mẫu: `.env.example`). Thiếu `.env` thì API ở môi trường dev tự đọc `.env.example`; production không đọc file |
+| `pnpm db:*` | Chưa chạy được, báo lỗi rõ; M1-01 dựng Drizzle và thay `scripts/db-task.mjs` |
+| Package được build (`contract`, `utils`, `i18n`, `design-tokens`) | App đọc từ `dist/`. `pnpm dev` tự chạy `tsc --watch`; chạy riêng typecheck, lint hay test đều qua Turborepo nên tự build trước |
+| Package `ui-web`, `ui-pos` | App dùng thẳng mã nguồn; stylesheet của app có `@source` trỏ tới `packages/ui-<nền tảng>/src` |
+| Thêm phiên bản thư viện | Sửa `catalog` trong `pnpm-workspace.yaml`. pnpm chỉ cài bản phát hành quá 24 giờ; không thêm `minimumReleaseAgeExclude` |
+| Thêm chuỗi hiển thị | Thêm key vào cả `packages/i18n/locales/vi` và `en`; namespace mới khai báo trong `packages/i18n/src/resources.ts` |
+| Thêm màu hay kích thước | Sửa `packages/design-tokens/tokens.json`; class Tailwind màu trùng tên token (`bg-primary`, `text-text-muted`) |
+| Thêm app giao diện | Khai báo nền tảng của app trong `packages/config/eslint/boundaries.mjs` (`APP_PLATFORMS`) |
+| Trang mẫu component | `http://localhost:5173/dev/components` (admin), `http://localhost:5174/dev/components` (pos); chỉ có khi chạy dev |
 
 ## Cách viết tài liệu và plan
 
@@ -133,6 +146,7 @@ Dùng Node 24 và pnpm 11.29.0 (bản 12.23 lỗi qua corepack trên máy dev).
 
 ## Ghi chú môi trường (2026-11-26)
 
-- Docker daemon trên máy dev đang tắt; cần bật Docker Desktop trước khi chạy hạ tầng local.
-- Cổng 3000 đang bị tiến trình khác dùng; API dùng cổng khác.
+- Hạ tầng local cần Docker Desktop đang chạy. Không có thì API vẫn lên, `/health` trả `degraded`.
+- Máy dev đã có dự án khác giữ cổng 3000 và 5432: API dùng **4000**, Postgres của repo này ra cổng host **5433**.
+- Node trên máy dev là 24.11.1; `jsdom` 31 và `@nestjs/schematics` khai báo cần Node ≥ 24.15 (pnpm chỉ cảnh báo, test vẫn chạy). Nên nâng lên bản Node 24 mới nhất.
 - `plan.md` ở gốc repo là file rỗng của người dùng; để nguyên.

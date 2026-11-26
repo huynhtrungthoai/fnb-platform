@@ -194,7 +194,7 @@ Trong giao diện tiếng Anh, "món" là **Item** (trong code vẫn là `produc
 
 ## 10. Việc cần làm
 
-- [ ] M0: `localizedTextSchema` và `localeSchema` trong contract (làm sớm ở M0-05 vì `localize` của M0-11 cần kiểu này); `packages/i18n` (khởi tạo, `common`, kiểu key, `formatMoney`, `formatDate`, `localize`), `check-i18n`, rule ESLint, `LanguageSwitcher` chạy được ở Admin và POS.
+- [x] M0: `localizedTextSchema` và `localeSchema` trong contract (làm sớm ở M0-05 vì `localize` của M0-11 cần kiểu này); `packages/i18n` (khởi tạo, `common`, kiểu key, `formatMoney`, `formatDate`, `localize`), `check-i18n`, rule ESLint, `LanguageSwitcher` chạy được ở Admin và POS.
 - [ ] M1: ngôn ngữ theo tài khoản và thiết bị; namespace `auth`, `errors`; nhóm quyền mặc định có tên hai ngôn ngữ; namespace `permissions` (tên và mô tả từng quyền, 06).
 - [ ] M2 trở đi: mỗi mốc thêm namespace của mình, đủ `vi` và `en`.
 - [ ] M3: bill và phiếu in theo cấu hình ngôn ngữ; snapshot tên hai ngôn ngữ.

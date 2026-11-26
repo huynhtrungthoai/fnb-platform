@@ -16,7 +16,7 @@ Cập nhật lần cuối: **2026-11-26**
 | Giai đoạn | Mốc | Nội dung | Trạng thái | Task |
 |---|---|---|---|---|
 | Chuẩn bị | P | Tài liệu, quy chuẩn, chốt quyết định | Đang làm | 10/13 |
-| GĐ 0 | M0 | Scaffold monorepo | Đang làm | 12/14 |
+| GĐ 0 | M0 | Scaffold monorepo | Đang làm | 13/14 |
 | GĐ 0 | M1 | Nền tảng: auth, phân quyền, chi nhánh, realtime, hàng đợi | Chưa bắt đầu | 0/26 |
 | GĐ 1 | M2 | Thực đơn | Chưa bắt đầu | 0/16 |
 | GĐ 1 | M3 | POS bán hàng, ca, sổ quỹ, máy in và mẫu in, offline | Chưa bắt đầu | 0/34 |
@@ -71,7 +71,7 @@ Kết quả: clone repo, chạy 3 lệnh là có API + Admin + POS trống chạ
 - [x] **M0-07** `packages/ui-web` và `packages/ui-pos` nền (shadcn trên token, README); `apps/admin` (theme `admin`) và `apps/pos` (theme `pos`): Vite + React + TanStack Router, trang mẫu `/dev/components`; `LanguageSwitcher` và `ThemeSwitcher` (Theo hệ thống / Sáng / Tối, lưu trên thiết bị) chạy được (03 mục 5.3, 7, 10)
 - [x] **M0-08** Script gốc: `dev`, `build`, `typecheck`, `lint`, `lint:fix`, `format`, `format:check`, `test`, `verify`, `db:*`, `infra:*`
 - [~] **M0-09** GitHub Actions chạy `pnpm verify` — *Đã thêm `.github/workflows/ci.yml` (YAML hợp lệ; cùng chuỗi lệnh `pnpm install --frozen-lockfile && pnpm verify` đã chạy xanh trên một bản clone sạch ở máy dev). **Chưa kiểm:** workflow chưa chạy trên GitHub vì chưa push. Tick sau lần push đầu tiên có CI xanh.*
-- [ ] **M0-10** Cập nhật `AGENTS.md` (trạng thái, lệnh thật) và `README.md` (cách chạy); ghi rõ `brands/` không thuộc giấy phép MIT (01 mục 1)
+- [x] **M0-10** Cập nhật `AGENTS.md` (trạng thái, lệnh thật) và `README.md` (cách chạy); ghi rõ `brands/` không thuộc giấy phép MIT (01 mục 1)
 - [x] **M0-11** `packages/i18n`: i18next, `locales/vi` và `locales/en`, kiểu của key, `formatMoney`, `formatDate`, `localize` (40 mục 10)
 - [x] **M0-12** `scripts/check-filenames.mjs` và `scripts/check-i18n.mjs`, gắn vào `pnpm lint`
 - [x] **M0-13** `.githooks/pre-commit`: ESLint + Prettier trên file đã stage, kiểm tra tên file
@@ -383,3 +383,4 @@ Danh sách ứng viên ở [29-extensions.md](29-extensions.md). Chọn và lên
 | 2026-11-26 | Bổ sung luồng thêm món trên POS: chạm món có biến thể hoặc nhóm tuỳ chọn thì mở hộp chọn (chọn 1 / chọn nhiều, bắt buộc, tạm hết, ghi chú, số lượng), món không có thì thêm thẳng; sửa lại tuỳ chọn từ dòng giỏ. Thêm mục "Thêm món vào đơn" vào plan 12, sửa mockup `pos-sale.dc.html` (trong repo, chưa đưa lên canvas), `ui-mockup/README.md`, M3-19. |
 | 2026-11-26 | Mockup POS bổ sung 15 màn (P10–P17, P20–P26): danh sách và chi tiết đơn, duyệt tại chỗ, gắn khách và ưu đãi, thanh toán QR, chia tiền, bố cục máy cầm tay (D-35), nộp/rút tiền, báo cáo ca, máy in, hàng đợi in, đăng ký và cài đặt thiết bị, lịch sử phiếu KDS. Sửa giờ ca trong mockup cho khớp D-36. |
 | 2026-11-26 | Xác nhận D-10 (NestJS 12), D-11 (TypeScript 6.0), D-12 (pnpm 11.29); tick P-05. Bắt đầu M0 trên nhánh `dev` (tách từ `main`): mỗi task một commit thẳng lên `dev`, không push. |
+| 2026-11-26 | **M0 (scaffold) làm xong 13/14 task**, mỗi task một commit trên `dev`, chưa push. Có: workspace pnpm 11.29 + Turborepo; `packages/config` (tsconfig strict, ESLint 10 flat config, Prettier); Docker Compose (Postgres 17, Redis 8, MinIO) đã chạy thật; `apps/api` NestJS 12 ESM với `/health`; `contract`, `utils`, `i18n` (i18next 27), `design-tokens` (theme `admin`, `pos`, test tương phản), `ui-web`, `ui-pos`, `apps/admin`, `apps/pos` với `/dev/components`; script kiểm tên file và i18n; rule ESLint ranh giới; pre-commit hook; workflow CI. Còn `[~]` M0-09: workflow chưa chạy trên GitHub vì chưa push. Lệch so với plan, đã sửa plan: `eslint-plugin-import-x` thay `eslint-plugin-import`; NestJS 12.6.2, Vite 8.3.8, lucide 1.80 (pnpm chỉ cài bản phát hành quá 24 giờ); image MinIO của Chainguard; Postgres ra cổng host 5433; `localizedTextSchema` làm sớm ở M0-05; `pnpm db:*` chỉ là lệnh giữ chỗ tới M1-01. Phát hiện: hai cặp màu trung tính chưa đạt AA ở chế độ sáng (07 mục 3, chờ duyệt). |

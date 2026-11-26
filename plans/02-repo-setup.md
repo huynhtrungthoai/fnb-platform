@@ -158,3 +158,5 @@ Trùng với mục M0 trong `90-roadmap.md`; tick ở đó.
 - Cập nhật `AGENTS.md` (trạng thái, lệnh thật) và `README.md` (cách chạy).
 
 Xong khi: clone về, `docker compose up -d && pnpm install && pnpm dev` chạy được ba app trống ở cả `vi` và `en`; `pnpm verify` xanh; commit một file tên có dấu bị hook chặn.
+
+Kết quả ngày 2026-11-26: cả ba điều kiện đã kiểm trên máy dev (bản clone sạch chạy `pnpm install --frozen-lockfile && pnpm verify` xanh; `pnpm infra:up && pnpm dev` lên API, Admin, POS; hook chặn file tên có dấu). Còn lại: CI chưa chạy trên GitHub (M0-09).
