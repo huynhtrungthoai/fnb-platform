@@ -20,5 +20,7 @@
   "ACCOUNT_DISABLED": "This account has been disabled. Contact your manager.",
   "ACCOUNT_LOCKED": "This account is locked after too many wrong attempts. Ask a manager to unlock it.",
   "ACCOUNT_PROTECTED": "This action does not apply to the super admin account.",
-  "PIN_CHANGE_REQUIRED": "Change your temporary PIN before continuing."
+  "PIN_CHANGE_REQUIRED": "Change your temporary PIN before continuing.",
+  "NOT_APPROVABLE": "This action cannot be approved on the spot.",
+  "APPROVAL_INVALID": "The approval has expired or was already used. Ask for approval again."
 }

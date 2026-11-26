@@ -77,9 +77,10 @@ Cây đầy đủ và ràng buộc import: [02-repo-setup.md](02-repo-setup.md) 
 | Module | Nội dung |
 |---|---|
 | `auth` | Đăng nhập, refresh token, PIN, phiên thiết bị |
-| `rbac` | Quyền, nhóm quyền, hạn mức, duyệt tại chỗ |
+| `rbac` | Quyền, nhóm quyền, hạn mức |
+| `approvals` | Duyệt tại chỗ bằng PIN (tách khỏi `rbac` vì cần kiểm tra PIN của `users`, mà `users` đã phụ thuộc `rbac`) |
 | `branches` | Chi nhánh, cấu hình chi nhánh |
-| `users` | Nhân viên, gán chi nhánh |
+| `users` | Nhân viên, gán chi nhánh, PIN và khoá tài khoản |
 | `devices` | Thiết bị POS, máy in, gắn máy in với thiết bị, mẫu in (18) |
 | `audit` | Nhật ký thao tác |
 | `media` | Upload ảnh |

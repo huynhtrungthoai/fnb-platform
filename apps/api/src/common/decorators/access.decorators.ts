@@ -2,6 +2,7 @@ import { createParamDecorator, SetMetadata } from '@nestjs/common';
 
 import { AppError } from '../errors/app-error.js';
 
+import type { GrantedApproval } from '../../modules/approvals/approvals.service.js';
 import type { EffectiveAccess, UserAccess } from '../../modules/rbac/access.js';
 import type { PermissionCode } from '@fnb/contract';
 import type { ExecutionContext } from '@nestjs/common';
@@ -66,6 +67,8 @@ export interface AuthContext {
   effective?: EffectiveAccess;
   /** Every assignment of the caller. */
   access: UserAccess;
+  /** Set when the permission came from an on-the-spot approval rather than the caller's group. */
+  approval?: GrantedApproval;
 }
 
 /** Request with the context the access guard attaches. */

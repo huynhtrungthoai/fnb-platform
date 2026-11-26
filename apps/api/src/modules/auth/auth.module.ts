@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
 
+import { ApprovalsModule } from '../approvals/approvals.module.js';
 import { BranchesModule } from '../branches/branches.module.js';
 import { RbacModule } from '../rbac/rbac.module.js';
 import { UsersModule } from '../users/users.module.js';
@@ -11,7 +12,7 @@ import { SessionModule } from './session/session.module.js';
 
 /** Authentication: sign-in, sessions and the default-deny guard on every endpoint. */
 @Module({
-  imports: [RbacModule, SessionModule, UsersModule, BranchesModule],
+  imports: [RbacModule, SessionModule, UsersModule, BranchesModule, ApprovalsModule],
   controllers: [AuthController],
   providers: [AuthService, { provide: APP_GUARD, useClass: AccessGuard }],
 })

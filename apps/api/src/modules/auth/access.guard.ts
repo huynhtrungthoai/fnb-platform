@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { z } from 'zod';
 
-import { getPermission } from '@fnb/contract';
+import { APPROVAL_HEADER, getPermission } from '@fnb/contract';
 
 import { RequestContext } from '../../common/context/request-context.js';
 import {
@@ -13,6 +13,8 @@ import {
   REQUIRED_PERMISSION_KEY,
 } from '../../common/decorators/access.decorators.js';
 import { AppError } from '../../common/errors/app-error.js';
+import { ApprovalsService } from '../approvals/approvals.service.js';
+import { AuditService } from '../audit/audit.service.js';
 import { branchReach, reachesAnyBranch, resolveEffectiveAccess } from '../rbac/access.js';
 import { permissionDenied, RbacService } from '../rbac/rbac.service.js';
 import { AccessTokenService } from './session/access-token.service.js';
@@ -50,6 +52,8 @@ export class AccessGuard implements CanActivate {
     private readonly tokens: AccessTokenService,
     private readonly sessions: SessionStore,
     private readonly rbac: RbacService,
+    private readonly approvals: ApprovalsService,
+    private readonly audit: AuditService,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -86,7 +90,7 @@ export class AccessGuard implements CanActivate {
     RequestContext.assign({ userId: auth.userId, deviceId: auth.deviceId });
 
     if (required) {
-      this.authorize(auth, required, request);
+      await this.authorize(auth, required, request);
     } else {
       // Optional branch for signed-in-only endpoints: accepted only where the caller is assigned.
       const branchId = this.readBranchId(request, 'header', false);
@@ -121,7 +125,11 @@ export class AccessGuard implements CanActivate {
     };
   }
 
-  private authorize(auth: AuthContext, required: RequiredPermission, request: Request): void {
+  private async authorize(
+    auth: AuthContext,
+    required: RequiredPermission,
+    request: Request,
+  ): Promise<void> {
     const permission = getPermission(required.code);
 
     if (permission.scope === 'business') {
@@ -149,11 +157,49 @@ export class AccessGuard implements CanActivate {
 
     const branchId = this.readBranchId(request, required.branch, true);
     const effective = branchId ? resolveEffectiveAccess(auth.access, branchId) : null;
-    if (!branchId || !effective?.permissions.includes(required.code)) {
+    if (!branchId || !effective) {
       throw permissionDenied(required.code);
+    }
+    if (!effective.permissions.includes(required.code)) {
+      await this.useApproval(auth, required.code, branchId, request);
     }
     auth.branchId = branchId;
     auth.effective = effective;
+  }
+
+  /**
+   * A caller assigned at the branch but without the permission may go ahead once, with an
+   * approval token from someone who holds it (CORE-24). The audit row of the action names them.
+   */
+  private async useApproval(
+    auth: AuthContext,
+    code: RequiredPermission['code'],
+    branchId: string,
+    request: Request,
+  ): Promise<void> {
+    const header: unknown = request.headers[APPROVAL_HEADER];
+    if (
+      typeof header !== 'string' ||
+      header.length === 0 ||
+      !this.approvals.isApprovableCode(code)
+    ) {
+      throw permissionDenied(code);
+    }
+    const approval = await this.approvals.consume(header, {
+      permission: code,
+      branchId,
+      requesterUserId: auth.userId,
+    });
+    auth.approval = approval;
+    this.audit.describe({
+      metadata: {
+        approval: {
+          id: approval.id,
+          approverUserId: approval.approverUserId,
+          reason: approval.reason,
+        },
+      },
+    });
   }
 
   /** Sets the branch of the request when the caller is assigned there; refuses otherwise. */

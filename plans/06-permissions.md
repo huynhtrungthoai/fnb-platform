@@ -375,7 +375,7 @@ Tick ở `90-roadmap.md`.
 
 - [x] M1-10: `definePermissions`, kiểu `PermissionCode`, đồng bộ vào CSDL, seed bảy nhóm mặc định. Đồng bộ danh mục chạy mỗi lần API khởi động (`syncPermissionCatalog`); bảy nhóm mặc định do `pnpm db:seed` tạo (`seedDefaultRoles`), lấy tên và hạn mức từ `DEFAULT_ROLES` trong `packages/contract/src/permissions/roles.ts`.
 - [x] M1-11: guard mặc định cấm, `@RequirePermission` / `@Authenticated` / `@Public`, ngữ cảnh chi nhánh, `scope`. Code: `apps/api/src/modules/auth/access.guard.ts`, decorator ở `apps/api/src/common/decorators/access.decorators.ts`, cách tính quyền ở `apps/api/src/modules/rbac/access.ts`. Cache quyền làm luôn ở đây vì guard cần.
-- [ ] M1-12: duyệt tại chỗ bằng PIN.
+- [x] M1-12: duyệt tại chỗ bằng PIN. Module `approvals`: `GET /approvals/approvers?permission=` (người có quyền tại chi nhánh, chọn theo tên), `POST /approvals` (PIN người duyệt, lý do) trả token dùng một lần, hạn 120 giây; gửi kèm hành động trong header `X-Approval-Token`, guard nhận thay cho quyền còn thiếu nếu quyền đó `approvable`. Vượt hạn mức thì service gọi `ApprovalsService.consume()`. Audit: `approval.grant`, `approval.reject`, và hành động được duyệt có `metadata.approval` (người duyệt, lý do).
 - [ ] M1-20: màn hình nhóm quyền, `PermissionMatrix`, gán nhóm cho nhân viên.
 - [ ] M1-23: nhóm tuỳ chỉnh, nhân bản, hạn mức, quy tắc mục 8, cache quyền và tín hiệu `permissions.changed` (gateway Socket.IO: M1-26).
 - [ ] M1-24: `route-permissions.test.ts`, `scripts/check-permissions.mjs`.

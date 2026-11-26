@@ -103,6 +103,11 @@ export class UsersService {
     return this.repository.findById(id);
   }
 
+  /** Accounts by id, hashes included. For other modules' server-side checks only. */
+  findRows(ids: readonly string[]): Promise<UserRow[]> {
+    return this.repository.findByIds(ids);
+  }
+
   /** The caller's own account, without assignments. */
   async getSelf(id: string): Promise<User> {
     const row = await this.repository.findById(id);

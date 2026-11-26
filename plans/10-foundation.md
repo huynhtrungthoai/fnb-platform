@@ -161,6 +161,16 @@ Các nhóm Bếp, Thủ kho, Kế toán vẫn có sẵn để dùng khi cần (0
 | Quản lý | `POST /users/:id/reset-pin` (`{ pin }`: PIN tạm, mở khoá, kết thúc mọi phiên) và `POST /users/:id/unlock` (giữ PIN), quyền `user.reset_credentials` tại mọi chi nhánh của người đó, không làm cho chính mình; log `user.reset_pin`, `user.unlock` theo chi nhánh |
 | Lệnh server | `reset-owner-password`: đặt mật khẩu mới, mở khoá, thu hồi refresh token của super admin; access token đang dùng hết hạn sau tối đa 15 phút |
 
+### Duyệt tại chỗ (M1-12)
+
+| Mục | Quy định |
+|---|---|
+| Luồng | POS gọi `GET /approvals/approvers?permission=<mã>` (header chi nhánh) để lấy danh sách người duyệt; người duyệt chọn tên, nhập PIN; `POST /approvals` (`permission`, `approverUserId`, `pin`, `reason`) trả `{ id, token, expiresAt }`. POS gửi lại hành động kèm `X-Approval-Token` |
+| Kiểm tra | Quyền phải `approvable` (`400 NOT_APPROVABLE`); người duyệt đang hoạt động, có quyền đó **tại chi nhánh này**, khác người xin. PIN sai tính vào bộ đếm khoá của người duyệt (`401 INVALID_CREDENTIALS`, lần thứ 5 `423 ACCOUNT_LOCKED`) |
+| Token | Lưu trong Redis 120 giây (`APPROVAL_TTL_SECONDS`), chỉ dùng một lần, chỉ cho đúng quyền, chi nhánh và người xin; sai thì `403 APPROVAL_INVALID` và token vẫn còn cho đúng hành động. Phiên làm việc vẫn là của người xin |
+| Hạn mức | Hành động vượt hạn mức (giảm giá, chi tiền, hoàn tiền) tự gọi `ApprovalsService.consume()` trong service ở mốc của nó |
+| Offline | Kiểm tra bằng snapshot ở M3 (06 mục 7.3) |
+
 ### Audit log (M1-14)
 
 | Mục | Quy định |

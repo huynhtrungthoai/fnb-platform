@@ -20,5 +20,7 @@
   "ACCOUNT_DISABLED": "Tài khoản này đã bị vô hiệu hoá. Liên hệ quản lý.",
   "ACCOUNT_LOCKED": "Tài khoản đã bị khoá do nhập sai quá nhiều lần. Nhờ quản lý mở khoá.",
   "ACCOUNT_PROTECTED": "Thao tác này không áp dụng cho tài khoản super admin.",
-  "PIN_CHANGE_REQUIRED": "Đổi PIN tạm trước khi tiếp tục."
+  "PIN_CHANGE_REQUIRED": "Đổi PIN tạm trước khi tiếp tục.",
+  "NOT_APPROVABLE": "Thao tác này không duyệt tại chỗ được.",
+  "APPROVAL_INVALID": "Lượt duyệt đã hết hạn hoặc đã dùng. Xin duyệt lại."
 }
