@@ -3,8 +3,18 @@ packages:
   - 'packages/*'
 
 # Shared versions. Checked against the registry on 2026-11-26 (plans/02-repo-setup.md section 3).
+# pnpm only installs versions published more than 24 hours ago (minimumReleaseAge); do not add
+# minimumReleaseAgeExclude entries to get a newer one, lower the range instead.
 catalog:
   '@eslint/js': ^10.0.1
+  '@nestjs/cli': ^12.0.15
+  '@nestjs/common': ^12.6.2
+  '@nestjs/core': ^12.6.2
+  '@nestjs/platform-express': ^12.6.2
+  '@nestjs/testing': ^12.6.2
+  '@swc/core': ^1.16.22
+  '@types/node': ^24.19.4
+  '@types/supertest': ^7.2.1
   eslint: ^10.15.0
   eslint-config-prettier: ^10.1.8
   eslint-import-resolver-typescript: ^4.4.5
@@ -14,12 +24,18 @@ catalog:
   globals: ^17.14.0
   prettier: ^3.10.1
   prettier-plugin-tailwindcss: ^0.8.1
+  reflect-metadata: ^0.2.2
+  rxjs: ^7.8.2
+  supertest: ^7.3.2
   turbo: ^2.11.13
   # TypeScript stays on 6.0.x until the NestJS and typescript-eslint toolchain supports 7 (D-11).
   typescript: ~6.0.3
   typescript-eslint: ^8.74.0
+  unplugin-swc: ^2.0.0
   vitest: ^5.1.2
   zod: ^4.6.7
 
 # Dependency build scripts are blocked unless listed here (pnpm 11).
-allowBuilds: {}
+# @swc/core: its postinstall only re-checks the native binary, which arrives as an optional dependency.
+allowBuilds:
+  '@swc/core': false

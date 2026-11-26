@@ -74,7 +74,7 @@ ESLint (`no-restricted-imports`, `import-x/no-restricted-paths`, `import-x/no-cy
 | Quản lý package | pnpm qua corepack | 11.29.0 (ghim `packageManager`; 12.23 lỗi trên máy dev) |
 | Chạy task | Turborepo | 2.11 |
 | Ngôn ngữ | TypeScript | 6.0.3, ghim `~6.0.3` (05: D-11) |
-| API | NestJS | 12 (05: D-10) |
+| API | NestJS (ESM), build bằng `nest build`, test bằng Vitest + `unplugin-swc` (SWC sinh metadata cho decorator) | 12.6 (05: D-10) |
 | CSDL | PostgreSQL + Drizzle ORM + drizzle-kit | 17 · 0.45 |
 | Validate | Zod | 4.6 |
 | Web | Vite, React, TanStack Router, TanStack Query | 8 · 19.3 · 1.170 · 5 |
@@ -85,6 +85,8 @@ ESLint (`no-restricted-imports`, `import-x/no-restricted-paths`, `import-x/no-cy
 | Test | Vitest, Testcontainers, Playwright | 5 · 12 |
 | Hạ tầng local | Docker Compose: Postgres, Redis, MinIO | |
 | CI | GitHub Actions | |
+
+pnpm 11 chỉ cài bản đã phát hành quá 24 giờ (`minimumReleaseAge`). Bản vừa ra trong ngày thì hạ khoảng phiên bản trong `catalog` của `pnpm-workspace.yaml` xuống bản liền trước (ví dụ NestJS 12.6.2 thay cho 12.6.3 ngày 2026-11-26); không thêm `minimumReleaseAgeExclude`.
 
 Phiên bản lấy từ registry ngày ghi trong bảng. Trước khi cài ở M0: kiểm tra lại và tra Context7 cho cú pháp cấu hình.
 

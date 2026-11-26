@@ -1,0 +1,4 @@
+{
+  "extends": "@fnb/config/tsconfig/nest.json",
+  "exclude": ["src/**/*.test.ts"]
+}
