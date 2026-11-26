@@ -10,11 +10,11 @@
   "scripts": {
     "build": "turbo run build",
     "typecheck": "turbo run typecheck",
-    "lint": "turbo run lint && eslint \"*.mjs\"",
-    "lint:fix": "turbo run lint -- --fix && eslint \"*.mjs\" --fix",
+    "lint": "turbo run lint && eslint \"*.mjs\" scripts && node scripts/check-filenames.mjs && node scripts/check-i18n.mjs",
+    "lint:fix": "turbo run lint -- --fix && eslint \"*.mjs\" scripts --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test": "turbo run test",
+    "test": "turbo run test && node --test \"scripts/*.test.mjs\"",
     "verify": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm test && pnpm build"
   },
   "devDependencies": {

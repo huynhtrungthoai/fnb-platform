@@ -119,9 +119,11 @@ Danh sách rule ESLint bắt buộc, cấu hình Prettier và các cờ TypeScri
 
 | Script | Chặn gì |
 |---|---|
-| `scripts/check-filenames.mjs` | Tên file hay thư mục có ký tự ngoài ASCII, có dấu cách, có chữ hoa (trừ danh sách cho phép: `README.md`, `AGENTS.md`, `CLAUDE.md`, `LICENSE`, `Dockerfile`) |
-| `scripts/check-i18n.mjs` | Key có ở `vi` mà thiếu ở `en` hoặc ngược lại; key rỗng; tham số `{{…}}` lệch nhau giữa hai ngôn ngữ |
+| `scripts/check-filenames.mjs` | Tên file hay thư mục có ký tự ngoài ASCII, có dấu cách, có chữ hoa, không phải `kebab-case` (trừ danh sách cho phép: `README.md`, `AGENTS.md`, `CLAUDE.md`, `CLAUDE.local.md`, `LICENSE`, `Dockerfile`). Bỏ qua `ui-mockup/` và `brands/` (đầu vào thiết kế). Trong `apps/<app>/src/routes/` cho phép ký hiệu của TanStack Router (`__root`, `_layout`, `$param`). Không tham số: kiểm mọi file git biết; có tham số: chỉ kiểm các đường dẫn đó (hook) |
+| `scripts/check-i18n.mjs` | File namespace có ở `vi` mà thiếu ở `en` hoặc ngược lại; key lệch (hậu tố số nhiều `_one`/`_other` được phép khác nhau); key rỗng; tham số `{{…}}` lệch nhau; file chưa khai báo trong `packages/i18n/src/resources.ts`. Kiểm mã lỗi của contract có bản dịch: thêm ở M1 cùng namespace `errors` |
 | `scripts/check-permissions.mjs` (từ M1) | Mã quyền thiếu tên vi/en; mã khai báo mà không endpoint nào dùng; bảng quyền trong plan 06 lệch với code |
+
+Hai script có test riêng (`scripts/*.test.mjs`), chạy bằng `node --test` trong `pnpm test`.
 
 ### 3.3 `.editorconfig`
 
