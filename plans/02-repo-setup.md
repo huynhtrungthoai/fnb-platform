@@ -85,7 +85,7 @@ ESLint (`no-restricted-imports`, `import-x/no-restricted-paths`, `import-x/no-cy
 | Đa ngôn ngữ | i18next + react-i18next | 27.2 · 18.0 (xác nhận ở M0-11) |
 | Lint | ESLint flat config + typescript-eslint + `eslint-plugin-import-x` (bản `eslint-plugin-import` 2.32 chưa hỗ trợ ESLint 10) | 10.15 · 8.74 · 4.18 |
 | Format | Prettier + plugin Tailwind | 3.10 |
-| Test | Vitest (jsdom + Testing Library cho giao diện), Testcontainers (M1-05), Playwright (M7) | 5.1 · 12 |
+| Test | Vitest (jsdom + Testing Library cho giao diện); test tích hợp API chạy trên Postgres và Redis thật của `pnpm infra:up` với CSDL riêng `<tên>_test` (M1-05, mục 3.4); Playwright (M7) | 5.1 |
 | Hạ tầng local | Docker Compose: Postgres, Redis, MinIO | |
 | Cổng local | API 4000 · Admin 5173 · POS 5174 (`strictPort`) · Postgres 5433 · Redis 6379 · MinIO 9000 (console 9001) | |
 | CI | GitHub Actions | |
@@ -132,6 +132,18 @@ Danh sách rule ESLint bắt buộc, cấu hình Prettier và các cờ TypeScri
 | `scripts/check-permissions.mjs` (từ M1) | Mã quyền thiếu tên vi/en; mã khai báo mà không endpoint nào dùng; bảng quyền trong plan 06 lệch với code |
 
 Hai script có test riêng (`scripts/*.test.mjs`), chạy bằng `node --test` trong `pnpm test`.
+
+### 3.4 Test tích hợp của API (M1-05)
+
+| Mục | Cách làm |
+|---|---|
+| Hạ tầng | Postgres và Redis của `docker-compose.yml` (`pnpm infra:up`). **Không dùng Testcontainers** (khác kế hoạch ban đầu): máy dev và CI đã có sẵn container, khởi động nhanh hơn và không cần Docker-in-Docker |
+| Dữ liệu | CSDL riêng: tên CSDL dev thêm `_test` (`fnb_test`), **xoá và tạo lại ở mỗi lần chạy** rồi áp dụng toàn bộ migration (`apps/api/src/test/global-setup.ts`). Redis dùng database số 15. Không bao giờ đụng dữ liệu dev; `resolveTestEnv` từ chối CSDL không có đuôi `_test` |
+| Tên file | `*.int.test.ts` cho test cần CSDL; `*.test.ts` cho unit test. Cùng chạy trong `pnpm test`, lần lượt từng file (`fileParallelism: false`) vì dùng chung một CSDL |
+| Helper | `createTestApp()` (`apps/api/src/test/test-app.ts`) khởi động `AppModule` thật, trả `{ app, http, db, redis, reset, close }`; gọi `reset()` trong `beforeEach` để xoá sạch mọi bảng và Redis test. Dịch vụ ngoài thay bằng bản giả qua `overrideProvider` |
+| CI | `.github/workflows/ci.yml` khai báo service `postgres` (cổng 5433) và `redis`, khớp `.env.example` |
+
+`pnpm verify` vì vậy cần `pnpm infra:up` trước; thiếu hạ tầng thì test báo rõ lệnh cần chạy.
 
 ### 3.3 `.editorconfig`
 

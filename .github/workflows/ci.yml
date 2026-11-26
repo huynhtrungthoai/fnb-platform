@@ -19,6 +19,32 @@ jobs:
     name: pnpm verify
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    # API integration tests run against a real Postgres and Redis (M1-05). Ports and credentials
+    # match .env.example, which the API falls back to when no .env file exists. The tests create
+    # and drop their own database (`fnb_test`) and use Redis database 15.
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: fnb
+          POSTGRES_PASSWORD: fnb_local_dev
+          POSTGRES_DB: fnb
+        ports:
+          - 5433:5432
+        options: >-
+          --health-cmd "pg_isready -U fnb -d fnb"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+      redis:
+        image: redis:8-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
     steps:
       - name: Check out the repository
         uses: actions/checkout@v7
@@ -36,6 +62,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      # Tests use fakes only: no database, Redis, storage or external service is needed.
+      # Storage and every external service are faked in tests; only Postgres and Redis are real.
       - name: Verify
         run: pnpm verify

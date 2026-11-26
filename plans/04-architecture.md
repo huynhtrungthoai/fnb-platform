@@ -37,7 +37,7 @@
 | Web | Vite, React 19, TanStack Router + Query, Tailwind 4, shadcn/ui | |
 | POS offline | Dexie (IndexedDB) trên web, expo-sqlite trên Android | Cache menu và outbox |
 | Mobile | Expo, expo-router, NativeWind | |
-| Test | Vitest, Testcontainers (Postgres thật), Playwright | |
+| Test | Vitest, test tích hợp trên Postgres và Redis thật (CSDL riêng `_test`, 02 mục 3.4), Playwright | |
 | CI | GitHub Actions chạy typecheck, lint, test, build | |
 
 Phiên bản cụ thể và các điểm tương thích: xem [05-decisions.md](05-decisions.md). Cây thư mục và công cụ: [02-repo-setup.md](02-repo-setup.md).
@@ -235,5 +235,5 @@ Khi mất kết nối socket:
 | File (ảnh món, chứng từ) | Lưu trữ kiểu S3 | Chọn nhà cung cấp ở M7-10; code chỉ dùng giao thức S3 |
 
 - **Giữ để chuyển nơi chạy được sau này:** API vẫn khởi động được như một tiến trình Node thường (`pnpm --filter api start`) và có Dockerfile; không dùng API riêng của Vercel trong code nghiệp vụ; không giữ trạng thái trong bộ nhớ giữa các request; mọi cấu hình qua biến môi trường.
-- Local không đổi: Docker Compose (Postgres, Redis, MinIO); test tích hợp chạy Postgres thật bằng Testcontainers.
+- Local không đổi: Docker Compose (Postgres, Redis, MinIO); test tích hợp chạy trên chính Postgres đó với CSDL riêng `<tên>_test` (02 mục 3.4).
 - PWA, Web Bluetooth và in ấn cần HTTPS: trước M7-10 thử bằng `localhost` và chứng chỉ nội bộ trên máy dev (spike M3-00).
