@@ -8,4 +8,5 @@ export * from './locale.js';
 export * from './localized-text.js';
 export * from './pagination.js';
 export * from './permissions/index.js';
+export * from './roles.js';
 export * from './users.js';

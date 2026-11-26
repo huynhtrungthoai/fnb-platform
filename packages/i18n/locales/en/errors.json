@@ -22,5 +22,9 @@
   "ACCOUNT_PROTECTED": "This action does not apply to the super admin account.",
   "PIN_CHANGE_REQUIRED": "Change your temporary PIN before continuing.",
   "NOT_APPROVABLE": "This action cannot be approved on the spot.",
-  "APPROVAL_INVALID": "The approval has expired or was already used. Ask for approval again."
+  "APPROVAL_INVALID": "The approval has expired or was already used. Ask for approval again.",
+  "ROLE_LOCKED": "The Owner group always has every permission and cannot be changed.",
+  "ROLE_IS_SYSTEM": "Default groups cannot be deleted. You can restore their defaults instead.",
+  "ROLE_NOT_SYSTEM": "Only default groups can be restored to their defaults.",
+  "ROLE_IN_USE": "Move the {{count}} people in this group to another group before deleting it."
 }

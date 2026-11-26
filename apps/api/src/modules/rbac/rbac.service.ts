@@ -13,6 +13,7 @@ import {
   resolveEffectiveAccess,
   toPermissionCodes,
 } from './access.js';
+import { PermissionsEvents } from './permissions-events.js';
 import { RbacRepository } from './rbac.repository.js';
 
 import type { Executor } from '../../db/database.js';
@@ -38,6 +39,7 @@ const cacheKey = (userId: string): string => `rbac:access:${userId}`;
 export class RbacService {
   constructor(
     private readonly repository: RbacRepository,
+    private readonly events: PermissionsEvents,
     @Inject(REDIS) private readonly redis: Redis,
   ) {}
 
@@ -68,10 +70,14 @@ export class RbacService {
     }
   }
 
-  /** Drops the cached access of these users; their next request reads fresh permissions. */
+  /**
+   * Drops the cached access of these users; their next request reads fresh permissions. Also
+   * tells their open clients through `permissions.changed` (CORE-28).
+   */
   async invalidateUsers(userIds: readonly string[]): Promise<void> {
     if (userIds.length > 0) {
       await this.redis.del(...userIds.map(cacheKey));
+      await this.events.publishChanged(userIds);
     }
   }
 

@@ -27,6 +27,10 @@ export const AUDIT_ACTIONS = [
   'user.reset_pin',
   'user.unlock',
   'approval.grant',
+  'role.create',
+  'role.update',
+  'role.delete',
+  'role.restore_default',
   'approval.reject',
 ] as const satisfies readonly string[];
 

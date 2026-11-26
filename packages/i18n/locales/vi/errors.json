@@ -22,5 +22,9 @@
   "ACCOUNT_PROTECTED": "Thao tác này không áp dụng cho tài khoản super admin.",
   "PIN_CHANGE_REQUIRED": "Đổi PIN tạm trước khi tiếp tục.",
   "NOT_APPROVABLE": "Thao tác này không duyệt tại chỗ được.",
-  "APPROVAL_INVALID": "Lượt duyệt đã hết hạn hoặc đã dùng. Xin duyệt lại."
+  "APPROVAL_INVALID": "Lượt duyệt đã hết hạn hoặc đã dùng. Xin duyệt lại.",
+  "ROLE_LOCKED": "Nhóm Chủ luôn có mọi quyền và không sửa được.",
+  "ROLE_IS_SYSTEM": "Không xoá được nhóm mặc định. Có thể khôi phục về mặc định.",
+  "ROLE_NOT_SYSTEM": "Chỉ nhóm mặc định mới khôi phục về mặc định được.",
+  "ROLE_IN_USE": "Chuyển {{count}} người trong nhóm sang nhóm khác trước khi xoá."
 }
