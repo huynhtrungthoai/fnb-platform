@@ -15,5 +15,7 @@
   "USERNAME_TAKEN": "This username is already taken. Choose another one.",
   "CANNOT_MODIFY_SELF": "You cannot do this to your own account.",
   "ROLE_ESCALATION": "You can only grant permissions you hold yourself.",
-  "LAST_OWNER": "At least one active owner account must remain."
+  "LAST_OWNER": "At least one active owner account must remain.",
+  "INVALID_CREDENTIALS": "Wrong username or PIN/password.",
+  "ACCOUNT_DISABLED": "This account has been disabled. Contact your manager."
 }

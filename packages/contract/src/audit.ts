@@ -18,6 +18,9 @@ export const AUDIT_ACTIONS = [
   'user.enable',
   'user.assign_role',
   'user.unassign_role',
+  'auth.login',
+  'auth.login_failed',
+  'auth.logout',
 ] as const satisfies readonly string[];
 
 /** An action written to the audit log. */

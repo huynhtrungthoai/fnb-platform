@@ -17,7 +17,7 @@ Cập nhật lần cuối: **2026-11-26**
 |---|---|---|---|---|
 | Chuẩn bị | P | Tài liệu, quy chuẩn, chốt quyết định | Đang làm | 10/13 |
 | GĐ 0 | M0 | Scaffold monorepo | Đang làm | 13/14 |
-| GĐ 0 | M1 | Nền tảng: auth, phân quyền, chi nhánh, realtime, hàng đợi | Đang làm | 10/26 |
+| GĐ 0 | M1 | Nền tảng: auth, phân quyền, chi nhánh, realtime, hàng đợi | Đang làm | 11/26 |
 | GĐ 1 | M2 | Thực đơn | Chưa bắt đầu | 0/16 |
 | GĐ 1 | M3 | POS bán hàng, ca, sổ quỹ, máy in và mẫu in, offline | Chưa bắt đầu | 0/34 |
 | GĐ 1 | M4 | Bếp (phần bàn hoãn, D-26) | Chưa bắt đầu | 0/9 (6 hoãn) |
@@ -91,7 +91,7 @@ API khung
 Nghiệp vụ
 - [x] **M1-06** Chi nhánh và cấu hình chi nhánh — CORE-01, 02
 - [x] **M1-07** Nhân viên, gán nhóm quyền theo chi nhánh hoặc tất cả chi nhánh — CORE-10, 11
-- [ ] **M1-08** Đăng nhập bằng tên đăng nhập + PIN 6 số, refresh token xoay vòng, đăng xuất, thu hồi phiên — CORE-12, 15
+- [x] **M1-08** Đăng nhập bằng tên đăng nhập + PIN 6 số, refresh token xoay vòng, đăng xuất, thu hồi phiên — CORE-12, 15
 - [ ] **M1-09** PIN 6 số: quy tắc PIN, PIN tạm buộc đổi, tự đổi PIN, admin đặt lại và mở khoá, khoá tài khoản sau 5 lần sai; super admin đăng nhập Admin bằng mật khẩu (`credential_type`), tự mở khoá sau 30 phút, lệnh đặt lại mật khẩu trên server — CORE-13, 14; 10 mục "Tài khoản nhân viên"
 - [x] **M1-10** `definePermissions` + kiểu `PermissionCode` trong contract, đồng bộ vào CSDL, seed bảy nhóm quyền mặc định — CORE-20, 21
 - [x] **M1-11** Guard mặc định cấm (`@RequirePermission` / `@Authenticated` / `@Public`), ngữ cảnh chi nhánh, quyền cấp doanh nghiệp — CORE-23

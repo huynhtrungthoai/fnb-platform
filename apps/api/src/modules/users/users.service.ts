@@ -5,7 +5,7 @@ import { Paginated } from '../../common/http/pagination.js';
 import { DB } from '../../db/database.js';
 import { isUniqueViolation } from '../../db/errors.js';
 import { AuditService } from '../audit/audit.service.js';
-import { SessionStore } from '../auth/session/session-store.js';
+import { SessionService } from '../auth/session/session.service.js';
 import { BranchesService } from '../branches/branches.service.js';
 import {
   branchReach,
@@ -87,11 +87,40 @@ export class UsersService {
     private readonly repository: UsersRepository,
     private readonly rbac: RbacService,
     private readonly branches: BranchesService,
-    private readonly sessions: SessionStore,
+    private readonly sessions: SessionService,
     private readonly hasher: CredentialHasher,
     private readonly audit: AuditService,
     @Inject(DB) private readonly db: Database,
   ) {}
+
+  /** The account behind a username, hashes included. For the login flow only; never sent out. */
+  findForLogin(username: string): Promise<UserRow | undefined> {
+    return this.repository.findByUsername(username.trim().toLowerCase());
+  }
+
+  /** The account by id, hashes included. For the auth module only. */
+  findRow(id: string): Promise<UserRow | undefined> {
+    return this.repository.findById(id);
+  }
+
+  /** The caller's own account, without assignments. */
+  async getSelf(id: string): Promise<User> {
+    const row = await this.repository.findById(id);
+    if (!row) {
+      throw notFound('user', id);
+    }
+    return toUser(row);
+  }
+
+  /** A successful sign-in: clears the failure counter and stamps the time. */
+  async recordLogin(id: string, now: Date = new Date()): Promise<void> {
+    await this.repository.update(id, {
+      lastLoginAt: now,
+      failedAttempts: 0,
+      lockedAt: null,
+      lockedUntil: null,
+    });
+  }
 
   /** Users the caller may see through `user.view`, one page at a time. */
   async list(caller: AuthContext, query: UserListQuery): Promise<Paginated<UserWithAssignments>> {
@@ -205,7 +234,7 @@ export class UsersService {
       await this.repository.update(id, { isActive });
     }
     if (!isActive) {
-      await this.sessions.revokeAllOfUser(id);
+      await this.sessions.endAllOfUser(id);
     }
     this.audit.describe({
       entityType: 'user',

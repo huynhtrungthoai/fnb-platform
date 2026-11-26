@@ -15,5 +15,7 @@
   "USERNAME_TAKEN": "Tên đăng nhập này đã có người dùng. Chọn tên khác.",
   "CANNOT_MODIFY_SELF": "Bạn không tự thực hiện thao tác này cho chính mình được.",
   "ROLE_ESCALATION": "Bạn chỉ cấp được những quyền chính mình đang có.",
-  "LAST_OWNER": "Phải luôn còn ít nhất một tài khoản Chủ đang hoạt động."
+  "LAST_OWNER": "Phải luôn còn ít nhất một tài khoản Chủ đang hoạt động.",
+  "INVALID_CREDENTIALS": "Sai tên đăng nhập hoặc PIN/mật khẩu.",
+  "ACCOUNT_DISABLED": "Tài khoản này đã bị vô hiệu hoá. Liên hệ quản lý."
 }

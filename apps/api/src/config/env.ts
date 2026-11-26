@@ -25,6 +25,7 @@ const envSchema = z.object({
     ),
   JWT_SECRET: z.string().min(32),
   ACCESS_TOKEN_TTL_SECONDS: z.coerce.number().int().min(30).default(900),
+  REFRESH_TOKEN_TTL_SECONDS: z.coerce.number().int().min(300).default(604_800),
   TRUST_PROXY: z.coerce.number().int().min(0).max(10).default(0),
   LOGIN_RATE_LIMIT_MAX: z.coerce.number().int().min(1).default(10),
   LOGIN_RATE_LIMIT_WINDOW_SECONDS: z.coerce.number().int().min(1).default(60),

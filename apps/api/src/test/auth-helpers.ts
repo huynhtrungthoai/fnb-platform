@@ -9,6 +9,7 @@ import { DEFAULT_BRANCH_SETTINGS } from '../modules/branches/branches.service.js
 import { branches, branchSettings } from '../modules/branches/schema.js';
 import { RbacService } from '../modules/rbac/rbac.service.js';
 import { rolePermissions, roles, userRoleAssignments } from '../modules/rbac/schema.js';
+import { CredentialHasher } from '../modules/users/credential-hasher.js';
 import { users } from '../modules/users/schema.js';
 
 import type { TestApp } from './test-app.js';
@@ -131,4 +132,39 @@ export async function createBranch(
   const branchId = branch?.id ?? '';
   await test.db.insert(branchSettings).values({ ...DEFAULT_BRANCH_SETTINGS, branchId });
   return branchId;
+}
+
+/**
+ * Creates an account that can sign in through `POST /auth/login`: a staff member with a PIN, or
+ * the super admin with a password (and a POS PIN). Optionally assigns a default group.
+ */
+export async function createAccount(
+  test: TestApp,
+  account: {
+    username: string;
+    pin?: string;
+    password?: string;
+    mustChangePin?: boolean;
+    role?: { code: DefaultRoleCode; branchId: string | null };
+  },
+): Promise<string> {
+  const hasher = test.app.get(CredentialHasher);
+  const userId = uuidv7();
+  await test.db.insert(users).values({
+    id: userId,
+    username: account.username,
+    fullName: account.username,
+    credentialType: account.password ? 'password' : 'pin',
+    pinHash: await hasher.hash(account.pin ?? '000000'),
+    passwordHash: account.password ? await hasher.hash(account.password) : null,
+    mustChangePin: account.mustChangePin ?? false,
+  });
+  if (account.role) {
+    await assignRole(test, {
+      userId,
+      branchId: account.role.branchId,
+      roleId: await roleIdOf(test, account.role.code),
+    });
+  }
+  return userId;
 }

@@ -50,6 +50,13 @@
       "when": 1795713010889,
       "tag": "0006_users",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1795713416720,
+      "tag": "0007_refresh-tokens",
+      "breakpoints": true
     }
   ]
 }

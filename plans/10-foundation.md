@@ -138,6 +138,18 @@ Các nhóm Bếp, Thủ kho, Kế toán vẫn có sẵn để dùng khi cần (0
 | Nhật ký | `user.create`, `user.update`, `user.disable`, `user.enable`, `user.assign_role`, `user.unassign_role`; ghi theo chi nhánh khi thao tác chỉ chạm một chi nhánh, còn lại ở cấp doanh nghiệp. Mã băm không bao giờ vào log hay phản hồi |
 | Làm ở task khác | Đăng nhập, phiên (M1-08); đổi, đặt lại PIN, mở khoá (M1-09); ảnh đại diện (M1-15) |
 
+### Đăng nhập và phiên (M1-08)
+
+| Mục | Quy định |
+|---|---|
+| Endpoint | `POST /auth/login` (`{ username, secret }`, `@Public`, giới hạn tần suất theo IP), `POST /auth/refresh` (`{ refreshToken }`), `POST /auth/logout`, `POST /auth/logout-all`, `GET /auth/me` |
+| Token | Access token JWT HS256 (mặc định 15 phút, `ACCESS_TOKEN_TTL_SECONDS`), không chứa quyền. Refresh token ngẫu nhiên 32 byte, chỉ lưu SHA-256 trong bảng `refresh_tokens` (`session_id`, `user_id`, `device_id`, `expires_at`, `used_at`, `revoked_at`); hạn 7 ngày (`REFRESH_TOKEN_TTL_SECONDS`), gia hạn mỗi lần refresh. Hai token trả trong body; client tự lưu |
+| Xoay vòng | Mỗi refresh token dùng một lần. Token đã dùng mà quay lại thì coi là bị lộ: kết thúc cả phiên (mọi token của phiên bị thu hồi, access token đang dùng bị cắt ngay) |
+| Phiên | Phiên đang hiệu lực nằm trong Redis (`session:<id>`), guard kiểm tra mỗi request. Đăng xuất, vô hiệu hoá tài khoản, đặt lại PIN gọi `SessionService.end` / `endAllOfUser` |
+| Lỗi | Sai tên hoặc sai PIN/mật khẩu: cùng một lỗi `401 INVALID_CREDENTIALS` (tên không tồn tại vẫn chạy so mã băm để thời gian như nhau). Tài khoản vô hiệu hoá: `403 ACCOUNT_DISABLED`, chỉ báo khi PIN đúng. Refresh hỏng: `401 UNAUTHENTICATED` |
+| `/auth/me` | Hồ sơ, `hasAllBranches`, mỗi chi nhánh được gán (chi nhánh, nhóm, quyền thực tế, hạn mức), `businessPermissions`, `permissionsVersion` (băm của toàn bộ phần quyền; đổi khi quyền đổi) |
+| Nhật ký | `auth.login`, `auth.login_failed` (kèm tên đăng nhập và lý do, không kèm PIN), `auth.logout`; cấp doanh nghiệp, có IP |
+
 ### Audit log (M1-14)
 
 | Mục | Quy định |
