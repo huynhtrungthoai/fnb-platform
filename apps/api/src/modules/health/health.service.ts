@@ -15,9 +15,9 @@ export class HealthService {
 
   async check(): Promise<HealthResponse> {
     const [database, redis, storage] = await Promise.all([
-      this.statusOf(this.env.DATABASE_URL),
-      this.statusOf(this.env.REDIS_URL),
-      this.statusOf(this.env.S3_ENDPOINT),
+      this.statusOf(this.probe.database()),
+      this.statusOf(this.probe.redis()),
+      this.statusOf(this.probe.storage()),
     ]);
     const isAllUp = database === 'up' && redis === 'up' && storage === 'up';
 
@@ -30,7 +30,7 @@ export class HealthService {
     };
   }
 
-  private async statusOf(serviceUrl: string): Promise<DependencyStatus> {
-    return (await this.probe.isReachable(serviceUrl)) ? 'up' : 'down';
+  private async statusOf(check: Promise<boolean>): Promise<DependencyStatus> {
+    return (await check) ? 'up' : 'down';
   }
 }

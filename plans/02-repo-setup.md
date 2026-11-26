@@ -48,6 +48,8 @@ apps/<app>/src/
 
 Cấu trúc một module API: `src/modules/<domain>/` gồm `<domain>.module.ts`, `.controller.ts`, `.service.ts`, `.repository.ts`, `schema.ts` (bảng Drizzle), `*.test.ts`.
 
+Lớp CSDL của API (M1-01): `src/db/columns.ts` (helper cột chuẩn: `standardColumns()` = `id` UUID v7 + `created_at` + `updated_at` + `created_by`; `softDelete()`, `branchId()`, `localizedText()`, `moneyVnd()`, `timestamptz()`), `src/db/schema.ts` (gom `schema.ts` của mọi module; thêm module thì thêm một dòng export), `src/db/database.module.ts` (token `DB`, `PG_POOL`), `src/db/migrate.ts`, `src/db/seed.ts` (danh sách bước seed), `src/cli.ts`. Tên cột trong code là `camelCase`, Drizzle đổi sang `snake_case` (`casing: 'snake_case'`). File migration nằm ở `apps/api/drizzle/` và được commit; mỗi thay đổi schema một file.
+
 ## 2. Phụ thuộc giữa các phần
 
 | Phần | Được import | Không được import |
@@ -117,7 +119,7 @@ Lệnh gốc:
 | `pnpm test` | Vitest mọi package và `node --test` cho `scripts/`; `pnpm test -- <path>` chạy một file (`scripts/run-tests.mjs` chọn package theo đường dẫn) |
 | `pnpm verify` | typecheck + lint + format:check + test + build |
 | `pnpm infra:up` / `infra:down` / `infra:ps` / `infra:logs` | Docker Compose: bật (chờ tới khi sẵn sàng), tắt, xem trạng thái, xem log. Không có lệnh xoá volume |
-| `pnpm db:generate` / `db:migrate` / `db:seed` | Có tên từ M0 nhưng **chưa chạy được**: báo lỗi rõ và thoát mã 1 cho tới khi M1-01 dựng Drizzle (`scripts/db-task.mjs`) |
+| `pnpm db:generate` / `db:migrate` / `db:seed` | `scripts/db-task.mjs`. `db:generate -- <ten-kebab-case>`: drizzle-kit so schema (`apps/api/src/modules/*/schema.ts`) với snapshot gần nhất rồi ghi file SQL vào `apps/api/drizzle/`. `db:migrate`: build API rồi chạy `node dist/cli.js migrate` (chỉ áp dụng migration chưa chạy). `db:seed`: chạy seed, chạy lại nhiều lần không đổi dữ liệu. Lệnh riêng của API: `pnpm --filter @fnb/api cli <tên>` (sau khi build) |
 
 Danh sách rule ESLint bắt buộc, cấu hình Prettier và các cờ TypeScript: `docs/code-style.md` mục 4 và 5.
 
@@ -125,7 +127,7 @@ Danh sách rule ESLint bắt buộc, cấu hình Prettier và các cờ TypeScri
 
 | Script | Chặn gì |
 |---|---|
-| `scripts/check-filenames.mjs` | Tên file hay thư mục có ký tự ngoài ASCII, có dấu cách, có chữ hoa, không phải `kebab-case` (trừ danh sách cho phép: `README.md`, `AGENTS.md`, `CLAUDE.md`, `CLAUDE.local.md`, `LICENSE`, `Dockerfile`). Bỏ qua `ui-mockup/` và `brands/` (đầu vào thiết kế). Trong `apps/<app>/src/routes/` cho phép ký hiệu của TanStack Router (`__root`, `_layout`, `$param`). Không tham số: kiểm mọi file git biết; có tham số: chỉ kiểm các đường dẫn đó (hook) |
+| `scripts/check-filenames.mjs` | Tên file hay thư mục có ký tự ngoài ASCII, có dấu cách, có chữ hoa, không phải `kebab-case` (trừ danh sách cho phép: `README.md`, `AGENTS.md`, `CLAUDE.md`, `CLAUDE.local.md`, `LICENSE`, `Dockerfile`). Bỏ qua `ui-mockup/` và `brands/` (đầu vào thiết kế) và `apps/api/drizzle/` (file migration do drizzle-kit đặt tên, có dấu gạch dưới). Trong `apps/<app>/src/routes/` cho phép ký hiệu của TanStack Router (`__root`, `_layout`, `$param`). Không tham số: kiểm mọi file git biết; có tham số: chỉ kiểm các đường dẫn đó (hook) |
 | `scripts/check-i18n.mjs` | File namespace có ở `vi` mà thiếu ở `en` hoặc ngược lại; key lệch (hậu tố số nhiều `_one`/`_other` được phép khác nhau); key rỗng; tham số `{{…}}` lệch nhau; file chưa khai báo trong `packages/i18n/src/resources.ts`. Kiểm mã lỗi của contract có bản dịch: thêm ở M1 cùng namespace `errors` |
 | `scripts/check-permissions.mjs` (từ M1) | Mã quyền thiếu tên vi/en; mã khai báo mà không endpoint nào dùng; bảng quyền trong plan 06 lệch với code |
 

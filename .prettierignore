@@ -6,6 +6,8 @@ coverage
 pnpm-lock.yaml
 *.gen.ts
 **/generated/**
+# Written by drizzle-kit
+apps/api/drizzle
 
 # Design inputs and written documentation are not reformatted
 ui-mockup

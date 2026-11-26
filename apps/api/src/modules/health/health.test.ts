@@ -10,7 +10,7 @@ import { afterEach, describe, expect, it } from 'vitest';
 import { healthResponseSchema } from '@fnb/contract';
 
 import { ENV } from '../../config/env.js';
-import { DependencyProbe } from './dependency-probe.js';
+import { DependencyProbe, isTcpReachable, withTimeout } from './dependency-probe.js';
 import { HealthModule } from './health.module.js';
 
 import type { Env } from '../../config/env.js';
@@ -40,12 +40,18 @@ class TestConfigModule {}
 let app: INestApplication<Server> | undefined;
 
 /** Boots the health module with a fake probe: no real infrastructure is contacted. */
-async function createApp(reachableUrls: readonly string[]): Promise<INestApplication<Server>> {
+async function createApp(
+  up: readonly ('database' | 'redis' | 'storage')[],
+): Promise<INestApplication<Server>> {
   const moduleRef = await Test.createTestingModule({
     imports: [TestConfigModule, HealthModule],
   })
     .overrideProvider(DependencyProbe)
-    .useValue({ isReachable: (url: string) => Promise.resolve(reachableUrls.includes(url)) })
+    .useValue({
+      database: () => Promise.resolve(up.includes('database')),
+      redis: () => Promise.resolve(up.includes('redis')),
+      storage: () => Promise.resolve(up.includes('storage')),
+    })
     .compile();
 
   const created = moduleRef.createNestApplication<INestApplication<Server>>();
@@ -61,7 +67,7 @@ afterEach(async () => {
 
 describe('GET /health', () => {
   it('returns 200 and ok when every dependency is reachable', async () => {
-    const nest = await createApp([env.DATABASE_URL, env.REDIS_URL, env.S3_ENDPOINT]);
+    const nest = await createApp(['database', 'redis', 'storage']);
     const response = await request(nest.getHttpServer()).get('/health').expect(200);
 
     const body = healthResponseSchema.parse(response.body);
@@ -71,7 +77,7 @@ describe('GET /health', () => {
   });
 
   it('still returns 200 but reports degraded when infrastructure is down', async () => {
-    const nest = await createApp([env.REDIS_URL]);
+    const nest = await createApp(['redis']);
     const response = await request(nest.getHttpServer()).get('/health').expect(200);
 
     const body = healthResponseSchema.parse(response.body);
@@ -80,26 +86,30 @@ describe('GET /health', () => {
   });
 });
 
-describe('DependencyProbe', () => {
+describe('dependency probes', () => {
   it('reports a listening TCP port as reachable and a closed one as not', async () => {
     const server = createServer();
     await new Promise<void>((resolve) => {
       server.listen(0, '127.0.0.1', resolve);
     });
     const { port } = server.address() as AddressInfo;
-    const probe = new DependencyProbe();
-
-    expect(await probe.isReachable(`redis://127.0.0.1:${port}`)).toBe(true);
+    expect(await isTcpReachable(`redis://127.0.0.1:${port}`)).toBe(true);
 
     await new Promise<void>((resolve) => {
       server.close(() => {
         resolve();
       });
     });
-    expect(await probe.isReachable(`redis://127.0.0.1:${port}`)).toBe(false);
+    expect(await isTcpReachable(`redis://127.0.0.1:${port}`)).toBe(false);
   });
 
   it('treats a malformed URL as unreachable instead of throwing', async () => {
-    expect(await new DependencyProbe().isReachable('not a url')).toBe(false);
+    expect(await isTcpReachable('not a url')).toBe(false);
+  });
+
+  it('reports down when a check throws or does not answer in time', async () => {
+    expect(await withTimeout(Promise.reject(new Error('refused')))).toBe(false);
+    expect(await withTimeout(new Promise<boolean>(() => undefined), 10)).toBe(false);
+    expect(await withTimeout(Promise.resolve(true))).toBe(true);
   });
 });

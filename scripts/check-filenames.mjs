@@ -21,8 +21,11 @@ const ALLOWED_NAMES = new Set([
   'Dockerfile',
 ]);
 
-/** Design inputs kept as delivered; they are not source code. */
-const IGNORED_PREFIXES = ['ui-mockup/', 'brands/'];
+/**
+ * Design inputs kept as delivered, and the migration folder: drizzle-kit names its files
+ * (`0000_init.sql`, `meta/_journal.json`) and reads them back by those names.
+ */
+const IGNORED_PREFIXES = ['ui-mockup/', 'brands/', 'apps/api/drizzle/'];
 
 /** kebab-case words separated by dots, with an optional leading dot: `.env.example`, `use-cart.test.ts`. */
 const KEBAB_SEGMENT = /^\.?[a-z0-9]+(-[a-z0-9]+)*(\.[a-z0-9]+(-[a-z0-9]+)*)*$/;
