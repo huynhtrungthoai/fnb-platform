@@ -8,6 +8,17 @@ export interface RequestContextStore {
   userId?: string;
   branchId?: string;
   deviceId?: string;
+  /** Details for the audit row of this request, set through `AuditService.describe()`. */
+  audit?: {
+    entityType?: string;
+    entityId?: string;
+    before?: unknown;
+    after?: unknown;
+    metadata?: Record<string, unknown>;
+    actorUserId?: string | null;
+    branchId?: string | null;
+    deviceId?: string | null;
+  };
 }
 
 const storage = new AsyncLocalStorage<RequestContextStore>();

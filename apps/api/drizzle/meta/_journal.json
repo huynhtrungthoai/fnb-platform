@@ -22,6 +22,20 @@
       "when": 1795711957144,
       "tag": "0002_user-role-assignments",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1795712152456,
+      "tag": "0003_audit-logs",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1795712152968,
+      "tag": "0004_audit-logs-append-only",
+      "breakpoints": true
     }
   ]
 }

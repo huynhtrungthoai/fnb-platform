@@ -110,6 +110,16 @@ Các nhóm Bếp, Thủ kho, Kế toán vẫn có sẵn để dùng khi cần (0
 - Đổi giờ chốt ngày chỉ áp dụng từ ngày kinh doanh kế tiếp; đơn, ca, phiếu lưu sẵn `business_date` nên dữ liệu cũ không đổi (04).
 - `branch_settings` do module `branches` giữ. Module khác (thanh toán, in ấn) đọc qua service của `branches`; cấu hình riêng của chúng (cổng QR, mẫu in) nằm ở bảng của chính module đó.
 
+### Audit log (M1-14)
+
+| Mục | Quy định |
+|---|---|
+| Bảng | `audit_logs`: `occurred_at`, `actor_user_id`, `branch_id` (null = thao tác cấp doanh nghiệp như nhóm quyền, chi nhánh), `device_id`, `action` (`<đối tượng>.<động từ>`, ví dụ `user.reset_pin`), `entity_type`, `entity_id`, `before`, `after`, `metadata` (lý do, người duyệt…), `ip`, `request_id` |
+| Chỉ ghi thêm | Không có API sửa hay xoá; trigger CSDL `fnb_forbid_change` từ chối `UPDATE` và `DELETE` (dùng lại cho sổ kho, sổ quỹ) |
+| Cách ghi | Endpoint gắn `@Audited('user.create')`; service gọi `AuditService.describe({ entityType, entityId, before, after, metadata })`; dòng log được ghi sau khi handler chạy xong, thao tác lỗi thì không ghi. Sự kiện ngoài luồng đó (đăng nhập sai) gọi `AuditService.record()` trực tiếp |
+| Bí mật | Mọi khoá có tên chứa `pin`, `password`, `secret`, `token`, `hash` bị thay bằng `[redacted]` trước khi lưu |
+| Tra cứu | `GET /audit-logs` (quyền `audit.view`): lọc theo người, hành động (`user.create` hoặc tiền tố `user.`), đối tượng, khoảng thời gian; phân trang, mới nhất trước. Mặc định chỉ thấy log của chi nhánh đang chọn; `scope=business` xem log cấp doanh nghiệp, chỉ dành cho người được gán tất cả chi nhánh |
+
 ### Xác thực trên POS
 
 | Lớp | Cách làm |
