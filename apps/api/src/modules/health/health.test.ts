@@ -22,6 +22,9 @@ const env: Env = {
   NODE_ENV: 'test',
   API_PORT: 4000,
   CORS_ORIGINS: [],
+  TRUST_PROXY: 0,
+  LOGIN_RATE_LIMIT_MAX: 10,
+  LOGIN_RATE_LIMIT_WINDOW_SECONDS: 60,
   DATABASE_URL: 'postgres://fnb:secret@db.test:5432/fnb',
   REDIS_URL: 'redis://redis.test:6379',
   S3_ENDPOINT: 'http://storage.test:9000',
@@ -93,14 +96,14 @@ describe('dependency probes', () => {
       server.listen(0, '127.0.0.1', resolve);
     });
     const { port } = server.address() as AddressInfo;
-    expect(await isTcpReachable(`redis://127.0.0.1:${port}`)).toBe(true);
+    expect(await isTcpReachable(`http://127.0.0.1:${port}`)).toBe(true);
 
     await new Promise<void>((resolve) => {
       server.close(() => {
         resolve();
       });
     });
-    expect(await isTcpReachable(`redis://127.0.0.1:${port}`)).toBe(false);
+    expect(await isTcpReachable(`http://127.0.0.1:${port}`)).toBe(false);
   });
 
   it('treats a malformed URL as unreachable instead of throwing', async () => {

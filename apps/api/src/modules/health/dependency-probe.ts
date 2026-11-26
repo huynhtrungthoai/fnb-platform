@@ -4,13 +4,13 @@ import { Inject, Injectable } from '@nestjs/common';
 
 import { ENV } from '../../config/env.js';
 import { PG_POOL } from '../../db/database.js';
+import { REDIS } from '../../redis/redis.module.js';
 
 import type { Env } from '../../config/env.js';
+import type { Redis } from 'ioredis';
 import type { Pool } from 'pg';
 
 const DEFAULT_PORTS: Record<string, number> = {
-  'redis:': 6379,
-  'rediss:': 6379,
   'http:': 80,
   'https:': 443,
 };
@@ -73,14 +73,15 @@ export function isTcpReachable(serviceUrl: string): Promise<boolean> {
 }
 
 /**
- * Checks each backing service. The database answers a real query; Redis and storage are
- * TCP-probed until their clients are added (M1-04, M1-15).
+ * Checks each backing service. The database and Redis answer a real command; storage is
+ * TCP-probed until its client is added (M1-15).
  */
 @Injectable()
 export class DependencyProbe {
   constructor(
     @Inject(ENV) private readonly env: Env,
     @Inject(PG_POOL) private readonly pool: Pool,
+    @Inject(REDIS) private readonly redisClient: Redis,
   ) {}
 
   database(): Promise<boolean> {
@@ -88,7 +89,7 @@ export class DependencyProbe {
   }
 
   redis(): Promise<boolean> {
-    return isTcpReachable(this.env.REDIS_URL);
+    return withTimeout(this.redisClient.ping().then((reply) => reply === 'PONG'));
   }
 
   storage(): Promise<boolean> {

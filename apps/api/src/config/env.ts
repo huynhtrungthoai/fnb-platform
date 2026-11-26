@@ -20,6 +20,9 @@ const envSchema = z.object({
         .map((origin) => origin.trim())
         .filter((origin) => origin.length > 0),
     ),
+  TRUST_PROXY: z.coerce.number().int().min(0).max(10).default(0),
+  LOGIN_RATE_LIMIT_MAX: z.coerce.number().int().min(1).default(10),
+  LOGIN_RATE_LIMIT_WINDOW_SECONDS: z.coerce.number().int().min(1).default(60),
   DATABASE_URL: z.url({ protocol: /^postgres(ql)?$/ }),
   REDIS_URL: z.url({ protocol: /^rediss?$/ }),
   S3_ENDPOINT: z.url({ protocol: /^https?$/ }),

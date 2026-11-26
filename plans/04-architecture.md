@@ -127,6 +127,12 @@ Quy tắc: module chỉ ghi vào bảng của mình. Muốn thay đổi dữ li�
 - Validate (M1-03, D-10): `@ZBody(schema)`, `@ZQuery(schema)`, `@ZParam(name, schema)`, `@UuidParam()` trong `apps/api/src/common/zod/` parse bằng schema Zod của `@fnb/contract` và ghi schema lên handler; `@ZResponse(schema, { isPage })` mô tả `data`. Tài liệu OpenAPI 3.1 sinh từ các schema đó bằng `z.toJSONSchema`, xem ở `GET /openapi.json` (không phục vụ khi `NODE_ENV=production`).
 - Controller trả giá trị thường hoặc `Paginated`; `ResponseInterceptor` bọc. `@RawResponse()` chỉ dùng cho `/health`, `/openapi.json` và luồng file.
 
+### Request id, log, giới hạn tần suất (M1-04)
+
+- Mỗi request có một `requestId` (UUID v7; giữ lại id do proxy gửi qua header `X-Request-Id` nếu đúng dạng). Id nằm trong header phản hồi, trong `error.requestId` và trên mọi dòng log của request đó (`AppLogger`, đọc từ `RequestContext` dựa trên `AsyncLocalStorage`). Log dạng JSON khi `NODE_ENV=production`, dạng chữ khi dev. Dòng access log chỉ ghi đường dẫn, không ghi query string.
+- `RequestContext` (`apps/api/src/common/context/`) cũng giữ IP, và sau khi guard chạy thì có người dùng, chi nhánh, thiết bị; audit log đọc từ đây.
+- Giới hạn tần suất: `@RateLimit('login')` + `RateLimitGuard`, đếm theo IP trong Redis (cửa sổ cố định). Mặc định 10 lần mỗi 60 giây (`LOGIN_RATE_LIMIT_MAX`, `LOGIN_RATE_LIMIT_WINDOW_SECONDS`); vượt thì `429 RATE_LIMITED` kèm header `Retry-After`. `TRUST_PROXY` là số proxy đứng trước API (0 khi local) để đọc đúng IP của client.
+
 ## Phân quyền
 
 Đặc tả đầy đủ: [06-permissions.md](06-permissions.md).

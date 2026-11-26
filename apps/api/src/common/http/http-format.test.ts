@@ -131,7 +131,8 @@ describe('error format', () => {
 
   it('hides the message of an unexpected error', async () => {
     const response = await request(app.getHttpServer()).get('/samples/crash').expect(500);
-    expect(response.body).toEqual({ error: { code: 'INTERNAL_ERROR' } });
+    expect(apiErrorSchema.parse(response.body).error.code).toBe('INTERNAL_ERROR');
+    expect(apiErrorSchema.parse(response.body).error.params).toBeUndefined();
     expect(JSON.stringify(response.body)).not.toContain('hunter2');
   });
 
