@@ -6,6 +6,7 @@ import { ConfigModule } from './config/config.module.js';
 import { DatabaseModule } from './db/database.module.js';
 import { DocsModule } from './modules/docs/docs.module.js';
 import { HealthModule } from './modules/health/health.module.js';
+import { RbacModule } from './modules/rbac/rbac.module.js';
 import { RedisModule } from './redis/redis.module.js';
 
 @Module({
@@ -17,6 +18,7 @@ import { RedisModule } from './redis/redis.module.js';
     RateLimitModule,
     DocsModule,
     HealthModule,
+    RbacModule,
   ],
 })
 export class AppModule {}

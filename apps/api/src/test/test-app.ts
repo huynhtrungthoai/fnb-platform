@@ -4,6 +4,7 @@ import request from 'supertest';
 
 import { AppModule } from '../app.module.js';
 import { DB } from '../db/database.js';
+import { seedDefaultRoles, syncPermissionCatalog } from '../modules/rbac/rbac-sync.js';
 import { REDIS } from '../redis/redis.module.js';
 
 import type { Database } from '../db/database.js';
@@ -20,7 +21,10 @@ export interface TestApp {
   http: TestAgent;
   db: Database;
   redis: Redis;
-  /** Empties every table and the test Redis database. Call in `beforeEach`. */
+  /**
+   * Empties every table and the test Redis database, then restores the permission catalog and
+   * the default groups. Call in `beforeEach`.
+   */
   reset: () => Promise<void>;
   close: () => Promise<void>;
 }
@@ -64,6 +68,9 @@ export async function createTestApp(
     reset: async () => {
       await truncateAllTables(db);
       await redis.flushdb();
+      // The permission catalog and the default groups are part of every installation.
+      await syncPermissionCatalog(db);
+      await seedDefaultRoles(db);
     },
     close: async () => {
       await app.close();

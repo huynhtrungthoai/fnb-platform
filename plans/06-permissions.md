@@ -113,6 +113,8 @@ Bảng này là giá trị lúc cài đặt; sau đó chủ quán sửa trên gi
 
 ### 4.1 Nền tảng (10)
 
+Khai báo trong code ở M1-10 (`packages/contract/src/permissions/foundation.ts`, module hiển thị `foundation`): 11 mã dưới đây trừ `printer.manage`. `printer.manage` được khai báo cùng tính năng máy in ở M3 (18), vì M1 chưa có endpoint nào dùng nó.
+
 | Mã quyền | Cho phép | QL | TN | NV | Bếp | Kho | KT | Ghi chú |
 |---|---|---|---|---|---|---|---|---|
 | `branch.view` | Xem danh sách và thông tin chi nhánh | ● | | | | | ● | |
@@ -341,7 +343,7 @@ Component cần thêm vào `apps/admin/src/shared-components` (chỉ admin dùng
 
 | Bảng | Cột chính |
 |---|---|
-| `permissions` | `code` (khoá), `module`, `scope`, `is_sensitive`, `is_deprecated` |
+| `permissions` | `code` (khoá), `module`, `scope`, `is_sensitive`, `is_approvable`, `is_deprecated` |
 | `roles` | `id`, `code` (chỉ nhóm mặc định), `name` (`{vi,en}`), `description`, `is_system`, `is_locked`, `limits` (jsonb), `version` |
 | `role_permissions` | `role_id`, `permission_code` |
 | `user_role_assignments` | `user_id`, `branch_id` (null = tất cả chi nhánh), `role_id`; duy nhất theo (`user_id`, `branch_id`) với `NULLS NOT DISTINCT`, để mỗi người chỉ có một bản gán "tất cả chi nhánh" (mặc định PostgreSQL coi các giá trị null là khác nhau) |
@@ -369,7 +371,7 @@ Bảng `user_role_assignments` thay cho `user_branches` ghi ở plan 10 trước
 
 Tick ở `90-roadmap.md`.
 
-- [ ] M1-10: `definePermissions`, kiểu `PermissionCode`, đồng bộ vào CSDL, seed bảy nhóm mặc định.
+- [x] M1-10: `definePermissions`, kiểu `PermissionCode`, đồng bộ vào CSDL, seed bảy nhóm mặc định. Đồng bộ danh mục chạy mỗi lần API khởi động (`syncPermissionCatalog`); bảy nhóm mặc định do `pnpm db:seed` tạo (`seedDefaultRoles`), lấy tên và hạn mức từ `DEFAULT_ROLES` trong `packages/contract/src/permissions/roles.ts`.
 - [ ] M1-11: guard mặc định cấm, `@RequirePermission` / `@Authenticated` / `@Public`, ngữ cảnh chi nhánh, `scope`.
 - [ ] M1-12: duyệt tại chỗ bằng PIN.
 - [ ] M1-20: màn hình nhóm quyền, `PermissionMatrix`, gán nhóm cho nhân viên.

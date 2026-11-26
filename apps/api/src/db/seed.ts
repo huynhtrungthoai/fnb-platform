@@ -1,3 +1,4 @@
+import { seedDefaultRoles, syncPermissionCatalog } from '../modules/rbac/rbac-sync.js';
 import { systemMeta } from './schema.js';
 
 import type { Database } from './database.js';
@@ -12,7 +13,16 @@ export interface SeedStep {
  * Seed steps in the order they run. Feature tasks append their own step here
  * (default permission groups in M1-10, owner account and sample branch in M1-16).
  */
-export const SEED_STEPS: SeedStep[] = [];
+export const SEED_STEPS: SeedStep[] = [
+  {
+    // The catalog must exist before the groups that reference it.
+    name: 'permissions and default permission groups',
+    run: async (db) => {
+      await syncPermissionCatalog(db);
+      await seedDefaultRoles(db);
+    },
+  },
+];
 
 /** Runs every seed step, then records when the seed last completed. */
 export async function runSeed(

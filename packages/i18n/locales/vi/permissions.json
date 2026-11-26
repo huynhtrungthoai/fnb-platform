@@ -1,0 +1,67 @@
+{
+  "modules": {
+    "foundation": "Nền tảng"
+  },
+  "labels": {
+    "sensitive": "Nhạy cảm",
+    "business": "Doanh nghiệp",
+    "approvable": "Duyệt tại chỗ được",
+    "new": "Mới"
+  },
+  "codes": {
+    "branch": {
+      "view": {
+        "name": "Xem chi nhánh",
+        "description": "Xem danh sách và thông tin chi nhánh."
+      },
+      "manage": {
+        "name": "Quản lý chi nhánh",
+        "description": "Tạo, sửa, ngừng hoạt động chi nhánh."
+      },
+      "settings": {
+        "name": "Cấu hình chi nhánh",
+        "description": "Sửa giờ mở cửa, thông tin in trên bill và các cấu hình khác của chi nhánh."
+      }
+    },
+    "user": {
+      "view": {
+        "name": "Xem nhân viên",
+        "description": "Xem danh sách và thông tin nhân viên."
+      },
+      "manage": {
+        "name": "Quản lý nhân viên",
+        "description": "Tạo, sửa, khoá tài khoản nhân viên."
+      },
+      "reset_credentials": {
+        "name": "Đặt lại PIN, mở khoá",
+        "description": "Đặt lại PIN và mở khoá tài khoản cho nhân viên. Không áp dụng với tài khoản Chủ."
+      }
+    },
+    "role": {
+      "view": {
+        "name": "Xem nhóm quyền",
+        "description": "Xem các nhóm quyền và quyền của từng nhóm."
+      },
+      "manage": {
+        "name": "Quản lý nhóm quyền",
+        "description": "Tạo, sửa, xoá nhóm quyền và hạn mức."
+      },
+      "assign": {
+        "name": "Gán nhóm quyền",
+        "description": "Gán nhóm quyền cho nhân viên theo chi nhánh."
+      }
+    },
+    "device": {
+      "manage": {
+        "name": "Quản lý thiết bị",
+        "description": "Đăng ký và thu hồi thiết bị POS."
+      }
+    },
+    "audit": {
+      "view": {
+        "name": "Xem nhật ký",
+        "description": "Tra cứu nhật ký thao tác."
+      }
+    }
+  }
+}

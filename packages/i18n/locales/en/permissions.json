@@ -1,0 +1,67 @@
+{
+  "modules": {
+    "foundation": "Foundation"
+  },
+  "labels": {
+    "sensitive": "Sensitive",
+    "business": "Business-wide",
+    "approvable": "Can be approved on the spot",
+    "new": "New"
+  },
+  "codes": {
+    "branch": {
+      "view": {
+        "name": "View branches",
+        "description": "See the list of branches and their details."
+      },
+      "manage": {
+        "name": "Manage branches",
+        "description": "Create, edit and deactivate branches."
+      },
+      "settings": {
+        "name": "Branch settings",
+        "description": "Edit opening hours, receipt details and other settings of a branch."
+      }
+    },
+    "user": {
+      "view": {
+        "name": "View staff",
+        "description": "See the list of staff and their details."
+      },
+      "manage": {
+        "name": "Manage staff",
+        "description": "Create, edit and disable staff accounts."
+      },
+      "reset_credentials": {
+        "name": "Reset PIN, unlock",
+        "description": "Reset the PIN and unlock the account of a staff member. Does not apply to the owner account."
+      }
+    },
+    "role": {
+      "view": {
+        "name": "View permission groups",
+        "description": "See permission groups and what each one may do."
+      },
+      "manage": {
+        "name": "Manage permission groups",
+        "description": "Create, edit and delete permission groups and their limits."
+      },
+      "assign": {
+        "name": "Assign permission groups",
+        "description": "Assign a permission group to staff per branch."
+      }
+    },
+    "device": {
+      "manage": {
+        "name": "Manage devices",
+        "description": "Register and revoke POS devices."
+      }
+    },
+    "audit": {
+      "view": {
+        "name": "View audit log",
+        "description": "Search the log of actions."
+      }
+    }
+  }
+}

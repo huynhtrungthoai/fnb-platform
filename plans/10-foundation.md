@@ -130,7 +130,7 @@ PIN băm bằng Argon2id. Màn hình bếp (KDS) là một thiết bị đã đ�
 
 `branch.view`, `branch.manage`, `branch.settings`, `user.view`, `user.manage`, `user.reset_credentials`, `role.view`, `role.manage`, `role.assign`, `device.manage`, `printer.manage`, `audit.view`.
 
-Nhóm mặc định nào có quyền nào: 06 mục 4.1.
+Nhóm mặc định nào có quyền nào: 06 mục 4.1. `printer.manage` khai báo trong code ở M3 cùng tính năng máy in (CORE-32, 18); M1 khai báo 11 mã còn lại.
 
 ## Màn hình
 
