@@ -16,7 +16,7 @@ Hệ thống hỗ trợ **tiếng Việt (`vi`, mặc định và ngôn ngữ d�
 
 ## 2. Thư viện và tổ chức
 
-- Thư viện: `i18next` + `react-i18next`, dùng chung cho web và Expo (xác nhận phiên bản và cấu hình bằng Context7 ở M0).
+- Thư viện: `i18next` 27 + `react-i18next` 18, dùng chung cho web và Expo (đã xác nhận ở M0-11). `@fnb/i18n` không phụ thuộc React: `createI18n({ locale, plugins })` tạo instance, app React truyền `initReactI18next` vào `plugins`; API và `pos-core` dùng được cùng package.
 - Vị trí: `packages/i18n`.
 
 ```
@@ -25,9 +25,11 @@ packages/i18n/
     vi/  common.json  auth.json  menu.json  orders.json  tables.json  kitchen.json
          cash.json  payments.json  inventory.json  reports.json  errors.json …
     en/  (cùng danh sách file, cùng key)
-  src/   khởi tạo i18n, kiểu của key, formatMoney, formatDate, localize()
+  src/   khởi tạo i18n (create-i18n.ts), danh sách namespace (resources.ts), kiểu của key (types.ts),
+         formatMoney / formatNumber / formatDate / formatTime (format.ts), localize()
 ```
 
+- Thêm namespace: tạo file ở cả `locales/vi` và `locales/en`, rồi khai báo trong `src/resources.ts` (`NAMESPACES` và `resources`). Ở M0 mới có `common`.
 - Mỗi module nghiệp vụ một namespace; `common` cho chữ dùng chung ("Lưu", "Huỷ", "Thử lại"); `errors` cho mã lỗi.
 - Key có kiểu TypeScript sinh từ file `vi`: gõ sai key là lỗi typecheck.
 

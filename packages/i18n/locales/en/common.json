@@ -1,0 +1,29 @@
+{
+  "actions": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "close": "Close",
+    "retry": "Try again"
+  },
+  "states": {
+    "loading": "Loading",
+    "emptyTitle": "Nothing here yet",
+    "errorTitle": "Something went wrong",
+    "errorDescription": "The data could not be loaded. Check the connection and try again."
+  },
+  "language": {
+    "label": "Language",
+    "vi": "Tiếng Việt",
+    "en": "English"
+  },
+  "theme": {
+    "label": "Appearance",
+    "system": "System",
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "notifications": {
+    "label": "Notifications"
+  }
+}

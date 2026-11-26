@@ -16,7 +16,7 @@ Cập nhật lần cuối: **2026-11-26**
 | Giai đoạn | Mốc | Nội dung | Trạng thái | Task |
 |---|---|---|---|---|
 | Chuẩn bị | P | Tài liệu, quy chuẩn, chốt quyết định | Đang làm | 10/13 |
-| GĐ 0 | M0 | Scaffold monorepo | Đang làm | 4/14 |
+| GĐ 0 | M0 | Scaffold monorepo | Đang làm | 5/14 |
 | GĐ 0 | M1 | Nền tảng: auth, phân quyền, chi nhánh, realtime, hàng đợi | Chưa bắt đầu | 0/26 |
 | GĐ 1 | M2 | Thực đơn | Chưa bắt đầu | 0/16 |
 | GĐ 1 | M3 | POS bán hàng, ca, sổ quỹ, máy in và mẫu in, offline | Chưa bắt đầu | 0/34 |
@@ -72,7 +72,7 @@ Kết quả: clone repo, chạy 3 lệnh là có API + Admin + POS trống chạ
 - [ ] **M0-08** Script gốc: `dev`, `build`, `typecheck`, `lint`, `lint:fix`, `format`, `format:check`, `test`, `verify`, `db:*`, `infra:*`
 - [ ] **M0-09** GitHub Actions chạy `pnpm verify`
 - [ ] **M0-10** Cập nhật `AGENTS.md` (trạng thái, lệnh thật) và `README.md` (cách chạy); ghi rõ `brands/` không thuộc giấy phép MIT (01 mục 1)
-- [ ] **M0-11** `packages/i18n`: i18next, `locales/vi` và `locales/en`, kiểu của key, `formatMoney`, `formatDate`, `localize` (40 mục 10)
+- [x] **M0-11** `packages/i18n`: i18next, `locales/vi` và `locales/en`, kiểu của key, `formatMoney`, `formatDate`, `localize` (40 mục 10)
 - [ ] **M0-12** `scripts/check-filenames.mjs` và `scripts/check-i18n.mjs`, gắn vào `pnpm lint`
 - [ ] **M0-13** `.githooks/pre-commit`: ESLint + Prettier trên file đã stage, kiểm tra tên file
 - [ ] **M0-14** Rule ESLint ranh giới: thư viện UI gốc chỉ trong `packages/ui-*`, app chỉ import `ui-*` của nền tảng mình, không import chéo app, không chuỗi hiển thị viết cứng, không mã màu, ngoại lệ cho biến thể trạng thái và biến CSS của shadcn (03 mục 7.4); ràng buộc import giữa các package (02 mục 2)

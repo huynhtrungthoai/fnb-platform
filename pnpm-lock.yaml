@@ -54,6 +54,9 @@ catalogs:
     globals:
       specifier: ^17.14.0
       version: 17.14.0
+    i18next:
+      specifier: ^27.2.9
+      version: 27.2.9
     prettier:
       specifier: ^3.10.1
       version: 3.10.1
@@ -214,6 +217,31 @@ importers:
       zod:
         specifier: 'catalog:'
         version: 4.6.7
+    devDependencies:
+      '@fnb/config':
+        specifier: workspace:*
+        version: link:../config
+      eslint:
+        specifier: 'catalog:'
+        version: 10.15.0
+      typescript:
+        specifier: 'catalog:'
+        version: 6.0.3
+      vitest:
+        specifier: 'catalog:'
+        version: 5.1.2(@types/node@24.19.4)(vite@8.3.8(@types/node@24.19.4))
+
+  packages/i18n:
+    dependencies:
+      '@fnb/contract':
+        specifier: workspace:*
+        version: link:../contract
+      '@fnb/utils':
+        specifier: workspace:*
+        version: link:../utils
+      i18next:
+        specifier: 'catalog:'
+        version: 27.2.9(typescript@6.0.3)
     devDependencies:
       '@fnb/config':
         specifier: workspace:*
@@ -1693,6 +1721,15 @@ packages:
   http-errors@2.0.1:
     resolution: {integrity: sha512-4FbRdAX+bSdmo4AUFuS0WNiPz8NgFt+r8ThgNWmlrjQjt1Q7ZR9+zTlce2859x4KSXrwIsaeTqDoKQmtP8pLmQ==}
     engines: {node: '>= 0.8'}
+
+  i18next@27.2.9:
+    resolution: {integrity: sha512-GOWWofCGYPSPEzUKJnRLJSoHrSUDa/NzYWqAOJJDZUaM7faLPd9VABlbHDZ+jv8uadu/fq1wsHFfZP6+0tFPkg==}
+    engines: {node: '>=22'}
+    peerDependencies:
+      typescript: ^5 || ^6 || ^7
+    peerDependenciesMeta:
+      typescript:
+        optional: true
 
   iconv-lite@0.7.3:
     resolution: {integrity: sha512-IKXpvIzjnC9XTAUbVBcMfGS0EPaIXtW6v+zr+RRp+hqULEpo0owZax6wyRwPOJbWbzjYspQwusTsfVr0ifh4uQ==}
@@ -3920,6 +3957,10 @@ snapshots:
       setprototypeof: 1.2.0
       statuses: 2.0.2
       toidentifier: 1.0.1
+
+  i18next@27.2.9(typescript@6.0.3):
+    optionalDependencies:
+      typescript: 6.0.3
 
   iconv-lite@0.7.3:
     dependencies:

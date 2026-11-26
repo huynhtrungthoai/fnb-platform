@@ -79,7 +79,7 @@ ESLint (`no-restricted-imports`, `import-x/no-restricted-paths`, `import-x/no-cy
 | Validate | Zod | 4.6 |
 | Web | Vite, React, TanStack Router, TanStack Query | 8 · 19.3 · 1.170 · 5 |
 | CSS | Tailwind | 4.3 |
-| Đa ngôn ngữ | i18next + react-i18next | xác nhận ở M0 (40) |
+| Đa ngôn ngữ | i18next + react-i18next | 27.2 · 18.0 (xác nhận ở M0-11) |
 | Lint | ESLint flat config + typescript-eslint + `eslint-plugin-import-x` (bản `eslint-plugin-import` 2.32 chưa hỗ trợ ESLint 10) | 10.15 · 8.74 · 4.18 |
 | Format | Prettier + plugin Tailwind | 3.10 |
 | Test | Vitest, Testcontainers, Playwright | 5 · 12 |
