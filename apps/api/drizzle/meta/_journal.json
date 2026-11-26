@@ -36,6 +36,13 @@
       "when": 1795712152968,
       "tag": "0004_audit-logs-append-only",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1795712359643,
+      "tag": "0005_branches",
+      "breakpoints": true
     }
   ]
 }

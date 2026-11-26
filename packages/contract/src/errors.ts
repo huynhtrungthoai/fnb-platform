@@ -14,6 +14,8 @@ export const ERROR_CODES = [
   'RATE_LIMITED',
   'TOKEN_EXPIRED',
   'BRANCH_REQUIRED',
+  'BRANCH_CODE_TAKEN',
+  'BRANCH_INACTIVE',
   'INTERNAL_ERROR',
 ] as const;
 

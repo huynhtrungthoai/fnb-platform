@@ -11,6 +11,7 @@ import {
 } from 'drizzle-orm/pg-core';
 
 import { localizedText, standardColumns, timestamps } from '../../db/columns.js';
+import { branches } from '../branches/schema.js';
 
 import type { RoleLimits } from '@fnb/contract';
 
@@ -70,7 +71,8 @@ export const userRoleAssignments = pgTable(
   {
     ...standardColumns(),
     userId: uuid('user_id').notNull(),
-    branchId: uuid('branch_id'),
+    // Branches are never deleted, only deactivated, so no cascade is needed.
+    branchId: uuid('branch_id').references(() => branches.id),
     roleId: uuid('role_id')
       .notNull()
       // A group that still has members cannot be deleted (06 section 8).

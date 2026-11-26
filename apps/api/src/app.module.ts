@@ -6,6 +6,7 @@ import { ConfigModule } from './config/config.module.js';
 import { DatabaseModule } from './db/database.module.js';
 import { AuditModule } from './modules/audit/audit.module.js';
 import { AuthModule } from './modules/auth/auth.module.js';
+import { BranchesModule } from './modules/branches/branches.module.js';
 import { DocsModule } from './modules/docs/docs.module.js';
 import { HealthModule } from './modules/health/health.module.js';
 import { RbacModule } from './modules/rbac/rbac.module.js';
@@ -20,6 +21,7 @@ import { RedisModule } from './redis/redis.module.js';
     RateLimitModule,
     AuthModule,
     AuditModule,
+    BranchesModule,
     DocsModule,
     HealthModule,
     RbacModule,

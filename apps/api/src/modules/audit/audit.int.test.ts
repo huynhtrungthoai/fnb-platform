@@ -3,11 +3,10 @@ import { eq } from 'drizzle-orm';
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 
 import { apiPageSchema, auditLogSchema } from '@fnb/contract';
-import { uuidv7 } from '@fnb/utils';
 
 import { Authenticated, Public } from '../../common/decorators/access.decorators.js';
 import { AppError } from '../../common/errors/app-error.js';
-import { signInAs } from '../../test/auth-helpers.js';
+import { createBranch, signInAs } from '../../test/auth-helpers.js';
 import { createTestApp } from '../../test/test-app.js';
 import { AuditService } from './audit.service.js';
 import { Audited } from './audited.interceptor.js';
@@ -58,8 +57,8 @@ class ProbeController {
 @Module({ controllers: [ProbeController] })
 class ProbeModule {}
 
-const BRANCH_1 = uuidv7();
-const BRANCH_2 = uuidv7();
+let BRANCH_1: string;
+let BRANCH_2: string;
 let test: TestApp;
 
 beforeAll(async () => {
@@ -68,6 +67,8 @@ beforeAll(async () => {
 
 beforeEach(async () => {
   await test.reset();
+  BRANCH_1 = await createBranch(test, 'B1');
+  BRANCH_2 = await createBranch(test, 'B2');
 });
 
 afterAll(async () => {

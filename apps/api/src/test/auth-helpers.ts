@@ -5,6 +5,8 @@ import { uuidv7 } from '@fnb/utils';
 import { BRANCH_HEADER } from '../common/decorators/access.decorators.js';
 import { AccessTokenService } from '../modules/auth/access-token.service.js';
 import { SessionStore } from '../modules/auth/session-store.js';
+import { DEFAULT_BRANCH_SETTINGS } from '../modules/branches/branches.service.js';
+import { branches, branchSettings } from '../modules/branches/schema.js';
 import { RbacService } from '../modules/rbac/rbac.service.js';
 import { rolePermissions, roles, userRoleAssignments } from '../modules/rbac/schema.js';
 
@@ -91,4 +93,19 @@ export async function signInAs(
   const userId = uuidv7();
   await assignRole(test, { userId, branchId, roleId: await roleIdOf(test, roleCode) });
   return openSession(test, userId);
+}
+
+/** Creates an active branch with default settings and returns its id. */
+export async function createBranch(
+  test: TestApp,
+  code: string,
+  name = `Chi nhánh ${code}`,
+): Promise<string> {
+  const [branch] = await test.db
+    .insert(branches)
+    .values({ code, name })
+    .returning({ id: branches.id });
+  const branchId = branch?.id ?? '';
+  await test.db.insert(branchSettings).values({ ...DEFAULT_BRANCH_SETTINGS, branchId });
+  return branchId;
 }

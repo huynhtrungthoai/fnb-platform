@@ -9,5 +9,7 @@
   "RATE_LIMITED": "Bạn thao tác quá nhanh. Chờ một lát rồi thử lại.",
   "INTERNAL_ERROR": "Hệ thống gặp lỗi. Thử lại sau.",
   "TOKEN_EXPIRED": "Phiên đăng nhập đã hết hạn. Đăng nhập lại để tiếp tục.",
-  "BRANCH_REQUIRED": "Chọn một chi nhánh để tiếp tục."
+  "BRANCH_REQUIRED": "Chọn một chi nhánh để tiếp tục.",
+  "BRANCH_CODE_TAKEN": "Mã chi nhánh này đã được dùng. Chọn mã khác.",
+  "BRANCH_INACTIVE": "Chi nhánh này đã ngừng hoạt động."
 }

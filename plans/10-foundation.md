@@ -110,6 +110,20 @@ Các nhóm Bếp, Thủ kho, Kế toán vẫn có sẵn để dùng khi cần (0
 - Đổi giờ chốt ngày chỉ áp dụng từ ngày kinh doanh kế tiếp; đơn, ca, phiếu lưu sẵn `business_date` nên dữ liệu cũ không đổi (04).
 - `branch_settings` do module `branches` giữ. Module khác (thanh toán, in ấn) đọc qua service của `branches`; cấu hình riêng của chúng (cổng QR, mẫu in) nằm ở bảng của chính module đó.
 
+### Chi nhánh và cấu hình (M1-06)
+
+| Mục | Quy định |
+|---|---|
+| Mã chi nhánh | 2–6 ký tự chữ hoa hoặc số (`Q1`, `TD02`), duy nhất; nhập chữ thường thì tự đổi sang chữ hoa. Trùng mã trả `409 BRANCH_CODE_TAKEN`. Việc khoá mã sau khi có hoá đơn làm cùng đơn hàng (M3-08) |
+| Tên chi nhánh | Tên riêng, một ngôn ngữ (40 mục 4.2) |
+| Ngừng hoạt động | `POST /branches/:id/deactivate` / `activate`; không xoá chi nhánh. `BranchesService.assertActive()` trả `409 BRANCH_INACTIVE`, dùng khi tạo đơn và đăng ký thiết bị |
+| Cấu hình mặc định | Tạo cùng chi nhánh: múi giờ `Asia/Ho_Chi_Minh`, mở cửa 10:00–22:00, chốt ngày 00:00, thuế 0%, phí dịch vụ 0%, chưa có thông tin bill và tài khoản ngân hàng |
+| Thuế suất, phí dịch vụ | Phần trăm tối đa hai chữ số thập phân; lưu dạng điểm cơ bản (`tax_rate_bps`, `service_charge_bps`) |
+| Đổi giờ chốt ngày | Giá trị mới nằm ở `pending_day_cutoff_time` cùng `pending_day_cutoff_from` (ngày kinh doanh kế tiếp); `BranchesService.getSettings()` tự áp dụng khi ngày đó bắt đầu. Chọn lại đúng giờ đang dùng thì huỷ thay đổi đang chờ |
+| Quyền | Danh sách và chi tiết: `branch.view` (danh sách tự lọc theo chi nhánh người gọi có quyền). Tạo, sửa, ngừng: `branch.manage` (cấp doanh nghiệp). Cấu hình: `branch.settings` tại chính chi nhánh đó |
+| Nhật ký | `branch.create`, `branch.update`, `branch.deactivate`, `branch.activate` ghi ở cấp doanh nghiệp; `branch.settings_update` ghi theo chi nhánh |
+| Chưa làm ở M1 | Các ô trong mockup `admin-branches` thuộc mốc khác: làm tròn tiền (POS-15, M3), bán kính chấm công GPS (HR-21, M9), phương thức thanh toán tại chi nhánh (M5), tab Thiết bị (M1-21) |
+
 ### Audit log (M1-14)
 
 | Mục | Quy định |

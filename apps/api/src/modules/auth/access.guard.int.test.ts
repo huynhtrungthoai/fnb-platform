@@ -14,6 +14,7 @@ import {
 } from '../../common/decorators/access.decorators.js';
 import {
   assignRole,
+  createBranch,
   createCustomRole,
   openSession,
   roleIdOf,
@@ -79,8 +80,8 @@ class ProbeController {
 @Module({ controllers: [ProbeController] })
 class ProbeModule {}
 
-const BRANCH_1 = uuidv7();
-const BRANCH_2 = uuidv7();
+let BRANCH_1: string;
+let BRANCH_2: string;
 let test: TestApp;
 
 beforeAll(async () => {
@@ -89,6 +90,8 @@ beforeAll(async () => {
 
 beforeEach(async () => {
   await test.reset();
+  BRANCH_1 = await createBranch(test, 'B1');
+  BRANCH_2 = await createBranch(test, 'B2');
 });
 
 afterAll(async () => {

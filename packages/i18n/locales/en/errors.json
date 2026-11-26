@@ -9,5 +9,7 @@
   "RATE_LIMITED": "Too many attempts. Wait a moment and try again.",
   "INTERNAL_ERROR": "The system ran into an error. Try again later.",
   "TOKEN_EXPIRED": "Your session has expired. Sign in again to continue.",
-  "BRANCH_REQUIRED": "Choose a branch to continue."
+  "BRANCH_REQUIRED": "Choose a branch to continue.",
+  "BRANCH_CODE_TAKEN": "This branch code is already in use. Choose another one.",
+  "BRANCH_INACTIVE": "This branch is no longer active."
 }

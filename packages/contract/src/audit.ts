@@ -6,7 +6,16 @@ import { paginationQuerySchema } from './pagination.js';
  * Actions written to the audit log, `<entity>.<verb>`. The Admin log screen translates and
  * filters by these; each feature adds its own when it records something new.
  */
-export const AUDIT_ACTIONS = [] as const satisfies readonly string[];
+export const AUDIT_ACTIONS = [
+  'branch.create',
+  'branch.update',
+  'branch.deactivate',
+  'branch.activate',
+  'branch.settings_update',
+] as const satisfies readonly string[];
+
+/** An action written to the audit log. */
+export type AuditAction = (typeof AUDIT_ACTIONS)[number];
 
 /** One audit log row as returned by `GET /audit-logs` (CORE-40). */
 export const auditLogSchema = z.object({
