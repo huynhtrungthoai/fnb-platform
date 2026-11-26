@@ -79,12 +79,12 @@ Mỗi plan tính năng có cùng bố cục: mục tiêu, chức năng (có mã 
 23. Mở cửa 10:00–22:00, chốt ngày 00:00 (D-36). Bill tiếng Việt (D-39). Quyền tách biệt theo chi nhánh (D-40); quản lý không sửa thực đơn chung (D-41).
 24. Chấm công GPS trên trang web nhân viên `/me` trong Admin (D-37); lương theo giờ và theo tháng, có phụ cấp, phạt (D-38).
 25. Kênh khách: web responsive trước, app là vỏ WebView (D-42); `ui-mobile` là thiết kế chung, mỗi công nghệ một bản code (D-43).
+26. NestJS 12, TypeScript 6.0, pnpm 11.29 (D-10, D-11, D-12).
 
 Danh sách đầy đủ kèm lý do: [05-decisions.md](05-decisions.md).
 
 ## Còn mở
 
-- Xác nhận NestJS 12, TypeScript 6.0, pnpm 11.29 (05: D-10, D-11, D-12).
 - Cách POS web in ra máy in LAN (O-18): sau spike M3-00.
 - Máy in và mẫu máy cầm tay (O-03).
 - Phí dịch vụ (O-05).

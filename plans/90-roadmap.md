@@ -15,7 +15,7 @@ Cập nhật lần cuối: **2026-11-26**
 
 | Giai đoạn | Mốc | Nội dung | Trạng thái | Task |
 |---|---|---|---|---|
-| Chuẩn bị | P | Tài liệu, quy chuẩn, chốt quyết định | Đang làm | 9/13 |
+| Chuẩn bị | P | Tài liệu, quy chuẩn, chốt quyết định | Đang làm | 10/13 |
 | GĐ 0 | M0 | Scaffold monorepo | Chưa bắt đầu | 0/14 |
 | GĐ 0 | M1 | Nền tảng: auth, phân quyền, chi nhánh, realtime, hàng đợi | Chưa bắt đầu | 0/26 |
 | GĐ 1 | M2 | Thực đơn | Chưa bắt đầu | 0/16 |
@@ -47,7 +47,7 @@ Thứ tự phụ thuộc: `M0 → M1 → M2 → M3 → (M4, M5, M6 song song đ�
 - [x] **P-08** Plan phân quyền: quyền theo tính năng, nhóm quyền mặc định và tuỳ chỉnh, hạn mức ([06](06-permissions.md))
 - [x] **P-11** Phân tích logo và mặt tiền quán, đề xuất bộ màu và nhận diện ([07](07-brand.md))
 - [ ] **P-04** Bạn rà soát plan tính năng và bộ quy chuẩn, chỉnh phạm vi GĐ 1 nếu cần
-- [ ] **P-05** Xác nhận các đề xuất D-10 (NestJS 12), D-11 (TypeScript 6.0), D-12 (pnpm 11.29)
+- [x] **P-05** Xác nhận các đề xuất D-10 (NestJS 12), D-11 (TypeScript 6.0), D-12 (pnpm 11.29)
 - [ ] **P-06** Trả lời các câu hỏi cần cho M3: máy in và mẫu máy cầm tay (O-03), phí dịch vụ (O-05). Đã trả lời: thuế (D-28), giờ chốt ngày (D-36)
 - [ ] **P-09** Bạn rà bảng quyền của bảy nhóm mặc định và hạn mức (06 mục 4, 5; O-13). Đã trả lời: O-14 (D-40), O-15 (D-41)
 - [x] **P-10** Duyệt bộ màu (theo mã đo từ logo), nút chính đỏ, tên thương hiệu; nhận logo 1297 px (07, D-21)
@@ -355,7 +355,6 @@ Danh sách ứng viên ở [29-extensions.md](29-extensions.md). Chọn và lên
 |---|---|
 | Rà soát plan tính năng và bộ quy chuẩn (P-04) | Bắt đầu M0 |
 | Rà bảng quyền của nhóm mặc định và hạn mức (P-09) | M1-10 |
-| Xác nhận D-10, D-11, D-12 trong [05-decisions.md](05-decisions.md) | M0 |
 | Bật Docker Desktop trên máy dev | M0-03 |
 | Thông tin máy in (hãng, K57/K80, LAN/Bluetooth), mẫu máy cầm tay, có thu phí dịch vụ không; cho mượn một máy in thật để làm spike | M3-00 |
 | Mở tài khoản SePay và tài khoản ngân hàng nhận tiền (D-44) | M5-01 |
@@ -383,3 +382,4 @@ Danh sách ứng viên ở [29-extensions.md](29-extensions.md). Chọn và lên
 | 2026-11-26 | Chốt D-44: cổng QR đầu tiên là SePay; đóng O-02. |
 | 2026-11-26 | Bổ sung luồng thêm món trên POS: chạm món có biến thể hoặc nhóm tuỳ chọn thì mở hộp chọn (chọn 1 / chọn nhiều, bắt buộc, tạm hết, ghi chú, số lượng), món không có thì thêm thẳng; sửa lại tuỳ chọn từ dòng giỏ. Thêm mục "Thêm món vào đơn" vào plan 12, sửa mockup `pos-sale.dc.html` (trong repo, chưa đưa lên canvas), `ui-mockup/README.md`, M3-19. |
 | 2026-11-26 | Mockup POS bổ sung 15 màn (P10–P17, P20–P26): danh sách và chi tiết đơn, duyệt tại chỗ, gắn khách và ưu đãi, thanh toán QR, chia tiền, bố cục máy cầm tay (D-35), nộp/rút tiền, báo cáo ca, máy in, hàng đợi in, đăng ký và cài đặt thiết bị, lịch sử phiếu KDS. Sửa giờ ca trong mockup cho khớp D-36. |
+| 2026-11-26 | Xác nhận D-10 (NestJS 12), D-11 (TypeScript 6.0), D-12 (pnpm 11.29); tick P-05. Bắt đầu M0 trên nhánh `feat/m0-scaffold`: mỗi task một commit, mỗi mốc một nhánh `feat/m<n>-<name>`, không push. |

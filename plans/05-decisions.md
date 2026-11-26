@@ -46,25 +46,28 @@ Trạng thái: **Đã chốt** · **Đề xuất** (chờ bạn xác nhận) · 
 | D-42 | Kênh khách: làm **web khách responsive trước**; app khách là **vỏ WebView** bọc web khách, không viết giao diện native riêng | Trả lời O-20. Plan 32 |
 | D-43 | `ui-mobile` là **một bộ thiết kế chung** (tên component, kiểu props, token, theme `mobile`); mỗi công nghệ tự viết bản component của mình theo đúng thiết kế đó để đồng bộ, không ép một bộ code chạy mọi nơi | Trả lời O-21 (phương án c). Với D-42, app khách chạy web khách nên dùng `ui-web` theme `customer`; bản code `ui-mobile` đầu tiên là cho Zalo Mini App. Plan 03 mục 7 |
 | D-44 | Cổng QR đầu tiên là **SePay** | Trả lời O-02 ngày 2026-11-26. Gói miễn phí chỉ khoảng 50 giao dịch tiền vào mỗi tháng, nên tính là dịch vụ trả phí; chọn gói theo số giao dịch thật ở M5-01. Lớp `PaymentProvider` (PAY-18) giữ khả năng đổi cổng. Plan 15 |
+| D-10 | API dùng **NestJS 12** (ESM, import có đuôi `.js`, `module: nodenext`); tự viết pipe validate Zod và sinh OpenAPI từ `z.toJSONSchema` của Zod 4, không dùng `nestjs-zod` | Xác nhận ngày 2026-11-26. Chi tiết ở mục dưới |
+| D-11 | Ghim **TypeScript 6.0.x**; nâng lên 7 khi `@nestjs/swagger`, `typescript-eslint`, `@nestjs/cli` hỗ trợ | Xác nhận ngày 2026-11-26 |
+| D-12 | Ghim `packageManager: pnpm@11.29.0` | Xác nhận ngày 2026-11-26. Bản 12.23 lỗi qua corepack trên máy dev |
 
-## Đề xuất (kết quả kiểm tra phiên bản ngày 2026-11-26)
+## Chi tiết D-10 → D-12 (kiểm tra phiên bản ngày 2026-11-26; đã xác nhận, không còn đề xuất nào đang chờ)
 
 ### D-10: NestJS 12 thay vì 11
 
 - Kế hoạch ban đầu ghi NestJS 11. Bản mới nhất là 12.6, đã chuyển sang ESM (import phải có đuôi `.js`, `module: nodenext`).
 - `nestjs-zod` 5.6 chưa khai báo hỗ trợ NestJS 12 (chỉ `^10 || ^11`).
-- **Đề xuất:** dùng NestJS 12, tự viết pipe validate Zod (vài chục dòng) và sinh OpenAPI từ `z.toJSONSchema` của Zod 4. Tránh phải nâng major và chuyển ESM ngay sau khi làm xong.
+- **Đã chốt:** dùng NestJS 12, tự viết pipe validate Zod (vài chục dòng) và sinh OpenAPI từ `z.toJSONSchema` của Zod 4. Tránh phải nâng major và chuyển ESM ngay sau khi làm xong.
 - Phương án còn lại: NestJS 11 + `nestjs-zod`, ít việc hơn lúc đầu nhưng sẽ phải nâng cấp sớm.
 
 ### D-11: TypeScript 6.0, chưa dùng 7
 
 - TypeScript 7.0.2 là bản mới nhất, nhưng `@nestjs/swagger` (`^5.5 || ^6`), `typescript-eslint` (`<6.1`) và `@nestjs/cli` (`~6.0`) chưa hỗ trợ.
-- **Đề xuất:** ghim TypeScript 6.0.x, nâng lên 7 khi hệ sinh thái theo kịp.
+- **Đã chốt:** ghim TypeScript 6.0.x, nâng lên 7 khi hệ sinh thái theo kịp.
 
 ### D-12: pnpm 11.29
 
 - Trên máy hiện tại corepack không chạy được pnpm 12.23 (lỗi thiếu file sau khi tải). pnpm 11.29.0 chạy tốt.
-- **Đề xuất:** ghim `packageManager: pnpm@11.29.0`.
+- **Đã chốt:** ghim `packageManager: pnpm@11.29.0`.
 
 ### Phiên bản dự kiến khác
 
