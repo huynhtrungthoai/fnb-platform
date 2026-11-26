@@ -18,6 +18,9 @@ import type { AuthTokens } from '@fnb/contract';
 export const hashRefreshToken = (token: string): string =>
   createHash('sha256').update(token).digest('hex');
 
+/** Longest life of a staff session on a POS device without a refresh: 12 hours. */
+export const DEVICE_SESSION_TTL_SECONDS = 12 * 3600;
+
 /** What a session is for. */
 export interface SessionSubject {
   userId: string;
@@ -42,6 +45,13 @@ export class SessionService {
   /** Opens a new session and returns its first tokens. */
   start(subject: SessionSubject, now: Date = new Date()): Promise<AuthTokens> {
     return this.issue(uuidv7(), subject, now);
+  }
+
+  /** Ends every staff session opened on a device: the device was revoked. */
+  async endAllOfDevice(deviceId: string, now: Date = new Date()): Promise<void> {
+    for (const session of await this.refreshTokens.activeSessionsOfDevice(deviceId)) {
+      await this.end(session.sessionId, session.userId, now);
+    }
   }
 
   /**
@@ -96,7 +106,10 @@ export class SessionService {
   }
 
   private async issue(sessionId: string, subject: SessionSubject, now: Date): Promise<AuthTokens> {
-    const refreshTtl = this.env.REFRESH_TOKEN_TTL_SECONDS;
+    // A staff session on a device lasts about a shift; the device token itself is long-lived.
+    const refreshTtl = subject.deviceId
+      ? Math.min(DEVICE_SESSION_TTL_SECONDS, this.env.REFRESH_TOKEN_TTL_SECONDS)
+      : this.env.REFRESH_TOKEN_TTL_SECONDS;
     const accessTtl = this.tokens.ttlSeconds;
     const refreshToken = randomBytes(32).toString('base64url');
     const refreshExpiresAt = new Date(now.getTime() + refreshTtl * 1000);

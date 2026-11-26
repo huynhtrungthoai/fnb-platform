@@ -31,6 +31,8 @@ export const ERROR_CODES = [
   'ROLE_IS_SYSTEM',
   'ROLE_NOT_SYSTEM',
   'ROLE_IN_USE',
+  'DEVICE_INVALID',
+  'DEVICE_REVOKED',
   'INTERNAL_ERROR',
 ] as const;
 

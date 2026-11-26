@@ -126,7 +126,11 @@ export class AuthService {
   /** The caller sets a new PIN; ends the caller's other sessions and returns fresh tokens. */
   async changePin(auth: AuthContext, input: ChangePin): Promise<AuthTokens> {
     const row = await this.credentials.changeOwnPin(auth.userId, input.currentPin, input.newPin);
-    return this.sessions.start({ userId: row.id, mustChangePin: false });
+    return this.sessions.start({
+      userId: row.id,
+      mustChangePin: false,
+      ...(auth.deviceId ? { deviceId: auth.deviceId } : {}),
+    });
   }
 
   /** The super admin sets a new password; ends the other sessions and returns fresh tokens. */

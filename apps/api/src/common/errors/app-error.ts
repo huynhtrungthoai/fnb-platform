@@ -30,6 +30,8 @@ export const ERROR_STATUS: Record<ErrorCode, number> = {
   ROLE_IS_SYSTEM: 409,
   ROLE_NOT_SYSTEM: 409,
   ROLE_IN_USE: 409,
+  DEVICE_INVALID: 401,
+  DEVICE_REVOKED: 401,
   INTERNAL_ERROR: 500,
 };
 

@@ -26,5 +26,7 @@
   "ROLE_LOCKED": "Nhóm Chủ luôn có mọi quyền và không sửa được.",
   "ROLE_IS_SYSTEM": "Không xoá được nhóm mặc định. Có thể khôi phục về mặc định.",
   "ROLE_NOT_SYSTEM": "Chỉ nhóm mặc định mới khôi phục về mặc định được.",
-  "ROLE_IN_USE": "Chuyển {{count}} người trong nhóm sang nhóm khác trước khi xoá."
+  "ROLE_IN_USE": "Chuyển {{count}} người trong nhóm sang nhóm khác trước khi xoá.",
+  "DEVICE_INVALID": "Máy này chưa được đăng ký. Đăng ký lại.",
+  "DEVICE_REVOKED": "Máy này đã bị thu hồi. Nhờ quản lý đăng ký lại."
 }

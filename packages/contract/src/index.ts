@@ -2,6 +2,7 @@ export * from './approvals.js';
 export * from './audit.js';
 export * from './auth.js';
 export * from './branches.js';
+export * from './devices.js';
 export * from './errors.js';
 export * from './health.js';
 export * from './locale.js';

@@ -17,7 +17,7 @@ Cập nhật lần cuối: **2026-11-26**
 |---|---|---|---|---|
 | Chuẩn bị | P | Tài liệu, quy chuẩn, chốt quyết định | Đang làm | 10/13 |
 | GĐ 0 | M0 | Scaffold monorepo | Đang làm | 13/14 |
-| GĐ 0 | M1 | Nền tảng: auth, phân quyền, chi nhánh, realtime, hàng đợi | Đang làm | 14/26 |
+| GĐ 0 | M1 | Nền tảng: auth, phân quyền, chi nhánh, realtime, hàng đợi | Đang làm | 15/26 |
 | GĐ 1 | M2 | Thực đơn | Chưa bắt đầu | 0/16 |
 | GĐ 1 | M3 | POS bán hàng, ca, sổ quỹ, máy in và mẫu in, offline | Chưa bắt đầu | 0/34 |
 | GĐ 1 | M4 | Bếp (phần bàn hoãn, D-26) | Chưa bắt đầu | 0/9 (6 hoãn) |
@@ -97,7 +97,7 @@ Nghiệp vụ
 - [x] **M1-11** Guard mặc định cấm (`@RequirePermission` / `@Authenticated` / `@Public`), ngữ cảnh chi nhánh, quyền cấp doanh nghiệp — CORE-23
 - [x] **M1-12** Duyệt tại chỗ bằng PIN của người có quyền — CORE-24
 - [x] **M1-23** Nhóm quyền tuỳ chỉnh, nhân bản, khôi phục mặc định, hạn mức, chống tự nâng quyền; cache quyền + tín hiệu `permissions.changed` — CORE-22, 25 → 28
-- [ ] **M1-13** Thiết bị POS: đăng ký, thu hồi, token thiết bị, phiên nhân viên bằng PIN — CORE-30, 31, 33
+- [x] **M1-13** Thiết bị POS: đăng ký, thu hồi, token thiết bị, phiên nhân viên bằng PIN — CORE-30, 31, 33
 - [x] **M1-14** Audit log: interceptor ghi + API tra cứu — CORE-40
 - [ ] **M1-15** Upload ảnh lên lưu trữ S3 — CORE-42
 - [ ] **M1-16** Seed: tài khoản Chủ, một chi nhánh mẫu

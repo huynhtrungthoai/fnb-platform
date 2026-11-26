@@ -171,6 +171,19 @@ Các nhóm Bếp, Thủ kho, Kế toán vẫn có sẵn để dùng khi cần (0
 | Hạn mức | Hành động vượt hạn mức (giảm giá, chi tiền, hoàn tiền) tự gọi `ApprovalsService.consume()` trong service ở mốc của nó |
 | Offline | Kiểm tra bằng snapshot ở M3 (06 mục 7.3) |
 
+### Thiết bị POS (M1-13)
+
+| Mục | Quy định |
+|---|---|
+| Đăng ký | Trên máy POS, người có `device.manage` tại chi nhánh đăng nhập (`POST /auth/login`), rồi máy gọi `POST /devices` (header `X-Branch-Id`, `{ name, kind: pos \| handheld \| kds }`). Chi nhánh phải đang hoạt động. Server trả **một lần** `deviceToken` (lưu SHA-256) và `deviceSecret` (khoá trộn vào mã băm PIN của snapshot offline, M3). Sau đó máy đăng xuất người quản lý |
+| Mã thiết bị | `<mã chi nhánh>-<P\|H\|K><số 2 chữ số>`, ví dụ `Q1-P01`, `Q1-K01`; tăng theo chi nhánh và loại, không dùng lại mã của máy đã thu hồi. Mockup đang có hai kiểu khác nhau (`Q1-A` ở `admin-devices`, `POS-Q1-02` ở `pos-device-register`); code theo kiểu này, gần với ví dụ `CN1-P02-000123` ở plan 04, chờ chủ quán chốt |
+| Phiên nhân viên | `GET /devices/staff` (header `X-Device-Token`): người đang hoạt động được gán ở chi nhánh của máy hoặc tất cả chi nhánh. `POST /devices/session` (`{ userId, pin }`): kiểm PIN qua bộ đếm chung, trả bộ token gắn `deviceId`; refresh token sống tối đa 12 giờ. Super admin dùng PIN ở đây |
+| Mỗi request | Phiên có `deviceId` thì guard kiểm tra thiết bị chưa bị thu hồi, và chi nhánh của request (nếu có) phải là chi nhánh của máy (`403`) |
+| Thu hồi | `POST /devices/:id/revoke` (`device.manage` tại chi nhánh của máy): token máy hết hiệu lực (`401 DEVICE_REVOKED`), mọi phiên trên máy kết thúc ngay. Đăng ký lại thì nhận mã mới |
+| Danh sách | `GET /devices?branchId=&status=active\|revoked\|all`, lọc theo chi nhánh người gọi có `device.manage`; có lần thấy cuối, phiên bản app, người dùng cuối |
+| Nhật ký | `device.register`, `device.revoke`, `device.session_open`, theo chi nhánh của máy |
+| Làm ở mốc khác | Bộ đếm số hoá đơn theo thiết bị, trạng thái đồng bộ (M3); máy in (M3, 18) |
+
 ### Audit log (M1-14)
 
 | Mục | Quy định |

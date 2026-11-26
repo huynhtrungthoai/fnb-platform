@@ -43,6 +43,14 @@ export class RefreshTokenRepository {
       .where(and(eq(refreshTokens.sessionId, sessionId), isNull(refreshTokens.revokedAt)));
   }
 
+  /** Sessions of a device that can still be refreshed. */
+  async activeSessionsOfDevice(deviceId: string): Promise<{ sessionId: string; userId: string }[]> {
+    return this.db
+      .selectDistinct({ sessionId: refreshTokens.sessionId, userId: refreshTokens.userId })
+      .from(refreshTokens)
+      .where(and(eq(refreshTokens.deviceId, deviceId), isNull(refreshTokens.revokedAt)));
+  }
+
   async revokeUser(userId: string, at: Date): Promise<void> {
     await this.db
       .update(refreshTokens)

@@ -15,6 +15,7 @@ import {
 import { AppError } from '../../common/errors/app-error.js';
 import { ApprovalsService } from '../approvals/approvals.service.js';
 import { AuditService } from '../audit/audit.service.js';
+import { DevicesService } from '../devices/devices.service.js';
 import { branchReach, reachesAnyBranch, resolveEffectiveAccess } from '../rbac/access.js';
 import { permissionDenied, RbacService } from '../rbac/rbac.service.js';
 import { AccessTokenService } from './session/access-token.service.js';
@@ -54,6 +55,7 @@ export class AccessGuard implements CanActivate {
     private readonly rbac: RbacService,
     private readonly approvals: ApprovalsService,
     private readonly audit: AuditService,
+    private readonly devices: DevicesService,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -79,6 +81,10 @@ export class AccessGuard implements CanActivate {
 
     const request = context.switchToHttp().getRequest<Request & AuthenticatedRequest>();
     const { auth, mustChangePin } = await this.authenticate(request);
+    // A staff session on a device dies with the device.
+    const deviceBranchId = auth.deviceId
+      ? await this.devices.requireActiveBranch(auth.deviceId)
+      : undefined;
     if (
       mustChangePin &&
       !this.reflector.get<boolean | undefined>(ALLOWS_TEMPORARY_PIN_KEY, context.getHandler())
@@ -97,6 +103,12 @@ export class AccessGuard implements CanActivate {
       if (branchId) {
         this.enterBranch(auth, branchId);
       }
+    }
+    if (deviceBranchId && auth.branchId && auth.branchId !== deviceBranchId) {
+      // A session on a POS device only works at the device's branch (10, "Xác thực trên POS").
+      throw new AppError('PERMISSION_DENIED', 'Device belongs to another branch', {
+        params: { branchId: auth.branchId },
+      });
     }
     RequestContext.assign({ branchId: auth.branchId });
     return true;
