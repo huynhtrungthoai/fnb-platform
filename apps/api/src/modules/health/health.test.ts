@@ -22,6 +22,8 @@ const env: Env = {
   NODE_ENV: 'test',
   API_PORT: 4000,
   CORS_ORIGINS: [],
+  JWT_SECRET: 'unit-test-secret-0123456789-abcdefghij',
+  ACCESS_TOKEN_TTL_SECONDS: 900,
   TRUST_PROXY: 0,
   LOGIN_RATE_LIMIT_MAX: 10,
   LOGIN_RATE_LIMIT_WINDOW_SECONDS: 60,

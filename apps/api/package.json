@@ -21,6 +21,7 @@
     "@nestjs/platform-express": "catalog:",
     "drizzle-orm": "catalog:",
     "ioredis": "catalog:",
+    "jose": "catalog:",
     "pg": "catalog:",
     "reflect-metadata": "catalog:",
     "rxjs": "catalog:",

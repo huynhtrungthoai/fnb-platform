@@ -7,5 +7,7 @@
   "NOT_FOUND": "The data was not found.",
   "CONFLICT": "The data was changed somewhere else. Reload and try again.",
   "RATE_LIMITED": "Too many attempts. Wait a moment and try again.",
-  "INTERNAL_ERROR": "The system ran into an error. Try again later."
+  "INTERNAL_ERROR": "The system ran into an error. Try again later.",
+  "TOKEN_EXPIRED": "Your session has expired. Sign in again to continue.",
+  "BRANCH_REQUIRED": "Choose a branch to continue."
 }

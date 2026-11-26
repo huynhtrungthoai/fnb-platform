@@ -15,6 +15,13 @@
       "when": 1795711695354,
       "tag": "0001_rbac",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1795711957144,
+      "tag": "0002_user-role-assignments",
+      "breakpoints": true
     }
   ]
 }

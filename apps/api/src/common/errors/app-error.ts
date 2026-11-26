@@ -11,6 +11,8 @@ export const ERROR_STATUS: Record<ErrorCode, number> = {
   NOT_FOUND: 404,
   CONFLICT: 409,
   RATE_LIMITED: 429,
+  TOKEN_EXPIRED: 401,
+  BRANCH_REQUIRED: 400,
   INTERNAL_ERROR: 500,
 };
 

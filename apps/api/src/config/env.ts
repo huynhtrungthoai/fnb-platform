@@ -6,6 +6,9 @@ import { z } from 'zod';
 /** Injection token of the validated environment. */
 export const ENV = Symbol('ENV');
 
+/** Secrets in `.env.example` start with this; production refuses them. */
+const DEV_SECRET_PREFIX = 'dev-only-';
+
 const packageJsonSchema = z.object({ version: z.string() });
 
 const envSchema = z.object({
@@ -20,6 +23,8 @@ const envSchema = z.object({
         .map((origin) => origin.trim())
         .filter((origin) => origin.length > 0),
     ),
+  JWT_SECRET: z.string().min(32),
+  ACCESS_TOKEN_TTL_SECONDS: z.coerce.number().int().min(30).default(900),
   TRUST_PROXY: z.coerce.number().int().min(0).max(10).default(0),
   LOGIN_RATE_LIMIT_MAX: z.coerce.number().int().min(1).default(10),
   LOGIN_RATE_LIMIT_WINDOW_SECONDS: z.coerce.number().int().min(1).default(60),
@@ -50,6 +55,14 @@ export function parseEnv(source: Record<string, string | undefined>): z.infer<ty
     throw new EnvValidationError(
       result.error.issues.map((issue) => `${issue.path.join('.')}: ${issue.message}`),
     );
+  }
+  if (
+    result.data.NODE_ENV === 'production' &&
+    result.data.JWT_SECRET.startsWith(DEV_SECRET_PREFIX)
+  ) {
+    throw new EnvValidationError([
+      'JWT_SECRET: the development secret must not be used in production',
+    ]);
   }
   return result.data;
 }

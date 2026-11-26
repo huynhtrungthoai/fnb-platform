@@ -6,6 +6,7 @@ const validSource = {
   NODE_ENV: 'test',
   API_PORT: '4100',
   CORS_ORIGINS: 'http://localhost:5173, http://localhost:5174',
+  JWT_SECRET: 'unit-test-secret-0123456789-abcdefghij',
   DATABASE_URL: 'postgres://fnb:secret@localhost:5432/fnb',
   REDIS_URL: 'redis://localhost:6379',
   S3_ENDPOINT: 'http://localhost:9000',
@@ -51,5 +52,16 @@ describe('parseEnv', () => {
   it('rejects a port outside the valid range', () => {
     expect(() => parseEnv({ ...validSource, API_PORT: '70000' })).toThrow(EnvValidationError);
     expect(() => parseEnv({ ...validSource, API_PORT: 'abc' })).toThrow(EnvValidationError);
+  });
+
+  it('refuses a short JWT secret, and the development secret in production', () => {
+    expect(() => parseEnv({ ...validSource, JWT_SECRET: 'too-short' })).toThrow(EnvValidationError);
+    expect(() =>
+      parseEnv({
+        ...validSource,
+        NODE_ENV: 'production',
+        JWT_SECRET: 'dev-only-jwt-secret-change-me-0123456789',
+      }),
+    ).toThrow(/development secret/);
   });
 });

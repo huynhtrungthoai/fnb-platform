@@ -286,7 +286,9 @@ Vượt hạn mức thì xử lý như thiếu quyền: xin duyệt tại chỗ 
 - Guard chạy theo thứ tự: xác thực → xác định chi nhánh của request → người dùng có được gán ở chi nhánh đó → nhóm có quyền (và đúng `scope`) → hạn mức (kiểm tra trong service vì cần dữ liệu nghiệp vụ).
 - Thiếu quyền trả `403` với mã lỗi `PERMISSION_DENIED` và `requiredPermission`; vượt hạn mức trả `LIMIT_EXCEEDED`.
 - Sự kiện Socket.IO và việc vào room chi nhánh cũng qua cùng bộ kiểm tra.
-- Quyền không nằm trong access token. API đọc quyền thực tế từ cache (Redis, khoá theo người dùng + chi nhánh); cache bị xoá khi nhóm quyền hoặc việc gán nhóm thay đổi. Nhờ vậy thu hồi quyền có hiệu lực ngay, không chờ token hết hạn.
+- Quyền không nằm trong access token. API đọc quyền thực tế từ cache (Redis, một khoá cho mỗi người dùng `rbac:access:<userId>`, chứa mọi bản gán của người đó; quyền tại từng chi nhánh tính từ đó); cache bị xoá khi nhóm quyền hoặc việc gán nhóm thay đổi. Nhờ vậy thu hồi quyền có hiệu lực ngay, không chờ token hết hạn.
+- Chi nhánh của request (M1-11): header `X-Branch-Id` là mặc định. Endpoint về đúng một chi nhánh khai báo `@RequirePermission(code, { branch: { param: 'id' } })` để lấy chi nhánh từ tham số route. Endpoint danh sách tự lọc theo phạm vi của người gọi khai báo `{ branch: 'any' }`: chỉ cần có quyền ở ít nhất một chi nhánh, service lọc bằng `branchReach`. Thiếu chi nhánh trả `400 BRANCH_REQUIRED`.
+- Phiên đăng nhập đang hiệu lực được lưu trong Redis; guard kiểm tra ở mỗi request, nên đăng xuất, khoá tài khoản hay đặt lại PIN cắt quyền truy cập ngay. Token hết hạn hoặc phiên đã thu hồi trả `401 TOKEN_EXPIRED`; thiếu hay sai token trả `401 UNAUTHENTICATED`.
 - Service khác module cần kiểm tra quyền thì gọi `rbac` service; không tự truy vấn bảng `role_permissions`.
 
 ### 7.2 Client (Admin, POS, KDS)
@@ -372,7 +374,7 @@ Bảng `user_role_assignments` thay cho `user_branches` ghi ở plan 10 trước
 Tick ở `90-roadmap.md`.
 
 - [x] M1-10: `definePermissions`, kiểu `PermissionCode`, đồng bộ vào CSDL, seed bảy nhóm mặc định. Đồng bộ danh mục chạy mỗi lần API khởi động (`syncPermissionCatalog`); bảy nhóm mặc định do `pnpm db:seed` tạo (`seedDefaultRoles`), lấy tên và hạn mức từ `DEFAULT_ROLES` trong `packages/contract/src/permissions/roles.ts`.
-- [ ] M1-11: guard mặc định cấm, `@RequirePermission` / `@Authenticated` / `@Public`, ngữ cảnh chi nhánh, `scope`.
+- [x] M1-11: guard mặc định cấm, `@RequirePermission` / `@Authenticated` / `@Public`, ngữ cảnh chi nhánh, `scope`. Code: `apps/api/src/modules/auth/access.guard.ts`, decorator ở `apps/api/src/common/decorators/access.decorators.ts`, cách tính quyền ở `apps/api/src/modules/rbac/access.ts`. Cache quyền làm luôn ở đây vì guard cần.
 - [ ] M1-12: duyệt tại chỗ bằng PIN.
 - [ ] M1-20: màn hình nhóm quyền, `PermissionMatrix`, gán nhóm cho nhân viên.
 - [ ] M1-23: nhóm tuỳ chỉnh, nhân bản, hạn mức, quy tắc mục 8, cache quyền và tín hiệu `permissions.changed` (gateway Socket.IO: M1-26).

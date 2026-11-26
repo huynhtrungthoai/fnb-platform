@@ -8,7 +8,7 @@ import { seedDefaultRoles, syncPermissionCatalog } from '../modules/rbac/rbac-sy
 import { REDIS } from '../redis/redis.module.js';
 
 import type { Database } from '../db/database.js';
-import type { INestApplication } from '@nestjs/common';
+import type { INestApplication, Type } from '@nestjs/common';
 import type { TestingModuleBuilder } from '@nestjs/testing';
 import type { Redis } from 'ioredis';
 import type { Server } from 'node:http';
@@ -48,12 +48,17 @@ export async function truncateAllTables(db: Database): Promise<void> {
 
 /**
  * Boots the real `AppModule` for an integration test (M1-05). External services are replaced
- * through `customize` (`builder.overrideProvider(...)`); Postgres and Redis are real.
+ * through `options.customize` (`builder.overrideProvider(...)`); Postgres and Redis are real.
  */
 export async function createTestApp(
-  customize: (builder: TestingModuleBuilder) => TestingModuleBuilder = (builder) => builder,
+  options: {
+    /** Extra modules, usually a test-only controller. */
+    imports?: Type[];
+    customize?: (builder: TestingModuleBuilder) => TestingModuleBuilder;
+  } = {},
 ): Promise<TestApp> {
-  const moduleRef = await customize(Test.createTestingModule({ imports: [AppModule] })).compile();
+  const builder = Test.createTestingModule({ imports: [AppModule, ...(options.imports ?? [])] });
+  const moduleRef = await (options.customize?.(builder) ?? builder).compile();
   const app = moduleRef.createNestApplication<INestApplication<Server>>();
   app.useLogger(false);
   await app.init();

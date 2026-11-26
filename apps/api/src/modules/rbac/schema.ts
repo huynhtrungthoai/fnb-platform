@@ -1,4 +1,14 @@
-import { boolean, integer, jsonb, pgTable, primaryKey, text, uuid } from 'drizzle-orm/pg-core';
+import {
+  boolean,
+  index,
+  integer,
+  jsonb,
+  pgTable,
+  primaryKey,
+  text,
+  unique,
+  uuid,
+} from 'drizzle-orm/pg-core';
 
 import { localizedText, standardColumns, timestamps } from '../../db/columns.js';
 
@@ -48,4 +58,29 @@ export const rolePermissions = pgTable(
       .references(() => permissions.code),
   },
   (table) => [primaryKey({ columns: [table.roleId, table.permissionCode] })],
+);
+
+/**
+ * Which group a user belongs to at which branch (06 section 3.3). `branch_id` null means
+ * "all branches", including branches created later. One row per user and branch; NULLS NOT
+ * DISTINCT also limits a user to a single all-branches row.
+ */
+export const userRoleAssignments = pgTable(
+  'user_role_assignments',
+  {
+    ...standardColumns(),
+    userId: uuid('user_id').notNull(),
+    branchId: uuid('branch_id'),
+    roleId: uuid('role_id')
+      .notNull()
+      // A group that still has members cannot be deleted (06 section 8).
+      .references(() => roles.id, { onDelete: 'restrict' }),
+  },
+  (table) => [
+    unique('user_role_assignments_user_branch_unique')
+      .on(table.userId, table.branchId)
+      .nullsNotDistinct(),
+    index('user_role_assignments_role_idx').on(table.roleId),
+    index('user_role_assignments_branch_idx').on(table.branchId),
+  ],
 );

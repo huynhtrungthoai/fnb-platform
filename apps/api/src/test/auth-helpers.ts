@@ -1,0 +1,94 @@
+import { eq } from 'drizzle-orm';
+
+import { uuidv7 } from '@fnb/utils';
+
+import { BRANCH_HEADER } from '../common/decorators/access.decorators.js';
+import { AccessTokenService } from '../modules/auth/access-token.service.js';
+import { SessionStore } from '../modules/auth/session-store.js';
+import { RbacService } from '../modules/rbac/rbac.service.js';
+import { rolePermissions, roles, userRoleAssignments } from '../modules/rbac/schema.js';
+
+import type { TestApp } from './test-app.js';
+import type { DefaultRoleCode, PermissionCode } from '@fnb/contract';
+
+/** Id of a default group. */
+export async function roleIdOf(test: TestApp, code: DefaultRoleCode): Promise<string> {
+  const [role] = await test.db.select({ id: roles.id }).from(roles).where(eq(roles.code, code));
+  if (!role) {
+    throw new Error(`Default group ${code} is missing; did reset() run?`);
+  }
+  return role.id;
+}
+
+/** Creates a custom group holding exactly these permissions. */
+export async function createCustomRole(
+  test: TestApp,
+  name: string,
+  codes: readonly PermissionCode[],
+): Promise<string> {
+  const [role] = await test.db
+    .insert(roles)
+    .values({
+      name: { vi: name },
+      limits: { maxDiscountPercent: null, maxPayOutAmount: null, maxRefundAmount: null },
+    })
+    .returning({ id: roles.id });
+  const roleId = role?.id ?? '';
+  if (codes.length > 0) {
+    await test.db
+      .insert(rolePermissions)
+      .values(codes.map((permissionCode) => ({ roleId, permissionCode })));
+  }
+  return roleId;
+}
+
+/** Assigns a group to a user at a branch; `branchId: null` is the all-branches assignment. */
+export async function assignRole(
+  test: TestApp,
+  assignment: { userId: string; branchId: string | null; roleId: string },
+): Promise<void> {
+  await test.db.insert(userRoleAssignments).values(assignment);
+  await test.app.get(RbacService).invalidateUsers([assignment.userId]);
+}
+
+/** A signed-in caller for tests: an active session and its access token. */
+export interface TestSession {
+  userId: string;
+  sessionId: string;
+  token: string;
+  /** Headers for a request at a branch (or without one). */
+  headers: (branchId?: string) => Record<string, string>;
+}
+
+/** Opens a session for a user without going through the login endpoint. */
+export async function openSession(
+  test: TestApp,
+  userId: string,
+  claims: { deviceId?: string; mustChangePin?: boolean; ttlSeconds?: number } = {},
+): Promise<TestSession> {
+  const sessionId = uuidv7();
+  await test.app.get(SessionStore).activate(sessionId, userId, 3600);
+  const token = await test.app
+    .get(AccessTokenService)
+    .sign({ userId, sessionId, ...claims }, claims.ttlSeconds);
+  return {
+    userId,
+    sessionId,
+    token,
+    headers: (branchId) => ({
+      authorization: `Bearer ${token}`,
+      ...(branchId ? { [BRANCH_HEADER]: branchId } : {}),
+    }),
+  };
+}
+
+/** Shortcut: a new user id assigned to a default group at a branch (or all branches), signed in. */
+export async function signInAs(
+  test: TestApp,
+  roleCode: DefaultRoleCode,
+  branchId: string | null,
+): Promise<TestSession> {
+  const userId = uuidv7();
+  await assignRole(test, { userId, branchId, roleId: await roleIdOf(test, roleCode) });
+  return openSession(test, userId);
+}
