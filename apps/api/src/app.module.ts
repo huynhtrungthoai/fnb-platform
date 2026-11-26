@@ -12,6 +12,7 @@ import { HealthModule } from './modules/health/health.module.js';
 import { MediaModule } from './modules/media/media.module.js';
 import { RbacModule } from './modules/rbac/rbac.module.js';
 import { UsersModule } from './modules/users/users.module.js';
+import { QueueModule } from './queue/queue.module.js';
 import { RedisModule } from './redis/redis.module.js';
 
 @Module({
@@ -20,6 +21,7 @@ import { RedisModule } from './redis/redis.module.js';
     CommonModule,
     DatabaseModule,
     RedisModule,
+    QueueModule,
     RateLimitModule,
     AuthModule,
     AuditModule,

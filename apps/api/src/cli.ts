@@ -5,6 +5,7 @@ import { createDatabase, createPool } from './db/database.js';
 import { runMigrations } from './db/migrate.js';
 import { runSeed, seedSteps } from './db/seed.js';
 import { generatePassword, resetOwnerPassword } from './modules/users/reset-owner-password.js';
+import { QueueService } from './queue/queue.service.js';
 
 import type { Env } from './config/env.js';
 
@@ -51,6 +52,32 @@ const COMMANDS: Record<string, Command> = {
         print(`New password (shown once): ${password}`);
       }
     }),
+  /** `jobs-failed <queue>`: jobs that ran out of attempts. */
+  'jobs-failed': async (env, [queueName = '']) => {
+    const queues = new QueueService({ ...env, QUEUE_WORKERS: false });
+    try {
+      for (const job of await queues.failed(queueName)) {
+        print(
+          `${job.id}\t${job.name}\t${job.failedAt ?? '-'}\tattempts=${job.attemptsMade}\t${job.failedReason}`,
+        );
+      }
+    } finally {
+      await queues.onApplicationShutdown();
+    }
+  },
+  /** `jobs-retry <queue> <jobId>`: puts a failed job back in its queue. */
+  'jobs-retry': async (env, [queueName = '', jobId = '']) => {
+    const queues = new QueueService({ ...env, QUEUE_WORKERS: false });
+    try {
+      print(
+        (await queues.retryFailed(queueName, jobId))
+          ? 'Job queued again.'
+          : 'No failed job with that id.',
+      );
+    } finally {
+      await queues.onApplicationShutdown();
+    }
+  },
 };
 
 async function main(): Promise<void> {

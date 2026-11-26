@@ -49,6 +49,11 @@ const envSchema = z.object({
     .default('Q1'),
   SEED_BRANCH_NAME: z.string().trim().min(1).default('Sample branch'),
   REDIS_URL: z.url({ protocol: /^rediss?$/ }),
+  /** Run queue workers in this process (M1-25). `false` for an API instance that only enqueues. */
+  QUEUE_WORKERS: z
+    .enum(['true', 'false'])
+    .default('true')
+    .transform((value) => value === 'true'),
   S3_ENDPOINT: z.url({ protocol: /^https?$/ }),
   S3_REGION: z.string().min(1),
   S3_BUCKET: z.string().min(1),

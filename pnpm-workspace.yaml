@@ -28,6 +28,7 @@ catalog:
   '@types/react-dom': ^19.3.0
   '@types/supertest': ^7.2.1
   '@vitejs/plugin-react': ^6.3.0
+  bullmq: ^6.7.10
   class-variance-authority: ^0.7.1
   clsx: ^2.1.1
   drizzle-kit: ^0.31.11
@@ -72,3 +73,5 @@ allowBuilds:
   '@swc/core': false
   # esbuild (pulled in by drizzle-kit): same case, the platform binary is an optional dependency.
   esbuild: false
+  # msgpackr-extract (pulled in by bullmq): optional native speed-up; msgpackr falls back to plain JS.
+  msgpackr-extract: false

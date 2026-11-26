@@ -30,6 +30,7 @@ const env: Env = {
   LOGIN_RATE_LIMIT_WINDOW_SECONDS: 60,
   DATABASE_URL: 'postgres://fnb:secret@db.test:5432/fnb',
   REDIS_URL: 'redis://redis.test:6379',
+  QUEUE_WORKERS: false,
   SEED_OWNER_USERNAME: 'owner',
   SEED_OWNER_FULL_NAME: 'Owner',
   SEED_BRANCH_CODE: 'Q1',

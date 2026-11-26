@@ -191,6 +191,8 @@ POS (web/Android)                              API
 | Thực đơn đổi, món tạm hết | `catalog.changed`, `product.availability_changed` | So `version`, tải lại thực đơn |
 | Đơn thay đổi | `order.updated` | Tải lại đơn đang mở |
 
+Hàng đợi (M1-25): `QueueService` (`apps/api/src/queue`, BullMQ 6, prefix `fnb`). Module gọi `register(queue, zodSchema, processor)` một lần và `enqueue(queue, jobName, data, { jobId? })`. Mặc định 5 lần thử, giãn cách luỹ thừa từ 2 giây; dữ liệu job parse bằng Zod, sai thì hỏng ngay; processor ném `UnrecoverableError` để không thử lại. Job hỏng hẳn giữ 30 ngày, ghi log lỗi (báo Discord ở M7-07); xem và chạy lại bằng `pnpm --filter @fnb/api cli jobs-failed <queue>` / `jobs-retry <queue> <jobId>`. Worker chạy trong tiến trình API trừ khi `QUEUE_WORKERS=false`.
+
 Khi mất kết nối socket:
 
 - Client tự kết nối lại có giãn cách. **Mỗi lần kết nối lại thì tải lại toàn bộ dữ liệu của màn hình đang mở**, vì sự kiện phát trong lúc mất kết nối không được gửi bù.
