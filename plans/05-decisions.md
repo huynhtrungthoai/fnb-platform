@@ -86,9 +86,9 @@ Node 24 · Turborepo 2.11 · Vite 8 · React 19.3 · TanStack Router 1.170 · Ta
 
 | Rủi ro | Cách xử lý |
 |---|---|
-| Docker daemon trên máy dev đang tắt | Bật Docker Desktop trước khi chạy M0 |
-| Cổng 3000 đang bị tiến trình khác dùng | API dùng cổng **4000** (`API_PORT` trong `.env.example`, M0-03); Admin 5173, POS 5174 |
-| Image `minio/minio` không kéo được từ Docker Hub (kiểm tra bằng `docker manifest inspect` ngày 2026-11-26) | `docker-compose.yml` dùng bản MinIO của Chainguard `cgr.dev/chainguard/minio:latest`; **chưa chạy thử** vì Docker daemon tắt. Nếu image này không chạy được thì đổi sang dịch vụ S3 tương thích khác; code chỉ phụ thuộc giao thức S3 |
+| Docker Desktop phải đang chạy thì hạ tầng local mới lên | `pnpm infra:up` trước `pnpm dev`. Không có hạ tầng thì API vẫn chạy, `/health` báo `degraded` |
+| Cổng trên máy dev đã có dự án khác dùng: 3000 và 5432 | API dùng cổng **4000**; Postgres của compose ra cổng host **5433** (`POSTGRES_PORT`, `DATABASE_URL` trong `.env.example`); Redis 6379, MinIO 9000/9001, Admin 5173, POS 5174. Đổi cổng thì sửa `.env` |
+| Image `minio/minio` không kéo được từ Docker Hub (kiểm tra bằng `docker manifest inspect` ngày 2026-11-26) | `docker-compose.yml` dùng bản MinIO của Chainguard `cgr.dev/chainguard/minio:latest`; đã chạy thử ngày 2026-11-26 (bản `RELEASE.2026-11-23`, `/minio/health/live` trả 200). Image này chỉ có tag `latest` miễn phí nên không ghim được phiên bản; code chỉ phụ thuộc giao thức S3 |
 | In Bluetooth trên web bị giới hạn theo trình duyệt (Web Bluetooth chỉ hỗ trợ máy in BLE) | Spike M3-00; Android in native |
 | Trang HTTPS không gọi thẳng được máy in hay cầu nối trong mạng LAN | Spike M3-00 trước khi làm in ấn; phương án ở O-18 |
 | Máy in không có bảng mã tiếng Việt | In dạng ảnh là mặc định (D-24) |

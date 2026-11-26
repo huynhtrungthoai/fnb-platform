@@ -85,7 +85,7 @@ ESLint (`no-restricted-imports`, `import-x/no-restricted-paths`, `import-x/no-cy
 | Format | Prettier + plugin Tailwind | 3.10 |
 | Test | Vitest (jsdom + Testing Library cho giao diện), Testcontainers (M1-05), Playwright (M7) | 5.1 · 12 |
 | Hạ tầng local | Docker Compose: Postgres, Redis, MinIO | |
-| Cổng local | API 4000 · Admin 5173 · POS 5174 (`strictPort`) | |
+| Cổng local | API 4000 · Admin 5173 · POS 5174 (`strictPort`) · Postgres 5433 · Redis 6379 · MinIO 9000 (console 9001) | |
 | CI | GitHub Actions | |
 
 pnpm 11 chỉ cài bản đã phát hành quá 24 giờ (`minimumReleaseAge`). Bản vừa ra trong ngày thì hạ khoảng phiên bản trong `catalog` của `pnpm-workspace.yaml` xuống bản liền trước (ví dụ NestJS 12.6.2 thay cho 12.6.3 ngày 2026-11-26); không thêm `minimumReleaseAgeExclude`.

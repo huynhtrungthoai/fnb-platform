@@ -12,7 +12,8 @@ services:
       POSTGRES_DB: ${POSTGRES_DB:-fnb}
       TZ: UTC
     ports:
-      - '${POSTGRES_PORT:-5432}:5432'
+      # Host port 5433: 5432 is used by another project on the dev machine.
+      - '${POSTGRES_PORT:-5433}:5432'
     volumes:
       - postgres-data:/var/lib/postgresql/data
     healthcheck:
