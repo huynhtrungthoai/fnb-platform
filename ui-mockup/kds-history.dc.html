@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>KDS phiếu đã xong</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#CA0404}a:hover{color:#9C0303}
+.fnb{--bg:#FFFFFF;--bg-subtle:#F9F6F4;--bg-muted:#F1ECE8;--border:#E4DAD4;--border-strong:#9F8D7F;--text:#282019;--text-muted:#6D5D51;--text-subtle:#7A695C;--primary:#CA0404;--primary-fg:#FFFFFF;--success:#2F7D46;--success-fg:#FFFFFF;--success-subtle:#E0F3E3;--success-text:#17592C;--warning-subtle:#F9ECCE;--warning-text:#795B03;--danger-subtle:#FFE5EA;--danger-text:#8B023D;--shadow-lg:0 12px 32px rgba(40,32,25,.22);font-family:'Be Vietnam Pro',system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.4}
+.fnb.dark{--bg:#1A1411;--bg-subtle:#282019;--bg-muted:#3E332A;--border:#55473D;--border-strong:#857366;--text:#F9F6F4;--text-muted:#D1C3B9;--text-subtle:#B8A79A;--primary:#F84839;--primary-fg:#1A1411;--success:#58A46B;--success-fg:#1A1411;--success-subtle:#002A0E;--success-text:#A0D5AB;--warning-subtle:#2C1F00;--warning-text:#E7C067;--danger-subtle:#45001A;--danger-text:#FEAABC;--shadow-lg:0 12px 32px rgba(0,0,0,.6)}
+.fnb button{font-family:inherit;cursor:pointer}
+.fnb .num{font-variant-numeric:tabular-nums}
+</style>
+</helmet>
+<div class="fnb {{themeClass}}" style="position: relative; width: 1920px; height: 1080px; display: flex; flex-direction: column; overflow: hidden; background: var(--bg)">
+
+  <!-- KdsShell -->
+  <header style="height: 72px; flex-shrink: 0; display: flex; align-items: center; gap: 20px; padding: 0 24px; background: var(--bg-subtle); border-bottom: 1px solid var(--border)">
+    <img src="/_blob/dbbc95b08d47870e1964f1322682c11f" alt="Banhkepchonong" style="width: 48px; height: 48px; object-fit: contain">
+    <div style="display: flex; flex-direction: column">
+      <span style="font-size: 18px; font-weight: 700">Phiếu đã xong · Quận 1</span>
+      <span style="font-size: 14px; color: var(--text-muted)">Hoàn tác để đưa phiếu về bảng nếu báo xong nhầm</span>
+    </div>
+    <div role="tablist" aria-label="Trạm chế biến" style="display: flex; gap: 8px; margin-left: 16px">
+      <sc-for list="{{ stations }}" as="s" hint-placeholder-count="4">
+        <button type="button" role="tab" aria-selected="{{ s.selected }}" style="{{ s.style }}">{{ s.label }}</button>
+      </sc-for>
+    </div>
+    <div style="flex-grow: 1"></div>
+    <div role="radiogroup" aria-label="Khoảng giờ" style="display: flex; gap: 6px; padding: 4px; border-radius: 10px; background: var(--bg-muted)">
+      <sc-for list="{{ ranges }}" as="r" hint-placeholder-count="3">
+        <button type="button" role="radio" aria-checked="{{ r.checked }}" style="{{ r.style }}">{{ r.label }}</button>
+      </sc-for>
+    </div>
+    <a href="kds-board.dc.html" style="height: 56px; padding: 0 20px; box-sizing: border-box; border-radius: 10px; background: var(--primary); color: var(--primary-fg); font-size: 17px; font-weight: 700; display: flex; align-items: center; text-decoration: none">Về bảng phiếu</a>
+    <span class="num" style="font-size: 24px; font-weight: 700">19:40</span>
+  </header>
+
+  <main style="flex-grow: 1; padding: 20px 24px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; align-content: start; overflow: hidden">
+    <sc-for list="{{ tickets }}" as="t" hint-placeholder-count="10">
+      <article aria-label="{{ t.aria }}" style="{{ t.card }}">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid var(--border)">
+          <div style="display: flex; flex-direction: column">
+            <span class="num" style="font-size: 30px; font-weight: 800; line-height: 1.1">{{ t.no }}</span>
+            <span style="font-size: 15px; color: var(--text-muted)">{{ t.type }}</span>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 4px">
+            <span style="{{ t.badge }}">{{ t.state }}</span>
+            <span class="num" style="font-size: 14px; color: var(--text-muted)">{{ t.timing }}</span>
+          </div>
+        </div>
+        <div style="padding: 10px 16px; display: flex; flex-direction: column; gap: 4px; flex-grow: 1">
+          <sc-for list="{{ t.items }}" as="i" hint-placeholder-count="2">
+            <span style="font-size: 18px; font-weight: 600; color: var(--text-muted)"><span class="num" style="font-weight: 800; color: var(--text)">{{ i.q }}×</span> {{ i.n }}</span>
+          </sc-for>
+        </div>
+        <div style="padding: 0 12px 12px">
+          <button type="button" aria-label="{{ t.undoLabel }}" style="width: 100%; height: 56px; border-radius: 10px; border: 1px solid var(--border-strong); background: var(--bg); color: var(--text); font-size: 17px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14 4 9l5-5M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg>
+            Hoàn tác
+          </button>
+        </div>
+      </article>
+    </sc-for>
+  </main>
+
+  <!-- Toast after undo -->
+  <div role="status" style="position: absolute; left: 50%; bottom: 24px; transform: translateX(-50%); display: flex; align-items: center; gap: 14px; padding: 14px 20px; border-radius: 16px; background: var(--text); color: var(--bg); box-shadow: var(--shadow-lg); font-size: 18px; font-weight: 600">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+    Đã đưa phiếu #036 về bảng · quầy được báo huỷ gọi số
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":true},"$preview":{"width":1920,"height":1080}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const pill = (on) => 'height: 56px; padding: 0 18px; border-radius: 999px; font-size: 17px; font-weight: 600; '
+      + (on ? 'border: 1px solid var(--text); background: var(--text); color: var(--bg);' : 'border: 1px solid var(--border); background: transparent; color: var(--text-muted);');
+    const stations = ['Tất cả', 'Bếp nóng', 'Bếp nguội', 'Bar'].map((label, i) => ({ label, selected: i === 1 ? 'true' : 'false', style: pill(i === 1) }));
+    const seg = (on) => 'height: 48px; padding: 0 14px; border: 0; border-radius: 6px; font-size: 15px; '
+      + (on ? 'background: var(--bg); color: var(--text); font-weight: 700;' : 'background: transparent; color: var(--text-muted);');
+    const ranges = ['15 phút', '1 giờ', 'Cả ngày'].map((label, i) => ({ label, checked: i === 1 ? 'true' : 'false', style: seg(i === 1) }));
+    const raw = [
+      ['#037', 'Ăn tại quán', 'Xong 19:39 · làm 9 phút', 'ok', [[1, 'Burger bò'], [1, 'Khoai tây chiên']]],
+      ['#035', 'Mang đi', 'Xong 19:36 · làm 8 phút', 'ok', [[2, 'Hotdog phô mai']]],
+      ['#034', 'Giao hàng', 'Xong 19:33 · làm 13 phút', 'late', [[3, 'Hotdog cổ điển'], [1, 'Gà viên chiên']]],
+      ['#033', 'Ăn tại quán', 'Xong 19:28 · làm 7 phút', 'ok', [[1, 'Hotdog xúc xích Đức']]],
+      ['#032', 'Mang đi', 'Xong 19:25 · làm 6 phút', 'ok', [[2, 'Hotdog cay Hàn Quốc']]],
+      ['#031', 'Ăn tại quán', 'Xong 19:21 · làm 10 phút', 'ok', [[1, 'Burger gà giòn'], [1, 'Hotdog phô mai']]],
+      ['#030', 'Mang đi', 'Xong 19:17 · làm 5 phút', 'ok', [[1, 'Khoai tây chiên']]],
+      ['#029', 'Ăn tại quán', 'Xong 19:12 · làm 14 phút', 'late', [[2, 'Burger bò'], [2, 'Khoai tây chiên']]],
+      ['#028', 'Mang đi', 'Xong 19:08 · làm 8 phút', 'ok', [[1, 'Hotdog cổ điển']]],
+      ['#027', 'Ăn tại quán', 'Xong 19:04 · làm 9 phút', 'ok', [[1, 'Hotdog phô mai'], [1, 'Gà viên chiên']]]
+    ];
+    const tickets = raw.map(([no, type, timing, s, items]) => ({
+      no, type, timing,
+      aria: 'Phiếu ' + no + ' đã xong',
+      undoLabel: 'Hoàn tác phiếu ' + no,
+      state: s === 'late' ? 'Xong · quá giờ' : 'Xong',
+      badge: 'display: inline-flex; align-items: center; height: 26px; padding: 0 10px; border-radius: 999px; font-size: 13px; font-weight: 700; '
+        + (s === 'late' ? 'background: var(--danger-subtle); color: var(--danger-text);' : 'background: var(--success-subtle); color: var(--success-text);'),
+      card: 'display: flex; flex-direction: column; border-radius: 16px; overflow: hidden; background: var(--bg-subtle); border: 1px solid var(--border);',
+      items: items.map(([q, n]) => ({ q, n }))
+    }));
+    return { themeClass: this.props.dark ? 'dark' : '', stations, ranges, tickets };
+  }
+}
+</script>
+</body>
+</html>

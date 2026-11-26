@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Web khách trang chủ</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&amp;family=Baloo+2:wght@700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#CA0404}a:hover{color:#9C0303}
+.fnb{--bg:#FFFFFF;--bg-subtle:#F9F6F4;--bg-muted:#F1ECE8;--border:#E4DAD4;--border-strong:#9F8D7F;--text:#282019;--text-muted:#6D5D51;--text-subtle:#7A695C;--primary:#CA0404;--primary-fg:#FFFFFF;--primary-subtle:#FEE7E3;--primary-text:#9C0303;--accent:#ED6F03;--accent-fg:#211510;--accent-subtle:#FEE8DC;--accent-text:#984502;--brick:#8A2A26;--band:#F6F1EA;--shadow-sm:0 1px 2px rgba(40,32,25,.08),0 1px 3px rgba(40,32,25,.06);--shadow-md:0 8px 24px rgba(40,32,25,.12);font-family:'Be Vietnam Pro',system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.5}
+.fnb.dark{--bg:#1A1411;--bg-subtle:#282019;--bg-muted:#3E332A;--border:#55473D;--border-strong:#857366;--text:#F9F6F4;--text-muted:#D1C3B9;--text-subtle:#B8A79A;--primary:#F84839;--primary-fg:#1A1411;--primary-subtle:#470000;--primary-text:#FEAEA2;--accent:#FA8840;--accent-fg:#1A1411;--accent-subtle:#3A1600;--accent-text:#FEB187;--brick:#62211E;--band:#282019;--shadow-sm:0 1px 2px rgba(0,0,0,.4);--shadow-md:0 8px 24px rgba(0,0,0,.5)}
+.fnb button{font-family:inherit;cursor:pointer}
+.fnb .num{font-variant-numeric:tabular-nums}
+.fnb .display{font-family:'Baloo 2',sans-serif;font-weight:800;line-height:1.08}
+.fnb .navlink{color:#FFFFFF;text-decoration:none;font-size:15px;font-weight:600;padding:10px 4px;opacity:.9}
+.fnb .navlink:hover{opacity:1;color:#FFFFFF}
+</style>
+</helmet>
+<div class="fnb {{themeClass}}" style="width: 100%; min-height: 1760px; background: var(--bg)">
+
+  <!-- CustomerShell header -->
+  <header style="background: var(--brick); color: #FFFFFF">
+    <div style="max-width: 1240px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap">
+      <a href="#" style="display: flex; align-items: center; gap: 12px; color: #FFFFFF; text-decoration: none">
+        <span style="width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center"><img src="/_blob/dbbc95b08d47870e1964f1322682c11f" alt="" style="width: 42px; height: 42px; object-fit: contain"></span>
+        <span class="display" style="font-size: 26px">Banhkepchonong</span>
+      </a>
+      <nav aria-label="Điều hướng chính" style="display: flex; gap: 20px; flex-wrap: wrap">
+        <a href="#menu" class="navlink">Thực đơn</a>
+        <a href="#" class="navlink">Ưu đãi</a>
+        <a href="#" class="navlink">Cửa hàng</a>
+        <a href="#" class="navlink">Đơn của tôi</a>
+      </nav>
+      <div style="flex-grow: 1"></div>
+      <button type="button" style="height: 44px; padding: 0 14px; border-radius: 999px; border: 1px solid rgba(255,255,255,.45); background: transparent; color: #FFFFFF; font-size: 14px; display: flex; align-items: center; gap: 6px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        Quận 1 · mở đến 22:00
+      </button>
+      <button type="button" aria-label="Đổi giao diện sáng tối" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid rgba(255,255,255,.45); background: transparent; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></button>
+      <button type="button" aria-label="Ngôn ngữ" style="height: 44px; padding: 0 12px; border-radius: 999px; border: 1px solid rgba(255,255,255,.45); background: transparent; color: #FFFFFF; font-size: 13px; font-weight: 700">VI</button>
+      <button type="button" style="height: 44px; padding: 0 16px; border-radius: 999px; border: 0; background: #F6F1EA; color: #8A2A26; font-size: 15px; font-weight: 800; display: flex; align-items: center; gap: 8px">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4ZM3 6h18M16 10a4 4 0 0 1-8 0"/></svg>
+        Giỏ · <span class="num">3</span>
+      </button>
+    </div>
+    <svg width="100%" height="36" viewBox="0 0 1440 36" preserveAspectRatio="none" aria-hidden="true" style="display: block"><path d="M0 36V14c60 0 60 16 120 16s60-22 120-22 60 22 120 22 60-22 120-22 60 22 120 22 60-22 120-22 60 22 120 22 60-22 120-22 60 22 120 22 60-22 120-22 60 22 120 22 60-16 120-16v22Z" fill="var(--band)"/></svg>
+  </header>
+
+  <!-- Hero -->
+  <section style="background: var(--band)">
+    <div style="max-width: 1240px; margin: 0 auto; padding: 24px 24px 56px; display: flex; gap: 48px; align-items: center; flex-wrap: wrap">
+      <div style="flex: 1 1 420px; display: flex; flex-direction: column; gap: 16px">
+        <span style="width: fit-content; height: 30px; padding: 0 14px; border-radius: 999px; background: var(--accent); color: var(--accent-fg); font-size: 14px; font-weight: 800; display: flex; align-items: center">Thứ Ba vui vẻ · giảm 20%</span>
+        <h1 class="display" style="margin: 0; font-size: 64px; color: var(--primary)">Nóng hổi,<br>kẹp liền tay!</h1>
+        <p style="margin: 0; font-size: 19px; color: var(--text-muted); max-width: 480px">Hotdog, burger nướng tại chỗ. Đặt trước trên web, đến quầy đọc số là nhận món, khỏi chờ.</p>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px">
+          <a href="#menu" style="height: 52px; padding: 0 28px; border-radius: 16px; background: var(--primary); color: var(--primary-fg); font-size: 17px; font-weight: 800; display: flex; align-items: center; text-decoration: none; box-shadow: var(--shadow-md)">Đặt món ngay</a>
+          <a href="#" style="height: 52px; padding: 0 24px; border-radius: 16px; border: 1px solid var(--border-strong); background: var(--bg); color: var(--text); font-size: 17px; font-weight: 600; display: flex; align-items: center; text-decoration: none">Xem 3 cửa hàng</a>
+        </div>
+      </div>
+      <div style="flex: 1 1 420px; display: flex; justify-content: center">
+        <div style="width: 100%; max-width: 520px; aspect-ratio: 4 / 3; border-radius: 32px; display: flex; align-items: center; justify-content: center">
+          <img src="/_blob/5bc8172d66702a09b8368bb2966b5020" alt="Logo Bánh Kẹp Chó Nóng" style="width: 78%; height: auto; object-fit: contain">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Menu + cart -->
+  <section id="menu" style="max-width: 1240px; margin: 0 auto; padding: 48px 24px 64px; display: flex; gap: 32px; align-items: flex-start; flex-wrap: wrap">
+    <div style="flex: 999 1 640px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+      <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap">
+        <h2 class="display" style="margin: 0; font-size: 40px">Thực đơn</h2>
+        <label style="display: flex; align-items: center; gap: 8px; height: 48px; padding: 0 16px; border-radius: 16px; border: 1px solid var(--border-strong); background: var(--bg); color: var(--text-subtle); min-width: 280px">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="search" placeholder="Tìm món" style="border: 0; outline: 0; background: transparent; font: inherit; font-size: 16px; color: var(--text); flex-grow: 1">
+        </label>
+      </div>
+      <div role="tablist" aria-label="Nhóm món" style="display: flex; flex-wrap: wrap; gap: 8px">
+        <sc-for list="{{ chips }}" as="c" hint-placeholder-count="5">
+          <button type="button" role="tab" aria-selected="{{ c.selected }}" style="{{ c.style }}">{{ c.label }}</button>
+        </sc-for>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px">
+        <sc-for list="{{ products }}" as="p" hint-placeholder-count="6">
+          <article style="{{ p.cardStyle }}">
+            <div style="position: relative; aspect-ratio: 4 / 3; background: var(--bg-muted); display: flex; align-items: center; justify-content: center; color: var(--text-subtle)">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2M7 2v20M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>
+              <sc-if value="{{ p.hasBadge }}" hint-placeholder-val="{{ false }}">
+                <span style="{{ p.badgeStyle }}">{{ p.badge }}</span>
+              </sc-if>
+            </div>
+            <div style="padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 4px; flex-grow: 1">
+              <span style="font-size: 17px; font-weight: 700">{{ p.name }}</span>
+              <span style="font-size: 14px; color: var(--text-muted)">{{ p.desc }}</span>
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 10px">
+                <span class="num" style="font-size: 18px; font-weight: 800">{{ p.price }}</span>
+                <sc-if value="{{ p.available }}" hint-placeholder-val="{{ true }}">
+                  <button type="button" aria-label="{{ p.addLabel }}" style="width: 44px; height: 44px; border-radius: 999px; border: 0; background: var(--primary); color: var(--primary-fg); display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg></button>
+                </sc-if>
+                <sc-if value="{{ p.soldOut }}" hint-placeholder-val="{{ false }}">
+                  <span style="font-size: 13px; font-weight: 700; color: var(--text-muted)">Tạm hết hôm nay</span>
+                </sc-if>
+              </div>
+            </div>
+          </article>
+        </sc-for>
+      </div>
+    </div>
+
+    <!-- CartPanel -->
+    <aside aria-label="Giỏ của bạn" style="flex: 1 1 320px; max-width: 380px; position: sticky; top: 24px; border-radius: 20px; border: 1px solid var(--border); background: var(--bg); box-shadow: var(--shadow-md); padding: 20px; display: flex; flex-direction: column; gap: 14px">
+      <div style="display: flex; align-items: baseline; justify-content: space-between">
+        <span class="display" style="font-size: 26px">Giỏ của bạn</span>
+        <span style="font-size: 13px; color: var(--text-muted)">Nhận tại Quận 1</span>
+      </div>
+      <sc-for list="{{ cart }}" as="l" hint-placeholder-count="3">
+        <div style="display: flex; gap: 10px; font-size: 14px">
+          <span class="num" style="min-width: 28px; height: 28px; border-radius: 8px; background: var(--bg-muted); display: flex; align-items: center; justify-content: center; font-weight: 700">{{ l.qty }}</span>
+          <div style="flex-grow: 1; display: flex; flex-direction: column">
+            <span style="font-weight: 600">{{ l.name }}</span>
+            <span style="font-size: 13px; color: var(--text-muted)">{{ l.mods }}</span>
+          </div>
+          <span class="num" style="font-weight: 700">{{ l.price }}</span>
+        </div>
+      </sc-for>
+      <div style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 14px; background: var(--accent-subtle); color: var(--accent-text); font-size: 14px; font-weight: 600">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2H2v10l9.29 9.29a1 1 0 0 0 1.41 0l8.59-8.59a1 1 0 0 0 0-1.41ZM7 7h.01"/></svg>
+        Thêm 5.000 ₫ để dùng ưu đãi 20%
+      </div>
+      <div style="display: flex; justify-content: space-between; align-items: baseline; padding-top: 12px; border-top: 1px dashed var(--border-strong)">
+        <span style="font-weight: 700">Tạm tính</span>
+        <span class="num" style="font-size: 24px; font-weight: 800">95.000 ₫</span>
+      </div>
+      <button type="button" style="height: 52px; border-radius: 16px; border: 0; background: var(--primary); color: var(--primary-fg); font-size: 17px; font-weight: 800">Thanh toán</button>
+      <span style="font-size: 13px; color: var(--text-muted); text-align: center">Thanh toán xong, quán gửi bạn số thứ tự để nhận món.</span>
+    </aside>
+  </section>
+
+  <!-- Footer -->
+  <footer style="background: var(--brick); color: #FFFFFF">
+    <div style="max-width: 1240px; margin: 0 auto; padding: 32px 24px; display: flex; gap: 32px; flex-wrap: wrap; align-items: center; font-size: 14px">
+      <span class="display" style="font-size: 24px">Banhkepchonong Burger&amp;Co</span>
+      <span style="opacity: .9">3 cửa hàng · mở 06:30–22:00</span>
+      <div style="flex-grow: 1"></div>
+      <div role="radiogroup" aria-label="Giao diện" style="display: inline-flex; padding: 4px; gap: 4px; border-radius: 999px; background: rgba(255,255,255,.14)">
+        <button type="button" role="radio" aria-checked="true" style="height: 36px; padding: 0 14px; border: 0; border-radius: 999px; background: #F6F1EA; color: #8A2A26; font-size: 13px; font-weight: 700">Hệ thống</button>
+        <button type="button" role="radio" aria-checked="false" style="height: 36px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; color: #FFFFFF; font-size: 13px">Sáng</button>
+        <button type="button" role="radio" aria-checked="false" style="height: 36px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; color: #FFFFFF; font-size: 13px">Tối</button>
+      </div>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":1440,"height":1760}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const chips = ['Nổi bật', 'Hotdog', 'Burger', 'Món thêm', 'Đồ uống'].map((label, i) => ({
+      label,
+      selected: i === 0 ? 'true' : 'false',
+      style: 'height: 44px; padding: 0 18px; border-radius: 999px; font-size: 15px; '
+        + (i === 0 ? 'border: 0; background: var(--text); color: var(--bg); font-weight: 600;' : 'border: 1px solid var(--border); background: var(--bg); color: var(--text);')
+    }));
+    const raw = [
+      { name: 'Hotdog cay Hàn Quốc', desc: 'Sốt gochujang, kim chi giòn', price: '49.000 ₫', badge: 'Mới', tone: 'soft' },
+      { name: 'Hotdog phô mai', desc: 'Phô mai cheddar tan chảy, hành phi', price: '45.000 ₫', badge: '-20%', tone: 'solid' },
+      { name: 'Hotdog cổ điển', desc: 'Xúc xích nướng, mù tạt, sốt cà chua', price: '35.000 ₫' },
+      { name: 'Burger bò', desc: 'Bò nướng, rau tươi, sốt nhà làm', price: '59.000 ₫' },
+      { name: 'Burger bò phô mai đôi', desc: 'Hai lớp bò, hai lớp phô mai', price: '79.000 ₫', soldOut: true },
+      { name: 'Trà đào cam sả', desc: 'Đào miếng, cam tươi, sả thơm', price: '29.000 ₫' }
+    ];
+    const products = raw.map((p) => ({
+      ...p,
+      badge: p.badge ?? '',
+      hasBadge: (p.badge ?? '') !== '',
+      soldOut: !!p.soldOut,
+      available: !p.soldOut,
+      addLabel: 'Thêm ' + p.name,
+      badgeStyle: 'position: absolute; top: 12px; left: 12px; height: 28px; padding: 0 12px; border-radius: 999px; font-size: 13px; font-weight: 800; display: flex; align-items: center; '
+        + (p.tone === 'solid' ? 'background: var(--accent); color: var(--accent-fg);' : 'background: var(--accent-subtle); color: var(--accent-text);'),
+      cardStyle: 'display: flex; flex-direction: column; border-radius: 20px; overflow: hidden; background: var(--bg); border: 1px solid var(--border); box-shadow: var(--shadow-sm);' + (p.soldOut ? ' opacity: .6;' : '')
+    }));
+    const cart = [
+      { qty: 1, name: 'Hotdog phô mai', mods: 'Sốt cay', price: '45.000 ₫' },
+      { qty: 1, name: 'Hotdog cổ điển', mods: '', price: '35.000 ₫' },
+      { qty: 1, name: 'Coca-Cola lon', mods: '', price: '15.000 ₫' }
+    ];
+    return { themeClass: this.props.dark ? 'dark' : '', chips, products, cart };
+  }
+}
+</script>
+</body>
+</html>

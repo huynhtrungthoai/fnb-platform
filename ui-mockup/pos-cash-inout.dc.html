@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>POS nộp rút tiền</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#CA0404}a:hover{color:#9C0303}
+.fnb{--bg:#FFFFFF;--bg-subtle:#F9F6F4;--bg-muted:#F1ECE8;--border:#E4DAD4;--border-strong:#9F8D7F;--text:#282019;--text-muted:#6D5D51;--text-subtle:#7A695C;--primary:#CA0404;--primary-fg:#FFFFFF;--primary-subtle:#FEE7E3;--primary-text:#9C0303;--success:#2F7D46;--success-subtle:#E0F3E3;--success-text:#17592C;--warning:#F5BC09;--warning-fg:#211510;--warning-subtle:#F9ECCE;--warning-text:#795B03;--info-subtle:#E1EEFE;--info-text:#184B83;--shadow-sm:0 1px 2px rgba(40,32,25,.08),0 1px 3px rgba(40,32,25,.06);font-family:'Be Vietnam Pro',system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.45}
+.fnb.dark{--bg:#1A1411;--bg-subtle:#282019;--bg-muted:#3E332A;--border:#55473D;--border-strong:#857366;--text:#F9F6F4;--text-muted:#D1C3B9;--text-subtle:#B8A79A;--primary:#F84839;--primary-fg:#1A1411;--primary-subtle:#470000;--primary-text:#FEAEA2;--success:#58A46B;--success-subtle:#002A0E;--success-text:#A0D5AB;--warning:#F5BC09;--warning-fg:#1A1411;--warning-subtle:#2C1F00;--warning-text:#E7C067;--info-subtle:#012145;--info-text:#9DC9FF;--shadow-sm:0 1px 2px rgba(0,0,0,.4)}
+.fnb button{font-family:inherit;cursor:pointer}
+.fnb .num{font-variant-numeric:tabular-nums}
+</style>
+</helmet>
+<div class="fnb {{themeClass}}" style="width: 1280px; height: 800px; display: flex; flex-direction: column; overflow: hidden; background: var(--bg-subtle)">
+
+  <!-- PosShell -->
+  <header style="height: 56px; flex-shrink: 0; display: flex; align-items: center; gap: 16px; padding: 0 16px; background: var(--bg); border-bottom: 1px solid var(--border)">
+    <img src="/_blob/dbbc95b08d47870e1964f1322682c11f" alt="Banhkepchonong" style="width: 40px; height: 40px; object-fit: contain">
+    <div style="display: flex; flex-direction: column">
+      <span style="font-size: 14px; font-weight: 600">Banhkepchonong · Chi nhánh Quận 1</span>
+      <span style="font-size: 12px; color: var(--text-muted)">Ca sáng · Thu ngân: Nguyễn Lan</span>
+    </div>
+    <div style="flex-grow: 1"></div>
+    <span style="display: inline-flex; align-items: center; height: 28px; padding: 0 10px; border-radius: 999px; background: var(--success-subtle); color: var(--success-text); font-size: 13px; font-weight: 500">Trực tuyến</span>
+    <span style="display: inline-flex; align-items: center; height: 28px; padding: 0 10px; border-radius: 999px; background: var(--bg-muted); color: var(--text-muted); font-size: 13px; font-weight: 500">Đã đồng bộ</span>
+    <span class="num" style="font-size: 15px; font-weight: 600">12:20</span>
+  </header>
+
+  <main style="flex-grow: 1; display: flex; gap: 24px; padding: 20px 24px; min-height: 0">
+    <!-- Form -->
+    <section aria-labelledby="ioTitle" style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+      <h1 id="ioTitle" style="margin: 0; font-size: 24px; font-weight: 700">Nộp / rút tiền két</h1>
+      <div role="radiogroup" aria-label="Loại thao tác" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+        <button type="button" role="radio" aria-checked="false" style="height: 64px; border-radius: 10px; border: 1px solid var(--border-strong); background: var(--bg); color: var(--text); font-size: 17px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+          Nộp vào két
+        </button>
+        <button type="button" role="radio" aria-checked="true" style="height: 64px; border-radius: 10px; border: 2px solid var(--primary); background: var(--primary-subtle); color: var(--primary-text); font-size: 17px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 10px">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+          Rút ra khỏi két
+        </button>
+      </div>
+
+      <span style="font-size: 15px; font-weight: 600">Loại</span>
+      <div role="radiogroup" aria-label="Loại rút" style="display: flex; flex-wrap: wrap; gap: 8px">
+        <sc-for list="{{ kinds }}" as="k" hint-placeholder-count="4">
+          <button type="button" role="radio" aria-checked="{{ k.checked }}" style="{{ k.style }}">{{ k.label }}</button>
+        </sc-for>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+        <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px">
+          <span style="font-weight: 600">Chuyển về quỹ</span>
+          <span style="height: 56px; box-sizing: border-box; padding: 0 14px; border: 1px solid var(--border-strong); border-radius: 10px; background: var(--bg); display: flex; align-items: center; font-size: 16px">Két chính · Quận 1</span>
+        </label>
+        <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px">
+          <span style="font-weight: 600">Lý do</span>
+          <span style="height: 56px; box-sizing: border-box; padding: 0 14px; border: 1px solid var(--border-strong); border-radius: 10px; background: var(--bg); display: flex; align-items: center; font-size: 16px">Két nhiều tiền, gom về két chính</span>
+        </label>
+      </div>
+
+      <div role="status" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 10px; background: var(--warning-subtle); color: var(--warning-text); font-size: 14px">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
+        <span><strong>Vượt hạn mức thu ngân (1.000.000 ₫).</strong> Bấm xác nhận sẽ mở hộp quản lý duyệt bằng PIN.</span>
+      </div>
+
+      <div style="flex-grow: 1"></div>
+      <section aria-labelledby="recentTitle" style="display: flex; flex-direction: column; gap: 6px">
+        <h2 id="recentTitle" style="margin: 0; font-size: 15px; font-weight: 700">Nộp/rút trong ca này</h2>
+        <div style="border-radius: 10px; border: 1px solid var(--border); background: var(--bg); overflow: hidden">
+          <sc-for list="{{ recent }}" as="r" hint-placeholder-count="2">
+            <div style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-bottom: 1px solid var(--border); font-size: 14px">
+              <span class="num" style="width: 52px; color: var(--text-muted)">{{ r.time }}</span>
+              <span style="{{ r.badge }}">{{ r.kind }}</span>
+              <span style="flex-grow: 1">{{ r.note }}</span>
+              <span style="color: var(--text-muted)">{{ r.by }}</span>
+              <span class="num" style="width: 120px; text-align: right; font-weight: 700">{{ r.amount }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+    </section>
+
+    <!-- MoneyInput + NumPad -->
+    <aside style="width: 380px; flex-shrink: 0; display: flex; flex-direction: column; gap: 12px">
+      <label style="display: flex; flex-direction: column; gap: 6px">
+        <span style="font-size: 15px; font-weight: 600">Số tiền rút</span>
+        <span class="num" style="height: 68px; display: flex; align-items: center; justify-content: flex-end; padding: 0 16px; border: 2px solid var(--primary); border-radius: 10px; background: var(--bg); font-size: 32px; font-weight: 800">2.000.000 ₫</span>
+      </label>
+      <div style="display: flex; justify-content: space-between; padding: 10px 14px; border-radius: 10px; background: var(--bg); border: 1px solid var(--border); font-size: 14px">
+        <span style="color: var(--text-muted)">Tiền mặt dự kiến sau khi rút</span>
+        <span class="num" style="font-weight: 700">2.110.000 ₫</span>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+        <sc-for list="{{ keys }}" as="k" hint-placeholder-count="12">
+          <button type="button" class="num" aria-label="{{ k.aria }}" style="height: 64px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg); color: var(--text); font-size: 24px; font-weight: 600">{{ k.label }}</button>
+        </sc-for>
+      </div>
+      <label style="display: flex; align-items: center; gap: 10px; min-height: 44px; font-size: 14px; color: var(--text-muted)">
+        <input type="checkbox" checked="checked" style="width: 22px; height: 22px; accent-color: var(--primary)">
+        In phiếu rút tiền
+      </label>
+    </aside>
+  </main>
+
+  <!-- ActionBar -->
+  <footer style="height: 80px; flex-shrink: 0; display: flex; align-items: center; gap: 8px; padding: 0 16px; background: var(--bg); border-top: 1px solid var(--border)">
+    <a href="pos-sale.dc.html" style="height: 56px; padding: 0 20px; box-sizing: border-box; border-radius: 10px; border: 1px solid var(--border-strong); background: var(--bg); color: var(--text); font-size: 16px; font-weight: 600; display: flex; align-items: center; text-decoration: none">Huỷ</a>
+    <div style="flex-grow: 1"></div>
+    <button type="button" style="height: 56px; min-width: 360px; padding: 0 20px; border-radius: 10px; border: 0; background: var(--primary); color: var(--primary-fg); font-size: 17px; font-weight: 700">Xin duyệt và rút 2.000.000 ₫</button>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const chip = (on) => 'height: 52px; padding: 0 18px; border-radius: 999px; font-size: 15px; font-weight: 600; '
+      + (on ? 'border: 1px solid var(--text); background: var(--text); color: var(--bg);' : 'border: 1px solid var(--border-strong); background: var(--bg); color: var(--text);');
+    const kinds = ['Rút về két chính', 'Chi vặt (mua đá, rau)', 'Trả nhà cung cấp', 'Khác'].map((label, i) => ({
+      label, checked: i === 0 ? 'true' : 'false', style: chip(i === 0)
+    }));
+    const badge = (t) => 'display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 999px; font-size: 12px; font-weight: 700; '
+      + (t === 'in' ? 'background: var(--success-subtle); color: var(--success-text);' : 'background: var(--info-subtle); color: var(--info-text);');
+    const recent = [
+      { time: '09:50', kind: 'Nộp vào', note: 'Bổ sung tiền lẻ', by: 'Nguyễn Lan', amount: '+500.000 ₫', t: 'in' },
+      { time: '11:35', kind: 'Rút ra', note: 'Mua đá viên', by: 'Nguyễn Lan', amount: '−500.000 ₫', t: 'out' }
+    ].map((r) => ({ ...r, badge: badge(r.t) }));
+    const labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '000', '0', '⌫'];
+    return {
+      themeClass: this.props.dark ? 'dark' : '',
+      kinds, recent,
+      keys: labels.map((l) => ({ label: l, aria: l === '⌫' ? 'Xoá một số' : l }))
+    };
+  }
+}
+</script>
+</body>
+</html>

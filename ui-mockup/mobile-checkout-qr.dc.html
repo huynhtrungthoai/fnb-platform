@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Mobile thanh toán QR</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&amp;family=Baloo+2:wght@700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#CA0404}a:hover{color:#9C0303}
+.fnb{--bg:#FFFFFF;--bg-subtle:#F9F6F4;--bg-muted:#F1ECE8;--border:#E4DAD4;--border-strong:#9F8D7F;--text:#282019;--text-muted:#6D5D51;--text-subtle:#7A695C;--primary:#CA0404;--primary-fg:#FFFFFF;--primary-text:#9C0303;--warning:#F5BC09;--warning-subtle:#F9ECCE;--warning-text:#795B03;font-family:'Be Vietnam Pro',system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.45}
+.fnb.dark{--bg:#1A1411;--bg-subtle:#282019;--bg-muted:#3E332A;--border:#55473D;--border-strong:#857366;--text:#F9F6F4;--text-muted:#D1C3B9;--text-subtle:#B8A79A;--primary:#F84839;--primary-fg:#1A1411;--primary-text:#FEAEA2;--warning:#F5BC09;--warning-subtle:#2C1F00;--warning-text:#E7C067}
+.fnb button{font-family:inherit;cursor:pointer}
+.fnb .num{font-variant-numeric:tabular-nums}
+.fnb .display{font-family:'Baloo 2',sans-serif;font-weight:800;line-height:1.1}
+.fnb .spin{width:18px;height:18px;border-radius:999px;border:2px solid currentColor;border-right-color:transparent;animation:fnbspin .9s linear infinite}
+@keyframes fnbspin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.fnb .spin{animation:none}}
+</style>
+</helmet>
+<div class="fnb {{themeClass}}" style="width: 390px; height: 844px; overflow: hidden; display: flex; flex-direction: column; background: var(--bg-subtle)">
+
+  <header style="flex-shrink: 0; height: 56px; display: flex; align-items: center; gap: 8px; padding: 0 8px; background: var(--bg); border-bottom: 1px solid var(--border)">
+    <a href="mobile-cart.dc.html" aria-label="Quay lại giỏ hàng" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; color: var(--text)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></a>
+    <h1 class="display" style="margin: 0; font-size: 22px; flex-grow: 1">Thanh toán</h1>
+  </header>
+
+  <main style="flex-grow: 1; padding: 16px; display: flex; flex-direction: column; gap: 12px">
+    <section aria-label="Mã QR chuyển khoản" style="border-radius: 16px; background: var(--bg); border: 1px solid var(--border); padding: 20px; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center">
+      <span style="font-size: 14px; color: var(--text-muted)">Số tiền cần chuyển</span>
+      <span class="num display" style="font-size: 40px; color: var(--text)">119.000 ₫</span>
+      <!-- QrDisplay placeholder (not a real code) -->
+      <div role="img" aria-label="Mã QR mẫu, chưa phải mã thật" style="padding: 12px; border-radius: 16px; background: #FFFFFF; border: 1px solid var(--border)">
+        <div style="display: grid; grid-template-columns: repeat(21, 9px); grid-auto-rows: 9px">
+          <sc-for list="{{ cells }}" as="c" hint-placeholder-count="441">
+            <span style="{{ c }}"></span>
+          </sc-for>
+        </div>
+      </div>
+      <div style="width: 100%; display: flex; flex-direction: column; gap: 6px; font-size: 14px; text-align: left">
+        <div style="display: flex; justify-content: space-between"><span style="color: var(--text-muted)">Ngân hàng</span><span style="font-weight: 600">[NGÂN HÀNG CỦA QUÁN]</span></div>
+        <div style="display: flex; justify-content: space-between; gap: 8px"><span style="color: var(--text-muted)">Nội dung</span><span class="num" style="font-family: ui-monospace, monospace; font-weight: 700">BKCN A0145</span></div>
+      </div>
+    </section>
+
+    <div role="status" style="display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 16px; background: var(--warning-subtle); color: var(--warning-text); font-size: 14px; font-weight: 600">
+      <span class="spin" aria-hidden="true"></span>
+      <span style="flex-grow: 1">Đang chờ thanh toán…</span>
+      <span class="num">Còn 09:42</span>
+    </div>
+    <span style="font-size: 13px; color: var(--text-muted); text-align: center; padding: 0 12px">Giữ nguyên nội dung chuyển khoản. Quán xác nhận xong sẽ gửi số thứ tự cho bạn và chuyển món xuống bếp.</span>
+  </main>
+
+  <div style="flex-shrink: 0; padding: 12px 16px 28px; background: var(--bg); border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 8px">
+    <button type="button" style="height: 52px; border-radius: 16px; border: 1px solid var(--border-strong); background: var(--bg); color: var(--text); font-size: 16px; font-weight: 600">Mở app ngân hàng</button>
+    <a href="mobile-order-status.dc.html" style="height: 44px; display: flex; align-items: center; justify-content: center; font-size: 14px; color: var(--text-muted); text-decoration: none">Xem trước: đã thanh toán →</a>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const N = 21;
+    const finder = (x, y) => {
+      const inBox = (ox, oy) => x >= ox && x < ox + 7 && y >= oy && y < oy + 7;
+      const box = [[0, 0], [N - 7, 0], [0, N - 7]].find(([ox, oy]) => inBox(ox, oy));
+      if (!box) return null;
+      const dx = x - box[0];
+      const dy = y - box[1];
+      const ring = Math.min(dx, dy, 6 - dx, 6 - dy);
+      return ring === 0 || ring >= 2;
+    };
+    const cells = [];
+    for (let y = 0; y < N; y += 1) {
+      for (let x = 0; x < N; x += 1) {
+        const f = finder(x, y);
+        const on = f ?? (((x * 7 + y * 13 + x * y) % 5) < 2);
+        cells.push('background: ' + (on ? '#1A1411' : '#FFFFFF') + ';');
+      }
+    }
+    return { themeClass: this.props.dark ? 'dark' : '', cells };
+  }
+}
+</script>
+</body>
+</html>

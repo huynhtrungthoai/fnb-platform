@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Admin đăng nhập</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#CA0404}a:hover{color:#9C0303}
+.fnb{--bg:#FFFFFF;--bg-subtle:#F9F6F4;--bg-muted:#F1ECE8;--border:#E4DAD4;--border-strong:#9F8D7F;--text:#282019;--text-muted:#6D5D51;--text-subtle:#7A695C;--primary:#CA0404;--primary-fg:#FFFFFF;--primary-subtle:#FEE7E3;--primary-text:#9C0303;--warning-subtle:#F9ECCE;--warning-text:#795B03;--danger:#C2185B;--danger-subtle:#FFE5EA;--danger-text:#8B023D;--shadow-md:0 4px 12px rgba(40,32,25,.12);font-family:'Be Vietnam Pro',system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.45}
+.fnb.dark{--bg:#1A1411;--bg-subtle:#282019;--bg-muted:#3E332A;--border:#55473D;--border-strong:#857366;--text:#F9F6F4;--text-muted:#D1C3B9;--text-subtle:#B8A79A;--primary:#F84839;--primary-fg:#1A1411;--primary-subtle:#470000;--primary-text:#FEAEA2;--warning-subtle:#2C1F00;--warning-text:#E7C067;--danger:#EF4B7F;--danger-subtle:#45001A;--danger-text:#FEAABC;--shadow-md:0 4px 12px rgba(0,0,0,.5)}
+.fnb button{font-family:inherit;cursor:pointer}
+.fnb .num{font-variant-numeric:tabular-nums}
+</style>
+</helmet>
+<div class="fnb {{themeClass}}" style="width: 100%; min-height: 900px; display: flex; flex-direction: column; background: var(--bg-subtle)">
+  <header style="display: flex; align-items: center; justify-content: flex-end; gap: 8px; padding: 16px 24px">
+    <div role="group" aria-label="Ngôn ngữ" style="display: flex; border: 1px solid var(--border); border-radius: 10px; overflow: hidden">
+      <button type="button" aria-pressed="true" style="height: 40px; min-width: 44px; border: 0; background: var(--bg-muted); color: var(--text); font-size: 13px; font-weight: 600">VI</button>
+      <button type="button" aria-pressed="false" style="height: 40px; min-width: 44px; border: 0; background: var(--bg); color: var(--text-muted); font-size: 13px">EN</button>
+    </div>
+    <button type="button" aria-label="Đổi giao diện sáng tối" style="width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg); color: var(--text-muted); display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></button>
+  </header>
+
+  <main style="flex-grow: 1; display: flex; align-items: center; justify-content: center; padding: 24px">
+    <section aria-labelledby="loginTitle" style="width: 100%; max-width: 400px; padding: 32px; border-radius: 16px; border: 1px solid var(--border); background: var(--bg); box-shadow: var(--shadow-md); display: flex; flex-direction: column; gap: 20px">
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
+        <img src="/_blob/dbbc95b08d47870e1964f1322682c11f" alt="Banhkepchonong" style="width: 72px; height: 72px; object-fit: contain">
+        <h1 id="loginTitle" style="margin: 0; font-size: 22px; font-weight: 700">Đăng nhập quản trị</h1>
+        <span style="font-size: 14px; color: var(--text-muted)">Banhkepchonong Burger&amp;Co</span>
+      </div>
+
+      <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px">
+        <span style="font-weight: 600">Tên đăng nhập</span>
+        <input type="text" value="lan.nguyen" autocomplete="username" style="height: 40px; box-sizing: border-box; padding: 0 12px; border: 1px solid var(--border-strong); border-radius: 10px; background: var(--bg); color: var(--text); font: inherit; font-size: 15px">
+      </label>
+
+      <div style="display: flex; flex-direction: column; gap: 6px; font-size: 14px">
+        <span id="pinLabel" style="font-weight: 600">Mã PIN 6 số</span>
+        <div role="group" aria-labelledby="pinLabel" style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px">
+          <sc-for list="{{ pin }}" as="d" hint-placeholder-count="6">
+            <span class="num" style="{{ d.style }}">{{ d.v }}</span>
+          </sc-for>
+        </div>
+        <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--danger-text)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20M12 8v4M12 16h.01"/></svg>
+          PIN chưa đúng. Còn 3 lần thử.
+        </span>
+      </div>
+
+      <div style="display: flex; gap: 8px; padding: 10px 12px; border-radius: 10px; background: var(--warning-subtle); color: var(--warning-text); font-size: 13px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 2px"><path d="M5 11h14a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span>Sai 5 lần sẽ khoá tài khoản. Quản lý hoặc super admin mở lại và đặt lại PIN.</span>
+      </div>
+
+      <a href="admin-dashboard.dc.html" style="height: 40px; border-radius: 10px; background: var(--primary); color: var(--primary-fg); font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center; text-decoration: none">Đăng nhập</a>
+      <span style="font-size: 13px; color: var(--text-muted); text-align: center">Dùng cùng tài khoản và PIN với POS.</span>
+    </section>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const pin = [0, 1, 2, 3, 4, 5].map((i) => ({
+      v: i < 4 ? '•' : '',
+      style: 'height: 48px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 700; background: var(--bg); '
+        + (i === 4 ? 'border: 2px solid var(--primary);' : 'border: 1px solid var(--danger);')
+    }));
+    return { themeClass: this.props.dark ? 'dark' : '', pin };
+  }
+}
+</script>
+</body>
+</html>

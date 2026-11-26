@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>POS danh sách đơn</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#CA0404}a:hover{color:#9C0303}
+.fnb{--bg:#FFFFFF;--bg-subtle:#F9F6F4;--bg-muted:#F1ECE8;--border:#E4DAD4;--border-strong:#9F8D7F;--text:#282019;--text-muted:#6D5D51;--text-subtle:#7A695C;--primary:#CA0404;--primary-fg:#FFFFFF;--primary-subtle:#FEE7E3;--primary-text:#9C0303;--accent:#ED6F03;--accent-fg:#211510;--accent-subtle:#FEE8DC;--accent-text:#984502;--success:#2F7D46;--success-fg:#FFFFFF;--success-subtle:#E0F3E3;--success-text:#17592C;--warning:#F5BC09;--warning-fg:#211510;--warning-subtle:#F9ECCE;--warning-text:#795B03;--danger:#C2185B;--danger-fg:#FFFFFF;--danger-subtle:#FFE5EA;--danger-text:#8B023D;--info:#2563A8;--info-fg:#FFFFFF;--info-subtle:#E1EEFE;--info-text:#184B83;--shadow-sm:0 1px 2px rgba(40,32,25,.08),0 1px 3px rgba(40,32,25,.06);font-family:'Be Vietnam Pro',system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.45}
+.fnb.dark{--bg:#1A1411;--bg-subtle:#282019;--bg-muted:#3E332A;--border:#55473D;--border-strong:#857366;--text:#F9F6F4;--text-muted:#D1C3B9;--text-subtle:#B8A79A;--primary:#F84839;--primary-fg:#1A1411;--primary-subtle:#470000;--primary-text:#FEAEA2;--accent:#FA8840;--accent-fg:#1A1411;--accent-subtle:#3A1600;--accent-text:#FEB187;--success:#58A46B;--success-fg:#1A1411;--success-subtle:#002A0E;--success-text:#A0D5AB;--warning:#F5BC09;--warning-fg:#1A1411;--warning-subtle:#2C1F00;--warning-text:#E7C067;--danger:#EF4B7F;--danger-fg:#1A1411;--danger-subtle:#45001A;--danger-text:#FEAABC;--info:#5693DC;--info-fg:#1A1411;--info-subtle:#012145;--info-text:#9DC9FF;--shadow-sm:0 1px 2px rgba(0,0,0,.4)}
+.fnb button{font-family:inherit;cursor:pointer}
+.fnb .num{font-variant-numeric:tabular-nums}
+.fnb button:focus-visible,.fnb a:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+</style>
+</helmet>
+<div class="fnb {{themeClass}}" style="width: 1280px; height: 800px; display: flex; flex-direction: column; overflow: hidden; background: var(--bg-subtle)">
+
+  <!-- PosShell status bar -->
+  <header style="height: 56px; flex-shrink: 0; display: flex; align-items: center; gap: 16px; padding: 0 16px; background: var(--bg); border-bottom: 1px solid var(--border)">
+    <img src="/_blob/dbbc95b08d47870e1964f1322682c11f" alt="Banhkepchonong" style="width: 40px; height: 40px; object-fit: contain">
+    <div style="display: flex; flex-direction: column">
+      <span style="font-size: 14px; font-weight: 600">Banhkepchonong · Chi nhánh Quận 1</span>
+      <span style="font-size: 12px; color: var(--text-muted)">Ca tối · Thu ngân: Nguyễn Lan</span>
+    </div>
+    <div style="flex-grow: 1"></div>
+    <span style="display: inline-flex; align-items: center; height: 28px; padding: 0 10px; border-radius: 999px; background: var(--success-subtle); color: var(--success-text); font-size: 13px; font-weight: 600">Trực tuyến</span>
+    <span style="display: inline-flex; align-items: center; height: 28px; padding: 0 10px; border-radius: 999px; background: var(--bg-muted); color: var(--text-muted); font-size: 13px; font-weight: 500">Đã đồng bộ</span>
+    <span class="num" style="font-size: 15px; font-weight: 600">19:34</span>
+  </header>
+
+  <div style="flex-grow: 1; display: flex; min-height: 0">
+    <!-- List -->
+    <section aria-labelledby="olTitle" style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 12px; padding: 16px">
+      <div style="display: flex; align-items: center; gap: 12px">
+        <h1 id="olTitle" style="margin: 0; font-size: 22px; font-weight: 700">Đơn trong ca</h1>
+        <span style="font-size: 14px; color: var(--text-muted)">Ca tối 17:00 · 26/11</span>
+        <div style="flex-grow: 1"></div>
+        <label style="display: flex; align-items: center; gap: 8px; width: 340px; height: 48px; padding: 0 14px; box-sizing: border-box; border: 1px solid var(--border-strong); border-radius: 10px; background: var(--bg); color: var(--text-subtle)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="search" placeholder="Số thứ tự hoặc số điện thoại" style="flex-grow: 1; border: 0; outline: 0; background: transparent; font: inherit; font-size: 15px; color: var(--text)">
+        </label>
+      </div>
+      <div role="tablist" aria-label="Trạng thái đơn" style="display: flex; gap: 8px">
+        <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="3">
+          <button type="button" role="tab" aria-selected="{{ t.selected }}" style="{{ t.style }}">{{ t.label }} <span class="num" style="{{ t.countStyle }}">{{ t.count }}</span></button>
+        </sc-for>
+      </div>
+      <div style="flex-grow: 1; overflow: hidden; border-radius: 16px; border: 1px solid var(--border); background: var(--bg)">
+        <table style="width: 100%; border-collapse: collapse; font-size: 15px">
+          <thead>
+            <tr style="text-align: left; color: var(--text-muted); font-size: 13px; background: var(--bg-subtle)">
+              <th scope="col" style="padding: 10px 16px; font-weight: 600">Số</th>
+              <th scope="col" style="padding: 10px 8px; font-weight: 600">Giờ</th>
+              <th scope="col" style="padding: 10px 8px; font-weight: 600">Loại · nguồn</th>
+              <th scope="col" style="padding: 10px 8px; font-weight: 600; text-align: right">Tổng</th>
+              <th scope="col" style="padding: 10px 8px; font-weight: 600">Thanh toán</th>
+              <th scope="col" style="padding: 10px 16px 10px 8px; font-weight: 600">Chế biến</th>
+            </tr>
+          </thead>
+          <tbody>
+            <sc-for list="{{ rows }}" as="r" hint-placeholder-count="8">
+              <tr style="{{ r.rowStyle }}" aria-selected="{{ r.selected }}">
+                <td style="padding: 0 16px; height: 56px; border-top: 1px solid var(--border)"><span class="num" style="font-size: 20px; font-weight: 800">{{ r.no }}</span></td>
+                <td class="num" style="padding: 0 8px; border-top: 1px solid var(--border); color: var(--text-muted)">{{ r.time }}</td>
+                <td style="padding: 0 8px; border-top: 1px solid var(--border)">{{ r.type }} <span style="color: var(--text-muted)">· {{ r.source }}</span></td>
+                <td class="num" style="padding: 0 8px; border-top: 1px solid var(--border); text-align: right; font-weight: 700">{{ r.total }}</td>
+                <td style="padding: 0 8px; border-top: 1px solid var(--border)"><span style="{{ r.payStyle }}">{{ r.pay }}</span></td>
+                <td style="padding: 0 16px 0 8px; border-top: 1px solid var(--border)"><span style="{{ r.cookStyle }}">{{ r.cook }}</span></td>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Detail preview -->
+    <aside aria-label="Đơn #041" style="width: 400px; flex-shrink: 0; display: flex; flex-direction: column; background: var(--bg); border-left: 1px solid var(--border)">
+      <div style="padding: 16px; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; gap: 4px">
+        <div style="display: flex; align-items: baseline; gap: 10px">
+          <span class="num" style="font-size: 32px; font-weight: 800">#041</span>
+          <span style="font-size: 14px; color: var(--text-muted)">Ăn tại quán · POS · 19:28</span>
+        </div>
+        <div style="display: flex; gap: 8px">
+          <span style="display: inline-flex; align-items: center; height: 26px; padding: 0 10px; border-radius: 999px; background: var(--warning-subtle); color: var(--warning-text); font-size: 13px; font-weight: 600">Đã hoàn một phần</span>
+          <span style="display: inline-flex; align-items: center; height: 26px; padding: 0 10px; border-radius: 999px; background: var(--accent-subtle); color: var(--accent-text); font-size: 13px; font-weight: 600">Đang làm</span>
+        </div>
+      </div>
+      <div style="flex-grow: 1; padding: 12px 16px; display: flex; flex-direction: column; gap: 10px; font-size: 15px">
+        <div style="display: flex; justify-content: space-between"><span>1× Hotdog xúc xích Đức</span><span class="num">55.000 ₫</span></div>
+        <div style="display: flex; justify-content: space-between"><span>2× Khoai tây chiên · M</span><span class="num">50.000 ₫</span></div>
+        <div style="display: flex; justify-content: space-between; color: var(--text-subtle); text-decoration: line-through"><span>1× Trà đào cam sả</span><span class="num">29.000 ₫</span></div>
+        <div style="display: flex; justify-content: space-between; padding-top: 10px; border-top: 1px dashed var(--border-strong)"><span style="font-weight: 700">Đã thu tiền mặt</span><span class="num" style="font-weight: 800">134.000 ₫</span></div>
+        <div style="display: flex; justify-content: space-between; color: var(--text-muted)"><span>Đã hoàn</span><span class="num">−29.000 ₫</span></div>
+      </div>
+      <div style="padding: 12px 16px; border-top: 1px solid var(--border); display: flex; gap: 8px">
+        <button type="button" style="flex: 1 1 0; height: 56px; border-radius: 10px; border: 1px solid var(--border-strong); background: var(--bg); color: var(--text); font-size: 15px; font-weight: 600">In lại bill</button>
+        <a href="pos-order-detail.dc.html" style="flex: 1 1 0; height: 56px; box-sizing: border-box; border-radius: 10px; border: 1px solid var(--border-strong); background: var(--bg); color: var(--text); font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center; text-decoration: none">Xem chi tiết</a>
+      </div>
+    </aside>
+  </div>
+
+  <!-- ActionBar -->
+  <footer style="height: 80px; flex-shrink: 0; display: flex; align-items: center; gap: 8px; padding: 0 16px; background: var(--bg); border-top: 1px solid var(--border)">
+    <span style="font-size: 14px; color: var(--text-muted)">Đã thu trong ca: <strong class="num" style="color: var(--text)">4.326.000 ₫</strong> · 52 đơn</span>
+    <div style="flex-grow: 1"></div>
+    <a href="pos-orders.dc.html" style="height: 56px; padding: 0 18px; box-sizing: border-box; border-radius: 10px; border: 1px solid var(--border-strong); background: var(--bg); color: var(--text); font-size: 15px; font-weight: 600; display: flex; align-items: center; text-decoration: none">Gọi số</a>
+    <a href="pos-sale.dc.html" style="height: 56px; min-width: 220px; box-sizing: border-box; padding: 0 20px; border-radius: 10px; background: var(--primary); color: var(--primary-fg); font-size: 17px; font-weight: 700; display: flex; align-items: center; justify-content: center; text-decoration: none">Đơn mới</a>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const chip = (t) => 'display: inline-flex; align-items: center; height: 26px; padding: 0 10px; border-radius: 999px; font-size: 13px; font-weight: 600; white-space: nowrap; '
+      + (t === 'neutral' ? 'background: var(--bg-muted); color: var(--text-muted);' : 'background: var(--' + t + '-subtle); color: var(--' + t + '-text);');
+    const PAY = { paid: ['Đã trả', 'success'], partial_refund: ['Đã hoàn một phần', 'warning'], refunded: ['Đã hoàn', 'neutral'], pending: ['Chờ QR', 'warning'] };
+    const COOK = { waiting: ['Chờ bếp', 'warning'], cooking: ['Đang làm', 'accent'], ready: ['Xong · chờ gọi', 'success'], overdue: ['Quá giờ', 'danger'], voided: ['Đã huỷ', 'danger'] };
+    const data = [
+      ['#043', '19:32', 'Ăn tại quán', 'POS', '70.000 ₫', 'paid', 'waiting'],
+      ['#042', '19:30', 'Mang đi', 'POS', '100.000 ₫', 'paid', 'waiting'],
+      ['#041', '19:28', 'Ăn tại quán', 'POS', '134.000 ₫', 'partial_refund', 'cooking', true],
+      ['#040', '19:24', 'Giao hàng', 'Web', '154.000 ₫', 'paid', 'waiting'],
+      ['#039', '19:21', 'Mang đi', 'Zalo', '84.000 ₫', 'paid', 'cooking'],
+      ['#038', '19:18', 'Ăn tại quán', 'POS', '115.000 ₫', 'paid', 'overdue'],
+      ['#037', '19:12', 'Ăn tại quán', 'POS', '99.000 ₫', 'paid', 'ready'],
+      ['#035', '19:05', 'Mang đi', 'App', '119.000 ₫', 'paid', 'ready']
+    ];
+    const rows = data.map(([no, time, type, source, total, pay, cook, sel]) => ({
+      no, time, type, source, total,
+      pay: PAY[pay][0], payStyle: chip(PAY[pay][1]),
+      cook: COOK[cook][0], cookStyle: chip(COOK[cook][1]),
+      selected: sel ? 'true' : 'false',
+      rowStyle: sel ? 'background: var(--primary-subtle);' : ''
+    }));
+    const tabs = [['Đang làm', 6, true], ['Đã xong', 44], ['Đã huỷ', 2]].map(([label, count, on]) => ({
+      label, count, selected: on ? 'true' : 'false',
+      style: 'height: 48px; padding: 0 18px; border-radius: 999px; font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 8px; '
+        + (on ? 'border: 1px solid var(--text); background: var(--text); color: var(--bg);' : 'border: 1px solid var(--border); background: var(--bg); color: var(--text-muted);'),
+      countStyle: 'min-width: 24px; height: 24px; padding: 0 6px; box-sizing: border-box; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; '
+        + (on ? 'background: var(--bg); color: var(--text);' : 'background: var(--bg-muted); color: var(--text);')
+    }));
+    return { themeClass: this.props.dark ? 'dark' : '', rows, tabs };
+  }
+}
+</script>
+</body>
+</html>

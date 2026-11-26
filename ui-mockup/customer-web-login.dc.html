@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Web khách đăng nhập</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&amp;family=Baloo+2:wght@700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#CA0404}a:hover{color:#9C0303}
+.fnb{--bg:#FFFFFF;--bg-subtle:#F9F6F4;--bg-muted:#F1ECE8;--border:#E4DAD4;--border-strong:#9F8D7F;--text:#282019;--text-muted:#6D5D51;--text-subtle:#7A695C;--primary:#CA0404;--primary-fg:#FFFFFF;--primary-subtle:#FEE7E3;--primary-text:#9C0303;--accent:#ED6F03;--accent-fg:#211510;--accent-subtle:#FEE8DC;--accent-text:#984502;--brick:#8A2A26;--band:#F6F1EA;--shadow-md:0 8px 24px rgba(40,32,25,.12);font-family:'Be Vietnam Pro',system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.5}
+.fnb.dark{--bg:#1A1411;--bg-subtle:#282019;--bg-muted:#3E332A;--border:#55473D;--border-strong:#857366;--text:#F9F6F4;--text-muted:#D1C3B9;--text-subtle:#B8A79A;--primary:#F84839;--primary-fg:#1A1411;--primary-subtle:#470000;--primary-text:#FEAEA2;--accent:#FA8840;--accent-fg:#1A1411;--accent-subtle:#3A1600;--accent-text:#FEB187;--brick:#62211E;--band:#282019;--shadow-md:0 8px 24px rgba(0,0,0,.5)}
+.fnb button{font-family:inherit;cursor:pointer}
+.fnb .num{font-variant-numeric:tabular-nums}
+.fnb .display{font-family:'Baloo 2',sans-serif;font-weight:800;line-height:1.1}
+</style>
+</helmet>
+<div class="fnb {{themeClass}}" style="width: 100%; min-height: 900px; display: flex; flex-direction: column; background: var(--band)">
+
+  <!-- CustomerShell header (compact) -->
+  <header style="background: var(--brick); color: #FFFFFF">
+    <div style="max-width: 1240px; margin: 0 auto; padding: 12px 24px; display: flex; align-items: center; gap: 16px">
+      <a href="customer-web-home.dc.html" style="display: flex; align-items: center; gap: 10px; color: #FFFFFF; text-decoration: none">
+        <img src="/_blob/dbbc95b08d47870e1964f1322682c11f" alt="" style="width: 52px; height: 52px; object-fit: contain">
+        <span class="display" style="font-size: 24px">Banhkepchonong</span>
+      </a>
+      <div style="flex-grow: 1"></div>
+      <a href="customer-web-home.dc.html" style="color: #FFFFFF; font-size: 15px; font-weight: 600; text-decoration: none">← Quay lại thực đơn</a>
+    </div>
+    <svg width="100%" height="32" viewBox="0 0 1440 32" preserveAspectRatio="none" aria-hidden="true" style="display: block"><path d="M0 32V12c60 0 60 14 120 14s60-20 120-20 60 20 120 20 60-20 120-20 60 20 120 20 60-20 120-20 60 20 120 20 60-20 120-20 60 20 120 20 60-20 120-20 60 20 120 20 60-14 120-14v20Z" fill="var(--band)"/></svg>
+  </header>
+
+  <main style="flex-grow: 1; max-width: 1240px; width: 100%; box-sizing: border-box; margin: 0 auto; padding: 32px 24px 56px; display: flex; gap: 56px; align-items: center; flex-wrap: wrap">
+    <div style="flex: 1 1 420px; display: flex; flex-direction: column; gap: 16px">
+      <img src="/_blob/5bc8172d66702a09b8368bb2966b5020" alt="Logo Bánh Kẹp Chó Nóng" style="width: 100%; max-width: 420px; height: auto">
+      <h1 class="display" style="margin: 0; font-size: 48px; color: var(--primary)">Chào bạn quay lại!</h1>
+      <p style="margin: 0; font-size: 18px; color: var(--text-muted); max-width: 460px">Đăng nhập để tích điểm, xem lại đơn cũ và đặt món nhanh hơn. Chưa muốn đăng nhập? Bạn vẫn đặt món bình thường.</p>
+    </div>
+
+    <section aria-labelledby="loginTitle" style="flex: 1 1 400px; max-width: 460px; padding: 32px; border-radius: 24px; background: var(--bg); border: 1px solid var(--border); box-shadow: var(--shadow-md); display: flex; flex-direction: column; gap: 18px">
+      <h2 id="loginTitle" class="display" style="margin: 0; font-size: 32px">Đăng nhập</h2>
+
+      <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px">
+        <span style="font-weight: 600">Số điện thoại</span>
+        <span style="height: 48px; box-sizing: border-box; padding: 0 16px; border: 1px solid var(--border-strong); border-radius: 16px; display: flex; align-items: center; gap: 10px; font-size: 16px; background: var(--bg)"><span style="color: var(--text-muted)">+84</span><input type="tel" value="912 345 678" style="border: 0; outline: 0; background: transparent; font: inherit; color: var(--text); flex-grow: 1"></span>
+      </label>
+
+      <div style="display: flex; flex-direction: column; gap: 6px; font-size: 14px">
+        <span id="pinLabel" style="font-weight: 600">Mã PIN 6 số</span>
+        <div role="group" aria-labelledby="pinLabel" style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px">
+          <sc-for list="{{ pin }}" as="d" hint-placeholder-count="6">
+            <span class="num" style="{{ d.style }}">{{ d.v }}</span>
+          </sc-for>
+        </div>
+        <a href="#" style="align-self: flex-end; font-size: 14px; font-weight: 600">Quên PIN? Đặt lại qua email</a>
+      </div>
+
+      <a href="customer-web-checkout.dc.html" style="height: 52px; border-radius: 16px; background: var(--primary); color: var(--primary-fg); font-size: 17px; font-weight: 800; display: flex; align-items: center; justify-content: center; text-decoration: none">Đăng nhập</a>
+
+      <div style="display: flex; align-items: center; gap: 12px; color: var(--text-subtle); font-size: 13px"><span style="flex-grow: 1; height: 1px; background: var(--border)"></span>Lần đầu ghé quán?<span style="flex-grow: 1; height: 1px; background: var(--border)"></span></div>
+
+      <div style="display: flex; flex-direction: column; gap: 6px; padding: 14px 16px; border-radius: 16px; background: var(--accent-subtle); color: var(--accent-text); font-size: 14px">
+        <span style="font-weight: 700">Tạo tài khoản trong 1 phút</span>
+        <span>Cần số điện thoại, email (để lấy lại PIN khi quên) và một mã PIN 6 số.</span>
+      </div>
+      <a href="#" style="height: 48px; border-radius: 16px; border: 1px solid var(--border-strong); background: var(--bg); color: var(--text); font-size: 16px; font-weight: 600; display: flex; align-items: center; justify-content: center; text-decoration: none">Đăng ký</a>
+      <a href="customer-web-checkout.dc.html" style="font-size: 14px; text-align: center; color: var(--text-muted)">Đặt món không cần đăng nhập</a>
+    </section>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const pin = [0, 1, 2, 3, 4, 5].map((i) => ({
+      v: i < 3 ? '•' : '',
+      style: 'height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 800; background: var(--bg); '
+        + (i === 3 ? 'border: 2px solid var(--primary);' : 'border: 1px solid var(--border-strong);')
+    }));
+    return { themeClass: this.props.dark ? 'dark' : '', pin };
+  }
+}
+</script>
+</body>
+</html>

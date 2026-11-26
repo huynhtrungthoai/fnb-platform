@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Admin nhật ký</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#CA0404}a:hover{color:#9C0303}
+.fnb{--bg:#FFFFFF;--bg-subtle:#F9F6F4;--bg-muted:#F1ECE8;--border:#E4DAD4;--border-strong:#9F8D7F;--text:#282019;--text-muted:#6D5D51;--text-subtle:#7A695C;--text-inverse:#FFFFFF;--primary:#CA0404;--primary-fg:#FFFFFF;--primary-subtle:#FEE7E3;--primary-text:#9C0303;--accent:#ED6F03;--accent-fg:#211510;--accent-subtle:#FEE8DC;--accent-text:#984502;--success:#2F7D46;--success-fg:#FFFFFF;--success-subtle:#E0F3E3;--success-text:#17592C;--warning:#F5BC09;--warning-fg:#211510;--warning-subtle:#F9ECCE;--warning-text:#795B03;--danger:#C2185B;--danger-fg:#FFFFFF;--danger-subtle:#FFE5EA;--danger-text:#8B023D;--info:#2563A8;--info-fg:#FFFFFF;--info-subtle:#E1EEFE;--info-text:#184B83;--shadow-sm:0 1px 2px rgba(40,32,25,.08),0 1px 3px rgba(40,32,25,.06);--shadow-lg:0 12px 32px rgba(40,32,25,.18);font-family:'Be Vietnam Pro',system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.45}
+.fnb.dark{--bg:#1A1411;--bg-subtle:#282019;--bg-muted:#3E332A;--border:#55473D;--border-strong:#857366;--text:#F9F6F4;--text-muted:#D1C3B9;--text-subtle:#B8A79A;--text-inverse:#1A1411;--primary:#F84839;--primary-fg:#1A1411;--primary-subtle:#470000;--primary-text:#FEAEA2;--accent:#FA8840;--accent-fg:#1A1411;--accent-subtle:#3A1600;--accent-text:#FEB187;--success:#58A46B;--success-fg:#1A1411;--success-subtle:#002A0E;--success-text:#A0D5AB;--warning:#F5BC09;--warning-fg:#1A1411;--warning-subtle:#2C1F00;--warning-text:#E7C067;--danger:#EF4B7F;--danger-fg:#1A1411;--danger-subtle:#45001A;--danger-text:#FEAABC;--info:#5693DC;--info-fg:#1A1411;--info-subtle:#012145;--info-text:#9DC9FF;--shadow-sm:0 1px 2px rgba(0,0,0,.4);--shadow-lg:0 12px 32px rgba(0,0,0,.6)}
+.fnb button{font-family:inherit;cursor:pointer}
+.fnb .num{font-variant-numeric:tabular-nums}
+.fnb .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.fnb .nav:hover{background:var(--bg-muted)}
+.fnb .btn{height:40px;padding:0 14px;border-radius:10px;font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border-strong);background:var(--bg);color:var(--text);white-space:nowrap}
+.fnb .btn-p{border-color:transparent;background:var(--primary);color:var(--primary-fg)}
+.fnb .btn-g{border-color:transparent;background:transparent;color:var(--text-muted)}
+.fnb .btn-d{border-color:var(--danger);color:var(--danger-text)}
+.fnb .card{border:1px solid var(--border);border-radius:16px;background:var(--bg)}
+.fnb .badge{display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 10px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap}
+.fnb .b-ok{background:var(--success-subtle);color:var(--success-text)}
+.fnb .b-warn{background:var(--warning-subtle);color:var(--warning-text)}
+.fnb .b-neu{background:var(--bg-muted);color:var(--text-muted)}
+.fnb .inp{height:40px;box-sizing:border-box;padding:0 12px;border:1px solid var(--border-strong);border-radius:10px;background:var(--bg);color:var(--text);font-size:14px;display:flex;align-items:center;gap:8px}
+.fnb .lbl{display:flex;flex-direction:column;gap:6px;font-size:14px}
+.fnb .lbl-t{font-weight:600}
+.fnb .hint{font-size:12px;color:var(--text-muted)}
+.fnb .b-dan{background:var(--danger-subtle);color:var(--danger-text)}
+.fnb .b-info{background:var(--info-subtle);color:var(--info-text)}
+.fnb .b-acc{background:var(--accent-subtle);color:var(--accent-text)}
+.fnb .b-pri{background:var(--primary-subtle);color:var(--primary-text)}
+.fnb .tbl{width:100%;border-collapse:collapse;font-size:14px}
+.fnb .tbl th{padding:10px 12px;text-align:left;font-weight:600;font-size:13px;color:var(--text-muted);background:var(--bg-subtle);border-bottom:1px solid var(--border)}
+.fnb .tbl td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+.fnb .sel{border-color:var(--text);background:var(--bg-muted);font-weight:600}
+.fnb .scrim{position:absolute;inset:0;background:rgba(40,32,25,.5);display:flex;align-items:center;justify-content:center}
+.fnb.dark .scrim{background:rgba(0,0,0,.6)}
+</style>
+</helmet>
+<div class="fnb {{themeClass}}" style="width: 100%; min-height: 1180px; display: flex; flex-wrap: wrap; background: var(--bg)">
+
+  <!-- Sidebar -->
+  <nav aria-label="Menu chính" style="flex: 1 1 248px; max-width: 100%; box-sizing: border-box; padding: 16px 12px; background: var(--bg-subtle); border-right: 1px solid var(--border); display: flex; flex-direction: column; gap: 2px">
+    <div style="display: flex; align-items: center; gap: 10px; padding: 4px 8px 12px">
+      <img src="/_blob/dbbc95b08d47870e1964f1322682c11f" alt="" style="width: 36px; height: 36px; object-fit: contain">
+      <div style="display: flex; flex-direction: column">
+        <span style="font-size: 15px; font-weight: 700">Banhkepchonong</span>
+        <span style="font-size: 12px; color: var(--text-muted)">Quản trị</span>
+      </div>
+    </div>
+    <sc-for list="{{ nav }}" as="n" hint-placeholder-count="20">
+      <sc-if value="{{ n.isGroup }}" hint-placeholder-val="{{ false }}">
+        <span style="padding: 10px 12px 2px; font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--text-subtle)">{{ n.label }}</span>
+      </sc-if>
+      <sc-if value="{{ n.isItem }}" hint-placeholder-val="{{ true }}">
+        <a href="#" class="nav" aria-current="{{ n.current }}" style="{{ n.style }}">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ n.icon }}"/></svg>
+          {{ n.label }}
+        </a>
+      </sc-if>
+    </sc-for>
+  </nav>
+
+  <!-- Content -->
+  <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+    <header style="height: 60px; display: flex; align-items: center; gap: 12px; padding: 0 24px; border-bottom: 1px solid var(--border); flex-wrap: wrap">
+      <button type="button" class="btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"/></svg>
+        Tất cả chi nhánh
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <div style="flex-grow: 1"></div>
+      <button type="button" aria-label="Giao diện sáng tối" style="width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg); color: var(--text-muted); display: flex; align-items: center; justify-content: center">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+      </button>
+      <div role="group" aria-label="Ngôn ngữ" style="display: flex; border: 1px solid var(--border); border-radius: 10px; overflow: hidden">
+        <button type="button" style="height: 38px; min-width: 44px; border: 0; background: var(--bg-muted); color: var(--text); font-size: 13px; font-weight: 600">VI</button>
+        <button type="button" style="height: 38px; min-width: 44px; border: 0; background: var(--bg); color: var(--text-muted); font-size: 13px; font-weight: 500">EN</button>
+      </div>
+      <button type="button" aria-label="Tài khoản" style="height: 40px; padding: 0 8px 0 4px; border-radius: 999px; border: 1px solid var(--border); background: var(--bg); color: var(--text); display: flex; align-items: center; gap: 8px; font-size: 14px">
+        <span style="width: 32px; height: 32px; border-radius: 999px; background: var(--accent-subtle); color: var(--accent-text); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px">LH</span>
+        Lê Hà · Quản lý
+      </button>
+    </header>
+
+    <main style="padding: 24px; display: flex; flex-direction: column; gap: 16px; max-width: 1280px; width: 100%; box-sizing: border-box">
+      <div style="display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap">
+        <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 4px">
+          <span style="font-size: 13px; color: var(--text-muted)">Hệ thống / Nhật ký</span>
+          <h1 style="margin: 0; font-size: 26px; font-weight: 700; line-height: 1.3">Nhật ký</h1>
+          <span style="font-size: 14px; color: var(--text-muted)">Thao tác nhạy cảm: ai, lúc nào, chi nhánh, thiết bị, dữ liệu trước và sau. Chỉ xem, không sửa được.</span>
+        </div>
+        <button type="button" class="btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          Xuất CSV
+        </button>
+      </div>
+
+      <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center">
+        <label class="inp" style="flex: 1 1 220px; color: var(--text-subtle)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="search" placeholder="Tìm theo mã đơn, đối tượng" style="flex-grow: 1; border: 0; outline: 0; background: transparent; font: inherit; font-size: 14px; color: var(--text)">
+        </label>
+        <button type="button" class="btn">Người: Tất cả</button>
+        <button type="button" class="btn sel">Loại: Đăng nhập, Huỷ, Hoàn tiền, Quyền</button>
+        <button type="button" class="btn">Chi nhánh: Tất cả</button>
+        <button type="button" class="btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2"/></svg>
+          <span class="num">26/11/2026</span>
+        </button>
+      </div>
+
+      <div style="display: flex; gap: 16px; align-items: flex-start; flex-wrap: wrap">
+        <div class="card" style="flex: 999 1 560px; min-width: 0; overflow-x: auto">
+          <table class="tbl" style="min-width: 760px">
+            <thead><tr>
+              <th scope="col">Thời gian</th><th scope="col">Người · thiết bị</th><th scope="col">Chi nhánh</th><th scope="col">Hành động</th><th scope="col">Đối tượng</th>
+            </tr></thead>
+            <tbody>
+              <sc-for list="{{ events }}" as="e" hint-placeholder-count="9">
+                <tr style="{{ e.rowStyle }}">
+                  <td class="num" style="font-size: 13px; white-space: nowrap">{{ e.time }}</td>
+                  <td><div style="display: flex; flex-direction: column"><span style="font-weight: 600">{{ e.who }}</span><span style="font-size: 12px; color: var(--text-muted)">{{ e.device }}</span></div></td>
+                  <td style="font-size: 13px">{{ e.branch }}</td>
+                  <td><span class="{{ e.cls }}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ e.icon }}"/></svg>{{ e.action }}</span></td>
+                  <td style="font-size: 13px">{{ e.target }}</td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+          <div style="padding: 12px 16px; font-size: 14px; color: var(--text-muted)">Hiển thị 9 trên 214 sự kiện hôm nay</div>
+        </div>
+
+        <!-- Drawer -->
+        <aside aria-labelledby="drTitle" class="card" style="flex: 1 1 340px; max-width: 400px; box-shadow: var(--shadow-lg); display: flex; flex-direction: column">
+          <div style="display: flex; align-items: flex-start; gap: 10px; padding: 16px 18px; border-bottom: 1px solid var(--border)">
+            <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 4px">
+              <h2 id="drTitle" style="margin: 0; font-size: 17px; font-weight: 700">Sửa nhóm quyền: Thu ngân ca tối</h2>
+              <span class="num" style="font-size: 13px; color: var(--text-muted)">26/11/2026 18:42:07 · Lê Hà · Admin web · 113.161.x.x</span>
+            </div>
+            <button type="button" aria-label="Đóng" class="btn btn-g" style="width: 36px; height: 36px; padding: 0; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+          </div>
+          <div style="padding: 14px 18px; display: flex; flex-direction: column; gap: 10px">
+            <span class="badge b-pri" style="width: fit-content"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>role.update</span>
+            <table class="tbl" style="font-size: 13px">
+              <thead><tr><th scope="col">Trường</th><th scope="col">Trước</th><th scope="col">Sau</th></tr></thead>
+              <tbody>
+                <sc-for list="{{ diff }}" as="d" hint-placeholder-count="3">
+                  <tr>
+                    <td class="mono" style="font-size: 12px">{{ d.field }}</td>
+                    <td style="color: var(--danger-text); text-decoration: line-through">{{ d.before }}</td>
+                    <td style="color: var(--success-text); font-weight: 600">{{ d.after }}</td>
+                  </tr>
+                </sc-for>
+              </tbody>
+            </table>
+            <span class="hint">Mã sự kiện <span class="mono">01J9Z…7KQ</span> · ảnh hưởng 2 nhân viên, có hiệu lực ngay</span>
+          </div>
+        </aside>
+      </div>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":1440,"height":1180}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const I = {
+      home: 'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zM9 22V12h6v10',
+      receipt: 'M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1ZM16 8h-6M16 12H8M13 16H8',
+      wallet: 'M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4',
+      book: 'M4 19.5A2.5 2.5 0 0 1 6.5 17H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15ZM4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5',
+      card: 'M2 5h20v14H2zM2 10h20',
+      utensils: 'M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2M7 2v20M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7',
+      folder: 'M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z',
+      sliders: 'M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6',
+      flame: 'M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5Z',
+      leaf: 'M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10ZM2 21c0-3 1.85-5.36 5.08-6',
+      clipboard: 'M9 2h6v4H9zM16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2M9 12h6M9 16h6',
+      check: 'M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11',
+      box: 'M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16ZM3.3 7 12 12l8.7-5M12 22V12',
+      heart: 'M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z',
+      tag: 'M12 2H2v10l9.29 9.29a1 1 0 0 0 1.41 0l8.59-8.59a1 1 0 0 0 0-1.41ZM7 7h.01',
+      globe: 'M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10Z',
+      users: 'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75',
+      calendar: 'M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2',
+      clock: 'M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20M12 6v6l4 2',
+      money: 'M2 6h20v12H2zM12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6M6 12h.01M18 12h.01',
+      chart: 'M3 3v18h18M18 17V9M13 17V5M8 17v-3',
+      store: 'M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1',
+      shield: 'M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z',
+      printer: 'M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z',
+      file: 'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M8 13h8M8 17h5',
+      list: 'M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01'
+    };
+    const ACTIVE = 'Nhật ký';
+    const NAV = [
+      ['item', 'Tổng quan', 'home'],
+      ['group', 'Bán hàng'], ['item', 'Đơn hàng', 'receipt'], ['item', 'Ca thu ngân', 'wallet'], ['item', 'Sổ quỹ', 'book'], ['item', 'Thanh toán', 'card'],
+      ['group', 'Thực đơn'], ['item', 'Món', 'utensils'], ['item', 'Nhóm món', 'folder'], ['item', 'Tuỳ chọn', 'sliders'], ['item', 'Trạm chế biến', 'flame'],
+      ['group', 'Kho'], ['item', 'Nguyên liệu', 'leaf'], ['item', 'Phiếu kho', 'clipboard'], ['item', 'Kiểm kê', 'check'], ['item', 'Tồn kho', 'box'],
+      ['group', 'Khách hàng'], ['item', 'Khách hàng', 'heart'], ['item', 'Ưu đãi', 'tag'], ['item', 'Đặt món online', 'globe'],
+      ['group', 'Nhân sự'], ['item', 'Nhân viên', 'users'], ['item', 'Lịch làm việc', 'calendar'], ['item', 'Bảng công', 'clock'], ['item', 'Lương', 'money'],
+      ['group', ''], ['item', 'Báo cáo', 'chart'],
+      ['group', 'Hệ thống'], ['item', 'Chi nhánh', 'store'], ['item', 'Nhóm quyền', 'shield'], ['item', 'Thiết bị và máy in', 'printer'], ['item', 'Mẫu in', 'file'], ['item', 'Nhật ký', 'list']
+    ];
+    const base = 'display: flex; align-items: center; gap: 10px; height: 34px; padding: 0 12px; border-radius: 10px; font-size: 14px; text-decoration: none; ';
+    const nav = NAV.map(([kind, label, icon]) => ({
+      isGroup: kind === 'group', isItem: kind === 'item', label, icon: I[icon] ?? '',
+      current: label === ACTIVE ? 'page' : 'false',
+      style: base + (label === ACTIVE ? 'background: var(--primary-subtle); color: var(--primary-text); font-weight: 600;' : 'color: var(--text-muted); font-weight: 500;')
+    }));
+    const IC = {
+      login: 'M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3',
+      lock: 'M5 11h14a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2M7 11V7a5 5 0 0 1 10 0v4',
+      unlock: 'M5 11h14a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2M7 11V7a5 5 0 0 1 9.9-1',
+      x: 'M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20M15 9l-6 6M9 9l6 6',
+      refund: 'M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5',
+      shield: 'M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z',
+      device: 'M4.9 4.9l14.2 14.2M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20',
+      tag: 'M12 2H2v10l9.29 9.29a1 1 0 0 0 1.41 0l8.59-8.59a1 1 0 0 0 0-1.41ZM7 7h.01'
+    };
+    const E = [
+      ['19:02:41', 'Trần Minh', 'POS Q1-B', 'Quận 1', 'Đăng nhập sai PIN (5/5)', 'b-warn', 'login', 'Tài khoản minh.tran'],
+      ['19:02:41', 'Hệ thống', '—', 'Quận 1', 'Khoá tài khoản', 'b-dan', 'lock', 'minh.tran'],
+      ['19:05:10', 'Lê Hà', 'Admin web', 'Quận 1', 'Mở khoá tài khoản', 'b-info', 'unlock', 'minh.tran'],
+      ['18:47:22', 'Lê Hà', 'POS Q1-A (duyệt PIN)', 'Quận 1', 'Huỷ món đã gửi bếp', 'b-dan', 'x', 'Đơn #038 · 2× Hotdog phô mai · Khách đổi ý'],
+      ['18:42:07', 'Lê Hà', 'Admin web', 'Tất cả', 'Sửa nhóm quyền', 'b-pri', 'shield', 'Thu ngân ca tối', true],
+      ['17:15:33', 'Phạm Quân', 'POS Q3-A', 'Quận 3', 'Giảm giá đơn 10%', 'b-acc', 'tag', 'Đơn #112 · −19.800 ₫'],
+      ['16:20:05', 'Lê Hà', 'Admin web', 'Thủ Đức', 'Hoàn tiền chuyển khoản', 'b-dan', 'refund', 'Đơn #087 · 45.000 ₫'],
+      ['14:02:18', 'Nguyễn Thoại', 'Admin web', 'Quận 3', 'Thu hồi thiết bị', 'b-dan', 'device', 'Máy cầm tay Q3-B'],
+      ['09:14:02', 'Lê Hà', 'Admin web', '—', 'Đăng nhập', 'b-neu', 'login', 'ha.le']
+    ];
+    const events = E.map(([time, who, device, branch, action, tone, icon, target, sel]) => ({
+      time, who, device, branch, action, target,
+      cls: 'badge ' + tone, icon: IC[icon],
+      rowStyle: sel ? 'background: var(--primary-subtle);' : ''
+    }));
+    const diff = [
+      { field: 'limits.max_discount_percent', before: '10%', after: '5%' },
+      { field: 'limits.max_pay_out_amount', before: '200.000 ₫', after: '100.000 ₫' },
+      { field: 'permissions', before: '+ order.reprint', after: '(bỏ)' },
+      { field: 'permissions', before: '(không có)', after: '+ payment.confirm_manual' }
+    ];
+    return { themeClass: this.props.dark ? 'dark' : '', nav, events, diff };
+  }
+}
+</script>
+</body>
+</html>

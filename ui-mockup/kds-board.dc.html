@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>KDS bảng phiếu</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#CA0404}a:hover{color:#9C0303}
+.fnb{--bg:#FFFFFF;--bg-subtle:#F9F6F4;--bg-muted:#F1ECE8;--border:#E4DAD4;--border-strong:#9F8D7F;--text:#282019;--text-muted:#6D5D51;--text-subtle:#7A695C;--text-inverse:#FFFFFF;--primary:#CA0404;--primary-fg:#FFFFFF;--primary-subtle:#FEE7E3;--primary-text:#9C0303;--accent:#ED6F03;--accent-fg:#211510;--accent-subtle:#FEE8DC;--accent-text:#984502;--success:#2F7D46;--success-fg:#FFFFFF;--success-subtle:#E0F3E3;--success-text:#17592C;--warning:#F5BC09;--warning-fg:#211510;--warning-subtle:#F9ECCE;--warning-text:#795B03;--danger:#C2185B;--danger-fg:#FFFFFF;--danger-subtle:#FFE5EA;--danger-text:#8B023D;--info:#2563A8;--info-fg:#FFFFFF;--info-subtle:#E1EEFE;--info-text:#184B83;--shadow-sm:0 1px 2px rgba(40,32,25,.08),0 1px 3px rgba(40,32,25,.06);--shadow-lg:0 12px 32px rgba(40,32,25,.22);font-family:'Be Vietnam Pro',system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.4}
+.fnb.dark{--bg:#1A1411;--bg-subtle:#282019;--bg-muted:#3E332A;--border:#55473D;--border-strong:#857366;--text:#F9F6F4;--text-muted:#D1C3B9;--text-subtle:#B8A79A;--text-inverse:#1A1411;--primary:#F84839;--primary-fg:#1A1411;--primary-subtle:#470000;--primary-text:#FEAEA2;--accent:#FA8840;--accent-fg:#1A1411;--accent-subtle:#3A1600;--accent-text:#FEB187;--success:#58A46B;--success-fg:#1A1411;--success-subtle:#002A0E;--success-text:#A0D5AB;--warning:#F5BC09;--warning-fg:#1A1411;--warning-subtle:#2C1F00;--warning-text:#E7C067;--danger:#EF4B7F;--danger-fg:#1A1411;--danger-subtle:#45001A;--danger-text:#FEAABC;--info:#5693DC;--info-fg:#1A1411;--info-subtle:#012145;--info-text:#9DC9FF;--shadow-sm:0 1px 2px rgba(0,0,0,.4);--shadow-lg:0 12px 32px rgba(0,0,0,.6)}
+.fnb button{font-family:inherit;cursor:pointer}
+.fnb .num{font-variant-numeric:tabular-nums}
+.fnb button:focus-visible{outline:3px solid var(--primary);outline-offset:2px}
+</style>
+</helmet>
+<div class="fnb {{themeClass}}" style="position: relative; width: 1920px; height: 1080px; display: flex; flex-direction: column; overflow: hidden; background: var(--bg)">
+
+  <!-- KdsShell top bar -->
+  <header style="height: 72px; flex-shrink: 0; display: flex; align-items: center; gap: 20px; padding: 0 24px; background: var(--bg-subtle); border-bottom: 1px solid var(--border)">
+    <img src="/_blob/dbbc95b08d47870e1964f1322682c11f" alt="Banhkepchonong" style="width: 44px; height: 44px; object-fit: contain">
+    <div style="display: flex; flex-direction: column">
+      <span style="font-size: 18px; font-weight: 700">Màn hình bếp · Quận 1</span>
+      <span style="font-size: 14px; color: var(--text-muted)">Cảnh báo quá giờ sau 12 phút</span>
+    </div>
+    <div role="tablist" aria-label="Trạm chế biến" style="display: flex; gap: 8px; margin-left: 16px">
+      <sc-for list="{{ stations }}" as="s" hint-placeholder-count="4">
+        <button type="button" role="tab" aria-selected="{{ s.selected }}" onClick="{{ s.pick }}" style="{{ s.style }}">
+          {{ s.label }}
+          <span class="num" style="{{ s.countStyle }}">{{ s.count }}</span>
+        </button>
+      </sc-for>
+    </div>
+    <div style="flex-grow: 1"></div>
+    <div style="display: flex; gap: 16px; font-size: 16px; color: var(--text-muted)">
+      <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; border-radius: 999px; background: var(--warning)"></span>Chờ <strong class="num" style="color: var(--text)">{{ countWaiting }}</strong></span>
+      <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; border-radius: 999px; background: var(--accent)"></span>Đang làm <strong class="num" style="color: var(--text)">{{ countCooking }}</strong></span>
+      <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; border-radius: 999px; background: var(--danger)"></span>Quá giờ <strong class="num" style="color: var(--text)">{{ countOverdue }}</strong></span>
+    </div>
+    <button type="button" style="height: 56px; padding: 0 18px; border-radius: 10px; border: 1px solid var(--border-strong); background: transparent; color: var(--text); font-size: 16px; font-weight: 600; display: flex; align-items: center; gap: 8px">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg>
+      Phiếu đã xong
+    </button>
+    <span style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 999px; background: var(--success-subtle); color: var(--success-text); font-size: 15px; font-weight: 600">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg>
+      Trực tuyến
+    </span>
+    <span class="num" style="font-size: 24px; font-weight: 700">19:32</span>
+  </header>
+
+  <div style="flex-grow: 1; display: flex; min-height: 0">
+    <!-- Ticket grid -->
+    <main style="flex-grow: 1; min-width: 0; padding: 20px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; align-content: start; overflow: auto">
+      <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ false }}">
+        <div style="grid-column: 1 / -1; height: 600px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: var(--text-muted)">
+          <span style="font-size: 28px; font-weight: 700; color: var(--text)">Không có phiếu chờ</span>
+          <span style="font-size: 18px">Phiếu mới sẽ hiện ở đây kèm âm báo.</span>
+        </div>
+      </sc-if>
+      <sc-for list="{{ tickets }}" as="t" hint-placeholder-count="6">
+        <article aria-label="{{ t.aria }}" style="{{ t.cardStyle }}">
+          <div style="{{ t.headStyle }}">
+            <div style="display: flex; flex-direction: column; flex-grow: 1; min-width: 0">
+              <span class="num" style="font-size: 34px; font-weight: 800; line-height: 1.1">{{ t.no }}</span>
+              <span style="font-size: 16px; font-weight: 600">{{ t.typeLabel }} · gọi lúc {{ t.at }}</span>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 4px">
+              <span class="num" style="font-size: 28px; font-weight: 800; line-height: 1.1">{{ t.elapsed }}</span>
+              <span style="font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: .03em">{{ t.stateLabel }}</span>
+            </div>
+          </div>
+          <sc-if value="{{ t.hasFlag }}" hint-placeholder-val="{{ false }}">
+            <div style="{{ t.flagStyle }}">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ t.flagIcon }}"/></svg>
+              {{ t.flag }}
+            </div>
+          </sc-if>
+          <div style="display: flex; flex-direction: column; flex-grow: 1">
+            <sc-for list="{{ t.items }}" as="i" hint-placeholder-count="2">
+              <button type="button" onClick="{{ i.toggle }}" aria-label="{{ i.aria }}" style="{{ i.rowStyle }}">
+                <span style="{{ i.iconStyle }}">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ i.icon }}"/></svg>
+                </span>
+                <span style="display: flex; flex-direction: column; gap: 2px; flex-grow: 1; min-width: 0; text-align: left">
+                  <span style="{{ i.nameStyle }}"><span class="num" style="font-weight: 800">{{ i.qty }}×</span> {{ i.name }}</span>
+                  <sc-if value="{{ i.hasMods }}" hint-placeholder-val="{{ false }}">
+                    <span style="font-size: 16px; color: var(--text-muted)">{{ i.mods }}</span>
+                  </sc-if>
+                  <sc-if value="{{ i.hasNote }}" hint-placeholder-val="{{ false }}">
+                    <span style="font-size: 17px; font-weight: 800; color: var(--danger-text)">Ghi chú: {{ i.note }}</span>
+                  </sc-if>
+                </span>
+              </button>
+            </sc-for>
+          </div>
+          <div style="padding: 12px">
+            <button type="button" onClick="{{ t.bump }}" style="{{ t.bumpStyle }}">{{ t.bumpLabel }}</button>
+          </div>
+        </article>
+      </sc-for>
+    </main>
+
+    <!-- Aggregate view (KDS-23) -->
+    <aside aria-label="Xem gộp" style="width: 340px; flex-shrink: 0; display: flex; flex-direction: column; background: var(--bg-subtle); border-left: 1px solid var(--border)">
+      <div style="padding: 20px 20px 12px; display: flex; flex-direction: column; gap: 2px">
+        <h2 style="margin: 0; font-size: 20px; font-weight: 700">Tổng món cần làm</h2>
+        <span style="font-size: 15px; color: var(--text-muted)">Gộp từ các phiếu chưa xong</span>
+      </div>
+      <div style="flex-grow: 1; overflow: auto">
+        <sc-for list="{{ totals }}" as="g" hint-placeholder-count="6">
+          <div style="display: flex; align-items: center; gap: 12px; padding: 12px 20px; border-top: 1px solid var(--border)">
+            <span class="num" style="min-width: 48px; height: 48px; border-radius: 10px; background: var(--bg-muted); display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 800">{{ g.qty }}</span>
+            <span style="font-size: 18px; font-weight: 600; flex-grow: 1">{{ g.name }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div style="padding: 16px 20px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 8px">
+        <button type="button" style="height: 56px; border-radius: 10px; border: 1px solid var(--border-strong); background: transparent; color: var(--text); font-size: 16px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20M4.9 4.9l14.2 14.2"/></svg>
+          Báo tạm hết món
+        </button>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Toast (KDS-24 + undo KDS-25) -->
+  <sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
+    <div role="status" style="position: absolute; left: 50%; bottom: 24px; transform: translateX(-50%); display: flex; align-items: center; gap: 16px; padding: 12px 12px 12px 20px; border-radius: 16px; background: var(--text); color: var(--bg); box-shadow: var(--shadow-lg); font-size: 18px; font-weight: 600">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+      {{ toast }}
+      <button type="button" onClick="{{ undo }}" style="height: 48px; padding: 0 16px; border-radius: 10px; border: 1px solid var(--border-strong); background: transparent; color: var(--bg); font-size: 16px; font-weight: 700">Hoàn tác</button>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":true},"$preview":{"width":1920,"height":1080}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    // Item status: 0 waiting, 1 cooking, 2 done
+    this.state = {
+      station: 'hot',
+      lastDone: null,
+      tickets: [
+        { id: 't38', no: '#038', type: 'dinein', at: '19:18', sec: 860, items: [
+          { id: 'a', name: 'Hotdog phô mai', qty: 2, mods: 'Sốt cay', st: 2 },
+          { id: 'b', name: 'Khoai tây chiên', qty: 1, mods: 'Size L', st: 1 }
+        ] },
+        { id: 't39', no: '#039', type: 'takeaway', at: '19:21', sec: 665, flag: 'rush', items: [
+          { id: 'a', name: 'Burger bò', qty: 1, mods: 'Size L · Không hành', note: 'Dị ứng đậu phộng', st: 1 },
+          { id: 'b', name: 'Gà viên chiên', qty: 1, mods: '', st: 1 }
+        ] },
+        { id: 't40', no: '#040', type: 'delivery', at: '19:24', sec: 460, items: [
+          { id: 'a', name: 'Hotdog cổ điển', qty: 3, mods: '', st: 0 },
+          { id: 'b', name: 'Hotdog cay Hàn Quốc', qty: 1, mods: 'Thêm phô mai ×2', st: 0 }
+        ] },
+        { id: 't41', no: '#041', type: 'dinein', at: '19:28', sec: 252, items: [
+          { id: 'a', name: 'Hotdog xúc xích Đức', qty: 1, mods: '', st: 0 },
+          { id: 'b', name: 'Khoai tây chiên', qty: 2, mods: 'Size M', st: 0 }
+        ] },
+        { id: 't42', no: '#042', type: 'takeaway', at: '19:30', sec: 90, flag: 'later', items: [
+          { id: 'a', name: 'Burger gà giòn', qty: 1, mods: 'Thêm sốt mayo', st: 0 },
+          { id: 'b', name: 'Hotdog phô mai', qty: 1, mods: 'Sốt cà chua', st: 0 }
+        ] },
+        { id: 't43', no: '#043', type: 'dinein', at: '19:32', sec: 20, isNew: true, items: [
+          { id: 'a', name: 'Hotdog cổ điển', qty: 2, mods: '', st: 0 }
+        ] }
+      ]
+    };
+  }
+  renderVals() {
+    const OVERDUE = 720;
+    const TYPE = { dinein: 'Ăn tại quán', takeaway: 'Mang đi', delivery: 'Giao hàng' };
+    const ICON = {
+      0: 'M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20',
+      1: 'M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20M12 6v6l4 2',
+      2: 'M20 6 9 17l-5-5'
+    };
+    const tickets = (this.state.tickets ?? []).filter((t) => !t.done);
+    const mmss = (s) => String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
+    const update = (tid, fn) => this.setState({ tickets: (this.state.tickets ?? []).map((t) => (t.id === tid ? fn(t) : t)) });
+    const stateOf = (t) => {
+      if (t.sec > OVERDUE) return 'overdue';
+      return t.items.some((i) => i.st === 1) ? 'cooking' : 'waiting';
+    };
+    const TONE = {
+      waiting: { label: 'Chờ', head: 'background: var(--warning); color: var(--warning-fg);', border: 'var(--warning)' },
+      cooking: { label: 'Đang làm', head: 'background: var(--accent); color: var(--accent-fg);', border: 'var(--accent)' },
+      overdue: { label: 'Quá giờ', head: 'background: var(--danger); color: var(--danger-fg);', border: 'var(--danger)' }
+    };
+    let cW = 0, cC = 0, cO = 0;
+    const view = tickets.map((t) => {
+      const s = stateOf(t);
+      if (s === 'overdue') cO += 1; else if (s === 'cooking') cC += 1; else cW += 1;
+      const anyWaiting = t.items.some((i) => i.st === 0);
+      const tone = TONE[s];
+      const flag = t.isNew ? 'Phiếu mới' : t.flag === 'rush' ? 'Gọi gấp' : t.flag === 'later' ? 'Ra món sau' : '';
+      const flagTone = t.flag === 'rush' ? 'danger' : t.flag === 'later' ? 'info' : 'success';
+      return {
+        no: t.no,
+        at: t.at,
+        typeLabel: TYPE[t.type] ?? '',
+        elapsed: mmss(t.sec),
+        stateLabel: tone.label,
+        aria: 'Phiếu ' + t.no + ', ' + tone.label,
+        hasFlag: flag !== '',
+        flag,
+        flagIcon: t.flag === 'rush' ? 'M13 2 3 14h9l-1 8 10-12h-9l1-8z' : t.flag === 'later' ? 'M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20M12 6v6l4 2' : 'M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0',
+        flagStyle: 'display: flex; align-items: center; gap: 8px; padding: 8px 16px; font-size: 16px; font-weight: 700; background: var(--' + flagTone + '-subtle); color: var(--' + flagTone + '-text);',
+        cardStyle: 'display: flex; flex-direction: column; border-radius: 16px; overflow: hidden; background: var(--bg-subtle); border: 2px solid ' + tone.border + '; box-shadow: var(--shadow-sm);',
+        headStyle: 'display: flex; align-items: flex-start; gap: 8px; padding: 12px 16px; ' + tone.head,
+        items: t.items.map((i) => ({
+          ...i,
+          hasMods: (i.mods ?? '') !== '',
+          hasNote: (i.note ?? '') !== '',
+          icon: ICON[i.st] ?? ICON[0],
+          aria: i.qty + ' ' + i.name + ', ' + (i.st === 2 ? 'xong' : i.st === 1 ? 'đang làm' : 'chờ'),
+          toggle: () => update(t.id, (x) => ({ ...x, items: x.items.map((y) => (y.id === i.id ? { ...y, st: (y.st + 1) % 3 } : y)) })),
+          rowStyle: 'display: flex; align-items: flex-start; gap: 12px; width: 100%; min-height: 56px; padding: 12px 16px; border: 0; border-bottom: 1px solid var(--border); background: transparent; color: var(--text);',
+          iconStyle: 'flex-shrink: 0; margin-top: 2px; color: ' + (i.st === 2 ? 'var(--success)' : i.st === 1 ? 'var(--accent)' : 'var(--text-subtle)') + ';',
+          nameStyle: 'font-size: 20px; font-weight: 600;' + (i.st === 2 ? ' text-decoration: line-through; color: var(--text-subtle);' : '')
+        })),
+        bumpLabel: anyWaiting ? 'Bắt đầu làm' : 'Xong · báo quầy gọi số',
+        bumpStyle: 'width: 100%; height: 56px; border-radius: 10px; font-size: 18px; font-weight: 700; '
+          + (anyWaiting ? 'border: 1px solid var(--border-strong); background: var(--bg); color: var(--text);' : 'border: 0; background: var(--success); color: var(--success-fg);'),
+        bump: () => {
+          if (anyWaiting) { update(t.id, (x) => ({ ...x, items: x.items.map((y) => (y.st === 0 ? { ...y, st: 1 } : y)) })); return; }
+          this.setState({
+            lastDone: t.id,
+            tickets: (this.state.tickets ?? []).map((x) => (x.id === t.id ? { ...x, done: true, items: x.items.map((y) => ({ ...y, st: 2 })) } : x))
+          });
+        }
+      };
+    });
+    const sums = {};
+    tickets.forEach((t) => t.items.forEach((i) => { if (i.st !== 2) sums[i.name] = (sums[i.name] ?? 0) + i.qty; }));
+    const totals = Object.keys(sums).map((name) => ({ name, qty: sums[name] })).sort((a, b) => b.qty - a.qty);
+    const last = (this.state.tickets ?? []).find((t) => t.id === this.state.lastDone && t.done);
+    const sBase = 'height: 56px; padding: 0 18px; border-radius: 999px; font-size: 17px; font-weight: 600; display: flex; align-items: center; gap: 8px; ';
+    const stations = [
+      { id: 'all', label: 'Tất cả', count: 9 }, { id: 'hot', label: 'Bếp nóng', count: tickets.length },
+      { id: 'cold', label: 'Bếp nguội', count: 1 }, { id: 'bar', label: 'Bar', count: 2 }
+    ].map((s) => {
+      const on = this.state.station === s.id;
+      return {
+        ...s,
+        selected: on ? 'true' : 'false',
+        pick: () => this.setState({ station: s.id }),
+        style: sBase + (on ? 'border: 1px solid var(--text); background: var(--text); color: var(--bg);' : 'border: 1px solid var(--border); background: transparent; color: var(--text-muted);'),
+        countStyle: 'min-width: 28px; height: 28px; padding: 0 8px; box-sizing: border-box; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700; '
+          + (on ? 'background: var(--bg); color: var(--text);' : 'background: var(--bg-muted); color: var(--text);')
+      };
+    });
+    return {
+      themeClass: this.props.dark ? 'dark' : '',
+      stations,
+      tickets: view,
+      isEmpty: view.length === 0,
+      countWaiting: cW,
+      countCooking: cC,
+      countOverdue: cO,
+      totals,
+      hasToast: !!last,
+      toast: last ? 'Đã báo quầy gọi số ' + last.no : '',
+      undo: () => this.setState({
+        lastDone: null,
+        tickets: (this.state.tickets ?? []).map((x) => (x.id === this.state.lastDone ? { ...x, done: false } : x))
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

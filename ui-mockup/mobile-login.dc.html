@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Mobile đăng nhập</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&amp;family=Baloo+2:wght@700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#CA0404}a:hover{color:#9C0303}
+.fnb{--bg:#FFFFFF;--bg-subtle:#F9F6F4;--bg-muted:#F1ECE8;--border:#E4DAD4;--border-strong:#9F8D7F;--text:#282019;--text-muted:#6D5D51;--text-subtle:#7A695C;--primary:#CA0404;--primary-fg:#FFFFFF;--primary-subtle:#FEE7E3;--primary-text:#9C0303;--brick:#8A2A26;--band:#F6F1EA;font-family:'Be Vietnam Pro',system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.45}
+.fnb.dark{--bg:#1A1411;--bg-subtle:#282019;--bg-muted:#3E332A;--border:#55473D;--border-strong:#857366;--text:#F9F6F4;--text-muted:#D1C3B9;--text-subtle:#B8A79A;--primary:#F84839;--primary-fg:#1A1411;--primary-subtle:#470000;--primary-text:#FEAEA2;--brick:#62211E;--band:#1A1411}
+.fnb button{font-family:inherit;cursor:pointer}
+.fnb .num{font-variant-numeric:tabular-nums}
+.fnb .display{font-family:'Baloo 2',sans-serif;font-weight:800;line-height:1.1}
+</style>
+</helmet>
+<div class="fnb {{themeClass}}" style="width: 390px; height: 844px; overflow: hidden; display: flex; flex-direction: column; background: var(--bg)">
+
+  <!-- Brand header -->
+  <header style="flex-shrink: 0; background: var(--brick); color: #FFFFFF; padding: 48px 24px 0; display: flex; flex-direction: column; align-items: center">
+    <img src="/_blob/5bc8172d66702a09b8368bb2966b5020" alt="Logo Bánh Kẹp Chó Nóng" style="width: 220px; height: 181px; object-fit: contain">
+    <svg width="390" height="32" viewBox="0 0 390 32" preserveAspectRatio="none" aria-hidden="true" style="display: block; margin: 16px -24px 0"><path d="M0 32V14c32 0 32 14 65 14s32-18 65-18 32 18 65 18 32-18 65-18 32 18 65 18 32-14 65-14v18Z" fill="var(--bg)"/></svg>
+  </header>
+
+  <main style="flex-grow: 1; padding: 4px 24px 24px; display: flex; flex-direction: column; gap: 16px">
+    <div style="display: flex; flex-direction: column; gap: 4px">
+      <h1 class="display" style="margin: 0; font-size: 34px; color: var(--primary)">Chào bạn!</h1>
+      <span style="font-size: 15px; color: var(--text-muted)">Đăng nhập để đặt món nhanh và tích điểm.</span>
+    </div>
+
+    <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px">
+      <span style="font-weight: 600">Số điện thoại</span>
+      <span style="height: 52px; box-sizing: border-box; padding: 0 14px; border: 2px solid var(--primary); border-radius: 16px; display: flex; align-items: center; gap: 10px; font-size: 16px; background: var(--bg)"><span style="color: var(--text-muted)">+84</span><span class="num">912 345 678</span></span>
+    </label>
+
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <span style="font-size: 14px; font-weight: 600">Mã PIN 6 số</span>
+      <div role="group" aria-label="Mã PIN" style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px">
+        <sc-for list="{{ pin }}" as="p" hint-placeholder-count="6">
+          <span style="{{ p.style }}"><span style="{{ p.dot }}"></span></span>
+        </sc-for>
+      </div>
+      <a href="#" style="align-self: flex-end; height: 44px; display: flex; align-items: center; font-size: 14px; font-weight: 600">Quên PIN? Đặt lại qua email</a>
+    </div>
+
+    <div style="flex-grow: 1"></div>
+
+    <a href="mobile-menu.dc.html" style="height: 52px; border-radius: 16px; background: var(--primary); color: var(--primary-fg); font-size: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; text-decoration: none">Đăng nhập</a>
+    <div style="display: flex; justify-content: center; gap: 6px; font-size: 14px; color: var(--text-muted)">
+      <span>Lần đầu ghé quán?</span>
+      <a href="#" style="font-weight: 700">Đăng ký</a>
+    </div>
+    <a href="mobile-menu.dc.html" style="height: 44px; display: flex; align-items: center; justify-content: center; font-size: 14px; color: var(--text-muted); text-decoration: none">Xem thực đơn trước</a>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const pin = [0, 1, 2, 3, 4, 5].map((i) => ({
+      style: 'height: 52px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: var(--bg); '
+        + (i === 4 ? 'border: 2px solid var(--primary);' : 'border: 1px solid var(--border-strong);'),
+      dot: i < 4 ? 'width: 12px; height: 12px; border-radius: 999px; background: var(--text);' : 'width: 0; height: 0;'
+    }));
+    return { themeClass: this.props.dark ? 'dark' : '', pin };
+  }
+}
+</script>
+</body>
+</html>

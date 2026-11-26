@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>POS mở ca</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#CA0404}a:hover{color:#9C0303}
+.fnb{--bg:#FFFFFF;--bg-subtle:#F9F6F4;--bg-muted:#F1ECE8;--border:#E4DAD4;--border-strong:#9F8D7F;--text:#282019;--text-muted:#6D5D51;--text-subtle:#7A695C;--primary:#CA0404;--primary-fg:#FFFFFF;--primary-subtle:#FEE7E3;--primary-text:#9C0303;--success:#2F7D46;--success-fg:#FFFFFF;--success-subtle:#E0F3E3;--success-text:#17592C;--warning:#F5BC09;--warning-fg:#211510;--warning-subtle:#F9ECCE;--warning-text:#795B03;--info:#2563A8;--info-subtle:#E1EEFE;--info-text:#184B83;--shadow-sm:0 1px 2px rgba(40,32,25,.08),0 1px 3px rgba(40,32,25,.06);font-family:'Be Vietnam Pro',system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.45}
+.fnb.dark{--bg:#1A1411;--bg-subtle:#282019;--bg-muted:#3E332A;--border:#55473D;--border-strong:#857366;--text:#F9F6F4;--text-muted:#D1C3B9;--text-subtle:#B8A79A;--primary:#F84839;--primary-fg:#1A1411;--primary-subtle:#470000;--primary-text:#FEAEA2;--success:#58A46B;--success-fg:#1A1411;--success-subtle:#002A0E;--success-text:#A0D5AB;--warning:#F5BC09;--warning-fg:#1A1411;--warning-subtle:#2C1F00;--warning-text:#E7C067;--info:#5693DC;--info-subtle:#012145;--info-text:#9DC9FF;--shadow-sm:0 1px 2px rgba(0,0,0,.4)}
+.fnb button{font-family:inherit;cursor:pointer}
+.fnb .num{font-variant-numeric:tabular-nums}
+</style>
+</helmet>
+<div class="fnb {{themeClass}}" style="width: 1280px; height: 800px; display: flex; flex-direction: column; overflow: hidden; background: var(--bg-subtle)">
+
+  <header style="height: 56px; flex-shrink: 0; display: flex; align-items: center; gap: 16px; padding: 0 16px; background: var(--bg); border-bottom: 1px solid var(--border)">
+    <img src="/_blob/dbbc95b08d47870e1964f1322682c11f" alt="Banhkepchonong" style="width: 40px; height: 40px; object-fit: contain">
+    <div style="display: flex; flex-direction: column">
+      <span style="font-size: 14px; font-weight: 600">Banhkepchonong · Chi nhánh Quận 1</span>
+      <span style="font-size: 12px; color: var(--text-muted)">Thu ngân: Nguyễn Lan · chưa mở ca</span>
+    </div>
+    <div style="flex-grow: 1"></div>
+    <span style="display: inline-flex; align-items: center; height: 28px; padding: 0 10px; border-radius: 999px; background: var(--success-subtle); color: var(--success-text); font-size: 13px; font-weight: 500">Trực tuyến</span>
+    <span class="num" style="font-size: 15px; font-weight: 600">09:36</span>
+  </header>
+
+  <main style="flex-grow: 1; display: flex; gap: 24px; padding: 24px; min-height: 0">
+    <!-- CashCountInput -->
+    <section aria-labelledby="countTitle" style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+      <div>
+        <h1 id="countTitle" style="margin: 0; font-size: 24px; font-weight: 700">Mở ca · đếm tiền đầu ca</h1>
+        <span style="font-size: 14px; color: var(--text-muted)">Nhập số tờ theo mệnh giá; hệ thống tự cộng.</span>
+      </div>
+      <div style="border-radius: 16px; border: 1px solid var(--border); background: var(--bg); overflow: hidden">
+        <sc-for list="{{ rows }}" as="r" hint-placeholder-count="6">
+          <div style="display: flex; align-items: center; gap: 16px; padding: 8px 16px; border-bottom: 1px solid var(--border)">
+            <span class="num" style="width: 120px; font-size: 18px; font-weight: 700">{{ r.denom }}</span>
+            <span style="color: var(--text-muted)">×</span>
+            <div style="display: flex; align-items: center; border: 1px solid var(--border-strong); border-radius: 10px; overflow: hidden">
+              <button type="button" aria-label="{{ r.decLabel }}" style="width: 56px; height: 56px; border: 0; background: var(--bg); color: var(--text); font-size: 22px">−</button>
+              <span class="num" style="{{ r.countStyle }}">{{ r.count }}</span>
+              <button type="button" aria-label="{{ r.incLabel }}" style="width: 56px; height: 56px; border: 0; background: var(--bg); color: var(--text); font-size: 22px">+</button>
+            </div>
+            <span class="num" style="flex-grow: 1; text-align: right; font-size: 18px; font-weight: 600">{{ r.total }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- Summary -->
+    <aside style="width: 380px; flex-shrink: 0; display: flex; flex-direction: column; gap: 16px">
+      <div style="padding: 20px; border-radius: 16px; background: var(--bg); border: 1px solid var(--border); display: flex; flex-direction: column; gap: 6px">
+        <span style="font-size: 14px; color: var(--text-muted)">Tiền đầu ca</span>
+        <span class="num" style="font-size: 36px; font-weight: 800; line-height: 1.2">1.000.000 ₫</span>
+        <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; color: var(--success-text)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          Khớp số ca trước để lại (1.000.000 ₫)
+        </span>
+      </div>
+      <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px">
+        <span style="font-weight: 600">Ghi chú (không bắt buộc)</span>
+        <span style="min-height: 88px; box-sizing: border-box; padding: 12px; border: 1px solid var(--border-strong); border-radius: 10px; background: var(--bg); color: var(--text-subtle)">Ví dụ: nhận thêm tiền lẻ từ quản lý</span>
+      </label>
+      <div style="padding: 12px 16px; border-radius: 10px; background: var(--info-subtle); color: var(--info-text); font-size: 14px">Ca mở trên thiết bị này; đơn bán ra được tính vào ca của Nguyễn Lan.</div>
+    </aside>
+  </main>
+
+  <footer style="height: 80px; flex-shrink: 0; display: flex; align-items: center; gap: 8px; padding: 0 16px; background: var(--bg); border-top: 1px solid var(--border)">
+    <a href="pos-login.dc.html" style="height: 56px; padding: 0 20px; box-sizing: border-box; border-radius: 10px; border: 1px solid var(--border-strong); background: var(--bg); color: var(--text); font-size: 16px; font-weight: 600; display: flex; align-items: center; text-decoration: none">Đổi nhân viên</a>
+    <div style="flex-grow: 1"></div>
+    <a href="pos-sale.dc.html" style="height: 56px; min-width: 280px; box-sizing: border-box; padding: 0 20px; border-radius: 10px; background: var(--primary); color: var(--primary-fg); font-size: 17px; font-weight: 700; display: flex; align-items: center; justify-content: center; text-decoration: none">Mở ca</a>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const raw = [[500000, 0], [200000, 1], [100000, 3], [50000, 4], [20000, 10], [10000, 10]];
+    const fmt = (n) => n.toLocaleString('vi-VN');
+    const rows = raw.map(([d, c]) => ({
+      denom: fmt(d),
+      count: c,
+      total: fmt(d * c) + ' ₫',
+      decLabel: 'Bớt một tờ ' + fmt(d),
+      incLabel: 'Thêm một tờ ' + fmt(d),
+      countStyle: 'min-width: 56px; text-align: center; font-size: 20px; font-weight: 700;' + (c === 0 ? ' color: var(--text-subtle);' : '')
+    }));
+    return { themeClass: this.props.dark ? 'dark' : '', rows };
+  }
+}
+</script>
+</body>
+</html>

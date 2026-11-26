@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>POS cài đặt thiết bị</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#CA0404}a:hover{color:#9C0303}
+.fnb{--bg:#FFFFFF;--bg-subtle:#F9F6F4;--bg-muted:#F1ECE8;--border:#E4DAD4;--border-strong:#9F8D7F;--text:#282019;--text-muted:#6D5D51;--text-subtle:#7A695C;--primary:#CA0404;--primary-fg:#FFFFFF;--primary-subtle:#FEE7E3;--primary-text:#9C0303;--success-subtle:#E0F3E3;--success-text:#17592C;--warning:#F5BC09;--warning-fg:#211510;--warning-subtle:#F9ECCE;--warning-text:#795B03;--danger:#C2185B;--danger-subtle:#FFE5EA;--danger-text:#8B023D;--shadow-sm:0 1px 2px rgba(40,32,25,.08),0 1px 3px rgba(40,32,25,.06);font-family:'Be Vietnam Pro',system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.45}
+.fnb.dark{--bg:#1A1411;--bg-subtle:#282019;--bg-muted:#3E332A;--border:#55473D;--border-strong:#857366;--text:#F9F6F4;--text-muted:#D1C3B9;--text-subtle:#B8A79A;--primary:#F84839;--primary-fg:#1A1411;--primary-subtle:#470000;--primary-text:#FEAEA2;--success-subtle:#002A0E;--success-text:#A0D5AB;--warning:#F5BC09;--warning-fg:#1A1411;--warning-subtle:#2C1F00;--warning-text:#E7C067;--danger:#EF4B7F;--danger-subtle:#45001A;--danger-text:#FEAABC;--shadow-sm:0 1px 2px rgba(0,0,0,.4)}
+.fnb button{font-family:inherit;cursor:pointer}
+.fnb .num{font-variant-numeric:tabular-nums}
+.fnb .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+</style>
+</helmet>
+<div class="fnb {{themeClass}}" style="width: 1280px; height: 800px; display: flex; flex-direction: column; overflow: hidden; background: var(--bg-subtle)">
+
+  <header style="height: 56px; flex-shrink: 0; display: flex; align-items: center; gap: 16px; padding: 0 16px; background: var(--bg); border-bottom: 1px solid var(--border)">
+    <img src="/_blob/dbbc95b08d47870e1964f1322682c11f" alt="Banhkepchonong" style="width: 40px; height: 40px; object-fit: contain">
+    <div style="display: flex; flex-direction: column">
+      <span style="font-size: 14px; font-weight: 600">Banhkepchonong · Chi nhánh Quận 1</span>
+      <span style="font-size: 12px; color: var(--text-muted)">Thiết bị POS-Q1-01 · Nguyễn Lan</span>
+    </div>
+    <div style="flex-grow: 1"></div>
+    <span style="display: inline-flex; align-items: center; height: 28px; padding: 0 10px; border-radius: 999px; background: var(--warning); color: var(--warning-fg); font-size: 13px; font-weight: 600">3 lệnh chờ · 1 lỗi</span>
+    <span class="num" style="font-size: 15px; font-weight: 600">12:30</span>
+  </header>
+
+  <main style="flex-grow: 1; display: flex; gap: 24px; padding: 20px 24px; min-height: 0">
+    <!-- Device settings -->
+    <section aria-labelledby="devTitle" style="width: 460px; flex-shrink: 0; display: flex; flex-direction: column; gap: 12px">
+      <h1 id="devTitle" style="margin: 0; font-size: 24px; font-weight: 700">Cài đặt thiết bị</h1>
+      <div style="padding: 14px 16px; border-radius: 16px; background: var(--bg); border: 1px solid var(--border); display: flex; flex-direction: column; gap: 6px; font-size: 14px">
+        <sc-for list="{{ info }}" as="i" hint-placeholder-count="5">
+          <div style="display: flex; justify-content: space-between; gap: 12px"><span style="color: var(--text-muted)">{{ i.l }}</span><span class="mono" style="font-weight: 600">{{ i.v }}</span></div>
+        </sc-for>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <span style="font-size: 14px; font-weight: 600">Giao diện</span>
+        <div role="radiogroup" aria-label="Giao diện" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 4px; gap: 4px; border-radius: 10px; background: var(--bg-muted)">
+          <button type="button" role="radio" aria-checked="false" style="height: 48px; border: 0; border-radius: 6px; background: transparent; color: var(--text-muted); font-size: 14px">Theo hệ thống</button>
+          <button type="button" role="radio" aria-checked="true" style="height: 48px; border: 0; border-radius: 6px; background: var(--bg); color: var(--text); font-size: 14px; font-weight: 700; box-shadow: var(--shadow-sm)">Sáng</button>
+          <button type="button" role="radio" aria-checked="false" style="height: 48px; border: 0; border-radius: 6px; background: transparent; color: var(--text-muted); font-size: 14px">Tối</button>
+        </div>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <span style="font-size: 14px; font-weight: 600">Ngôn ngữ</span>
+          <div role="radiogroup" aria-label="Ngôn ngữ" style="display: flex; padding: 4px; gap: 4px; border-radius: 10px; background: var(--bg-muted)">
+            <button type="button" role="radio" aria-checked="true" style="flex: 1 1 0; height: 48px; border: 0; border-radius: 6px; background: var(--bg); color: var(--text); font-size: 14px; font-weight: 700">Tiếng Việt</button>
+            <button type="button" role="radio" aria-checked="false" style="flex: 1 1 0; height: 48px; border: 0; border-radius: 6px; background: transparent; color: var(--text-muted); font-size: 14px">English</button>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <span style="font-size: 14px; font-weight: 600">Bố cục</span>
+          <div role="radiogroup" aria-label="Bố cục" style="display: flex; padding: 4px; gap: 4px; border-radius: 10px; background: var(--bg-muted)">
+            <button type="button" role="radio" aria-checked="true" style="flex: 1 1 0; height: 48px; border: 0; border-radius: 6px; background: var(--bg); color: var(--text); font-size: 14px; font-weight: 700">Tablet</button>
+            <button type="button" role="radio" aria-checked="false" style="flex: 1 1 0; height: 48px; border: 0; border-radius: 6px; background: transparent; color: var(--text-muted); font-size: 14px">Cầm tay</button>
+          </div>
+        </div>
+      </div>
+      <a href="pos-printers.dc.html" style="height: 56px; padding: 0 16px; box-sizing: border-box; border-radius: 10px; border: 1px solid var(--border-strong); background: var(--bg); color: var(--text); font-size: 16px; font-weight: 600; display: flex; align-items: center; justify-content: space-between; text-decoration: none">Máy in và hàng đợi in<span aria-hidden="true">›</span></a>
+      <div style="flex-grow: 1"></div>
+      <button type="button" style="height: 56px; padding: 0 16px; border-radius: 10px; border: 1px solid var(--danger); background: var(--bg); color: var(--danger-text); font-size: 16px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20M4.9 4.9l14.2 14.2"/></svg>
+        Huỷ đăng ký thiết bị
+      </button>
+    </section>
+
+    <!-- SyncStatus detail -->
+    <section aria-labelledby="syncTitle" style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+      <h2 id="syncTitle" style="margin: 0; font-size: 24px; font-weight: 700">Đồng bộ</h2>
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px">
+        <sc-for list="{{ stats }}" as="s" hint-placeholder-count="3">
+          <div style="{{ s.style }}">
+            <span style="font-size: 13px">{{ s.label }}</span>
+            <span class="num" style="font-size: 22px; font-weight: 800">{{ s.value }}</span>
+            <span style="font-size: 12px">{{ s.note }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div style="border-radius: 16px; border: 1px solid var(--border); background: var(--bg); overflow: hidden">
+        <div style="display: flex; padding: 10px 14px; background: var(--bg-subtle); font-size: 12px; font-weight: 700; color: var(--text-muted); gap: 12px">
+          <span style="width: 64px">Số lệnh</span><span style="flex-grow: 1">Lệnh</span><span style="width: 130px">Trạng thái</span><span style="width: 92px"></span>
+        </div>
+        <sc-for list="{{ cmds }}" as="c" hint-placeholder-count="4">
+          <div style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-top: 1px solid var(--border); font-size: 14px">
+            <span class="num mono" style="width: 64px; color: var(--text-muted)">{{ c.seq }}</span>
+            <div style="flex-grow: 1; display: flex; flex-direction: column"><span style="font-weight: 600">{{ c.name }}</span><span style="font-size: 12px; color: var(--text-muted)">{{ c.detail }}</span></div>
+            <span style="{{ c.badge }}">{{ c.state }}</span>
+            <span style="width: 92px; display: flex; justify-content: flex-end">
+              <sc-if value="{{ c.retry }}" hint-placeholder-val="{{ false }}">
+                <button type="button" style="height: 48px; padding: 0 12px; border-radius: 10px; border: 1px solid var(--border-strong); background: var(--bg); color: var(--text); font-size: 14px; font-weight: 600">Thử lại</button>
+              </sc-if>
+            </span>
+          </div>
+        </sc-for>
+      </div>
+      <span style="font-size: 13px; color: var(--text-subtle)">Lệnh đi theo đúng số thứ tự. Lệnh bị từ chối hẳn được giữ lại để quản lý xử lý, không tự xoá.</span>
+    </section>
+  </main>
+
+  <footer style="height: 80px; flex-shrink: 0; display: flex; align-items: center; gap: 8px; padding: 0 16px; background: var(--bg); border-top: 1px solid var(--border)">
+    <a href="pos-sale.dc.html" style="height: 56px; padding: 0 20px; box-sizing: border-box; border-radius: 10px; border: 1px solid var(--border-strong); background: var(--bg); color: var(--text); font-size: 16px; font-weight: 600; display: flex; align-items: center; text-decoration: none">Quay lại bán hàng</a>
+    <div style="flex-grow: 1"></div>
+    <button type="button" style="height: 56px; min-width: 260px; padding: 0 20px; border-radius: 10px; border: 0; background: var(--primary); color: var(--primary-fg); font-size: 17px; font-weight: 700">Đồng bộ ngay</button>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const info = [
+      { l: 'Mã thiết bị', v: 'POS-Q1-01' }, { l: 'Vai trò', v: 'POS quầy' }, { l: 'Phiên bản', v: '1.3.0 (build 214)' },
+      { l: 'Thực đơn', v: 'phiên bản 17' }, { l: 'Đăng ký lúc', v: '20/11/2026 bởi Lê Hà' }
+    ];
+    const box = (bg, fg) => 'padding: 12px 14px; border-radius: 16px; display: flex; flex-direction: column; gap: 2px; background: ' + bg + '; color: ' + fg + ';';
+    const stats = [
+      { label: 'Lần đồng bộ cuối', value: '12:24', note: '6 phút trước', style: box('var(--bg)', 'var(--text)') + ' border: 1px solid var(--border);' },
+      { label: 'Lệnh chờ · lỗi', value: '3 · 1', note: 'Mất mạng từ 12:24', style: box('var(--warning-subtle)', 'var(--warning-text)') },
+      { label: 'Bản offline còn hạn', value: '65 giờ', note: 'Hạn 72 giờ từ lần đồng bộ cuối', style: box('var(--success-subtle)', 'var(--success-text)') }
+    ];
+    const T = { wait: ['Chờ gửi', 'var(--warning-subtle)', 'var(--warning-text)'], fail: ['Bị từ chối', 'var(--danger-subtle)', 'var(--danger-text)'], ok: ['Đã nhận', 'var(--success-subtle)', 'var(--success-text)'] };
+    const cmds = [
+      ['#2041', 'Tạo đơn #045 và thanh toán tiền mặt', '198.000 ₫ · 12:18', 'ok'],
+      ['#2042', 'Rút tiền két 500.000 ₫', 'Nguyễn Lan · 12:25', 'wait'],
+      ['#2043', 'Tạo đơn #046 (lưu tạm)', '3 món · 12:27', 'wait'],
+      ['#2044', 'Gửi bếp đơn #046', 'Chờ lệnh #2043', 'wait'],
+      ['#2039', 'Sửa ghi chú đơn #043', 'Server từ chối: sai định dạng lệnh (bản app cũ) · cần quản lý xử lý', 'fail']
+    ].map(([seq, name, detail, s]) => ({
+      seq, name, detail, state: T[s][0], retry: s === 'fail',
+      badge: 'width: 130px; display: inline-flex; justify-content: center; align-items: center; height: 26px; border-radius: 999px; font-size: 12px; font-weight: 700; background: ' + T[s][1] + '; color: ' + T[s][2] + ';'
+    }));
+    return { themeClass: this.props.dark ? 'dark' : '', info, stats, cmds };
+  }
+}
+</script>
+</body>
+</html>

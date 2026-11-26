@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Web khách thanh toán QR</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&amp;family=Baloo+2:wght@700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#CA0404}a:hover{color:#9C0303}
+.fnb{--bg:#FFFFFF;--bg-subtle:#F9F6F4;--bg-muted:#F1ECE8;--border:#E4DAD4;--border-strong:#9F8D7F;--text:#282019;--text-muted:#6D5D51;--text-subtle:#7A695C;--primary:#CA0404;--primary-fg:#FFFFFF;--warning:#F5BC09;--warning-fg:#211510;--warning-subtle:#F9ECCE;--warning-text:#795B03;--brick:#8A2A26;--band:#F6F1EA;--shadow-md:0 8px 24px rgba(40,32,25,.12);font-family:'Be Vietnam Pro',system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.5}
+.fnb.dark{--bg:#1A1411;--bg-subtle:#282019;--bg-muted:#3E332A;--border:#55473D;--border-strong:#857366;--text:#F9F6F4;--text-muted:#D1C3B9;--text-subtle:#B8A79A;--primary:#F84839;--primary-fg:#1A1411;--warning:#F5BC09;--warning-fg:#1A1411;--warning-subtle:#2C1F00;--warning-text:#E7C067;--brick:#62211E;--band:#282019;--shadow-md:0 8px 24px rgba(0,0,0,.5)}
+.fnb button{font-family:inherit;cursor:pointer}
+.fnb .num{font-variant-numeric:tabular-nums}
+.fnb .display{font-family:'Baloo 2',sans-serif;font-weight:800;line-height:1.1}
+.fnb .kv{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid var(--border);font-size:15px}
+</style>
+</helmet>
+<div class="fnb {{themeClass}}" style="width: 100%; min-height: 900px; background: var(--band)">
+
+  <header style="background: var(--brick); color: #FFFFFF">
+    <div style="max-width: 1240px; margin: 0 auto; padding: 12px 24px; display: flex; align-items: center; gap: 16px">
+      <img src="/_blob/dbbc95b08d47870e1964f1322682c11f" alt="" style="width: 52px; height: 52px; object-fit: contain">
+      <span class="display" style="font-size: 24px">Banhkepchonong</span>
+      <div style="flex-grow: 1"></div>
+      <ol aria-label="Các bước" style="margin: 0; padding: 0; list-style: none; display: flex; gap: 8px; font-size: 14px">
+        <li style="height: 34px; padding: 0 14px; border-radius: 999px; border: 1px solid rgba(255,255,255,.45); display: flex; align-items: center">1 · Giỏ và thông tin</li>
+        <li style="height: 34px; padding: 0 14px; border-radius: 999px; background: #F6F1EA; color: #8A2A26; font-weight: 800; display: flex; align-items: center">2 · Thanh toán</li>
+        <li style="height: 34px; padding: 0 14px; border-radius: 999px; border: 1px solid rgba(255,255,255,.45); display: flex; align-items: center">3 · Nhận món</li>
+      </ol>
+    </div>
+    <svg width="100%" height="32" viewBox="0 0 1440 32" preserveAspectRatio="none" aria-hidden="true" style="display: block"><path d="M0 32V12c60 0 60 14 120 14s60-20 120-20 60 20 120 20 60-20 120-20 60 20 120 20 60-20 120-20 60 20 120 20 60-20 120-20 60 20 120 20 60-20 120-20 60 20 120 20 60-14 120-14v20Z" fill="var(--band)"/></svg>
+  </header>
+
+  <main style="max-width: 980px; margin: 0 auto; padding: 16px 24px 56px; display: flex; flex-direction: column; gap: 20px">
+    <h1 class="display" style="margin: 0; font-size: 44px; text-align: center">Quét mã để thanh toán</h1>
+    <section style="border-radius: 28px; background: var(--bg); border: 1px solid var(--border); box-shadow: var(--shadow-md); padding: 32px; display: flex; gap: 40px; flex-wrap: wrap; align-items: center">
+      <!-- QrDisplay -->
+      <div style="flex: 0 0 300px; display: flex; flex-direction: column; align-items: center; gap: 12px; margin: 0 auto">
+        <div role="img" aria-label="Mã QR chuyển khoản (hình minh hoạ)" style="width: 300px; height: 300px; box-sizing: border-box; padding: 18px; border-radius: 20px; background: #FFFFFF; border: 1px solid var(--border); display: grid; grid-template-columns: repeat(25, minmax(0, 1fr)); grid-auto-rows: 1fr">
+          <sc-for list="{{ cells }}" as="c" hint-placeholder-count="625">
+            <span style="{{ c.style }}"></span>
+          </sc-for>
+        </div>
+        <span style="font-size: 12px; color: var(--text-subtle)">Hình minh hoạ, không phải mã thật</span>
+        <button type="button" style="height: 44px; padding: 0 18px; border-radius: 14px; border: 1px solid var(--border-strong); background: var(--bg); color: var(--text); font-size: 15px; font-weight: 600">Lưu ảnh mã QR</button>
+      </div>
+
+      <div style="flex: 1 1 360px; display: flex; flex-direction: column; gap: 8px; min-width: 0">
+        <div role="status" style="display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 16px; background: var(--warning-subtle); color: var(--warning-text); font-size: 15px; font-weight: 700">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 22h14M5 2h14M17 22v-4.17a2 2 0 0 0-.59-1.42L12 12l-4.41 4.41A2 2 0 0 0 7 17.83V22M7 2v4.17a2 2 0 0 0 .59 1.42L12 12l4.41-4.41A2 2 0 0 0 17 6.17V2"/></svg>
+          <span style="flex-grow: 1">Đang chờ thanh toán</span>
+          <span class="num" style="font-size: 18px">09:42</span>
+        </div>
+        <div class="kv"><span style="color: var(--text-muted)">Số tiền</span><span class="num" style="font-size: 26px; font-weight: 800">119.000 ₫</span></div>
+        <div class="kv"><span style="color: var(--text-muted)">Ngân hàng</span><span style="font-weight: 600">[TÊN NGÂN HÀNG]</span></div>
+        <div class="kv"><span style="color: var(--text-muted)">Chủ tài khoản</span><span style="font-weight: 600">[TÊN CHỦ TÀI KHOẢN]</span></div>
+        <div class="kv" style="align-items: center"><span style="color: var(--text-muted)">Nội dung</span>
+          <span style="display: flex; align-items: center; gap: 8px"><span style="font-family: ui-monospace, monospace; font-weight: 700">BKC A0142</span><button type="button" style="height: 36px; padding: 0 12px; border-radius: 10px; border: 1px solid var(--border-strong); background: var(--bg); color: var(--text); font-size: 13px; font-weight: 600">Sao chép</button></span>
+        </div>
+        <ul style="margin: 8px 0 0; padding-left: 20px; font-size: 14px; color: var(--text-muted); display: flex; flex-direction: column; gap: 4px">
+          <li>Mở app ngân hàng, quét mã. Số tiền và nội dung đã điền sẵn.</li>
+          <li>Giữ trang này mở. Quán xác nhận tự động trong vài giây sau khi nhận tiền.</li>
+          <li>Hết giờ mà chưa chuyển thì đơn tự huỷ, bạn đặt lại được.</li>
+        </ul>
+      </div>
+    </section>
+    <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap">
+      <a href="customer-web-checkout.dc.html" style="height: 48px; padding: 0 20px; border-radius: 16px; border: 1px solid var(--border-strong); background: var(--bg); color: var(--text); font-size: 16px; font-weight: 600; display: flex; align-items: center; text-decoration: none">Đổi phương thức</a>
+      <a href="customer-web-order.dc.html" style="height: 48px; padding: 0 20px; border-radius: 16px; color: var(--text-muted); font-size: 15px; display: flex; align-items: center">Mô phỏng: đã nhận tiền →</a>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const N = 25;
+    const finder = (x, y) => {
+      const zones = [[0, 0], [N - 7, 0], [0, N - 7]];
+      for (const [fx, fy] of zones) {
+        const dx = x - fx, dy = y - fy;
+        if (dx >= 0 && dx < 7 && dy >= 0 && dy < 7) {
+          const ring = Math.max(Math.abs(dx - 3), Math.abs(dy - 3));
+          return ring !== 2;
+        }
+        if (dx >= -1 && dx <= 7 && dy >= -1 && dy <= 7) return false;
+      }
+      return null;
+    };
+    const cells = [];
+    for (let y = 0; y < N; y++) {
+      for (let x = 0; x < N; x++) {
+        const f = finder(x, y);
+        const on = f !== null ? f : ((x * 7 + y * 13 + x * y) % 5) < 2;
+        cells.push({ style: on ? 'background: #1A1411;' : '' });
+      }
+    }
+    return { themeClass: this.props.dark ? 'dark' : '', cells };
+  }
+}
+</script>
+</body>
+</html>

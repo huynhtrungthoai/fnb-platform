@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>POS duyệt tại chỗ</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#CA0404}a:hover{color:#9C0303}
+.fnb{--bg:#FFFFFF;--bg-subtle:#F9F6F4;--bg-muted:#F1ECE8;--border:#E4DAD4;--border-strong:#9F8D7F;--text:#282019;--text-muted:#6D5D51;--text-subtle:#7A695C;--primary:#CA0404;--primary-fg:#FFFFFF;--primary-subtle:#FEE7E3;--primary-text:#9C0303;--accent:#ED6F03;--accent-subtle:#FEE8DC;--accent-text:#984502;--success-subtle:#E0F3E3;--success-text:#17592C;--warning:#F5BC09;--warning-subtle:#F9ECCE;--warning-text:#795B03;--danger:#C2185B;--danger-subtle:#FFE5EA;--danger-text:#8B023D;--info-subtle:#E1EEFE;--info-text:#184B83;--scrim:rgba(40,32,25,.55);--shadow-lg:0 12px 32px rgba(40,32,25,.22);font-family:'Be Vietnam Pro',system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.45}
+.fnb.dark{--bg:#1A1411;--bg-subtle:#282019;--bg-muted:#3E332A;--border:#55473D;--border-strong:#857366;--text:#F9F6F4;--text-muted:#D1C3B9;--text-subtle:#B8A79A;--primary:#F84839;--primary-fg:#1A1411;--primary-subtle:#470000;--primary-text:#FEAEA2;--accent:#FA8840;--accent-subtle:#3A1600;--accent-text:#FEB187;--success-subtle:#002A0E;--success-text:#A0D5AB;--warning:#F5BC09;--warning-subtle:#2C1F00;--warning-text:#E7C067;--danger:#EF4B7F;--danger-subtle:#45001A;--danger-text:#FEAABC;--info-subtle:#012145;--info-text:#9DC9FF;--scrim:rgba(0,0,0,.6);--shadow-lg:0 12px 32px rgba(0,0,0,.6)}
+.fnb button{font-family:inherit;cursor:pointer}
+.fnb .num{font-variant-numeric:tabular-nums}
+.fnb button:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+</style>
+</helmet>
+<div class="fnb {{themeClass}}" style="position: relative; width: 1280px; height: 800px; overflow: hidden; background: var(--bg-subtle); display: flex; flex-direction: column">
+
+  <!-- Sale screen behind (simplified) -->
+  <header style="height: 56px; flex-shrink: 0; display: flex; align-items: center; gap: 16px; padding: 0 16px; background: var(--bg); border-bottom: 1px solid var(--border)">
+    <img src="/_blob/dbbc95b08d47870e1964f1322682c11f" alt="Banhkepchonong" style="width: 40px; height: 40px; object-fit: contain">
+    <span style="font-size: 14px; font-weight: 600">Banhkepchonong · Chi nhánh Quận 1 · Thu ngân: Nguyễn Lan</span>
+  </header>
+  <div aria-hidden="true" style="flex-grow: 1; display: flex; gap: 16px; padding: 16px">
+    <div style="flex-grow: 1; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; align-content: start">
+      <sc-for list="{{ ghost }}" as="g" hint-placeholder-count="12">
+        <div style="height: 168px; border-radius: 16px; background: var(--bg)"></div>
+      </sc-for>
+    </div>
+    <div style="width: 400px; border-radius: 16px; background: var(--bg)"></div>
+  </div>
+
+  <!-- Scrim + ApprovalDialog -->
+  <div style="position: absolute; inset: 0; background: var(--scrim); display: flex; align-items: center; justify-content: center">
+    <section role="dialog" aria-modal="true" aria-labelledby="apTitle" style="width: 900px; border-radius: 16px; background: var(--bg); box-shadow: var(--shadow-lg); display: flex; flex-direction: column; overflow: hidden">
+      <div style="display: flex; align-items: center; gap: 12px; padding: 18px 24px; border-bottom: 1px solid var(--border)">
+        <span style="width: 44px; height: 44px; border-radius: 999px; background: var(--warning-subtle); color: var(--warning-text); display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg></span>
+        <div style="flex-grow: 1; display: flex; flex-direction: column">
+          <h2 id="apTitle" style="margin: 0; font-size: 20px; font-weight: 700">Cần quản lý duyệt</h2>
+          <span style="font-size: 14px; color: var(--text-muted)">Giảm 20% đơn · vượt hạn mức 10% của thu ngân Nguyễn Lan</span>
+        </div>
+        <button type="button" aria-label="Đóng" style="width: 44px; height: 44px; border-radius: 10px; border: 0; background: transparent; color: var(--text-muted); font-size: 22px">×</button>
+      </div>
+
+      <div style="display: flex; gap: 24px; padding: 20px 24px">
+        <div style="flex: 1 1 0; display: flex; flex-direction: column; gap: 16px; min-width: 0">
+          <div style="padding: 14px 16px; border-radius: 10px; background: var(--bg-subtle); display: flex; flex-direction: column; gap: 4px; font-size: 15px">
+            <div style="display: flex; justify-content: space-between"><span>Tạm tính</span><span class="num">208.000 ₫</span></div>
+            <div style="display: flex; justify-content: space-between; color: var(--danger-text); font-weight: 700"><span>Giảm 20% đơn</span><span class="num">−41.600 ₫</span></div>
+            <div style="display: flex; justify-content: space-between; font-weight: 800; font-size: 17px"><span>Sau giảm</span><span class="num">166.400 ₫</span></div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 8px">
+            <span style="font-size: 14px; font-weight: 600">Lý do (bắt buộc)</span>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap">
+              <sc-for list="{{ reasons }}" as="r" hint-placeholder-count="4">
+                <button type="button" aria-pressed="{{ r.pressed }}" style="{{ r.style }}">{{ r.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 8px">
+            <span style="font-size: 14px; font-weight: 600">Người duyệt (có quyền giảm giá tại Quận 1)</span>
+            <div role="radiogroup" aria-label="Chọn người duyệt" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+              <sc-for list="{{ approvers }}" as="a" hint-placeholder-count="2">
+                <button type="button" role="radio" aria-checked="{{ a.checked }}" style="{{ a.style }}">
+                  <span style="{{ a.avatarStyle }}">{{ a.initials }}</span>
+                  <span style="display: flex; flex-direction: column; text-align: left"><span style="font-size: 16px; font-weight: 700">{{ a.name }}</span><span style="font-size: 13px; color: var(--text-muted)">{{ a.role }}</span></span>
+                </button>
+              </sc-for>
+            </div>
+          </div>
+          <span style="font-size: 13px; color: var(--text-muted)">Duyệt một lần cho thao tác này; phiên vẫn là của Nguyễn Lan. Nhật ký ghi người xin, người duyệt và lý do. Sai PIN tính vào lần khoá của người duyệt.</span>
+        </div>
+
+        <div style="width: 320px; flex-shrink: 0; display: flex; flex-direction: column; gap: 12px; align-items: stretch">
+          <span style="font-size: 14px; font-weight: 600; text-align: center">PIN của Lê Hà</span>
+          <div style="display: flex; justify-content: center; gap: 14px; padding: 8px 0">
+            <sc-for list="{{ pin }}" as="d" hint-placeholder-count="6">
+              <span style="{{ d.style }}"></span>
+            </sc-for>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+            <sc-for list="{{ keys }}" as="k" hint-placeholder-count="12">
+              <button type="button" class="num" disabled="{{ k.blank }}" aria-label="{{ k.aria }}" style="height: 56px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg-subtle); color: var(--text); font-size: 22px; font-weight: 600">{{ k.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 12px; padding: 16px 24px; border-top: 1px solid var(--border); background: var(--bg-subtle)">
+        <span style="font-size: 14px; color: var(--text-muted)">Đã nhập 4/6 số</span>
+        <div style="flex-grow: 1"></div>
+        <button type="button" style="height: 56px; padding: 0 20px; border-radius: 10px; border: 1px solid var(--border-strong); background: var(--bg); color: var(--text); font-size: 16px; font-weight: 600">Từ chối</button>
+        <button type="button" disabled="disabled" style="height: 56px; min-width: 220px; padding: 0 20px; border-radius: 10px; border: 0; background: var(--bg-muted); color: var(--text-subtle); font-size: 17px; font-weight: 700; cursor: not-allowed">Duyệt</button>
+      </div>
+    </section>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const reasons = ['Khách quen', 'Món ra chậm', 'Khuyến mãi tại quầy', 'Khác'].map((label, i) => ({
+      label, pressed: i === 0 ? 'true' : 'false',
+      style: 'height: 48px; padding: 0 16px; border-radius: 999px; font-size: 15px; '
+        + (i === 0 ? 'border: 1px solid var(--text); background: var(--bg-muted); color: var(--text); font-weight: 700;' : 'border: 1px solid var(--border); background: var(--bg); color: var(--text);')
+    }));
+    const approvers = [['LH', 'Lê Hà', 'Quản lý chi nhánh', true], ['PQ', 'Phạm Quân', 'Trưởng ca', false]].map(([initials, name, role, on]) => ({
+      initials, name, role, checked: on ? 'true' : 'false',
+      style: 'height: 72px; padding: 0 14px; border-radius: 10px; display: flex; align-items: center; gap: 12px; '
+        + (on ? 'border: 2px solid var(--primary); background: var(--primary-subtle); color: var(--text);' : 'border: 1px solid var(--border-strong); background: var(--bg); color: var(--text);'),
+      avatarStyle: 'width: 44px; height: 44px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-weight: 800; background: var(--accent-subtle); color: var(--accent-text);'
+    }));
+    const pin = [0, 1, 2, 3, 4, 5].map((i) => ({
+      style: 'width: 18px; height: 18px; border-radius: 999px; box-sizing: border-box; ' + (i < 4 ? 'background: var(--text);' : 'border: 2px solid var(--border-strong);')
+    }));
+    const labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '', '0', '⌫'];
+    const keys = labels.map((l) => ({ label: l, blank: l === '', aria: l === '⌫' ? 'Xoá một số' : l === '' ? 'Không dùng' : l }));
+    const ghost = Array.from({ length: 12 }, (_, i) => ({ i }));
+    return { themeClass: this.props.dark ? 'dark' : '', reasons, approvers, pin, keys, ghost };
+  }
+}
+</script>
+</body>
+</html>

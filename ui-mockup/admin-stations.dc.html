@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Admin trạm chế biến</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#CA0404}a:hover{color:#9C0303}
+.fnb{--bg:#FFFFFF;--bg-subtle:#F9F6F4;--bg-muted:#F1ECE8;--border:#E4DAD4;--border-strong:#9F8D7F;--text:#282019;--text-muted:#6D5D51;--text-subtle:#7A695C;--text-inverse:#FFFFFF;--primary:#CA0404;--primary-fg:#FFFFFF;--primary-subtle:#FEE7E3;--primary-text:#9C0303;--accent:#ED6F03;--accent-fg:#211510;--accent-subtle:#FEE8DC;--accent-text:#984502;--success:#2F7D46;--success-fg:#FFFFFF;--success-subtle:#E0F3E3;--success-text:#17592C;--warning:#F5BC09;--warning-fg:#211510;--warning-subtle:#F9ECCE;--warning-text:#795B03;--danger:#C2185B;--danger-fg:#FFFFFF;--danger-subtle:#FFE5EA;--danger-text:#8B023D;--info:#2563A8;--info-fg:#FFFFFF;--info-subtle:#E1EEFE;--info-text:#184B83;--shadow-sm:0 1px 2px rgba(40,32,25,.08),0 1px 3px rgba(40,32,25,.06);--shadow-md:0 8px 24px rgba(40,32,25,.14);font-family:'Be Vietnam Pro',system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.45}
+.fnb.dark{--bg:#1A1411;--bg-subtle:#282019;--bg-muted:#3E332A;--border:#55473D;--border-strong:#857366;--text:#F9F6F4;--text-muted:#D1C3B9;--text-subtle:#B8A79A;--text-inverse:#1A1411;--primary:#F84839;--primary-fg:#1A1411;--primary-subtle:#470000;--primary-text:#FEAEA2;--accent:#FA8840;--accent-fg:#1A1411;--accent-subtle:#3A1600;--accent-text:#FEB187;--success:#58A46B;--success-fg:#1A1411;--success-subtle:#002A0E;--success-text:#A0D5AB;--warning:#F5BC09;--warning-fg:#1A1411;--warning-subtle:#2C1F00;--warning-text:#E7C067;--danger:#EF4B7F;--danger-fg:#1A1411;--danger-subtle:#45001A;--danger-text:#FEAABC;--info:#5693DC;--info-fg:#1A1411;--info-subtle:#012145;--info-text:#9DC9FF;--shadow-sm:0 1px 2px rgba(0,0,0,.4);--shadow-md:0 8px 24px rgba(0,0,0,.5)}
+.fnb button{font-family:inherit;cursor:pointer}
+.fnb .num{font-variant-numeric:tabular-nums}
+.fnb .nav:hover{background:var(--bg-muted)}
+.fnb .row:hover{background:var(--bg-subtle)}
+</style>
+</helmet>
+<div class="fnb {{themeClass}}" style="width: 100%; min-height: 1320px; display: flex; flex-wrap: wrap; background: var(--bg)">
+
+  <!-- Sidebar -->
+  <nav aria-label="Menu chính" style="flex: 1 1 248px; max-width: 100%; box-sizing: border-box; padding: 16px 12px; background: var(--bg-subtle); border-right: 1px solid var(--border); display: flex; flex-direction: column; gap: 2px">
+    <div style="display: flex; align-items: center; gap: 10px; padding: 4px 8px 12px">
+      <img src="/_blob/dbbc95b08d47870e1964f1322682c11f" alt="" style="width: 36px; height: 36px; object-fit: contain">
+      <div style="display: flex; flex-direction: column">
+        <span style="font-size: 15px; font-weight: 700">Banhkepchonong</span>
+        <span style="font-size: 12px; color: var(--text-muted)">Quản trị</span>
+      </div>
+    </div>
+    <sc-for list="{{ nav }}" as="n" hint-placeholder-count="30">
+      <sc-if value="{{ n.isGroup }}" hint-placeholder-val="{{ false }}">
+        <span style="padding: 12px 12px 4px; font-size: 12px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--text-subtle)">{{ n.label }}</span>
+      </sc-if>
+      <sc-if value="{{ n.isItem }}" hint-placeholder-val="{{ true }}">
+        <a href="#" class="nav" aria-current="{{ n.current }}" style="{{ n.style }}">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ n.icon }}"/></svg>
+          {{ n.label }}
+        </a>
+      </sc-if>
+    </sc-for>
+  </nav>
+
+  <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+    <!-- Top bar -->
+    <header style="height: 60px; display: flex; align-items: center; gap: 12px; padding: 0 24px; border-bottom: 1px solid var(--border); flex-wrap: wrap">
+      <button type="button" style="height: 40px; padding: 0 12px; border-radius: 10px; border: 1px solid var(--border-strong); background: var(--bg); color: var(--text); font-size: 14px; font-weight: 500; display: flex; align-items: center; gap: 8px">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"/></svg>
+        Tất cả chi nhánh
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <div style="flex-grow: 1"></div>
+      <button type="button" aria-label="Giao diện sáng tối" style="width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg); color: var(--text-muted); display: flex; align-items: center; justify-content: center">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+      </button>
+      <div role="group" aria-label="Ngôn ngữ" style="display: flex; border: 1px solid var(--border); border-radius: 10px; overflow: hidden">
+        <button type="button" style="height: 38px; min-width: 44px; border: 0; background: var(--bg-muted); color: var(--text); font-size: 13px; font-weight: 600">VI</button>
+        <button type="button" style="height: 38px; min-width: 44px; border: 0; background: var(--bg); color: var(--text-muted); font-size: 13px; font-weight: 500">EN</button>
+      </div>
+      <button type="button" aria-label="Tài khoản" style="height: 40px; padding: 0 8px 0 4px; border-radius: 999px; border: 1px solid var(--border); background: var(--bg); color: var(--text); display: flex; align-items: center; gap: 8px; font-size: 14px">
+        <span style="width: 32px; height: 32px; border-radius: 999px; background: var(--accent-subtle); color: var(--accent-text); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px">LH</span>
+        Lê Hà · Quản lý
+      </button>
+    </header>
+
+    <main style="padding: 24px; display: flex; flex-direction: column; gap: 16px; max-width: 1280px; width: 100%; box-sizing: border-box">
+      <div style="display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap">
+        <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 4px">
+          <span style="font-size: 13px; color: var(--text-muted)">Thực đơn / Trạm chế biến</span>
+          <h1 style="margin: 0; font-size: 26px; font-weight: 700; line-height: 1.3">Trạm chế biến và định tuyến</h1>
+          <span style="font-size: 14px; color: var(--text-muted)">Chi nhánh Quận 1 · đơn thanh toán xong được tách phiếu theo trạm và gửi đi (KDS-01 → 03, KDS-10)</span>
+        </div>
+        <div role="tablist" aria-label="Chi nhánh" style="display: flex; padding: 4px; gap: 4px; border-radius: 10px; background: var(--bg-muted)">
+          <button type="button" role="tab" aria-selected="true" style="height: 34px; padding: 0 14px; border: 0; border-radius: 6px; background: var(--bg); color: var(--text); font-size: 14px; font-weight: 600; box-shadow: var(--shadow-sm)">Quận 1</button>
+          <button type="button" role="tab" aria-selected="false" style="height: 34px; padding: 0 14px; border: 0; border-radius: 6px; background: transparent; color: var(--text-muted); font-size: 14px">Quận 3</button>
+          <button type="button" role="tab" aria-selected="false" style="height: 34px; padding: 0 14px; border: 0; border-radius: 6px; background: transparent; color: var(--text-muted); font-size: 14px">Thủ Đức</button>
+        </div>
+        <button type="button" style="height: 40px; padding: 0 16px; border-radius: 10px; border: 1px solid var(--border-strong); background: var(--bg); color: var(--text); font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 8px">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg>
+          Thêm trạm
+        </button>
+      </div>
+
+      <!-- Station cards -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px">
+        <sc-for list="{{ stations }}" as="s" hint-placeholder-count="3">
+          <section aria-label="{{ s.name }}" style="border: 1px solid var(--border); border-radius: 16px; background: var(--bg); padding: 20px; display: flex; flex-direction: column; gap: 14px; font-size: 14px">
+            <div style="display: flex; align-items: center; gap: 10px">
+              <span style="width: 40px; height: 40px; border-radius: 10px; background: var(--bg-muted); color: var(--text-muted); display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ s.icon }}"/></svg></span>
+              <div style="flex-grow: 1; display: flex; flex-direction: column"><span style="font-size: 16px; font-weight: 700">{{ s.name }}</span><span style="font-size: 13px; color: var(--text-muted)">{{ s.items }}</span></div>
+              <button type="button" aria-label="{{ s.menuLabel }}" style="width: 36px; height: 36px; border-radius: 6px; border: 0; background: transparent; color: var(--text-muted); display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg></button>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <span style="font-weight: 600">Nhận phiếu bằng</span>
+              <div role="radiogroup" aria-label="{{ s.modeLabel }}" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 4px; gap: 4px; border-radius: 10px; background: var(--bg-muted)">
+                <sc-for list="{{ s.modes }}" as="m" hint-placeholder-count="3">
+                  <button type="button" role="radio" aria-checked="{{ m.checked }}" style="{{ m.style }}">{{ m.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px; padding: 12px; border-radius: 10px; background: var(--bg-subtle)">
+              <sc-for list="{{ s.devices }}" as="d" hint-placeholder-count="2">
+                <div style="display: flex; align-items: center; gap: 8px">
+                  <span style="flex-grow: 1; display: flex; flex-direction: column"><span style="font-weight: 600">{{ d.name }}</span><span style="font-size: 12px; color: var(--text-muted)">{{ d.detail }}</span></span>
+                  <span style="{{ d.badgeStyle }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ d.badgeIcon }}"/></svg>{{ d.state }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display: flex; gap: 12px">
+              <label style="flex: 1 1 0; display: flex; flex-direction: column; gap: 6px"><span style="font-weight: 600">Sắp quá giờ (phút)</span><input type="number" value="{{ s.warn }}" class="num" style="height: 40px; box-sizing: border-box; padding: 0 12px; border: 1px solid var(--border-strong); border-radius: 10px; background: var(--bg); font: inherit; color: var(--text)"></label>
+              <label style="flex: 1 1 0; display: flex; flex-direction: column; gap: 6px"><span style="font-weight: 600">Quá giờ (phút)</span><input type="number" value="{{ s.over }}" class="num" style="height: 40px; box-sizing: border-box; padding: 0 12px; border: 1px solid var(--border-strong); border-radius: 10px; background: var(--bg); font: inherit; color: var(--text)"></label>
+            </div>
+            <sc-if value="{{ s.hasWarning }}" hint-placeholder-val="{{ false }}">
+              <div role="note" style="display: flex; gap: 8px; align-items: flex-start; padding: 10px 12px; border-radius: 10px; background: var(--warning-subtle); color: var(--warning-text); font-size: 13px">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 2px"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3M12 9v4M12 17h.01"/></svg>
+                <span>{{ s.warning }}</span>
+              </div>
+            </sc-if>
+          </section>
+        </sc-for>
+      </div>
+
+      <!-- Routing -->
+      <section aria-label="Định tuyến món về trạm" style="border: 1px solid var(--border); border-radius: 16px; background: var(--bg); overflow-x: auto">
+        <div style="padding: 16px 20px 8px; display: flex; flex-direction: column; gap: 2px">
+          <h2 style="margin: 0; font-size: 18px; font-weight: 700">Định tuyến món về trạm</h2>
+          <span style="font-size: 13px; color: var(--text-muted)">Mặc định theo nhóm món; món nào đặt trạm riêng thì ghi đè (KDS-02). Một món chỉ về một trạm.</span>
+        </div>
+        <table style="width: 100%; min-width: 760px; border-collapse: collapse; font-size: 14px">
+          <thead><tr style="color: var(--text-muted); text-align: left">
+            <th scope="col" style="padding: 10px 20px; font-weight: 600; border-bottom: 1px solid var(--border)">Nhóm món / món</th>
+            <th scope="col" style="padding: 10px 8px; font-weight: 600; border-bottom: 1px solid var(--border)">Trạm</th>
+            <th scope="col" style="padding: 10px 20px 10px 8px; font-weight: 600; border-bottom: 1px solid var(--border)">Ghi chú</th>
+          </tr></thead>
+          <tbody>
+            <sc-for list="{{ routes }}" as="r" hint-placeholder-count="7">
+              <tr class="row">
+                <td style="{{ r.nameCell }}"><span style="{{ r.nameStyle }}">{{ r.name }}</span></td>
+                <td style="padding: 8px; border-bottom: 1px solid var(--border)"><span style="height: 36px; min-width: 160px; box-sizing: border-box; padding: 0 12px; border: 1px solid var(--border-strong); border-radius: 10px; display: inline-flex; align-items: center; justify-content: space-between; gap: 8px">{{ r.station }}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span></td>
+                <td style="padding: 8px 20px 8px 8px; border-bottom: 1px solid var(--border); font-size: 13px; color: var(--text-muted)">{{ r.note }}</td>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+      </section>
+
+      <div style="display: flex; justify-content: flex-end; gap: 8px">
+        <button type="button" style="height: 40px; padding: 0 14px; border-radius: 10px; border: 1px solid var(--border-strong); background: var(--bg); color: var(--text); font-size: 14px; font-weight: 600">Huỷ</button>
+        <button type="button" style="height: 40px; padding: 0 16px; border-radius: 10px; border: 0; background: var(--primary); color: var(--primary-fg); font-size: 14px; font-weight: 600">Lưu cấu hình Quận 1</button>
+      </div>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":1440,"height":1320}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const I = {
+      home: 'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zM9 22V12h6v10',
+      receipt: 'M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1ZM16 8h-6M16 12H8M13 16H8',
+      wallet: 'M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4',
+      book: 'M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20',
+      card: 'M2 5h20v14H2zM2 10h20',
+      utensils: 'M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2M7 2v20M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7',
+      folder: 'M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z',
+      sliders: 'M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6',
+      flame: 'M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z',
+      box: 'M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16ZM3.3 7 12 12l8.7-5M12 22V12',
+      clipboard: 'M9 2h6v4H9zM16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2',
+      check: 'M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11',
+      layers: 'm12 2 10 5-10 5L2 7ZM2 17l10 5 10-5M2 12l10 5 10-5',
+      heart: 'M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z',
+      tag: 'M12 2H2v10l9.29 9.29a1 1 0 0 0 1.41 0l8.59-8.59a1 1 0 0 0 0-1.41ZM7 7h.01',
+      globe: 'M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20',
+      users: 'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75',
+      calendar: 'M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2',
+      clock: 'M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20M12 6v6l4 2',
+      coins: 'M8 8a6 6 0 1 0 0 12A6 6 0 0 0 8 8M18.09 10.37A6 6 0 1 1 10.34 18M7 6h1v4M16.71 13.88l.7.71-2.82 2.82',
+      chart: 'M3 3v18h18M18 17V9M13 17V5M8 17v-3',
+      store: 'M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1',
+      shield: 'M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z',
+      printer: 'M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z',
+      file: 'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M16 13H8M16 17H8',
+      list: 'M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01'
+    };
+    const ACTIVE = 'Trạm chế biến';
+    const NAV = [
+      ['item', 'Tổng quan', 'home'],
+      ['group', 'Bán hàng'], ['item', 'Đơn hàng', 'receipt'], ['item', 'Ca thu ngân', 'wallet'], ['item', 'Sổ quỹ', 'book'], ['item', 'Thanh toán', 'card'],
+      ['group', 'Thực đơn'], ['item', 'Món', 'utensils'], ['item', 'Nhóm món', 'folder'], ['item', 'Tuỳ chọn', 'sliders'], ['item', 'Trạm chế biến', 'flame'],
+      ['group', 'Kho'], ['item', 'Nguyên liệu', 'box'], ['item', 'Phiếu kho', 'clipboard'], ['item', 'Kiểm kê', 'check'], ['item', 'Tồn kho', 'layers'],
+      ['group', 'Khách hàng'], ['item', 'Khách hàng', 'heart'], ['item', 'Ưu đãi', 'tag'], ['item', 'Đặt món online', 'globe'],
+      ['group', 'Nhân sự'], ['item', 'Nhân viên', 'users'], ['item', 'Lịch làm việc', 'calendar'], ['item', 'Bảng công', 'clock'], ['item', 'Lương', 'coins'],
+      ['item', 'Báo cáo', 'chart'],
+      ['group', 'Hệ thống'], ['item', 'Chi nhánh', 'store'], ['item', 'Nhóm quyền', 'shield'], ['item', 'Thiết bị và máy in', 'printer'], ['item', 'Mẫu in', 'file'], ['item', 'Nhật ký', 'list']
+    ];
+    const nbase = 'display: flex; align-items: center; gap: 10px; height: 36px; padding: 0 12px; border-radius: 10px; font-size: 14px; text-decoration: none; ';
+    const nav = NAV.map(([kind, label, icon]) => {
+      const on = kind === 'item' && label === ACTIVE;
+      return {
+        isGroup: kind === 'group', isItem: kind === 'item', label, icon: I[icon] ?? '',
+        current: on ? 'page' : 'false',
+        style: nbase + (on ? 'background: var(--primary-subtle); color: var(--primary-text); font-weight: 600;' : 'color: var(--text-muted); font-weight: 500;')
+      };
+    });
+    const tone = (t) => (t === 'neutral' ? 'background: var(--bg-muted); color: var(--text-muted);' : 'background: var(--' + t + '-subtle); color: var(--' + t + '-text);');
+    const badge = (t) => 'display: inline-flex; align-items: center; gap: 4px; height: 26px; padding: 0 10px; border-radius: 999px; font-size: 13px; font-weight: 600; white-space: nowrap; ' + tone(t);
+    const OK = 'M20 6 9 17l-5-5';
+    const CLOCK = 'M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20M12 6v6l4 2';
+    const ERR = 'M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20M15 9l-6 6M9 9l6 6';
+    const ST = { ok: ['Sẵn sàng', 'success', OK], queue: ['2 lệnh chờ', 'warning', CLOCK], off: ['Mất kết nối', 'danger', ERR] };
+    const MODES = ['Máy in', 'Màn hình', 'Cả hai'];
+    const S = [
+      { name: 'Bếp nóng', icon: I.flame, items: 'Hotdog, Burger, Món thêm chiên · 23 món', mode: 2, warn: 8, over: 12,
+        devices: [['Máy in bếp nóng', 'LAN 192.168.1.41 · K80', 'ok'], ['Màn hình KDS-Q1-01', 'Trình duyệt trên TV 32"', 'ok']] },
+      { name: 'Bếp nguội', icon: 'M2 12h20M12 2v20M4.93 4.93l14.14 14.14M19.07 4.93 4.93 19.07', items: 'Salad, sốt chấm · 4 món', mode: 1, warn: 6, over: 10,
+        devices: [['Màn hình KDS-Q1-02', 'Tablet treo tường', 'ok']],
+        warning: 'Trạm chỉ nhận bằng màn hình: khi mất mạng màn hình không nhận phiếu mới. Nên gắn thêm máy in dự phòng (plan 13).' },
+      { name: 'Bar', icon: 'M8 22h8M12 11v11M5 3h14l-1 6a6 6 0 0 1-12 0Z', items: 'Đồ uống · 14 món', mode: 0, warn: 5, over: 8,
+        devices: [['Máy in bar', 'Bluetooth · K57', 'queue']] }
+    ];
+    const stations = S.map((s) => ({
+      name: s.name, icon: s.icon, items: s.items, warn: s.warn, over: s.over,
+      menuLabel: 'Thao tác với ' + s.name,
+      modeLabel: 'Cách nhận phiếu của ' + s.name,
+      modes: MODES.map((label, i) => ({
+        label, checked: i === s.mode ? 'true' : 'false',
+        style: 'height: 34px; border: 0; border-radius: 6px; font-size: 13px; ' + (i === s.mode ? 'background: var(--bg); color: var(--text); font-weight: 700; box-shadow: var(--shadow-sm);' : 'background: transparent; color: var(--text-muted);')
+      })),
+      devices: s.devices.map(([name, detail, st]) => ({ name, detail, state: ST[st][0], badgeIcon: ST[st][2], badgeStyle: badge(ST[st][1]) })),
+      hasWarning: !!s.warning, warning: s.warning ?? ''
+    }));
+    const routes = [
+      ['Hotdog', 'Bếp nóng', 'Theo nhóm', false],
+      ['Burger', 'Bếp nóng', 'Theo nhóm', false],
+      ['Món thêm', 'Bếp nguội', 'Theo nhóm', false],
+      ['Gà viên chiên', 'Bếp nóng', 'Ghi đè: món chiên cần bếp nóng', true],
+      ['Khoai tây chiên', 'Bếp nóng', 'Ghi đè: món chiên cần bếp nóng', true],
+      ['Đồ uống', 'Bar', 'Theo nhóm (cả 3 nhóm con)', false],
+      ['Combo', 'Tách theo món trong combo', 'Mỗi món con về trạm của nó', false]
+    ].map(([name, station, note, child]) => ({
+      name, station, note,
+      nameCell: 'padding: 8px 20px; border-bottom: 1px solid var(--border);' + (child ? ' padding-left: 40px;' : ''),
+      nameStyle: child ? 'color: var(--text-muted);' : 'font-weight: 600;'
+    }));
+    return { themeClass: this.props.dark ? 'dark' : '', nav, stations, routes };
+  }
+}
+</script>
+</body>
+</html>

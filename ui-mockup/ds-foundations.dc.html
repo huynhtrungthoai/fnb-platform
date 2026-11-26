@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Design system nền tảng</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;family=Baloo+2:wght@700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#CA0404}a:hover{color:#9C0303}
+.fnb{--bg:#FFFFFF;--bg-subtle:#F9F6F4;--bg-muted:#F1ECE8;--border:#E4DAD4;--border-strong:#9F8D7F;--text:#282019;--text-muted:#6D5D51;--text-subtle:#7A695C;--text-inverse:#FFFFFF;--primary:#CA0404;--primary-fg:#FFFFFF;--primary-subtle:#FEE7E3;--primary-text:#9C0303;--accent:#ED6F03;--accent-fg:#211510;--accent-subtle:#FEE8DC;--accent-text:#984502;--success:#2F7D46;--success-fg:#FFFFFF;--success-subtle:#E0F3E3;--success-text:#17592C;--warning:#F5BC09;--warning-fg:#211510;--warning-subtle:#F9ECCE;--warning-text:#795B03;--danger:#C2185B;--danger-fg:#FFFFFF;--danger-subtle:#FFE5EA;--danger-text:#8B023D;--info:#2563A8;--info-fg:#FFFFFF;--info-subtle:#E1EEFE;--info-text:#184B83;--shadow-sm:0 1px 2px rgba(40,32,25,.08),0 1px 3px rgba(40,32,25,.06);--shadow-md:0 4px 12px rgba(40,32,25,.12);--shadow-lg:0 12px 32px rgba(40,32,25,.18);font-family:'Be Vietnam Pro',system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.45}
+.fnb.dark{--bg:#1A1411;--bg-subtle:#282019;--bg-muted:#3E332A;--border:#55473D;--border-strong:#857366;--text:#F9F6F4;--text-muted:#D1C3B9;--text-subtle:#B8A79A;--text-inverse:#1A1411;--primary:#F84839;--primary-fg:#1A1411;--primary-subtle:#470000;--primary-text:#FEAEA2;--accent:#FA8840;--accent-fg:#1A1411;--accent-subtle:#3A1600;--accent-text:#FEB187;--success:#58A46B;--success-fg:#1A1411;--success-subtle:#002A0E;--success-text:#A0D5AB;--warning:#F5BC09;--warning-fg:#1A1411;--warning-subtle:#2C1F00;--warning-text:#E7C067;--danger:#EF4B7F;--danger-fg:#1A1411;--danger-subtle:#45001A;--danger-text:#FEAABC;--info:#5693DC;--info-fg:#1A1411;--info-subtle:#012145;--info-text:#9DC9FF;--shadow-sm:0 1px 2px rgba(0,0,0,.4);--shadow-md:0 4px 12px rgba(0,0,0,.5);--shadow-lg:0 12px 32px rgba(0,0,0,.6)}
+.fnb .num{font-variant-numeric:tabular-nums}
+.fnb .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+</style>
+</helmet>
+<div class="fnb {{themeClass}}" style="width: 1440px; min-height: 2560px; box-sizing: border-box; padding: 48px; display: flex; flex-direction: column; gap: 40px; background: var(--bg)">
+
+  <!-- Header -->
+  <header style="display: flex; align-items: center; gap: 24px">
+    <div style="width: 120px; height: 100px; display: flex; align-items: center; justify-content: center">
+      <img src="/_blob/5bc8172d66702a09b8368bb2966b5020" alt="Logo Bánh Kẹp Chó Nóng" style="width: 100px; height: 82px; object-fit: contain">
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 4px">
+      <h1 style="margin: 0; font-size: 32px; font-weight: 700; line-height: 1.25">Design system · Banhkepchonong Burger&amp;Co</h1>
+      <span style="font-size: 16px; color: var(--text-muted)">Token chung cho mọi app (web và mobile). Nguồn giá trị: plans/07-brand.md · đặc tả: plans/03-design-system.md</span>
+    </div>
+  </header>
+
+  <!-- Brand scales -->
+  <section style="display: flex; flex-direction: column; gap: 16px">
+    <div style="display: flex; flex-direction: column; gap: 2px">
+      <h2 style="margin: 0; font-size: 22px; font-weight: 700">1. Bảng màu gốc</h2>
+      <span style="font-size: 14px; color: var(--text-muted)">Ô có viền đậm là màu đo từ logo. App không dùng trực tiếp; chỉ dùng token vai trò ở mục 2.</span>
+    </div>
+    <sc-for list="{{ scales }}" as="s" hint-placeholder-count="4">
+      <div style="display: flex; align-items: stretch; gap: 12px">
+        <span class="mono" style="width: 80px; flex-shrink: 0; font-size: 14px; font-weight: 600; align-self: center">{{ s.name }}</span>
+        <div style="flex-grow: 1; display: grid; grid-template-columns: repeat(11, minmax(0, 1fr)); gap: 4px">
+          <sc-for list="{{ s.steps }}" as="c" hint-placeholder-count="11">
+            <div style="{{ c.style }}">
+              <span style="font-size: 12px; font-weight: 700">{{ c.step }}</span>
+              <span class="mono" style="font-size: 11px">{{ c.hex }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-for>
+    <div style="display: flex; gap: 12px; padding-left: 92px">
+      <sc-for list="{{ extras }}" as="e" hint-placeholder-count="3">
+        <div style="{{ e.style }}">
+          <span style="font-size: 14px; font-weight: 700">{{ e.name }}</span>
+          <span class="mono" style="font-size: 12px">{{ e.hex }} · {{ e.use }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- Roles light / dark -->
+  <section style="display: flex; flex-direction: column; gap: 16px">
+    <div style="display: flex; flex-direction: column; gap: 2px">
+      <h2 style="margin: 0; font-size: 22px; font-weight: 700">2. Màu theo vai trò (token dùng trong app)</h2>
+      <span style="font-size: 14px; color: var(--text-muted)">Cùng một tên token, hai giá trị sáng và tối. Mọi cặp chữ/nền đạt WCAG AA.</span>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px">
+      <sc-for list="{{ modes }}" as="m" hint-placeholder-count="2">
+        <div class="{{ m.cls }}" style="padding: 24px; border-radius: 16px; border: 1px solid var(--border); background: var(--bg); color: var(--text); display: flex; flex-direction: column; gap: 16px">
+          <span style="font-size: 16px; font-weight: 700">{{ m.label }}</span>
+          <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px">
+            <sc-for list="{{ neutrals }}" as="n" hint-placeholder-count="8">
+              <div style="display: flex; flex-direction: column; gap: 6px">
+                <div style="{{ n.style }}"></div>
+                <span class="mono" style="font-size: 12px; color: var(--text-muted)">{{ n.name }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 8px">
+            <sc-for list="{{ roles }}" as="r" hint-placeholder-count="6">
+              <div style="display: flex; align-items: center; gap: 8px">
+                <span class="mono" style="width: 72px; font-size: 13px; color: var(--text-muted)">{{ r.name }}</span>
+                <span style="{{ r.solid }}">{{ r.name }} / -fg</span>
+                <span style="{{ r.subtle }}">-subtle / -text</span>
+                <span style="font-size: 13px; color: var(--text-muted)">{{ r.use }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px">
+    <!-- Typography -->
+    <section style="display: flex; flex-direction: column; gap: 12px">
+      <h2 style="margin: 0; font-size: 22px; font-weight: 700">3. Chữ</h2>
+      <span style="font-size: 14px; color: var(--text-muted)">Be Vietnam Pro cho giao diện. Baloo 2 chỉ cho tiêu đề thương hiệu ở kênh khách. Số tiền dùng tabular-nums. Chiều cao dòng tối thiểu 1.4.</span>
+      <div style="display: flex; flex-direction: column; border: 1px solid var(--border); border-radius: 16px; overflow: hidden">
+        <sc-for list="{{ type }}" as="t" hint-placeholder-count="7">
+          <div style="display: flex; align-items: baseline; gap: 16px; padding: 10px 16px; border-bottom: 1px solid var(--border)">
+            <span class="mono" style="width: 96px; flex-shrink: 0; font-size: 12px; color: var(--text-muted)">{{ t.name }}</span>
+            <span style="{{ t.style }}">Bánh kẹp chó nóng ngon tuyệt</span>
+          </div>
+        </sc-for>
+        <div style="display: flex; align-items: baseline; gap: 16px; padding: 12px 16px; border-bottom: 1px solid var(--border)">
+          <span class="mono" style="width: 96px; flex-shrink: 0; font-size: 12px; color: var(--text-muted)">font-display</span>
+          <span style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 32px; line-height: 1.2; color: var(--primary)">Nóng hổi, kẹp liền tay!</span>
+        </div>
+        <div style="display: flex; align-items: baseline; gap: 16px; padding: 12px 16px">
+          <span class="mono" style="width: 96px; flex-shrink: 0; font-size: 12px; color: var(--text-muted)">font-mono</span>
+          <span class="mono num" style="font-size: 16px">#A-0142 · HD-002 · 1.234.000 ₫</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Spacing radius shadow -->
+    <section style="display: flex; flex-direction: column; gap: 12px">
+      <h2 style="margin: 0; font-size: 22px; font-weight: 700">4. Khoảng cách, bo góc, bóng, vùng chạm</h2>
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <sc-for list="{{ spaces }}" as="sp" hint-placeholder-count="8">
+          <div style="display: flex; align-items: center; gap: 12px">
+            <span class="mono" style="width: 96px; font-size: 12px; color: var(--text-muted)">{{ sp.name }}</span>
+            <div style="{{ sp.style }}"></div>
+            <span class="mono num" style="font-size: 12px; color: var(--text-muted)">{{ sp.px }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display: flex; gap: 16px; margin-top: 8px">
+        <sc-for list="{{ radii }}" as="r" hint-placeholder-count="4">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px">
+            <div style="{{ r.style }}"></div>
+            <span class="mono" style="font-size: 12px; color: var(--text-muted)">{{ r.name }}</span>
+          </div>
+        </sc-for>
+        <div style="width: 16px"></div>
+        <sc-for list="{{ shadows }}" as="sh" hint-placeholder-count="3">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px">
+            <div style="{{ sh.style }}"></div>
+            <span class="mono" style="font-size: 12px; color: var(--text-muted)">{{ sh.name }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display: flex; gap: 16px; align-items: flex-end; margin-top: 8px">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 6px">
+          <div style="width: 44px; height: 44px; border-radius: 10px; border: 2px dashed var(--primary); background: var(--primary-subtle)"></div>
+          <span class="mono" style="font-size: 12px; color: var(--text-muted)">touch-min 44</span>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 6px">
+          <div style="width: 56px; height: 56px; border-radius: 10px; border: 2px dashed var(--accent); background: var(--accent-subtle)"></div>
+          <span class="mono" style="font-size: 12px; color: var(--text-muted)">touch-pos 56</span>
+        </div>
+        <span style="font-size: 13px; color: var(--text-muted); max-width: 320px">Mọi điều khiển ≥ 44 px. Nút bán hàng, bàn phím số POS và KDS ≥ 56 px.</span>
+      </div>
+    </section>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px">
+    <!-- Business status -->
+    <section style="display: flex; flex-direction: column; gap: 12px">
+      <h2 style="margin: 0; font-size: 22px; font-weight: 700">5. Trạng thái nghiệp vụ</h2>
+      <span style="font-size: 14px; color: var(--text-muted)">Ánh xạ một lần trong token (status.order.*, status.ticket.*). Luôn có icon và chữ. Không dùng primary cho trạng thái.</span>
+      <div style="display: flex; flex-direction: column; gap: 8px">
+        <sc-for list="{{ statuses }}" as="st" hint-placeholder-count="6">
+          <div style="display: flex; align-items: center; gap: 12px">
+            <span style="{{ st.badge }}">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ st.icon }}"/></svg>
+              {{ st.label }}
+            </span>
+            <span style="font-size: 13px; color: var(--text-muted)">{{ st.examples }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- Chart palette -->
+    <section style="display: flex; flex-direction: column; gap: 12px">
+      <h2 style="margin: 0; font-size: 22px; font-weight: 700">6. Màu biểu đồ</h2>
+      <span style="font-size: 14px; color: var(--text-muted)">Dùng theo thứ tự chart-1 … chart-8. Từ 6 chuỗi trở lên phải thay chart-6 hoặc thêm kiểu nét (gần chart-1). Kiểm mù màu ở M7.</span>
+      <div style="display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 8px">
+        <sc-for list="{{ charts }}" as="c" hint-placeholder-count="8">
+          <div style="display: flex; flex-direction: column; gap: 6px">
+            <div style="{{ c.style }}"></div>
+            <span class="mono" style="font-size: 11px; color: var(--text-muted)">{{ c.name }}</span>
+            <span class="mono" style="font-size: 11px; color: var(--text-muted)">{{ c.hex }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <h2 style="margin: 16px 0 0; font-size: 22px; font-weight: 700">7. Hoạ tiết sóng</h2>
+      <span style="font-size: 14px; color: var(--text-muted)">brick trên cream, như mái hiên quán. Chỉ ở đăng nhập, đầu trang kênh khách, màn chờ, trạng thái rỗng. Không đặt dưới chữ hay số liệu.</span>
+      <div style="height: 96px; border-radius: 16px; overflow: hidden; background: #F6F1EA">
+        <svg width="100%" height="96" viewBox="0 0 600 96" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M0 0h600v40c-50 0-50 30-100 30S450 30 400 30s-50 40-100 40-50-40-100-40S150 70 100 70 50 30 0 30Z" fill="#8A2A26"/>
+          <path d="M0 64c50 0 50 24 100 24s50-24 100-24 50 24 100 24 50-24 100-24 50 24 100 24 50-24 100-24v32H0Z" fill="#8A2A26" opacity=".9"/>
+        </svg>
+      </div>
+    </section>
+  </div>
+
+  <!-- Themes -->
+  <section style="display: flex; flex-direction: column; gap: 16px">
+    <div style="display: flex; flex-direction: column; gap: 2px">
+      <h2 style="margin: 0; font-size: 22px; font-weight: 700">8. Theme theo app · sáng/tối chọn được (D-31)</h2>
+      <span style="font-size: 14px; color: var(--text-muted)">Token ba lớp: bảng màu gốc → màu vai trò (sáng, tối) → theme. Cùng component, theme đổi kích thước, bo góc, phông tiêu đề và bề mặt thương hiệu. Người dùng chọn Theo hệ thống / Sáng / Tối.</span>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px">
+      <sc-for list="{{ themes }}" as="t" hint-placeholder-count="5">
+        <div style="display: flex; flex-direction: column; gap: 8px; min-width: 0">
+          <div style="display: flex; flex-direction: column; gap: 2px">
+            <span style="font-family: ui-monospace, monospace; font-size: 15px; font-weight: 700">{{ t.name }}</span>
+            <span style="font-size: 13px; color: var(--text-muted)">{{ t.apps }}</span>
+          </div>
+          <sc-for list="{{ t.modes }}" as="m" hint-placeholder-count="2">
+            <div class="{{ m.cls }}" style="border-radius: 16px; border: 1px solid var(--border); background: var(--bg); color: var(--text); overflow: hidden; display: flex; flex-direction: column">
+              <sc-if value="{{ t.branded }}" hint-placeholder-val="{{ false }}">
+                <div style="height: 40px; background: #8A2A26; display: flex; align-items: center; padding: 0 12px; color: #FFFFFF; font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 18px">Banhkepchonong</div>
+              </sc-if>
+              <sc-if value="{{ t.isKds }}" hint-placeholder-val="{{ false }}">
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: var(--danger); color: var(--danger-fg)"><span style="font-size: 22px; font-weight: 800">#038</span><span style="font-size: 16px; font-weight: 800">14:20</span></div>
+              </sc-if>
+              <div style="padding: 12px; display: flex; flex-direction: column; gap: 8px">
+                <span style="{{ t.titleStyle }}">{{ t.title }}</span>
+                <span style="font-size: 12px; color: var(--text-muted)">{{ m.label }}</span>
+                <span style="{{ t.btnStyle }}">{{ t.btn }}</span>
+              </div>
+            </div>
+          </sc-for>
+          <span style="font-size: 12px; color: var(--text-muted)">{{ t.desc }}</span>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap">
+      <div role="radiogroup" aria-label="Giao diện" style="display: inline-flex; padding: 4px; gap: 4px; border-radius: 10px; background: var(--bg-muted)">
+        <button type="button" role="radio" aria-checked="true" style="height: 40px; padding: 0 14px; border: 0; border-radius: 6px; background: var(--bg); color: var(--text); font: inherit; font-size: 14px; font-weight: 600; box-shadow: var(--shadow-sm); display: flex; align-items: center; gap: 6px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Theo hệ thống</button>
+        <button type="button" role="radio" aria-checked="false" style="height: 40px; padding: 0 14px; border: 0; border-radius: 6px; background: transparent; color: var(--text-muted); font: inherit; font-size: 14px; display: flex; align-items: center; gap: 6px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>Sáng</button>
+        <button type="button" role="radio" aria-checked="false" style="height: 40px; padding: 0 14px; border: 0; border-radius: 6px; background: transparent; color: var(--text-muted); font: inherit; font-size: 14px; display: flex; align-items: center; gap: 6px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>Tối</button>
+      </div>
+      <span style="font-size: 14px; color: var(--text-muted)"><strong style="color: var(--text)">ThemeSwitcher</strong> · lưu trên thiết bị · mặc định: admin, customer, mobile theo hệ thống; pos sáng; kds tối</span>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":1440,"height":2560}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const steps = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950'];
+    const raw = {
+      red: ['#FFF4F2', '#FEE7E3', '#FFD0C8', '#FEAEA2', '#FE806F', '#F84839', '#CA0404', '#B70202', '#9C0303', '#6A0101', '#470000'],
+      orange: ['#FFF4EF', '#FEE8DC', '#FED2BA', '#FEB187', '#FA8840', '#ED6F03', '#BB5603', '#984502', '#773502', '#582400', '#3A1600'],
+      amber: ['#FFF5EC', '#FEE9D4', '#FFD3A9', '#FAB66F', '#F99903', '#CB7C01', '#A86604', '#895200', '#6A3F02', '#4E2D02', '#331B00'],
+      brown: ['#F9F6F4', '#F1ECE8', '#E4DAD4', '#D1C3B9', '#B8A79A', '#9F8D7F', '#7A695C', '#6D5D51', '#55473D', '#3E332A', '#282019']
+    };
+    const sampled = { red: ['600', '800'], orange: ['500'], amber: ['400'], brown: [] };
+    const scales = Object.keys(raw).map((name) => ({
+      name,
+      steps: raw[name].map((hex, i) => {
+        const isSampled = (sampled[name] ?? []).includes(steps[i]);
+        return {
+          step: steps[i], hex,
+          style: 'height: 64px; border-radius: 6px; padding: 6px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: flex-end; gap: 2px; background: ' + hex + '; color: ' + (i <= 4 ? '#282019' : '#FFFFFF') + ';'
+            + (isSampled ? ' outline: 3px solid var(--text); outline-offset: 2px;' : '')
+        };
+      })
+    }));
+    const extras = [
+      { name: 'brick', hex: '#8A2A26', use: 'tường quán, bề mặt thương hiệu lớn', fg: '#FFFFFF' },
+      { name: 'cream', hex: '#F6F1EA', use: 'nền đặt logo, hoạ tiết', fg: '#282019' },
+      { name: 'ink', hex: '#1A1411', use: 'nền tối, chữ trên nền màu', fg: '#FFFFFF' }
+    ].map((e) => ({ ...e, style: 'flex: 1 1 0; height: 64px; border-radius: 10px; padding: 10px 14px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; border: 1px solid var(--border); background: ' + e.hex + '; color: ' + e.fg + ';' }));
+    const neutrals = ['bg', 'bg-subtle', 'bg-muted', 'border', 'border-strong', 'text', 'text-muted', 'text-subtle'].map((n) => ({
+      name: n,
+      style: 'height: 40px; border-radius: 6px; border: 1px solid var(--border); background: var(--' + n + ');'
+    }));
+    const roleUse = { primary: 'Hành động chính', accent: 'Khuyến mãi, đang làm', success: 'Xong, sẵn sàng', warning: 'Chờ, cần chú ý', danger: 'Huỷ, lỗi, quá giờ', info: 'Thông tin' };
+    const roles = Object.keys(roleUse).map((r) => ({
+      name: r, use: roleUse[r],
+      solid: 'display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 6px; font-size: 13px; font-weight: 600; background: var(--' + r + '); color: var(--' + r + '-fg);',
+      subtle: 'display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 6px; font-size: 13px; font-weight: 600; background: var(--' + r + '-subtle); color: var(--' + r + '-text);'
+    }));
+    const type = [
+      ['text-xs · 12', 12, 400], ['text-sm · 14', 14, 400], ['text-base · 16', 16, 400], ['text-lg · 18', 18, 500],
+      ['text-xl · 20', 20, 600], ['text-2xl · 24', 24, 700], ['text-3xl · 30', 30, 700]
+    ].map(([name, size, w]) => ({ name, style: 'font-size: ' + size + 'px; font-weight: ' + w + '; line-height: 1.4;' }));
+    const spaces = [[1, 4], [2, 8], [3, 12], [4, 16], [6, 24], [8, 32], [10, 40], [12, 48]].map(([n, px]) => ({
+      name: 'space-' + n, px: px + ' px', style: 'height: 12px; border-radius: 3px; background: var(--accent); width: ' + px * 4 + 'px;'
+    }));
+    const radii = [['radius-sm', '6px'], ['radius-md', '10px'], ['radius-lg', '16px'], ['radius-full', '999px']].map(([name, r]) => ({
+      name, style: 'width: 64px; height: 64px; background: var(--bg-muted); border: 1px solid var(--border-strong); border-radius: ' + r + ';'
+    }));
+    const shadows = ['sm', 'md', 'lg'].map((s) => ({ name: 'shadow-' + s, style: 'width: 64px; height: 64px; border-radius: 10px; background: var(--bg); box-shadow: var(--shadow-' + s + ');' }));
+    const ST = [
+      ['success', 'Xong · Sẵn sàng', 'M20 6 9 17l-5-5', 'Đơn hoàn tất, món xong, máy in sẵn sàng'],
+      ['accent', 'Đang làm', 'M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20M12 6v6l4 2', 'Đơn đang phục vụ, phiếu đang làm'],
+      ['warning', 'Chờ', 'M5 22h14M5 2h14M17 22v-4.17a2 2 0 0 0-.59-1.42L12 12l-4.41 4.41A2 2 0 0 0 7 17.83V22M7 2v4.17a2 2 0 0 0 .59 1.42L12 12l4.41-4.41A2 2 0 0 0 17 6.17V2', 'Chờ món, chờ xác nhận, chờ đồng bộ'],
+      ['danger', 'Quá giờ · Lỗi', 'm21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3M12 9v4M12 17h.01', 'Quá giờ, đã huỷ, lỗi đồng bộ, mất kết nối máy in'],
+      ['info', 'Thông tin', 'M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20M12 16v-4M12 8h.01', 'Đặt trước, ghi chú'],
+      ['neutral', 'Nháp · Ngừng', 'M4.9 4.9l14.2 14.2M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20', 'Nháp, ngừng bán, tạm khoá']
+    ];
+    const statuses = ST.map(([t, label, icon, examples]) => ({
+      label, icon, examples,
+      badge: 'display: inline-flex; align-items: center; gap: 6px; height: 28px; min-width: 150px; box-sizing: border-box; padding: 0 12px; border-radius: 999px; font-size: 13px; font-weight: 600; '
+        + (t === 'neutral' ? 'background: var(--bg-muted); color: var(--text-muted);' : 'background: var(--' + t + '-subtle); color: var(--' + t + '-text);')
+    }));
+    const charts = ['#CA0404', '#F99903', '#2563A8', '#2F7D46', '#6D5D51', '#C2185B', '#76AEF1', '#B8A79A'].map((hex, i) => ({
+      name: 'chart-' + (i + 1), hex, style: 'height: 48px; border-radius: 6px; background: ' + hex + ';'
+    }));
+    const modes = [{ cls: 'fnb', label: 'Sáng' }, { cls: 'fnb dark', label: 'Tối' }];
+    const T = [
+      { name: 'admin', apps: 'apps/admin · ui-web', title: 'Danh sách món', btn: 'Thêm món', size: 40, radius: 10, font: 16, display: false, desc: 'Đơn giản, gọn: 40 px, radius-md, chỉ font-sans, không hoạ tiết.' },
+      { name: 'customer', apps: 'apps/customer-web · ui-web', title: 'Thực đơn hôm nay', btn: 'Đặt món', size: 48, radius: 16, font: 22, display: true, branded: true, desc: 'Kiểu riêng: đầu trang brick + sóng, Baloo 2, nút 48 px radius-lg, ảnh lớn.' },
+      { name: 'pos', apps: 'apps/pos · ui-pos', title: 'Đơn mới', btn: 'Thanh toán', size: 56, radius: 10, font: 18, display: false, desc: 'Cảm ứng: 56 px, chữ lớn hơn một bậc. Mặc định sáng.' },
+      { name: 'kds', apps: 'apps/pos /kitchen · ui-pos', title: '2× Hotdog phô mai', btn: 'Xong · báo quầy', size: 56, radius: 10, font: 20, display: false, isKds: true, success: true, desc: 'Chữ rất lớn, đầu phiếu tô màu trạng thái. Mặc định tối.' },
+      { name: 'mobile', apps: 'customer-app, zalo · ui-mobile', title: 'Nóng hổi, kẹp liền tay!', btn: 'Xem giỏ · 147.000 ₫', size: 52, radius: 16, font: 20, display: true, branded: true, desc: 'Như customer, chỉnh cho điện thoại: nút rộng hết màn, TabBar.' }
+    ];
+    const themes = T.map((t) => ({
+      ...t,
+      branded: !!t.branded,
+      isKds: !!t.isKds,
+      modes,
+      titleStyle: 'font-size: ' + t.font + 'px; font-weight: 700; line-height: 1.25;' + (t.display ? " font-family: 'Baloo 2', sans-serif; font-weight: 800; color: var(--primary);" : ''),
+      btnStyle: 'display: flex; align-items: center; justify-content: center; height: ' + t.size + 'px; border-radius: ' + t.radius + 'px; font-size: ' + (t.size >= 52 ? 16 : 14) + 'px; font-weight: 700; '
+        + (t.success ? 'background: var(--success); color: var(--success-fg);' : 'background: var(--primary); color: var(--primary-fg);')
+    }));
+    return {
+      themeClass: this.props.dark ? 'dark' : '',
+      themes,
+      scales, extras, neutrals, roles, type, spaces, radii, shadows, statuses, charts,
+      modes: [{ cls: 'fnb', label: 'Sáng' }, { cls: 'fnb dark', label: 'Tối' }]
+    };
+  }
+}
+</script>
+</body>
+</html>

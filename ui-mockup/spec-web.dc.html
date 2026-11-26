@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Đặc tả component web</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#CA0404}a:hover{color:#9C0303}
+.fnb{--bg:#FFFFFF;--bg-subtle:#F9F6F4;--bg-muted:#F1ECE8;--border:#E4DAD4;--border-strong:#9F8D7F;--text:#282019;--text-muted:#6D5D51;--text-subtle:#7A695C;--primary:#CA0404;--primary-hover:#B70202;--primary-pressed:#9C0303;--primary-focus:#F84839;--primary-fg:#FFFFFF;--primary-subtle:#FEE7E3;--primary-text:#9C0303;--danger:#C2185B;--danger-fg:#FFFFFF;--danger-subtle:#FFE5EA;--danger-text:#8B023D;--info-subtle:#E1EEFE;--info-text:#184B83;--accent-subtle:#FEE8DC;--accent-text:#984502;font-family:'Be Vietnam Pro',system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.45}
+.fnb.dark{--bg:#1A1411;--bg-subtle:#282019;--bg-muted:#3E332A;--border:#55473D;--border-strong:#857366;--text:#F9F6F4;--text-muted:#D1C3B9;--text-subtle:#B8A79A;--primary:#F84839;--primary-hover:#FE806F;--primary-pressed:#FEAEA2;--primary-focus:#FEAEA2;--primary-fg:#1A1411;--primary-subtle:#470000;--primary-text:#FEAEA2;--danger:#EF4B7F;--danger-fg:#1A1411;--danger-subtle:#45001A;--danger-text:#FEAABC;--info-subtle:#012145;--info-text:#9DC9FF;--accent-subtle:#3A1600;--accent-text:#FEB187}
+.fnb .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.fnb td,.fnb th{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top;text-align:left}
+.fnb th{font-size:12px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--text-muted);background:var(--bg-subtle)}
+</style>
+</helmet>
+<div class="fnb {{themeClass}}" style="width: 1440px; min-height: 3000px; box-sizing: border-box; padding: 48px; display: flex; flex-direction: column; gap: 28px; background: var(--bg)">
+
+  <header style="display: flex; flex-direction: column; gap: 8px">
+    <span class="mono" style="font-size: 14px; font-weight: 700; color: var(--primary-text)">{{ pkg }}</span>
+    <h1 style="margin: 0; font-size: 34px; font-weight: 700; line-height: 1.25">{{ heading }}</h1>
+    <span style="font-size: 16px; color: var(--text-muted); max-width: 1100px">{{ intro }}</span>
+    <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px">
+      <sc-for list="{{ legend }}" as="l" hint-placeholder-count="3">
+        <span style="{{ l.style }}">{{ l.label }}</span>
+      </sc-for>
+    </div>
+  </header>
+
+  <!-- Button state matrix -->
+  <section style="display: flex; flex-direction: column; gap: 12px">
+    <h2 style="margin: 0; font-size: 22px; font-weight: 700">Button: biến thể × trạng thái</h2>
+    <span style="font-size: 14px; color: var(--text-muted)">{{ buttonNote }}</span>
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <div style="display: flex; gap: 10px; align-items: center">
+        <span style="width: 160px; flex-shrink: 0"></span>
+        <sc-for list="{{ stateHeads }}" as="h" hint-placeholder-count="6">
+          <span class="mono" style="flex: 1 1 0; font-size: 12px; color: var(--text-muted)">{{ h }}</span>
+        </sc-for>
+      </div>
+      <sc-for list="{{ matrix }}" as="r" hint-placeholder-count="4">
+        <div style="display: flex; gap: 10px; align-items: center">
+          <span class="mono" style="width: 160px; flex-shrink: 0; font-size: 13px; font-weight: 700">{{ r.name }}</span>
+          <sc-for list="{{ r.cells }}" as="c" hint-placeholder-count="6">
+            <span style="flex: 1 1 0; display: flex"><span style="{{ c.style }}">{{ c.label }}</span></span>
+          </sc-for>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- Catalog -->
+  <sc-for list="{{ groups }}" as="g" hint-placeholder-count="6">
+    <section style="display: flex; flex-direction: column; gap: 10px">
+      <h2 style="margin: 0; font-size: 22px; font-weight: 700">{{ g.title }}</h2>
+      <div style="border: 1px solid var(--border); border-radius: 16px; overflow: hidden">
+        <table style="width: 100%; border-collapse: collapse; font-size: 14px">
+          <thead><tr>
+            <th scope="col" style="width: 200px">Tên</th>
+            <th scope="col" style="width: 260px">Dùng để</th>
+            <th scope="col">Props chính</th>
+            <th scope="col" style="width: 240px">Biến thể · trạng thái</th>
+            <th scope="col" style="width: 200px">Màn hình dùng</th>
+          </tr></thead>
+          <tbody>
+            <sc-for list="{{ g.items }}" as="c" hint-placeholder-count="4">
+              <tr>
+                <td><span class="mono" style="font-size: 14px; font-weight: 700">{{ c.name }}</span><br><span style="{{ c.tagStyle }}">{{ c.tag }}</span></td>
+                <td style="color: var(--text-muted)">{{ c.purpose }}</td>
+                <td><span class="mono" style="font-size: 12px; white-space: pre-line">{{ c.props }}</span></td>
+                <td style="font-size: 13px">{{ c.states }}</td>
+                <td style="font-size: 13px; color: var(--text-muted)">{{ c.used }}</td>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </sc-for>
+
+  <footer style="font-size: 13px; color: var(--text-muted)">Mọi component: chỉ dùng token, chạy đúng sáng/tối × vi/en × theme của app, nhãn qua props hoặc i18n <span class="mono">common</span>, không gọi API (plans/03 mục 7.4). Tên có nhãn "đề xuất" chưa có trong plans/03 mục 7.3.</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":1440,"height":3000}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const tag = (t) => {
+      const map = {
+        'chung': 'background: var(--bg-muted); color: var(--text-muted);',
+        'admin': 'background: var(--info-subtle); color: var(--info-text);',
+        'customer': 'background: var(--accent-subtle); color: var(--accent-text);',
+        'đề xuất': 'background: var(--primary-subtle); color: var(--primary-text);'
+      };
+      return 'display: inline-flex; margin-top: 4px; height: 20px; padding: 0 8px; border-radius: 999px; font-size: 11px; font-weight: 700; align-items: center; ' + (map[t] ?? map['chung']);
+    };
+    const G = [
+      ['Khung', [
+        ['AppShell', 'admin', 'Khung trang Admin: sidebar + thanh trên + nội dung', 'sidebar: ReactNode\ntopbar: ReactNode\nchildren', 'thu gọn sidebar < lg', 'Mọi trang Admin'],
+        ['Sidebar', 'admin', 'Menu trái, mục lọc theo quyền', 'items: NavItem[] ({key, label, icon, permission, href})\nactiveKey: string', 'mục đang chọn, nhóm, thu gọn', 'AppShell'],
+        ['PageHeader', 'admin', 'Tiêu đề trang + breadcrumb + hành động', 'title, description?\nbreadcrumb?: Crumb[]\nactions?: ReactNode', 'có/không breadcrumb', 'Danh sách món, Sửa món, Tổng quan'],
+        ['CustomerShell', 'customer', 'Khung web khách: đầu trang brick + sóng, chân trang', 'nav: NavItem[]\nstore: StoreSummary\ncartCount: number\nchildren', 'header thu gọn khi cuộn, điện thoại/máy tính', 'Mọi trang web khách'],
+        ['BottomBar', 'customer', 'Thanh giỏ nổi trên điện thoại', 'count, total: number\nonOpen: () => void', 'ẩn khi giỏ rỗng; chỉ < md', 'Thực đơn web khách']
+      ]],
+      ['Hành động', [
+        ['Button', 'chung', 'Nút hành động', "variant: 'primary' | 'secondary' | 'ghost'\nsize: 'sm' | 'md' | 'lg'\nicon?, iconPosition?\nloading?, disabled?, fullWidth?", 'admin mặc định md (40); customer mặc định lg (48)', 'Mọi màn'],
+        ['DangerButton', 'chung', 'Hành động nguy hiểm, khó hoàn tác', "variant: 'outline' | 'solid'\nicon: IconName (bắt buộc)\nloading?", 'solid chỉ trong ConfirmDialog', 'Ngừng bán, Xoá, Huỷ'],
+        ['IconButton', 'chung', 'Nút chỉ có icon', "icon: IconName\nlabel: string (aria-label, bắt buộc)\nvariant: 'ghost' | 'outline'", 'hover, focus, disabled', 'Thanh công cụ, dòng bảng'],
+        ['Link', 'chung', 'Liên kết', 'href, external?', 'đã xem, focus', 'Mọi màn'],
+        ['Menu', 'chung', 'Danh sách thao tác bật ra', 'trigger: ReactNode\nitems: MenuItem[] ({label, onSelect, tone?, permission?})', 'mục danger, mục vô hiệu', 'Thao tác dòng, menu tài khoản']
+      ]],
+      ['Nhập liệu và form', [
+        ['Input', 'chung', 'Ô nhập một dòng', 'label, value, onChange\nhint?, error?\nprefix?, suffix?, disabled?', 'mặc định, focus, lỗi (icon + chữ), vô hiệu', 'Form, FilterBar, đăng nhập'],
+        ['Select · Combobox', 'chung', 'Chọn một/nhiều giá trị', 'options: Option[]\nvalue, onChange\nsearchable? (Combobox)', 'mở, rỗng, đang tải', 'Nhóm món, chi nhánh'],
+        ['Checkbox · Radio · Switch', 'chung', 'Lựa chọn bật/tắt', 'checked, onChange, label', 'vùng chạm ≥ 44 px', 'Form, bảng'],
+        ['DatePicker · DateRangePicker', 'admin', 'Chọn ngày, khoảng ngày', 'value, onChange\npresets?: Preset[]', 'theo ngày kinh doanh chi nhánh', 'Báo cáo, Tổng quan'],
+        ['MoneyInput', 'chung', 'Nhập tiền VND số nguyên', 'value: number (VND)\nonChange', 'canh phải, tabular-nums', 'Sửa món'],
+        ['QuantityStepper', 'chung', 'Tăng giảm số lượng', 'value, min, max, onChange', 'hết giới hạn thì nút vô hiệu', 'Giỏ web khách'],
+        ['LocalizedInput', 'admin', 'Nhập tên hai ngôn ngữ', "value: { vi: string; en?: string }\nrequired: 'vi'", 'thiếu en: cảnh báo vàng', 'Sửa món, nhóm, tuỳ chọn'],
+        ['ImageUpload', 'admin', 'Tải ảnh món', "value?, onUpload\naspect: '1:1' | '4:3'", 'kéo thả, đang tải, lỗi', 'Sửa món'],
+        ['PinInput', 'chung', 'Nhập PIN 6 số', 'length: 6, masked: true\nerror?, attemptsLeft?', 'sai, còn n lần, khoá', 'Đăng nhập admin, đăng nhập khách'],
+        ['Form · FormField · FormSection · FormActions', 'chung', 'Khung form với Zod', 'schema (zod từ @fnb/contract)\nonSubmit\nFormActions: primary, secondary, danger?', 'đang lưu, lỗi theo ô', 'Sửa món, cài đặt']
+      ]],
+      ['Dữ liệu', [
+        ['DataTable', 'admin', 'Bảng dữ liệu chuẩn', 'columns: Column[]\nrows, loading, error\nempty: ReactNode\nselection?, sort?, rowActions?', 'Skeleton hàng, rỗng, lỗi, đã chọn', 'Danh sách món, đơn, nhân viên'],
+        ['FilterBar', 'admin', 'Thanh lọc trên bảng', 'filters: Filter[]\nonClear', 'lọc đang bật được tô', 'Mọi danh sách'],
+        ['Pagination', 'admin', 'Phân trang', 'page, pageSize, total, onChange', 'trang hiện tại', 'DataTable'],
+        ['Card · StatCard', 'chung', 'Thẻ nội dung / số liệu', 'Card: title?, actions?\nStatCard: label, value, delta?, tone?', 'delta tăng/giảm có icon', 'Tổng quan'],
+        ['Badge · StatusBadge', 'chung', 'Nhãn, nhãn trạng thái', "Badge: tone\nStatusBadge: kind: 'order' | 'ticket' | 'product', status", 'màu từ token trạng thái, luôn có icon', 'Bảng, chi tiết'],
+        ['Tabs', 'chung', 'Chia nội dung', 'items: Tab[], value, onChange', 'gạch dưới (admin)', 'Sửa món'],
+        ['Chart', 'admin', 'Biểu đồ', "type: 'bar' | 'line'\nseries: Series[]", 'màu chart-1…8', 'Tổng quan, báo cáo']
+      ]],
+      ['Phản hồi và trạng thái', [
+        ['Dialog · Drawer', 'chung', 'Hộp thoại, ngăn kéo', "open, onClose, title\nsize: 'sm' | 'md' | 'lg'", 'giữ focus, Esc đóng', 'Chi tiết món (khách)'],
+        ['ConfirmDialog', 'chung', 'Xác nhận hành động', "tone: 'default' | 'danger'\ntitle, description\nconfirmLabel\nreasonRequired?", 'danger: nút cuối tô đặc', 'Ngừng bán, xoá'],
+        ['Toast · Tooltip', 'chung', 'Thông báo sau hành động, gợi ý', "Toast: tone, message, action?\nTooltip: content", 'thành công, lỗi, hoàn tác', 'Mọi màn'],
+        ['Skeleton · Spinner', 'chung', 'Đang tải nội dung / hành động', "Skeleton: shape: 'line' | 'rect' | 'row'\nSpinner: size", 'tôn trọng giảm chuyển động', 'Mọi vùng dữ liệu'],
+        ['EmptyState · ErrorState · NoPermission', 'chung', 'Rỗng, lỗi, không quyền', "EmptyState: title, description, action?, illustration?: 'wave' (customer)\nErrorState: message, onRetry\nNoPermission: permission", 'customer được dùng sóng', 'Mọi vùng dữ liệu']
+      ]],
+      ['Định dạng, quyền, cài đặt', [
+        ['Money · DateTime · Icon · ProductImage', 'chung', 'Hiển thị tiền, ngày giờ, icon lucide, ảnh món', "Money: value\nDateTime: value, format\nIcon: name, size: 16 | 20 | 24\nProductImage: src?, alt, aspect", 'ảnh thay thế khi thiếu', 'Mọi màn'],
+        ['Can', 'chung', 'Ẩn/hiện theo mã quyền', 'permission: PermissionCode\nfallback?', 'không quyền thì ẩn', 'Nút, mục menu, cột'],
+        ['LanguageSwitcher · ThemeSwitcher', 'chung', 'Đổi ngôn ngữ, sáng/tối', "LanguageSwitcher: value: 'vi' | 'en'\nThemeSwitcher: value: 'system' | 'light' | 'dark'", 'lưu trên thiết bị', 'Menu tài khoản, chân trang khách']
+      ]],
+      ['Kênh khách (theme customer)', [
+        ['ProductCard', 'customer', 'Thẻ món ảnh 4:3', "product: ProductView\nlayout: 'grid' | 'row'\nonAdd", 'món mới, giảm giá, tạm hết', 'Trang chủ, thực đơn'],
+        ['CategoryChips', 'customer', 'Chip nhóm món', 'items, value, onChange', 'cuộn ngang (điện thoại), xuống dòng (máy tính)', 'Thực đơn'],
+        ['ModifierGroupPicker', 'customer', 'Chọn tuỳ chọn món', 'groups: ModifierGroup[] (min, max, required)\nvalue, onChange', 'bắt buộc, đủ tối đa, tuỳ chọn tạm hết', 'Chi tiết món'],
+        ['VoucherCard', 'customer', 'Thẻ ưu đãi', 'voucher, onApply', 'đã dùng, hết hạn', 'Trang chủ, giỏ'],
+        ['CartPanel', 'đề xuất', 'Cột giỏ trên máy tính', 'lines, subtotal, onCheckout', 'rỗng (EmptyState sóng)', 'Thực đơn, thanh toán'],
+        ['OrderTracker', 'customer', 'Theo dõi đơn theo số thứ tự', "queueNumber, status\norientation: 'horizontal' | 'vertical'", 'đã trả, đang làm, mời nhận, đã nhận', 'Theo dõi đơn'],
+        ['QrDisplay', 'customer', 'Mã QR chuyển khoản', 'payload, amount, expiresAt', 'đang chờ, hết hạn, đã nhận', 'Thanh toán QR']
+      ]]
+    ];
+    const groups = G.map(([title, items]) => ({
+      title,
+      items: items.map(([name, t, purpose, props, states, used]) => ({ name, tag: t, tagStyle: tag(t), purpose, props, states, used }))
+    }));
+    const stateHeads = ['default', 'hover', 'pressed', 'focus', 'disabled', 'loading'];
+    const base = 'display: inline-flex; align-items: center; justify-content: center; height: 40px; padding: 0 14px; border-radius: 10px; font-size: 14px; font-weight: 600; box-sizing: border-box; ';
+    const V = {
+      primary: ['background: var(--primary); color: var(--primary-fg);', 'background: var(--primary-hover); color: var(--primary-fg);', 'background: var(--primary-pressed); color: var(--primary-fg);', 'background: var(--primary); color: var(--primary-fg); outline: 3px solid var(--primary-focus); outline-offset: 2px;'],
+      secondary: ['background: var(--bg); color: var(--text); border: 1px solid var(--border-strong);', 'background: var(--bg-subtle); color: var(--text); border: 1px solid var(--border-strong);', 'background: var(--bg-muted); color: var(--text); border: 1px solid var(--border-strong);', 'background: var(--bg); color: var(--text); border: 1px solid var(--border-strong); outline: 3px solid var(--primary-focus); outline-offset: 2px;'],
+      ghost: ['background: transparent; color: var(--text);', 'background: var(--bg-subtle); color: var(--text);', 'background: var(--bg-muted); color: var(--text);', 'background: transparent; color: var(--text); outline: 3px solid var(--primary-focus); outline-offset: 2px;'],
+      danger: ['background: var(--bg); color: var(--danger-text); border: 1px solid var(--danger);', 'background: var(--danger-subtle); color: var(--danger-text); border: 1px solid var(--danger);', 'background: var(--danger); color: var(--danger-fg);', 'background: var(--bg); color: var(--danger-text); border: 1px solid var(--danger); outline: 3px solid var(--primary-focus); outline-offset: 2px;']
+    };
+    const label = { primary: 'Lưu món', secondary: 'Huỷ', ghost: 'Xem thêm', danger: 'Xoá' };
+    const matrix = Object.keys(V).map((k) => ({
+      name: k === 'danger' ? 'DangerButton' : 'Button ' + k,
+      cells: [0, 1, 2, 3].map((i) => ({ label: label[k], style: base + V[k][i] }))
+        .concat([{ label: label[k], style: base + 'background: var(--bg-muted); color: var(--text-subtle);' }, { label: 'Đang lưu…', style: base + V[k][0] + ' opacity: .75;' }])
+    }));
+    return {
+      themeClass: this.props.dark ? 'dark' : '',
+      pkg: '@fnb/ui-web · packages/ui-web',
+      heading: 'Đặc tả component Web (Admin + web khách)',
+      intro: 'Danh mục để dev lấy ra làm: tên chuẩn, việc của component, props chính, biến thể và trạng thái, màn hình dùng. Cùng một bộ cho hai theme: admin (đơn giản, 40 px) và customer (thương hiệu cao, 48 px). Import: import { Button } from "@fnb/ui-web".',
+      buttonNote: 'Theme admin, size md (40 px). Theme customer dùng size lg (48 px), radius-lg; màu trạng thái giữ nguyên token.',
+      legend: [{ label: 'chung: cả hai theme', style: tag('chung').replace('margin-top: 4px; ', '') }, { label: 'admin: chỉ Admin', style: tag('admin').replace('margin-top: 4px; ', '') }, { label: 'customer: chỉ web khách', style: tag('customer').replace('margin-top: 4px; ', '') }, { label: 'đề xuất: tên mới', style: tag('đề xuất').replace('margin-top: 4px; ', '') }],
+      stateHeads, matrix, groups
+    };
+  }
+}
+</script>
+</body>
+</html>

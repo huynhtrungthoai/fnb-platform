@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Component web khách</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&amp;family=Baloo+2:wght@700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#CA0404}a:hover{color:#9C0303}
+.fnb{--bg:#FFFFFF;--bg-subtle:#F9F6F4;--bg-muted:#F1ECE8;--border:#E4DAD4;--border-strong:#9F8D7F;--text:#282019;--text-muted:#6D5D51;--text-subtle:#7A695C;--primary:#CA0404;--primary-fg:#FFFFFF;--primary-subtle:#FEE7E3;--primary-text:#9C0303;--accent:#ED6F03;--accent-fg:#211510;--accent-subtle:#FEE8DC;--accent-text:#984502;--success:#2F7D46;--success-fg:#FFFFFF;--success-subtle:#E0F3E3;--success-text:#17592C;--brick:#8A2A26;--band:#F6F1EA;--band-text:#282019;--shadow-sm:0 1px 2px rgba(40,32,25,.08),0 1px 3px rgba(40,32,25,.06);--shadow-md:0 8px 24px rgba(40,32,25,.12);font-family:'Be Vietnam Pro',system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.5}
+.fnb.dark{--bg:#1A1411;--bg-subtle:#282019;--bg-muted:#3E332A;--border:#55473D;--border-strong:#857366;--text:#F9F6F4;--text-muted:#D1C3B9;--text-subtle:#B8A79A;--primary:#F84839;--primary-fg:#1A1411;--primary-subtle:#470000;--primary-text:#FEAEA2;--accent:#FA8840;--accent-fg:#1A1411;--accent-subtle:#3A1600;--accent-text:#FEB187;--success:#58A46B;--success-fg:#1A1411;--success-subtle:#002A0E;--success-text:#A0D5AB;--brick:#62211E;--band:#282019;--band-text:#F9F6F4;--shadow-sm:0 1px 2px rgba(0,0,0,.4);--shadow-md:0 8px 24px rgba(0,0,0,.5)}
+.fnb button{font-family:inherit;cursor:pointer}
+.fnb .num{font-variant-numeric:tabular-nums}
+.fnb .display{font-family:'Baloo 2',sans-serif;font-weight:800;line-height:1.1}
+.fnb .card{padding:28px;border:1px solid var(--border);border-radius:16px;background:var(--bg);display:flex;flex-direction:column;gap:18px;min-width:0}
+.fnb .cname{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:15px;font-weight:700}
+.fnb .cnote{font-size:13px;color:var(--text-muted)}
+</style>
+</helmet>
+<div class="fnb {{themeClass}}" style="width: 1440px; min-height: 1640px; box-sizing: border-box; display: flex; flex-direction: column; background: var(--bg-subtle)">
+
+  <!-- Brand header sample -->
+  <div style="background: var(--brick); color: #FFFFFF; padding: 40px 48px 0">
+    <span style="font-size: 13px; font-weight: 700; letter-spacing: .06em; opacity: .85">@fnb/ui-web · THEME CUSTOMER</span>
+    <h1 class="display" style="margin: 6px 0 0; font-size: 48px">Component web khách</h1>
+    <p style="margin: 6px 0 0; font-size: 17px; max-width: 900px; opacity: .92">Cùng bộ component với Admin, khác theme: thương hiệu cao, nút 48 px bo radius-lg, tiêu đề Baloo 2, ảnh món lớn, nhiều khoảng trắng. Hoạ tiết sóng chỉ ở đầu trang và trạng thái rỗng.</p>
+    <svg width="1440" height="40" viewBox="0 0 1440 40" preserveAspectRatio="none" aria-hidden="true" style="display: block; margin: 24px -48px 0"><path d="M0 40V16c60 0 60 18 120 18s60-24 120-24 60 24 120 24 60-24 120-24 60 24 120 24 60-24 120-24 60 24 120 24 60-24 120-24 60 24 120 24 60-24 120-24 60 24 120 24 60-18 120-18v24Z" fill="var(--band)"/></svg>
+  </div>
+
+  <div style="background: var(--band); padding: 8px 48px 40px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: start">
+
+    <!-- Buttons -->
+    <section class="card">
+      <div><div class="cname">Button · Link</div><div class="cnote">control-lg 48 px, radius-lg. Một nút primary mỗi vùng.</div></div>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px">
+        <button type="button" style="height: 48px; padding: 0 24px; border-radius: 16px; border: 0; background: var(--primary); color: var(--primary-fg); font-size: 16px; font-weight: 700; box-shadow: var(--shadow-sm)">Đặt món ngay</button>
+        <button type="button" style="height: 48px; padding: 0 22px; border-radius: 16px; border: 1px solid var(--border-strong); background: var(--bg); color: var(--text); font-size: 16px; font-weight: 600">Xem cửa hàng</button>
+        <button type="button" disabled="disabled" style="height: 48px; padding: 0 22px; border-radius: 16px; border: 0; background: var(--bg-muted); color: var(--text-subtle); font-size: 16px; font-weight: 600; cursor: not-allowed">Quán đã đóng cửa</button>
+      </div>
+      <a href="#" style="font-size: 15px; font-weight: 600">Xem điều kiện ưu đãi →</a>
+      <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px">
+        <span style="font-weight: 600">Số điện thoại</span>
+        <span style="height: 48px; box-sizing: border-box; padding: 0 16px; border: 1px solid var(--border-strong); border-radius: 16px; display: flex; align-items: center; font-size: 16px; background: var(--bg)"><span class="num">0912 345 678</span></span>
+      </label>
+    </section>
+
+    <!-- Chips, badges -->
+    <section class="card">
+      <div><div class="cname">CategoryChips · Badge</div><div class="cnote">Chip nhóm món cuộn ngang trên điện thoại, xuống dòng trên máy tính.</div></div>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px">
+        <button type="button" aria-pressed="true" style="height: 44px; padding: 0 18px; border-radius: 999px; border: 0; background: var(--text); color: var(--bg); font-size: 15px; font-weight: 600">Nổi bật</button>
+        <button type="button" aria-pressed="false" style="height: 44px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--border); background: var(--bg); color: var(--text); font-size: 15px">Hotdog</button>
+        <button type="button" aria-pressed="false" style="height: 44px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--border); background: var(--bg); color: var(--text); font-size: 15px">Burger</button>
+        <button type="button" aria-pressed="false" style="height: 44px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--border); background: var(--bg); color: var(--text); font-size: 15px">Món thêm</button>
+        <button type="button" aria-pressed="false" style="height: 44px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--border); background: var(--bg); color: var(--text); font-size: 15px">Đồ uống</button>
+      </div>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap">
+        <span style="height: 26px; padding: 0 12px; border-radius: 999px; background: var(--accent); color: var(--accent-fg); font-size: 13px; font-weight: 800; display: inline-flex; align-items: center">-20%</span>
+        <span style="height: 26px; padding: 0 12px; border-radius: 999px; background: var(--accent-subtle); color: var(--accent-text); font-size: 13px; font-weight: 700; display: inline-flex; align-items: center">Món mới</span>
+        <span style="height: 26px; padding: 0 12px; border-radius: 999px; background: var(--bg-muted); color: var(--text-muted); font-size: 13px; font-weight: 700; display: inline-flex; align-items: center">Tạm hết</span>
+      </div>
+      <div role="radiogroup" aria-label="Giao diện" style="display: inline-flex; padding: 4px; gap: 4px; border-radius: 999px; background: var(--bg-muted); width: fit-content">
+        <button type="button" role="radio" aria-checked="false" style="height: 36px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; color: var(--text-muted); font-size: 13px">Hệ thống</button>
+        <button type="button" role="radio" aria-checked="true" style="height: 36px; padding: 0 14px; border: 0; border-radius: 999px; background: var(--bg); color: var(--text); font-size: 13px; font-weight: 700; box-shadow: var(--shadow-sm)">Sáng</button>
+        <button type="button" role="radio" aria-checked="false" style="height: 36px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; color: var(--text-muted); font-size: 13px">Tối</button>
+      </div>
+      <span class="cnote">ThemeSwitcher ở trang tài khoản và chân trang.</span>
+    </section>
+
+    <!-- Voucher -->
+    <section class="card">
+      <div><div class="cname">VoucherCard</div><div class="cnote">Ưu đãi dùng accent; viền răng cưa bằng nét đứt.</div></div>
+      <div style="display: flex; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); background: var(--bg)">
+        <div style="width: 104px; flex-shrink: 0; background: var(--accent); color: var(--accent-fg); display: flex; flex-direction: column; align-items: center; justify-content: center">
+          <span class="display" style="font-size: 34px">20%</span>
+          <span style="font-size: 12px; font-weight: 800">GIẢM</span>
+        </div>
+        <div style="flex-grow: 1; padding: 14px 16px; display: flex; flex-direction: column; gap: 2px; border-left: 2px dashed var(--border)">
+          <span style="font-size: 16px; font-weight: 700">Thứ Ba vui vẻ</span>
+          <span style="font-size: 14px; color: var(--text-muted)">Đơn từ 100.000 ₫ · hết hạn 30/11</span>
+          <button type="button" style="align-self: flex-start; height: 40px; margin-top: 8px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--accent); background: var(--bg); color: var(--accent-text); font-size: 14px; font-weight: 700">Dùng ngay</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ProductCard -->
+    <section class="card" style="grid-column: span 2">
+      <div><div class="cname">ProductCard · ProductImage 4:3</div><div class="cnote">Ảnh lớn là nhân vật chính. Hover chỉ là thêm; nút thêm luôn hiện.</div></div>
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px">
+        <sc-for list="{{ products }}" as="p" hint-placeholder-count="3">
+          <article style="{{ p.cardStyle }}">
+            <div style="position: relative; aspect-ratio: 4 / 3; background: var(--bg-muted); display: flex; align-items: center; justify-content: center; color: var(--text-subtle)">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2M7 2v20M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>
+              <sc-if value="{{ p.hasBadge }}" hint-placeholder-val="{{ false }}">
+                <span style="position: absolute; top: 12px; left: 12px; height: 26px; padding: 0 12px; border-radius: 999px; background: var(--accent); color: var(--accent-fg); font-size: 13px; font-weight: 800; display: flex; align-items: center">{{ p.badge }}</span>
+              </sc-if>
+            </div>
+            <div style="padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 4px; flex-grow: 1">
+              <span style="font-size: 17px; font-weight: 700">{{ p.name }}</span>
+              <span style="font-size: 14px; color: var(--text-muted)">{{ p.desc }}</span>
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 8px">
+                <span class="num" style="font-size: 18px; font-weight: 800">{{ p.price }}</span>
+                <button type="button" aria-label="{{ p.addLabel }}" style="width: 44px; height: 44px; border-radius: 999px; border: 0; background: var(--primary); color: var(--primary-fg); display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg></button>
+              </div>
+            </div>
+          </article>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- Empty state -->
+    <section class="card">
+      <div><div class="cname">EmptyState (kênh khách)</div><div class="cnote">Được dùng hoạ tiết sóng; giọng văn "quán" – "bạn".</div></div>
+      <div style="border-radius: 16px; overflow: hidden; border: 1px solid var(--border); background: var(--bg); display: flex; flex-direction: column; align-items: center; gap: 10px; padding-bottom: 24px; text-align: center">
+        <svg width="100%" height="64" viewBox="0 0 340 64" preserveAspectRatio="none" aria-hidden="true" style="display: block"><rect width="340" height="64" fill="var(--band)"/><path d="M0 0h340v30c-28 0-28 18-57 18s-28-22-56-22-29 22-57 22-28-22-57-22-28 22-56 22S28 30 0 30Z" fill="var(--brick)"/></svg>
+        <span style="font-size: 17px; font-weight: 700">Giỏ hàng đang trống</span>
+        <span style="font-size: 14px; color: var(--text-muted); padding: 0 24px">Chọn vài món ngon, quán làm nóng liền cho bạn.</span>
+        <button type="button" style="height: 44px; padding: 0 20px; border-radius: 16px; border: 1px solid var(--border-strong); background: var(--bg); color: var(--text); font-size: 15px; font-weight: 600">Xem thực đơn</button>
+      </div>
+    </section>
+
+    <!-- Cart panel -->
+    <section class="card">
+      <div><div class="cname">CartPanel (máy tính) · BottomBar (điện thoại)</div><div class="cnote">Máy tính: cột giỏ dính bên phải. Điện thoại: BottomBar nổi.</div></div>
+      <div style="border-radius: 16px; border: 1px solid var(--border); background: var(--bg); padding: 16px; display: flex; flex-direction: column; gap: 10px; font-size: 14px">
+        <span style="font-size: 17px; font-weight: 800">Giỏ của bạn</span>
+        <div style="display: flex; justify-content: space-between"><span>2× Hotdog phô mai</span><span class="num" style="font-weight: 600">90.000 ₫</span></div>
+        <div style="display: flex; justify-content: space-between"><span>1× Trà đào cam sả</span><span class="num" style="font-weight: 600">29.000 ₫</span></div>
+        <div style="display: flex; justify-content: space-between; padding-top: 10px; border-top: 1px dashed var(--border-strong)"><span style="font-weight: 700">Tạm tính</span><span class="num" style="font-size: 18px; font-weight: 800">119.000 ₫</span></div>
+        <button type="button" style="height: 48px; border-radius: 16px; border: 0; background: var(--primary); color: var(--primary-fg); font-size: 16px; font-weight: 700">Thanh toán</button>
+      </div>
+      <button type="button" style="height: 56px; border-radius: 16px; border: 0; background: var(--primary); color: var(--primary-fg); display: flex; align-items: center; gap: 12px; padding: 0 16px; font-size: 15px; font-weight: 700; box-shadow: var(--shadow-md)">
+        <span class="num" style="min-width: 28px; height: 28px; border-radius: 999px; background: var(--primary-fg); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 14px">3</span>
+        <span style="flex-grow: 1; text-align: left">Xem giỏ hàng</span>
+        <span class="num">119.000 ₫</span>
+      </button>
+    </section>
+
+    <!-- Order tracker -->
+    <section class="card">
+      <div><div class="cname">OrderTracker (ngang, máy tính)</div><div class="cnote">Số thứ tự lớn; trạng thái theo token.</div></div>
+      <div style="display: flex; align-items: center; gap: 16px">
+        <div style="padding: 10px 16px; border-radius: 16px; background: var(--success-subtle); text-align: center">
+          <span style="display: block; font-size: 11px; font-weight: 800; color: var(--success-text)">SỐ CỦA BẠN</span>
+          <span class="display num" style="font-size: 40px">#045</span>
+        </div>
+        <span style="font-size: 15px; font-weight: 700; color: var(--success-text)">Món xong rồi, mời bạn nhận ở quầy</span>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; font-size: 12px; text-align: center">
+        <sc-for list="{{ steps }}" as="s" hint-placeholder-count="4">
+          <div style="display: flex; flex-direction: column; gap: 6px; align-items: center">
+            <span style="{{ s.bar }}"></span>
+            <span style="{{ s.label }}">{{ s.text }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":1440,"height":1640}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const products = [
+      { name: 'Hotdog cay Hàn Quốc', desc: 'Sốt gochujang, kim chi giòn', price: '49.000 ₫', badge: 'Mới' },
+      { name: 'Hotdog phô mai', desc: 'Phô mai cheddar tan chảy, hành phi', price: '45.000 ₫', badge: '-20%' },
+      { name: 'Burger bò', desc: 'Bò nướng, rau tươi, sốt nhà làm', price: '59.000 ₫', badge: '' }
+    ].map((p) => ({
+      ...p,
+      hasBadge: (p.badge ?? '') !== '',
+      addLabel: 'Thêm ' + p.name,
+      cardStyle: 'display: flex; flex-direction: column; border-radius: 16px; overflow: hidden; background: var(--bg); border: 1px solid var(--border); box-shadow: var(--shadow-sm);'
+    }));
+    const steps = [['Đã thanh toán', 'done'], ['Đang làm', 'done'], ['Mời nhận', 'current'], ['Đã nhận', 'todo']].map(([text, st]) => ({
+      text,
+      bar: 'width: 100%; height: 6px; border-radius: 999px; background: ' + (st === 'todo' ? 'var(--bg-muted)' : 'var(--success)') + ';',
+      label: st === 'current' ? 'font-weight: 800; color: var(--success-text);' : st === 'todo' ? 'color: var(--text-muted);' : 'font-weight: 600;'
+    }));
+    return { themeClass: this.props.dark ? 'dark' : '', products, steps };
+  }
+}
+</script>
+</body>
+</html>

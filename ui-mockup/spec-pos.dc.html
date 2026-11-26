@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Đặc tả component POS</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#CA0404}a:hover{color:#9C0303}
+.fnb{--bg:#FFFFFF;--bg-subtle:#F9F6F4;--bg-muted:#F1ECE8;--border:#E4DAD4;--border-strong:#9F8D7F;--text:#282019;--text-muted:#6D5D51;--text-subtle:#7A695C;--primary:#CA0404;--primary-hover:#B70202;--primary-pressed:#9C0303;--primary-focus:#F84839;--primary-fg:#FFFFFF;--primary-subtle:#FEE7E3;--primary-text:#9C0303;--danger:#C2185B;--danger-fg:#FFFFFF;--danger-subtle:#FFE5EA;--danger-text:#8B023D;--info-subtle:#E1EEFE;--info-text:#184B83;--accent-subtle:#FEE8DC;--accent-text:#984502;font-family:'Be Vietnam Pro',system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.45}
+.fnb.dark{--bg:#1A1411;--bg-subtle:#282019;--bg-muted:#3E332A;--border:#55473D;--border-strong:#857366;--text:#F9F6F4;--text-muted:#D1C3B9;--text-subtle:#B8A79A;--primary:#F84839;--primary-hover:#FE806F;--primary-pressed:#FEAEA2;--primary-focus:#FEAEA2;--primary-fg:#1A1411;--primary-subtle:#470000;--primary-text:#FEAEA2;--danger:#EF4B7F;--danger-fg:#1A1411;--danger-subtle:#45001A;--danger-text:#FEAABC;--info-subtle:#012145;--info-text:#9DC9FF;--accent-subtle:#3A1600;--accent-text:#FEB187}
+.fnb .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.fnb td,.fnb th{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top;text-align:left}
+.fnb th{font-size:12px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--text-muted);background:var(--bg-subtle)}
+</style>
+</helmet>
+<div class="fnb {{themeClass}}" style="width: 1440px; min-height: 3000px; box-sizing: border-box; padding: 48px; display: flex; flex-direction: column; gap: 28px; background: var(--bg)">
+
+  <header style="display: flex; flex-direction: column; gap: 8px">
+    <span class="mono" style="font-size: 14px; font-weight: 700; color: var(--primary-text)">{{ pkg }}</span>
+    <h1 style="margin: 0; font-size: 34px; font-weight: 700; line-height: 1.25">{{ heading }}</h1>
+    <span style="font-size: 16px; color: var(--text-muted); max-width: 1100px">{{ intro }}</span>
+    <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px">
+      <sc-for list="{{ legend }}" as="l" hint-placeholder-count="3">
+        <span style="{{ l.style }}">{{ l.label }}</span>
+      </sc-for>
+    </div>
+  </header>
+
+  <!-- Button state matrix -->
+  <section style="display: flex; flex-direction: column; gap: 12px">
+    <h2 style="margin: 0; font-size: 22px; font-weight: 700">Button: biến thể × trạng thái</h2>
+    <span style="font-size: 14px; color: var(--text-muted)">{{ buttonNote }}</span>
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <div style="display: flex; gap: 10px; align-items: center">
+        <span style="width: 160px; flex-shrink: 0"></span>
+        <sc-for list="{{ stateHeads }}" as="h" hint-placeholder-count="6">
+          <span class="mono" style="flex: 1 1 0; font-size: 12px; color: var(--text-muted)">{{ h }}</span>
+        </sc-for>
+      </div>
+      <sc-for list="{{ matrix }}" as="r" hint-placeholder-count="4">
+        <div style="display: flex; gap: 10px; align-items: center">
+          <span class="mono" style="width: 160px; flex-shrink: 0; font-size: 13px; font-weight: 700">{{ r.name }}</span>
+          <sc-for list="{{ r.cells }}" as="c" hint-placeholder-count="6">
+            <span style="flex: 1 1 0; display: flex"><span style="{{ c.style }}">{{ c.label }}</span></span>
+          </sc-for>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- Catalog -->
+  <sc-for list="{{ groups }}" as="g" hint-placeholder-count="6">
+    <section style="display: flex; flex-direction: column; gap: 10px">
+      <h2 style="margin: 0; font-size: 22px; font-weight: 700">{{ g.title }}</h2>
+      <div style="border: 1px solid var(--border); border-radius: 16px; overflow: hidden">
+        <table style="width: 100%; border-collapse: collapse; font-size: 14px">
+          <thead><tr>
+            <th scope="col" style="width: 200px">Tên</th>
+            <th scope="col" style="width: 260px">Dùng để</th>
+            <th scope="col">Props chính</th>
+            <th scope="col" style="width: 240px">Biến thể · trạng thái</th>
+            <th scope="col" style="width: 200px">Màn hình dùng</th>
+          </tr></thead>
+          <tbody>
+            <sc-for list="{{ g.items }}" as="c" hint-placeholder-count="4">
+              <tr>
+                <td><span class="mono" style="font-size: 14px; font-weight: 700">{{ c.name }}</span><br><span style="{{ c.tagStyle }}">{{ c.tag }}</span></td>
+                <td style="color: var(--text-muted)">{{ c.purpose }}</td>
+                <td><span class="mono" style="font-size: 12px; white-space: pre-line">{{ c.props }}</span></td>
+                <td style="font-size: 13px">{{ c.states }}</td>
+                <td style="font-size: 13px; color: var(--text-muted)">{{ c.used }}</td>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </sc-for>
+
+  <footer style="font-size: 13px; color: var(--text-muted)">Mọi component: chỉ dùng token, chạy đúng sáng/tối × vi/en × theme của app, nhãn qua props hoặc i18n <span class="mono">common</span>, không gọi API (plans/03 mục 7.4). Tên có nhãn "đề xuất" chưa có trong plans/03 mục 7.3.</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":1440,"height":3000}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const tag = (t) => {
+      const map = {
+        'chung': 'background: var(--bg-muted); color: var(--text-muted);',
+        'pos': 'background: var(--info-subtle); color: var(--info-text);',
+        'kds': 'background: var(--accent-subtle); color: var(--accent-text);',
+        'đề xuất': 'background: var(--primary-subtle); color: var(--primary-text);'
+      };
+      return 'display: inline-flex; margin-top: 4px; height: 20px; padding: 0 8px; border-radius: 999px; font-size: 11px; font-weight: 700; align-items: center; ' + (map[t] ?? map['chung']);
+    };
+    const G = [
+      ['Khung', [
+        ['PosShell', 'pos', 'Khung POS: thanh trạng thái + vùng làm việc + ActionBar', 'branch, staff, shift\nnetwork: online | offline\nsync: { pending, failed }\nprinter: PrinterState\nchildren', 'online, offline, chờ đồng bộ', 'Mọi màn POS'],
+        ['ActionBar', 'pos', 'Thanh hành động dưới cùng', 'start?: ReactNode (nguy hiểm, phụ)\nend: ReactNode (nút chính)', 'một nút primary, đặt bên phải', 'Bán hàng, gọi số, đóng ca'],
+        ['KdsShell', 'kds', 'Khung màn hình bếp', 'stations: Station[]\nactiveStation, onStation\nclock, counts', 'online, mất mạng (không nhận phiếu)', 'KDS']
+      ]],
+      ['Hành động', [
+        ['Button', 'chung', 'Nút cảm ứng', "variant: 'primary' | 'secondary' | 'ghost'\nsize: 'lg' (56, mặc định) | 'md' (48)\nicon?, loading?, disabled?\ntrailing?: ReactNode (ví dụ số tiền)", 'không có hover; pressed rõ ràng', 'Mọi màn'],
+        ['DangerButton', 'chung', 'Huỷ đơn, huỷ món, đóng ca có chênh lệch', "variant: 'outline' | 'solid'\nicon (bắt buộc)", 'đặt xa nút chính', 'Bán hàng, ConfirmDialog'],
+        ['IconButton', 'chung', 'Nút icon 56 px', 'icon, label (aria), variant', 'pressed, disabled', 'Gắn khách, ghi chú'],
+        ['Menu', 'pos', 'Menu thiết bị', 'items: MenuItem[]', 'mục 52 px', 'Máy in, giao diện, ngôn ngữ, khoá máy']
+      ]],
+      ['Nhập liệu', [
+        ['NumPad', 'pos', 'Bàn phím số 56 px', "mode: 'money' | 'pin' | 'qty'\nonKey: (key) => void", 'phím 000 ở mode money; ẩn ở mode pin', 'Thanh toán, PIN, đếm tiền'],
+        ['MoneyInput', 'pos', 'Ô tiền khách đưa', 'value: number (VND)\nquickAmounts?: number[]\nonChange', 'đang nhập (viền primary), thiếu tiền', 'Thanh toán'],
+        ['QuantityStepper', 'chung', 'Tăng giảm số lượng', "value, min, max\nsize: 'lg' (56)", 'chạm giới hạn thì vô hiệu', 'CartLine, chọn tuỳ chọn'],
+        ['PinInput', 'pos', 'Nhập PIN 6 số', 'length: 6\nerror?, attemptsLeft?', 'sai, còn n lần, khoá', 'Đăng nhập POS, ApprovalDialog'],
+        ['CashCountInput', 'pos', 'Đếm tiền theo mệnh giá', 'denominations: number[]\ncounts: Record<number, number>\nonChange', 'tổng tự tính, chênh lệch', 'Mở ca, đóng ca'],
+        ['StaffPicker', 'đề xuất', 'Chọn nhân viên trước khi nhập PIN', 'staff: StaffSummary[]\nselectedId, onSelect', 'bị khoá, đang chọn', 'Đăng nhập POS']
+      ]],
+      ['Bán hàng', [
+        ['CategoryTabs', 'pos', 'Nhóm món dạng tab tròn', 'items, value, onChange', 'đang chọn tô đặc', 'Bán hàng'],
+        ['ProductTile', 'pos', 'Ô món ảnh 1:1', 'product: ProductView\nqty?: number\nonTap', 'trong giỏ (viền primary + số), mới, tạm hết (mờ, không bấm)', 'Bán hàng'],
+        ['CartLine', 'pos', 'Dòng món trong giỏ', 'line: CartLine\nonQty, onNote, onRemove', 'chưa gửi bếp, đã gửi (cần quyền để huỷ)', 'Bán hàng'],
+        ['ModifierGroupPicker', 'pos', 'Chọn biến thể và tuỳ chọn', 'groups: ModifierGroup[] (min, max, required)\nvalue, onChange', 'thiếu bắt buộc, đủ tối đa, tuỳ chọn tạm hết', 'Hộp chọn tuỳ chọn'],
+        ['PaymentMethodTile', 'pos', 'Ô phương thức thanh toán', "method: 'cash' | 'qr' | 'card'\nselected\ndisabledReason?", 'QR vô hiệu khi mất mạng, có lý do', 'Thanh toán'],
+        ['QrDisplay', 'pos', 'QR chuyển khoản', 'payload, amount, expiresAt', 'đang chờ, hết hạn, đã nhận', 'Thanh toán QR'],
+        ['QueueNumber', 'đề xuất', 'Số thứ tự lớn sau khi thu tiền', 'value: string (ví dụ #045)\nsize', 'mới cấp, gọi lại', 'Thanh toán xong, gọi số'],
+        ['ReceiptPreview', 'pos', 'Xem trước bill', "document: PrintDocument\npaper: 'k57' | 'k80'", 'đang in, lỗi in', 'Thanh toán xong, cài đặt in']
+      ]],
+      ['Trạng thái và phản hồi', [
+        ['OfflineBanner', 'pos', 'Báo mất mạng', 'pendingCount?: number', 'hiện khi offline', 'Mọi màn POS'],
+        ['SyncStatus', 'pos', 'Lệnh chờ / lỗi đồng bộ', 'pending, failed', 'đã đồng bộ, chờ, lỗi', 'PosShell'],
+        ['PrinterStatus', 'pos', 'Trạng thái máy in', "state: 'ready' | 'queued' | 'offline'\nqueued?: number", 'sẵn sàng, còn lệnh chờ, mất kết nối', 'PosShell, thanh toán xong'],
+        ['Dialog · ConfirmDialog', 'chung', 'Hộp thoại, xác nhận', "tone: 'default' | 'danger'\nreasons?: Reason[] (chip chọn lý do)\nreasonRequired?", 'danger: nút cuối tô đặc', 'Huỷ món, huỷ đơn'],
+        ['ApprovalDialog', 'pos', 'Quản lý duyệt tại chỗ bằng PIN', 'action: ApprovalAction\nonApprove: (pin) => Promise', 'sai PIN, hết lượt', 'Giảm giá vượt hạn mức, huỷ món đã gửi'],
+        ['Toast · Skeleton · Spinner', 'chung', 'Phản hồi, đang tải', 'như bộ Web, cỡ lớn hơn một bậc', 'tôn trọng giảm chuyển động', 'Mọi màn'],
+        ['EmptyState · ErrorState · NoPermission', 'chung', 'Rỗng, lỗi, không quyền', 'title, description, action? / onRetry / permission', 'không dùng hoạ tiết', 'Giỏ rỗng, gọi số rỗng']
+      ]],
+      ['Bếp (theme kds)', [
+        ['TicketCard', 'kds', 'Phiếu chế biến', 'ticket: KitchenTicket\nelapsed: number\nonItemToggle, onBump', 'chờ (vàng), đang làm (cam), quá giờ (đỏ hồng), mới, gọi gấp, ra món sau', 'KDS'],
+        ['ItemTotals', 'đề xuất', 'Tổng số lượng từng món đang chờ', 'items: { name, qty }[]', 'rỗng', 'KDS (cột phải)']
+      ]],
+      ['Định dạng, quyền, cài đặt', [
+        ['Money · DateTime · Duration · Icon · ProductImage', 'chung', 'Tiền, giờ, thời gian chờ, icon, ảnh 1:1', 'như bộ Web; Duration: seconds', 'tabular-nums', 'Mọi màn'],
+        ['Can', 'chung', 'Ẩn/hiện theo mã quyền', 'permission, fallback?', 'POS: có thể mở ApprovalDialog thay vì ẩn', 'Nút huỷ, giảm giá'],
+        ['LanguageSwitcher · ThemeSwitcher', 'chung', 'Ngôn ngữ, sáng/tối của thiết bị', "ThemeSwitcher: 'system' | 'light' | 'dark'", 'pos mặc định sáng, kds mặc định tối', 'Menu thiết bị']
+      ]]
+    ];
+    const groups = G.map(([title, items]) => ({
+      title,
+      items: items.map(([name, t, purpose, props, states, used]) => ({ name, tag: t, tagStyle: tag(t), purpose, props, states, used }))
+    }));
+    const stateHeads = ['default', 'pressed', 'focus', 'disabled', 'loading', 'kèm số tiền'];
+    const base = 'display: inline-flex; align-items: center; justify-content: center; gap: 12px; height: 56px; padding: 0 16px; border-radius: 10px; font-size: 16px; font-weight: 700; box-sizing: border-box; ';
+    const V = {
+      primary: ['background: var(--primary); color: var(--primary-fg);', 'background: var(--primary-pressed); color: var(--primary-fg);', 'background: var(--primary); color: var(--primary-fg); outline: 3px solid var(--primary-focus); outline-offset: 2px;'],
+      secondary: ['background: var(--bg); color: var(--text); border: 1px solid var(--border-strong);', 'background: var(--bg-muted); color: var(--text); border: 1px solid var(--border-strong);', 'background: var(--bg); color: var(--text); border: 1px solid var(--border-strong); outline: 3px solid var(--primary-focus); outline-offset: 2px;'],
+      ghost: ['background: transparent; color: var(--text);', 'background: var(--bg-muted); color: var(--text);', 'background: transparent; color: var(--text); outline: 3px solid var(--primary-focus); outline-offset: 2px;'],
+      danger: ['background: var(--bg); color: var(--danger-text); border: 1px solid var(--danger);', 'background: var(--danger); color: var(--danger-fg);', 'background: var(--bg); color: var(--danger-text); border: 1px solid var(--danger); outline: 3px solid var(--primary-focus); outline-offset: 2px;']
+    };
+    const label = { primary: 'Thanh toán', secondary: 'Lưu tạm', ghost: 'Ghi chú', danger: 'Huỷ đơn' };
+    const matrix = Object.keys(V).map((k) => ({
+      name: k === 'danger' ? 'DangerButton' : 'Button ' + k,
+      cells: [0, 1, 2].map((i) => ({ label: label[k], style: base + V[k][i] }))
+        .concat([
+          { label: label[k], style: base + 'background: var(--bg-muted); color: var(--text-subtle);' },
+          { label: 'Đang xử lý…', style: base + V[k][0] + ' opacity: .75;' },
+          { label: k === 'primary' ? 'Thanh toán · 198.000 ₫' : '—', style: k === 'primary' ? base + V[k][0] : 'font-size: 13px; color: var(--text-subtle);' }
+        ])
+    }));
+    return {
+      themeClass: this.props.dark ? 'dark' : '',
+      pkg: '@fnb/ui-pos · packages/ui-pos',
+      heading: 'Đặc tả component POS (POS web + KDS)',
+      intro: 'Danh mục để dev lấy ra làm. Mật độ touch: điều khiển 56 px, chữ lớn hơn một bậc, không dựa vào hover, thao tác bán hàng không quá ba chạm. Theme pos (mặc định sáng) và kds (mặc định tối). Import: import { ProductTile } from "@fnb/ui-pos".',
+      buttonNote: 'Size lg (56 px). POS không có trạng thái hover; pressed phải nhìn rõ. Nút chính có thể kèm số tiền ở bên phải.',
+      legend: [{ label: 'chung: POS và KDS', style: tag('chung').replace('margin-top: 4px; ', '') }, { label: 'pos: màn bán hàng', style: tag('pos').replace('margin-top: 4px; ', '') }, { label: 'kds: màn bếp', style: tag('kds').replace('margin-top: 4px; ', '') }, { label: 'đề xuất: tên mới', style: tag('đề xuất').replace('margin-top: 4px; ', '') }],
+      stateHeads, matrix, groups
+    };
+  }
+}
+</script>
+</body>
+</html>

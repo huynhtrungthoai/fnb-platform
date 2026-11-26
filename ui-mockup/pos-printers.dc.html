@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>POS máy in</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#CA0404}a:hover{color:#9C0303}
+.fnb{--bg:#FFFFFF;--bg-subtle:#F9F6F4;--bg-muted:#F1ECE8;--border:#E4DAD4;--border-strong:#9F8D7F;--text:#282019;--text-muted:#6D5D51;--text-subtle:#7A695C;--primary:#CA0404;--primary-fg:#FFFFFF;--primary-subtle:#FEE7E3;--primary-text:#9C0303;--success-subtle:#E0F3E3;--success-text:#17592C;--warning-subtle:#F9ECCE;--warning-text:#795B03;--danger-subtle:#FFE5EA;--danger-text:#8B023D;--info-subtle:#E1EEFE;--info-text:#184B83;--shadow-md:0 4px 12px rgba(40,32,25,.12);font-family:'Be Vietnam Pro',system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.45}
+.fnb.dark{--bg:#1A1411;--bg-subtle:#282019;--bg-muted:#3E332A;--border:#55473D;--border-strong:#857366;--text:#F9F6F4;--text-muted:#D1C3B9;--text-subtle:#B8A79A;--primary:#F84839;--primary-fg:#1A1411;--primary-subtle:#470000;--primary-text:#FEAEA2;--success-subtle:#002A0E;--success-text:#A0D5AB;--warning-subtle:#2C1F00;--warning-text:#E7C067;--danger-subtle:#45001A;--danger-text:#FEAABC;--info-subtle:#012145;--info-text:#9DC9FF;--shadow-md:0 4px 12px rgba(0,0,0,.5)}
+.fnb button{font-family:inherit;cursor:pointer}
+.fnb .num{font-variant-numeric:tabular-nums}
+.fnb .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+</style>
+</helmet>
+<div class="fnb {{themeClass}}" style="width: 1280px; height: 800px; display: flex; flex-direction: column; overflow: hidden; background: var(--bg-subtle)">
+
+  <header style="height: 56px; flex-shrink: 0; display: flex; align-items: center; gap: 16px; padding: 0 16px; background: var(--bg); border-bottom: 1px solid var(--border)">
+    <img src="/_blob/dbbc95b08d47870e1964f1322682c11f" alt="Banhkepchonong" style="width: 40px; height: 40px; object-fit: contain">
+    <div style="display: flex; flex-direction: column">
+      <span style="font-size: 14px; font-weight: 600">Banhkepchonong · Chi nhánh Quận 1</span>
+      <span style="font-size: 12px; color: var(--text-muted)">Thiết bị POS-Q1-01 · Nguyễn Lan</span>
+    </div>
+    <div style="flex-grow: 1"></div>
+    <span style="display: inline-flex; align-items: center; height: 28px; padding: 0 10px; border-radius: 999px; background: var(--warning-subtle); color: var(--warning-text); font-size: 13px; font-weight: 600">Bếp: 2 lệnh in chờ</span>
+    <span class="num" style="font-size: 15px; font-weight: 600">12:24</span>
+  </header>
+
+  <main style="flex-grow: 1; display: flex; gap: 24px; padding: 20px 24px; min-height: 0">
+    <section aria-labelledby="prTitle" style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+      <div style="display: flex; align-items: baseline; gap: 12px">
+        <h1 id="prTitle" style="margin: 0; font-size: 24px; font-weight: 700">Máy in</h1>
+        <span style="font-size: 14px; color: var(--text-muted)">Máy in của chi nhánh và vai trò trên thiết bị này</span>
+      </div>
+      <sc-for list="{{ printers }}" as="p" hint-placeholder-count="4">
+        <article style="{{ p.card }}">
+          <div style="width: 52px; height: 52px; flex-shrink: 0; border-radius: 10px; background: var(--bg-muted); display: flex; align-items: center; justify-content: center; color: var(--text-muted)">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg>
+          </div>
+          <div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px">
+            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap">
+              <span style="font-size: 17px; font-weight: 700">{{ p.name }}</span>
+              <span style="{{ p.statusStyle }}">{{ p.status }}</span>
+            </div>
+            <span class="mono" style="font-size: 13px; color: var(--text-muted)">{{ p.conn }} · {{ p.paper }} · dựng lệnh {{ p.mode }}</span>
+            <div style="display: flex; gap: 6px; flex-wrap: wrap">
+              <sc-for list="{{ p.roles }}" as="r" hint-placeholder-count="2">
+                <span style="display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 999px; background: var(--info-subtle); color: var(--info-text); font-size: 12px; font-weight: 700">{{ r }}</span>
+              </sc-for>
+            </div>
+          </div>
+          <button type="button" style="height: 56px; padding: 0 18px; border-radius: 10px; border: 1px solid var(--border-strong); background: var(--bg); color: var(--text); font-size: 15px; font-weight: 600">{{ p.action }}</button>
+          <button type="button" aria-label="{{ p.moreLabel }}" style="width: 56px; height: 56px; border-radius: 10px; border: 0; background: transparent; color: var(--text-muted); font-size: 22px">⋯</button>
+        </article>
+      </sc-for>
+    </section>
+
+    <!-- Add printer panel -->
+    <aside aria-labelledby="addTitle" style="width: 420px; flex-shrink: 0; padding: 20px; border-radius: 16px; background: var(--bg); border: 1px solid var(--border); box-shadow: var(--shadow-md); display: flex; flex-direction: column; gap: 12px">
+      <h2 id="addTitle" style="margin: 0; font-size: 19px; font-weight: 700">Thêm máy in</h2>
+      <div role="tablist" aria-label="Kiểu kết nối" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 4px; gap: 4px; border-radius: 10px; background: var(--bg-muted)">
+        <button type="button" role="tab" aria-selected="true" style="height: 48px; border: 0; border-radius: 6px; background: var(--bg); color: var(--text); font-size: 15px; font-weight: 700">Bluetooth</button>
+        <button type="button" role="tab" aria-selected="false" style="height: 48px; border: 0; border-radius: 6px; background: transparent; color: var(--text-muted); font-size: 15px">LAN (IP)</button>
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--text-muted)">
+        <span style="width: 18px; height: 18px; border-radius: 999px; border: 2px solid currentColor; border-right-color: transparent; box-sizing: border-box"></span>
+        Đang quét máy in gần đây…
+      </div>
+      <div role="radiogroup" aria-label="Máy tìm thấy" style="display: flex; flex-direction: column; gap: 6px">
+        <button type="button" role="radio" aria-checked="true" style="height: 56px; padding: 0 14px; border-radius: 10px; border: 2px solid var(--primary); background: var(--primary-subtle); color: var(--primary-text); font-size: 15px; font-weight: 700; text-align: left">XP-58 · cầm tay · 00:1B:…:3F</button>
+        <button type="button" role="radio" aria-checked="false" style="height: 56px; padding: 0 14px; border-radius: 10px; border: 1px solid var(--border-strong); background: var(--bg); color: var(--text); font-size: 15px; text-align: left">MPT-II · 00:1B:…:A2</button>
+      </div>
+      <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px">
+        <span style="font-weight: 600">Tên máy in</span>
+        <span style="height: 52px; box-sizing: border-box; padding: 0 14px; border: 1px solid var(--border-strong); border-radius: 10px; display: flex; align-items: center; font-size: 16px">Máy in cầm tay quầy 2</span>
+      </label>
+      <div style="display: flex; gap: 12px">
+        <div style="flex: 1 1 0; display: flex; flex-direction: column; gap: 6px">
+          <span style="font-size: 14px; font-weight: 600">Khổ giấy</span>
+          <div role="radiogroup" aria-label="Khổ giấy" style="display: flex; gap: 6px">
+            <button type="button" role="radio" aria-checked="true" style="flex: 1 1 0; height: 48px; border-radius: 10px; border: 1px solid var(--text); background: var(--bg-muted); color: var(--text); font-size: 15px; font-weight: 700">K57</button>
+            <button type="button" role="radio" aria-checked="false" style="flex: 1 1 0; height: 48px; border-radius: 10px; border: 1px solid var(--border-strong); background: var(--bg); color: var(--text); font-size: 15px">K80</button>
+          </div>
+        </div>
+        <div style="flex: 1 1 0; display: flex; flex-direction: column; gap: 6px">
+          <span style="font-size: 14px; font-weight: 600">Vai trò</span>
+          <span style="height: 48px; box-sizing: border-box; padding: 0 12px; border: 1px solid var(--border-strong); border-radius: 10px; display: flex; align-items: center; font-size: 15px">Bill · dự phòng</span>
+        </div>
+      </div>
+      <div style="flex-grow: 1"></div>
+      <span style="font-size: 13px; color: var(--text-subtle)">Sau khi lưu nên "In thử": trang có tiếng Việt đủ dấu, thước số ký tự mỗi dòng, logo, QR và lệnh cắt giấy.</span>
+    </aside>
+  </main>
+
+  <footer style="height: 80px; flex-shrink: 0; display: flex; align-items: center; gap: 8px; padding: 0 16px; background: var(--bg); border-top: 1px solid var(--border)">
+    <a href="pos-sale.dc.html" style="height: 56px; padding: 0 20px; box-sizing: border-box; border-radius: 10px; border: 1px solid var(--border-strong); background: var(--bg); color: var(--text); font-size: 16px; font-weight: 600; display: flex; align-items: center; text-decoration: none">Quay lại</a>
+    <a href="pos-print-queue.dc.html" style="height: 56px; padding: 0 20px; box-sizing: border-box; border-radius: 10px; border: 1px solid var(--border-strong); background: var(--bg); color: var(--text); font-size: 16px; font-weight: 600; display: flex; align-items: center; text-decoration: none">Hàng đợi in · 2</a>
+    <div style="flex-grow: 1"></div>
+    <button type="button" style="height: 56px; min-width: 280px; padding: 0 20px; border-radius: 10px; border: 0; background: var(--primary); color: var(--primary-fg); font-size: 17px; font-weight: 700">Lưu và in thử</button>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const tone = { ok: ['var(--success-subtle)', 'var(--success-text)'], warn: ['var(--warning-subtle)', 'var(--warning-text)'], bad: ['var(--danger-subtle)', 'var(--danger-text)'] };
+    const printers = [
+      { name: 'Máy in bill quầy', status: 'Sẵn sàng', t: 'ok', conn: 'LAN 192.168.1.50:9100', paper: 'K80', mode: 'ảnh', roles: ['Bill', 'Báo cáo ca'], action: 'In thử' },
+      { name: 'Máy in bếp nóng', status: 'Còn 2 lệnh chờ', t: 'warn', conn: 'LAN 192.168.1.51:9100', paper: 'K80', mode: 'ảnh', roles: ['Bếp · Bếp nóng'], action: 'In thử' },
+      { name: 'Máy in bar', status: 'Mất kết nối', t: 'bad', conn: 'Bluetooth · MPT-II', paper: 'K57', mode: 'chữ', roles: ['Bếp · Bar'], action: 'Kết nối lại' },
+      { name: 'Máy in dự phòng', status: 'Sẵn sàng', t: 'ok', conn: 'LAN 192.168.1.52:9100', paper: 'K80', mode: 'ảnh', roles: ['Dự phòng bill', 'Dự phòng bếp nóng'], action: 'In thử' }
+    ].map((p) => ({
+      ...p,
+      moreLabel: 'Thao tác khác với ' + p.name,
+      statusStyle: 'display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 999px; font-size: 12px; font-weight: 700; background: ' + tone[p.t][0] + '; color: ' + tone[p.t][1] + ';',
+      card: 'display: flex; align-items: center; gap: 14px; padding: 12px 14px; border-radius: 16px; background: var(--bg); border: 1px solid ' + (p.t === 'bad' ? 'var(--danger-text)' : 'var(--border)') + ';'
+    }));
+    return { themeClass: this.props.dark ? 'dark' : '', printers };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Đặc tả component mobile</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#CA0404}a:hover{color:#9C0303}
+.fnb{--bg:#FFFFFF;--bg-subtle:#F9F6F4;--bg-muted:#F1ECE8;--border:#E4DAD4;--border-strong:#9F8D7F;--text:#282019;--text-muted:#6D5D51;--text-subtle:#7A695C;--primary:#CA0404;--primary-hover:#B70202;--primary-pressed:#9C0303;--primary-focus:#F84839;--primary-fg:#FFFFFF;--primary-subtle:#FEE7E3;--primary-text:#9C0303;--danger:#C2185B;--danger-fg:#FFFFFF;--danger-subtle:#FFE5EA;--danger-text:#8B023D;--info-subtle:#E1EEFE;--info-text:#184B83;--accent-subtle:#FEE8DC;--accent-text:#984502;font-family:'Be Vietnam Pro',system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.45}
+.fnb.dark{--bg:#1A1411;--bg-subtle:#282019;--bg-muted:#3E332A;--border:#55473D;--border-strong:#857366;--text:#F9F6F4;--text-muted:#D1C3B9;--text-subtle:#B8A79A;--primary:#F84839;--primary-hover:#FE806F;--primary-pressed:#FEAEA2;--primary-focus:#FEAEA2;--primary-fg:#1A1411;--primary-subtle:#470000;--primary-text:#FEAEA2;--danger:#EF4B7F;--danger-fg:#1A1411;--danger-subtle:#45001A;--danger-text:#FEAABC;--info-subtle:#012145;--info-text:#9DC9FF;--accent-subtle:#3A1600;--accent-text:#FEB187}
+.fnb .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.fnb td,.fnb th{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top;text-align:left}
+.fnb th{font-size:12px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--text-muted);background:var(--bg-subtle)}
+</style>
+</helmet>
+<div class="fnb {{themeClass}}" style="width: 1440px; min-height: 3000px; box-sizing: border-box; padding: 48px; display: flex; flex-direction: column; gap: 28px; background: var(--bg)">
+
+  <header style="display: flex; flex-direction: column; gap: 8px">
+    <span class="mono" style="font-size: 14px; font-weight: 700; color: var(--primary-text)">{{ pkg }}</span>
+    <h1 style="margin: 0; font-size: 34px; font-weight: 700; line-height: 1.25">{{ heading }}</h1>
+    <span style="font-size: 16px; color: var(--text-muted); max-width: 1100px">{{ intro }}</span>
+    <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px">
+      <sc-for list="{{ legend }}" as="l" hint-placeholder-count="3">
+        <span style="{{ l.style }}">{{ l.label }}</span>
+      </sc-for>
+    </div>
+  </header>
+
+  <!-- Button state matrix -->
+  <section style="display: flex; flex-direction: column; gap: 12px">
+    <h2 style="margin: 0; font-size: 22px; font-weight: 700">Button: biến thể × trạng thái</h2>
+    <span style="font-size: 14px; color: var(--text-muted)">{{ buttonNote }}</span>
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <div style="display: flex; gap: 10px; align-items: center">
+        <span style="width: 160px; flex-shrink: 0"></span>
+        <sc-for list="{{ stateHeads }}" as="h" hint-placeholder-count="6">
+          <span class="mono" style="flex: 1 1 0; font-size: 12px; color: var(--text-muted)">{{ h }}</span>
+        </sc-for>
+      </div>
+      <sc-for list="{{ matrix }}" as="r" hint-placeholder-count="4">
+        <div style="display: flex; gap: 10px; align-items: center">
+          <span class="mono" style="width: 160px; flex-shrink: 0; font-size: 13px; font-weight: 700">{{ r.name }}</span>
+          <sc-for list="{{ r.cells }}" as="c" hint-placeholder-count="6">
+            <span style="flex: 1 1 0; display: flex"><span style="{{ c.style }}">{{ c.label }}</span></span>
+          </sc-for>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- Catalog -->
+  <sc-for list="{{ groups }}" as="g" hint-placeholder-count="6">
+    <section style="display: flex; flex-direction: column; gap: 10px">
+      <h2 style="margin: 0; font-size: 22px; font-weight: 700">{{ g.title }}</h2>
+      <div style="border: 1px solid var(--border); border-radius: 16px; overflow: hidden">
+        <table style="width: 100%; border-collapse: collapse; font-size: 14px">
+          <thead><tr>
+            <th scope="col" style="width: 200px">Tên</th>
+            <th scope="col" style="width: 260px">Dùng để</th>
+            <th scope="col">Props chính</th>
+            <th scope="col" style="width: 240px">Biến thể · trạng thái</th>
+            <th scope="col" style="width: 200px">Màn hình dùng</th>
+          </tr></thead>
+          <tbody>
+            <sc-for list="{{ g.items }}" as="c" hint-placeholder-count="4">
+              <tr>
+                <td><span class="mono" style="font-size: 14px; font-weight: 700">{{ c.name }}</span><br><span style="{{ c.tagStyle }}">{{ c.tag }}</span></td>
+                <td style="color: var(--text-muted)">{{ c.purpose }}</td>
+                <td><span class="mono" style="font-size: 12px; white-space: pre-line">{{ c.props }}</span></td>
+                <td style="font-size: 13px">{{ c.states }}</td>
+                <td style="font-size: 13px; color: var(--text-muted)">{{ c.used }}</td>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </sc-for>
+
+  <footer style="font-size: 13px; color: var(--text-muted)">Mọi component: chỉ dùng token, chạy đúng sáng/tối × vi/en × theme của app, nhãn qua props hoặc i18n <span class="mono">common</span>, không gọi API (plans/03 mục 7.4). Tên có nhãn "đề xuất" chưa có trong plans/03 mục 7.3.</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":1440,"height":3000}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const tag = (t) => {
+      const map = {
+        'chung': 'background: var(--bg-muted); color: var(--text-muted);',
+        'app': 'background: var(--info-subtle); color: var(--info-text);',
+        'zalo': 'background: var(--accent-subtle); color: var(--accent-text);',
+        'đề xuất': 'background: var(--primary-subtle); color: var(--primary-text);'
+      };
+      return 'display: inline-flex; margin-top: 4px; height: 20px; padding: 0 8px; border-radius: 999px; font-size: 11px; font-weight: 700; align-items: center; ' + (map[t] ?? map['chung']);
+    };
+    const G = [
+      ['Khung và điều hướng', [
+        ['CustomerShell', 'chung', 'Khung màn: đầu trang brick + sóng hoặc đầu trang trơn', "header: 'brand' | 'plain'\ntitle?, onBack?\nzaloSafeArea?: boolean\nchildren", 'Zalo: chừa thanh điều hướng của Zalo', 'Mọi màn'],
+        ['TabBar', 'chung', 'Thanh điều hướng dưới', 'items: { key, label, icon }[]\nactive', 'mục đang chọn màu primary', 'Thực đơn, Đơn hàng, Ưu đãi, Tài khoản'],
+        ['BottomBar', 'chung', 'Thanh giỏ nổi trên TabBar', 'count, total, onOpen', 'ẩn khi giỏ rỗng', 'Thực đơn'],
+        ['Sheet', 'chung', 'Tấm trượt từ dưới lên', 'open, onClose, title?\nsnap?: \'half\' | \'full\'', 'kéo để đóng, giữ focus', 'Chọn tuỳ chọn, chọn cửa hàng']
+      ]],
+      ['Hành động', [
+        ['Button', 'chung', 'Nút chạm bằng ngón cái', "variant: 'primary' | 'secondary' | 'ghost'\nsize: 'lg' (52, mặc định) | 'md' (44)\nfullWidth (mặc định true)\nloading?, disabled?", 'pressed, disabled, loading', 'Mọi màn'],
+        ['IconButton', 'chung', 'Nút icon 44 px', 'icon, label (aria)', 'pressed', 'Quay lại, tìm kiếm'],
+        ['Link', 'chung', 'Liên kết chữ', 'href | onPress', 'pressed', 'Quên PIN, điều kiện ưu đãi']
+      ]],
+      ['Nhập liệu', [
+        ['Input', 'chung', 'Ô nhập 52 px, chữ 16 px', "label, value, onChange\ntype: 'text' | 'tel' | 'email'\nerror?, hint?", 'focus, lỗi (icon + chữ)', 'Đăng nhập, đăng ký, giỏ'],
+        ['PinInput', 'app', 'PIN 6 ô (Zalo không cần; web khách dùng PinInput của ui-web)', 'length: 6, masked\nerror?, attemptsLeft?', 'sai, còn n lần', 'M1 (minh hoạ web khách trên điện thoại)'],
+        ['QuantityStepper', 'chung', 'Tăng giảm số lượng', 'value, min, max', 'giới hạn', 'Chọn món, giỏ'],
+        ['CategoryChips', 'chung', 'Chip nhóm món cuộn ngang', 'items, value, onChange', 'đang chọn tô đặc', 'Thực đơn'],
+        ['ModifierGroupPicker', 'chung', 'Chọn tuỳ chọn trong Sheet', 'groups (min, max, required)\nvalue, onChange', 'bắt buộc, đủ tối đa, tạm hết', 'Chọn món']
+      ]],
+      ['Nội dung', [
+        ['ProductCard', 'chung', 'Thẻ món ảnh 4:3', "product, onAdd\nlayout: 'row' | 'grid'", 'trong giỏ, mới, giảm giá, tạm hết', 'Thực đơn'],
+        ['VoucherCard', 'chung', 'Thẻ ưu đãi', 'voucher, onApply', 'đã dùng, hết hạn', 'Thực đơn, giỏ, ưu đãi'],
+        ['OrderTracker', 'chung', 'Theo dõi đơn dọc', 'queueNumber, status, steps', 'đã trả, đang làm, mời nhận, đã nhận', 'Theo dõi đơn'],
+        ['QrDisplay', 'chung', 'QR chuyển khoản', 'payload, amount, expiresAt', 'đang chờ, hết hạn, đã nhận', 'Thanh toán'],
+        ['MemberCard', 'đề xuất', 'Thẻ thành viên, điểm', 'name, phone, points, tier?', 'chưa đăng nhập', 'Tài khoản'],
+        ['PermissionCard', 'zalo', 'Xin quyền lấy số điện thoại Zalo', 'title, description\nonAllow, onLater', 'đã từ chối', 'Đăng nhập Zalo']
+      ]],
+      ['Phản hồi và trạng thái', [
+        ['Toast', 'chung', 'Thông báo ngắn', 'tone, message, action?', 'thành công, lỗi', 'Thêm vào giỏ'],
+        ['Dialog · ConfirmDialog', 'chung', 'Xác nhận', "tone: 'default' | 'danger'", 'danger hiếm dùng ở kênh khách', 'Huỷ đơn chưa trả'],
+        ['Skeleton · Spinner', 'chung', 'Đang tải', 'shape, size', 'giảm chuyển động', 'Mọi màn'],
+        ['EmptyState · ErrorState', 'chung', 'Rỗng, lỗi', "illustration?: 'wave'\naction? / onRetry", 'giọng văn quán – bạn', 'Giỏ rỗng, chưa có đơn']
+      ]],
+      ['Định dạng và cài đặt', [
+        ['Money · DateTime · Icon · ProductImage', 'chung', 'Tiền, ngày giờ, icon, ảnh 4:3', 'như bộ Web', 'ảnh thay thế khi thiếu', 'Mọi màn'],
+        ['LanguageSwitcher · ThemeSwitcher', 'chung', 'Ngôn ngữ, sáng/tối', "ThemeSwitcher: 'system' | 'light' | 'dark'", 'Zalo: theo giao diện Zalo nếu đọc được', 'Tài khoản']
+      ]]
+    ];
+    const groups = G.map(([title, items]) => ({
+      title,
+      items: items.map(([name, t, purpose, props, states, used]) => ({ name, tag: t, tagStyle: tag(t), purpose, props, states, used }))
+    }));
+    const stateHeads = ['default', 'pressed', 'focus', 'disabled', 'loading', 'kèm số tiền'];
+    const base = 'display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 52px; padding: 0 16px; border-radius: 16px; font-size: 16px; font-weight: 700; box-sizing: border-box; ';
+    const V = {
+      primary: ['background: var(--primary); color: var(--primary-fg);', 'background: var(--primary-pressed); color: var(--primary-fg);', 'background: var(--primary); color: var(--primary-fg); outline: 3px solid var(--primary-focus); outline-offset: 2px;'],
+      secondary: ['background: var(--bg); color: var(--text); border: 1px solid var(--border-strong);', 'background: var(--bg-muted); color: var(--text); border: 1px solid var(--border-strong);', 'background: var(--bg); color: var(--text); border: 1px solid var(--border-strong); outline: 3px solid var(--primary-focus); outline-offset: 2px;'],
+      ghost: ['background: transparent; color: var(--text);', 'background: var(--bg-muted); color: var(--text);', 'background: transparent; color: var(--text); outline: 3px solid var(--primary-focus); outline-offset: 2px;']
+    };
+    const label = { primary: 'Đặt món', secondary: 'Để sau', ghost: 'Xem thêm' };
+    const matrix = Object.keys(V).map((k) => ({
+      name: 'Button ' + k,
+      cells: [0, 1, 2].map((i) => ({ label: label[k], style: base + V[k][i] }))
+        .concat([
+          { label: label[k], style: base + 'background: var(--bg-muted); color: var(--text-subtle);' },
+          { label: 'Đang xử lý…', style: base + V[k][0] + ' opacity: .75;' },
+          { label: k === 'primary' ? 'Thêm · 55.000 ₫' : '—', style: k === 'primary' ? base + V[k][0] : 'font-size: 13px; color: var(--text-subtle);' }
+        ])
+    }));
+    return {
+      themeClass: this.props.dark ? 'dark' : '',
+      pkg: '@fnb/ui-mobile · packages/ui-mobile',
+      heading: 'Đặc tả component Mobile (Zalo Mini App)',
+      intro: 'Danh mục để dev lấy ra làm. Theme mobile: thương hiệu cao như web khách, chỉnh cho điện thoại: nút 52 px rộng hết màn, vùng chạm ≥ 44 px, TabBar, Sheet. Đây là thiết kế chung (D-43): Zalo Mini App viết bản React DOM; nếu sau này có app native thì viết bản React Native cùng tên, cùng props. App khách hiện là vỏ WebView bọc web khách (D-42) nên dùng @fnb/ui-web theme customer, không dùng bộ này.',
+      buttonNote: 'Size lg (52 px), radius-lg, mặc định rộng hết màn. Không có hover. DangerButton hầu như không cần ở kênh khách.',
+      legend: [{ label: 'chung: mọi bản của bộ', style: tag('chung').replace('margin-top: 4px; ', '') }, { label: 'app: chỉ khi có bản native (chưa làm)', style: tag('app').replace('margin-top: 4px; ', '') }, { label: 'zalo: chỉ Zalo', style: tag('zalo').replace('margin-top: 4px; ', '') }, { label: 'đề xuất: tên mới', style: tag('đề xuất').replace('margin-top: 4px; ', '') }],
+      stateHeads, matrix, groups
+    };
+  }
+}
+</script>
+</body>
+</html>

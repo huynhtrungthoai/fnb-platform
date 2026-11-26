@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>POS chọn tuỳ chọn món</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#CA0404}a:hover{color:#9C0303}
+.fnb{--bg:#FFFFFF;--bg-subtle:#F9F6F4;--bg-muted:#F1ECE8;--border:#E4DAD4;--border-strong:#9F8D7F;--text:#282019;--text-muted:#6D5D51;--text-subtle:#7A695C;--primary:#CA0404;--primary-fg:#FFFFFF;--primary-subtle:#FEE7E3;--primary-text:#9C0303;--success-subtle:#E0F3E3;--success-text:#17592C;--scrim:rgba(40,32,25,.55);--shadow-sm:0 1px 2px rgba(40,32,25,.08),0 1px 3px rgba(40,32,25,.06);--shadow-lg:0 12px 32px rgba(40,32,25,.22);font-family:'Be Vietnam Pro',system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.45}
+.fnb.dark{--bg:#1A1411;--bg-subtle:#282019;--bg-muted:#3E332A;--border:#55473D;--border-strong:#857366;--text:#F9F6F4;--text-muted:#D1C3B9;--text-subtle:#B8A79A;--primary:#F84839;--primary-fg:#1A1411;--primary-subtle:#470000;--primary-text:#FEAEA2;--success-subtle:#002A0E;--success-text:#A0D5AB;--scrim:rgba(0,0,0,.6);--shadow-sm:0 1px 2px rgba(0,0,0,.4);--shadow-lg:0 12px 32px rgba(0,0,0,.6)}
+.fnb button{font-family:inherit;cursor:pointer}
+.fnb .num{font-variant-numeric:tabular-nums}
+</style>
+</helmet>
+<div class="fnb {{themeClass}}" style="position: relative; width: 1280px; height: 800px; overflow: hidden; background: var(--bg-subtle); display: flex; flex-direction: column">
+
+  <!-- Sale screen behind (simplified) -->
+  <header style="height: 56px; flex-shrink: 0; display: flex; align-items: center; gap: 16px; padding: 0 16px; background: var(--bg); border-bottom: 1px solid var(--border)">
+    <img src="/_blob/dbbc95b08d47870e1964f1322682c11f" alt="Banhkepchonong" style="width: 40px; height: 40px; object-fit: contain">
+    <span style="font-size: 14px; font-weight: 600">Banhkepchonong · Chi nhánh Quận 1</span>
+  </header>
+  <div style="flex-grow: 1; display: flex">
+    <div style="flex-grow: 1; padding: 16px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; align-content: start">
+      <sc-for list="{{ ghosts }}" as="g" hint-placeholder-count="8">
+        <div style="height: 168px; border-radius: 16px; background: var(--bg)"></div>
+      </sc-for>
+    </div>
+    <div style="width: 400px; background: var(--bg); border-left: 1px solid var(--border)"></div>
+  </div>
+
+  <!-- Scrim + ModifierGroupPicker -->
+  <div style="position: absolute; inset: 0; background: var(--scrim); display: flex; align-items: center; justify-content: center">
+    <section role="dialog" aria-modal="true" aria-labelledby="modTitle" style="width: 880px; max-height: 740px; border-radius: 16px; background: var(--bg); box-shadow: var(--shadow-lg); display: flex; flex-direction: column; overflow: hidden">
+      <div style="display: flex; align-items: center; gap: 16px; padding: 16px 24px; border-bottom: 1px solid var(--border)">
+        <div style="width: 64px; height: 64px; border-radius: 10px; background: var(--bg-muted); flex-shrink: 0"></div>
+        <div style="flex-grow: 1; display: flex; flex-direction: column">
+          <h2 id="modTitle" style="margin: 0; font-size: 22px; font-weight: 700">Hotdog phô mai</h2>
+          <span class="num" style="font-size: 14px; color: var(--text-muted)">Từ 45.000 ₫ · HD-002</span>
+        </div>
+        <button type="button" aria-label="Đóng" style="width: 56px; height: 56px; border-radius: 10px; border: 0; background: transparent; color: var(--text-muted); display: flex; align-items: center; justify-content: center">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div style="padding: 16px 24px; display: flex; flex-direction: column; gap: 18px; overflow: auto">
+        <sc-for list="{{ groups }}" as="g" hint-placeholder-count="3">
+          <fieldset style="margin: 0; padding: 0; border: 0; display: flex; flex-direction: column; gap: 10px">
+            <legend style="display: flex; align-items: baseline; gap: 10px; padding: 0; margin-bottom: 10px">
+              <span style="font-size: 17px; font-weight: 700">{{ g.name }}</span>
+              <span style="{{ g.ruleStyle }}">{{ g.rule }}</span>
+            </legend>
+            <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+              <sc-for list="{{ g.options }}" as="o" hint-placeholder-count="3">
+                <button type="button" role="{{ g.role }}" aria-checked="{{ o.checked }}" disabled="{{ o.disabled }}" style="{{ o.style }}">
+                  <span style="font-size: 16px; font-weight: 600">{{ o.label }}</span>
+                  <span class="num" style="font-size: 13px">{{ o.price }}</span>
+                </button>
+              </sc-for>
+            </div>
+          </fieldset>
+        </sc-for>
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <span style="font-size: 17px; font-weight: 700">Ghi chú món</span>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap">
+            <sc-for list="{{ notes }}" as="n" hint-placeholder-count="4">
+              <button type="button" aria-pressed="{{ n.pressed }}" style="{{ n.style }}">{{ n.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 12px; padding: 16px 24px; border-top: 1px solid var(--border); background: var(--bg-subtle)">
+        <div style="display: flex; align-items: center; border: 1px solid var(--border-strong); border-radius: 10px; overflow: hidden; background: var(--bg)">
+          <button type="button" aria-label="Giảm số lượng" style="width: 56px; height: 56px; border: 0; background: var(--bg); color: var(--text); font-size: 22px">−</button>
+          <span class="num" style="min-width: 44px; text-align: center; font-size: 20px; font-weight: 700">1</span>
+          <button type="button" aria-label="Tăng số lượng" style="width: 56px; height: 56px; border: 0; background: var(--bg); color: var(--text); font-size: 22px">+</button>
+        </div>
+        <div style="flex-grow: 1"></div>
+        <a href="pos-sale.dc.html" style="height: 56px; padding: 0 20px; box-sizing: border-box; border-radius: 10px; border: 1px solid var(--border-strong); background: var(--bg); color: var(--text); font-size: 16px; font-weight: 600; display: flex; align-items: center; text-decoration: none">Huỷ</a>
+        <a href="pos-sale.dc.html" class="num" style="height: 56px; min-width: 300px; box-sizing: border-box; padding: 0 20px; border-radius: 10px; background: var(--primary); color: var(--primary-fg); font-size: 17px; font-weight: 700; display: flex; align-items: center; justify-content: center; text-decoration: none">Thêm vào đơn · 55.000 ₫</a>
+      </div>
+    </section>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const optStyle = (on, off) => 'min-height: 64px; padding: 8px 12px; border-radius: 10px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 2px; text-align: left; '
+      + (off ? 'border: 1px dashed var(--border-strong); background: var(--bg-muted); color: var(--text-subtle); cursor: not-allowed;'
+        : on ? 'border: 2px solid var(--primary); background: var(--primary-subtle); color: var(--primary-text);'
+          : 'border: 1px solid var(--border-strong); background: var(--bg); color: var(--text);');
+    const mk = (name, rule, required, role, opts) => ({
+      name, rule, role,
+      ruleStyle: 'font-size: 13px; font-weight: 700; ' + (required ? 'color: var(--primary-text);' : 'color: var(--text-muted);'),
+      options: opts.map(([label, price, on, off]) => ({
+        label, price, checked: on ? 'true' : 'false', disabled: !!off, style: optStyle(on, off)
+      }))
+    });
+    const groups = [
+      mk('Size', 'Bắt buộc · chọn 1', true, 'radio', [['Size M', '+0 ₫', true], ['Size L', '+10.000 ₫', false]]),
+      mk('Chọn sốt', 'Bắt buộc · chọn 1', true, 'radio', [['Sốt cay', '+0 ₫', true], ['Mù tạt mật ong', '+0 ₫', false], ['Sốt cà chua', '+0 ₫', false]]),
+      mk('Thêm topping', 'Tuỳ chọn · tối đa 3 · đã chọn 1', false, 'checkbox', [['Thêm phô mai', '+10.000 ₫', true], ['Xúc xích thêm', '+15.000 ₫', false], ['Hành phi', 'Tạm hết', false, true]])
+    ];
+    const notes = ['Ít cay', 'Không hành', 'Cắt đôi', 'Mang về'].map((label, i) => ({
+      label,
+      pressed: i === 1 ? 'true' : 'false',
+      style: 'height: 48px; padding: 0 18px; border-radius: 999px; font-size: 15px; '
+        + (i === 1 ? 'border: 1px solid var(--text); background: var(--bg-muted); color: var(--text); font-weight: 600;' : 'border: 1px solid var(--border); background: var(--bg); color: var(--text);')
+    }));
+    return { themeClass: this.props.dark ? 'dark' : '', groups, notes, ghosts: [1, 2, 3, 4, 5, 6, 7, 8] };
+  }
+}
+</script>
+</body>
+</html>

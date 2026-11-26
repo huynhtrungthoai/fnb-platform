@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>POS gắn khách và ưu đãi</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#CA0404}a:hover{color:#9C0303}
+.fnb{--bg:#FFFFFF;--bg-subtle:#F9F6F4;--bg-muted:#F1ECE8;--border:#E4DAD4;--border-strong:#9F8D7F;--text:#282019;--text-muted:#6D5D51;--text-subtle:#7A695C;--primary:#CA0404;--primary-fg:#FFFFFF;--primary-subtle:#FEE7E3;--primary-text:#9C0303;--accent:#ED6F03;--accent-fg:#211510;--accent-subtle:#FEE8DC;--accent-text:#984502;--success:#2F7D46;--success-subtle:#E0F3E3;--success-text:#17592C;--warning-subtle:#F9ECCE;--warning-text:#795B03;--info-subtle:#E1EEFE;--info-text:#184B83;--scrim:rgba(40,32,25,.45);--shadow-lg:0 12px 32px rgba(40,32,25,.22);font-family:'Be Vietnam Pro',system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.45}
+.fnb.dark{--bg:#1A1411;--bg-subtle:#282019;--bg-muted:#3E332A;--border:#55473D;--border-strong:#857366;--text:#F9F6F4;--text-muted:#D1C3B9;--text-subtle:#B8A79A;--primary:#F84839;--primary-fg:#1A1411;--primary-subtle:#470000;--primary-text:#FEAEA2;--accent:#FA8840;--accent-fg:#1A1411;--accent-subtle:#3A1600;--accent-text:#FEB187;--success:#58A46B;--success-subtle:#002A0E;--success-text:#A0D5AB;--warning-subtle:#2C1F00;--warning-text:#E7C067;--info-subtle:#012145;--info-text:#9DC9FF;--scrim:rgba(0,0,0,.55);--shadow-lg:0 12px 32px rgba(0,0,0,.6)}
+.fnb button{font-family:inherit;cursor:pointer}
+.fnb .num{font-variant-numeric:tabular-nums}
+.fnb button:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+</style>
+</helmet>
+<div class="fnb {{themeClass}}" style="position: relative; width: 1280px; height: 800px; overflow: hidden; background: var(--bg-subtle); display: flex; flex-direction: column">
+
+  <header style="height: 56px; flex-shrink: 0; display: flex; align-items: center; gap: 16px; padding: 0 16px; background: var(--bg); border-bottom: 1px solid var(--border)">
+    <img src="/_blob/dbbc95b08d47870e1964f1322682c11f" alt="Banhkepchonong" style="width: 40px; height: 40px; object-fit: contain">
+    <span style="font-size: 14px; font-weight: 600">Banhkepchonong · Chi nhánh Quận 1 · Thu ngân: Nguyễn Lan</span>
+  </header>
+
+  <!-- Sale screen behind: product grid dimmed, cart visible -->
+  <div style="flex-grow: 1; display: flex; min-height: 0">
+    <div aria-hidden="true" style="flex-grow: 1; padding: 16px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-content: start">
+      <sc-for list="{{ ghost }}" as="g" hint-placeholder-count="6">
+        <div style="height: 168px; border-radius: 16px; background: var(--bg)"></div>
+      </sc-for>
+    </div>
+    <section aria-label="Giỏ hàng" style="width: 380px; flex-shrink: 0; display: flex; flex-direction: column; background: var(--bg); border-left: 1px solid var(--border)">
+      <div style="padding: 16px; border-bottom: 1px solid var(--border); display: flex; flex-direction: column">
+        <span style="font-size: 18px; font-weight: 700">Đơn mới · Ăn tại quán</span>
+        <span style="font-size: 13px; color: var(--success-text); font-weight: 600">Khách: Trần Thị Mai · Bạc</span>
+      </div>
+      <div style="flex-grow: 1; padding: 12px 16px; display: flex; flex-direction: column; gap: 8px; font-size: 15px">
+        <div style="display: flex; justify-content: space-between"><span>2× Hotdog phô mai</span><span class="num">110.000 ₫</span></div>
+        <div style="display: flex; justify-content: space-between"><span>1× Burger bò · L</span><span class="num">69.000 ₫</span></div>
+        <div style="display: flex; justify-content: space-between"><span>1× Trà đào cam sả</span><span class="num">29.000 ₫</span></div>
+      </div>
+      <div style="padding: 16px; border-top: 1px solid var(--border); background: var(--bg-subtle); display: flex; flex-direction: column; gap: 6px; font-size: 14px">
+        <div style="display: flex; justify-content: space-between; color: var(--text-muted)"><span>Tạm tính</span><span class="num">208.000 ₫</span></div>
+        <div style="display: flex; justify-content: space-between; color: var(--success-text)"><span>Voucher THUBA20</span><span class="num">−30.000 ₫</span></div>
+        <div style="display: flex; justify-content: space-between; color: var(--success-text)"><span>Dùng 500 điểm</span><span class="num">−5.000 ₫</span></div>
+        <div style="display: flex; justify-content: space-between; align-items: baseline; padding-top: 8px; border-top: 1px dashed var(--border-strong)"><span style="font-size: 16px; font-weight: 600">Tổng cộng</span><span class="num" style="font-size: 26px; font-weight: 800">173.000 ₫</span></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Drawer -->
+  <div style="position: absolute; top: 56px; bottom: 0; left: 0; right: 0; display: flex; justify-content: flex-end">
+    <div aria-hidden="true" style="flex-grow: 1; background: var(--scrim)"></div>
+    <aside role="dialog" aria-modal="true" aria-labelledby="cuTitle" style="width: 500px; flex-shrink: 0; margin-right: 380px; background: var(--bg); box-shadow: var(--shadow-lg); display: flex; flex-direction: column">
+      <div style="display: flex; align-items: center; gap: 12px; padding: 16px 20px; border-bottom: 1px solid var(--border)">
+        <h2 id="cuTitle" style="margin: 0; flex-grow: 1; font-size: 20px; font-weight: 700">Khách hàng và ưu đãi</h2>
+        <button type="button" aria-label="Đóng" style="width: 44px; height: 44px; border-radius: 10px; border: 0; background: transparent; color: var(--text-muted); font-size: 22px">×</button>
+      </div>
+      <div style="flex-grow: 1; overflow: hidden; padding: 16px 20px; display: flex; flex-direction: column; gap: 16px">
+        <label style="display: flex; align-items: center; gap: 10px; height: 56px; padding: 0 16px; border: 2px solid var(--primary); border-radius: 10px; font-size: 18px">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span class="num" style="flex-grow: 1">0912 345 678</span>
+          <span style="font-size: 13px; color: var(--text-muted)">Số điện thoại</span>
+        </label>
+        <div style="display: flex; align-items: center; gap: 12px; padding: 14px; border-radius: 16px; border: 2px solid var(--success); background: var(--success-subtle)">
+          <span style="width: 48px; height: 48px; border-radius: 999px; background: var(--bg); display: flex; align-items: center; justify-content: center; font-weight: 800">TM</span>
+          <div style="flex-grow: 1; display: flex; flex-direction: column">
+            <span style="font-size: 17px; font-weight: 700">Trần Thị Mai</span>
+            <span style="font-size: 14px; color: var(--text-muted)">Hạng Bạc · <span class="num">1.240</span> điểm · 18 đơn · đã xác minh</span>
+          </div>
+          <span style="font-size: 13px; font-weight: 700; color: var(--success-text)">Đã gắn</span>
+        </div>
+        <button type="button" style="align-self: flex-start; height: 44px; padding: 0 14px; border-radius: 10px; border: 1px dashed var(--border-strong); background: transparent; color: var(--text); font-size: 14px; font-weight: 600">+ Khách mới: tạo nhanh bằng tên và số điện thoại</button>
+
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <div style="display: flex; align-items: baseline; gap: 8px"><span style="font-size: 16px; font-weight: 700">Voucher khả dụng</span><span style="font-size: 12px; color: var(--info-text); background: var(--info-subtle); padding: 2px 8px; border-radius: 999px; font-weight: 700">từ GĐ 3</span></div>
+          <sc-for list="{{ vouchers }}" as="v" hint-placeholder-count="3">
+            <button type="button" aria-pressed="{{ v.pressed }}" disabled="{{ v.disabled }}" style="{{ v.style }}">
+              <span style="{{ v.codeStyle }}">{{ v.code }}</span>
+              <span style="flex-grow: 1; display: flex; flex-direction: column; text-align: left"><span style="font-size: 15px; font-weight: 600">{{ v.title }}</span><span style="font-size: 13px; color: var(--text-muted)">{{ v.note }}</span></span>
+              <span style="{{ v.stateStyle }}">{{ v.state }}</span>
+            </button>
+          </sc-for>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 8px; padding: 14px; border-radius: 16px; border: 1px solid var(--border)">
+          <div style="display: flex; justify-content: space-between; align-items: baseline"><span style="font-size: 16px; font-weight: 700">Dùng điểm</span><span style="font-size: 13px; color: var(--text-muted)">100 điểm = 1.000 ₫</span></div>
+          <div style="display: flex; align-items: center; gap: 12px">
+            <div style="display: flex; align-items: center; border: 1px solid var(--border-strong); border-radius: 10px; overflow: hidden">
+              <button type="button" aria-label="Bớt 100 điểm" style="width: 56px; height: 56px; border: 0; background: var(--bg); color: var(--text); font-size: 22px">−</button>
+              <span class="num" style="min-width: 72px; text-align: center; font-size: 18px; font-weight: 700">500</span>
+              <button type="button" aria-label="Thêm 100 điểm" style="width: 56px; height: 56px; border: 0; background: var(--bg); color: var(--text); font-size: 22px">+</button>
+            </div>
+            <span class="num" style="font-size: 16px; font-weight: 700; color: var(--success-text)">−5.000 ₫</span>
+          </div>
+          <span style="font-size: 13px; color: var(--warning-text)">Dùng trên 1.000 điểm cần khách nhập PIN trên máy (LOY-05).</span>
+        </div>
+      </div>
+      <div style="display: flex; gap: 8px; padding: 16px 20px; border-top: 1px solid var(--border)">
+        <button type="button" style="height: 56px; padding: 0 18px; border-radius: 10px; border: 1px solid var(--border-strong); background: var(--bg); color: var(--text); font-size: 15px; font-weight: 600">Bỏ gắn khách</button>
+        <button type="button" style="flex-grow: 1; height: 56px; border-radius: 10px; border: 0; background: var(--primary); color: var(--primary-fg); font-size: 17px; font-weight: 700">Áp dụng · tổng 173.000 ₫</button>
+      </div>
+    </aside>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const V = [
+      ['THUBA20', 'Thứ Ba vui vẻ: giảm 20%', 'Đơn từ 100.000 ₫ · tối đa 30.000 ₫', 'applied'],
+      ['MAI-SN', 'Sinh nhật: tặng 1 trà đào', 'Hết hạn 30/11 · dùng được cùng lúc', 'ok'],
+      ['KHACHMOI', 'Khách mới: giảm 15.000 ₫', 'Chỉ cho đơn đầu tiên', 'blocked']
+    ];
+    const vouchers = V.map(([code, title, note, st]) => ({
+      code, title, note,
+      pressed: st === 'applied' ? 'true' : 'false',
+      disabled: st === 'blocked',
+      state: st === 'applied' ? 'Đang áp' : st === 'ok' ? 'Áp được' : 'Không đủ điều kiện',
+      style: 'width: 100%; min-height: 64px; padding: 8px 12px; border-radius: 10px; display: flex; align-items: center; gap: 12px; color: var(--text); '
+        + (st === 'applied' ? 'border: 2px solid var(--primary); background: var(--primary-subtle);' : st === 'ok' ? 'border: 1px solid var(--border-strong); background: var(--bg);' : 'border: 1px dashed var(--border); background: var(--bg-muted); opacity: .7; cursor: not-allowed;'),
+      codeStyle: 'font-family: ui-monospace, monospace; font-size: 13px; font-weight: 700; padding: 4px 8px; border-radius: 6px; background: var(--accent-subtle); color: var(--accent-text);',
+      stateStyle: 'font-size: 13px; font-weight: 700; white-space: nowrap; color: ' + (st === 'applied' ? 'var(--primary-text)' : st === 'ok' ? 'var(--success-text)' : 'var(--text-muted)') + ';'
+    }));
+    const ghost = Array.from({ length: 6 }, (_, i) => ({ i }));
+    return { themeClass: this.props.dark ? 'dark' : '', vouchers, ghost };
+  }
+}
+</script>
+</body>
+</html>

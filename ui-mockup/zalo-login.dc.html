@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Zalo Mini App đăng nhập</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&amp;family=Baloo+2:wght@700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#CA0404}a:hover{color:#9C0303}
+.fnb{--bg:#FFFFFF;--bg-subtle:#F9F6F4;--bg-muted:#F1ECE8;--border:#E4DAD4;--border-strong:#9F8D7F;--text:#282019;--text-muted:#6D5D51;--text-subtle:#7A695C;--primary:#CA0404;--primary-fg:#FFFFFF;--primary-subtle:#FEE7E3;--primary-text:#9C0303;--info:#2563A8;--info-subtle:#E1EEFE;--info-text:#184B83;--brick:#8A2A26;--shadow-md:0 8px 24px rgba(40,32,25,.14);font-family:'Be Vietnam Pro',system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.45}
+.fnb.dark{--bg:#1A1411;--bg-subtle:#282019;--bg-muted:#3E332A;--border:#55473D;--border-strong:#857366;--text:#F9F6F4;--text-muted:#D1C3B9;--text-subtle:#B8A79A;--primary:#F84839;--primary-fg:#1A1411;--primary-subtle:#470000;--primary-text:#FEAEA2;--info:#5693DC;--info-subtle:#012145;--info-text:#9DC9FF;--brick:#62211E;--shadow-md:0 8px 24px rgba(0,0,0,.5)}
+.fnb button{font-family:inherit;cursor:pointer}
+.fnb .display{font-family:'Baloo 2',sans-serif;font-weight:800;line-height:1.1}
+</style>
+</helmet>
+<div class="fnb {{themeClass}}" style="width: 390px; height: 844px; overflow: hidden; display: flex; flex-direction: column; background: var(--bg-subtle)">
+
+  <!-- Zalo navigation bar (owned by Zalo, reserved space) -->
+  <div aria-label="Thanh điều hướng của Zalo" style="flex-shrink: 0; height: 88px; box-sizing: border-box; padding: 44px 12px 0; display: flex; align-items: center; gap: 8px; background: var(--bg); border-bottom: 1px dashed var(--border-strong)">
+    <span style="flex-grow: 1; font-size: 15px; font-weight: 600">Banhkepchonong</span>
+    <span style="height: 30px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--border); font-size: 12px; color: var(--text-subtle); display: flex; align-items: center">Vùng của Zalo</span>
+  </div>
+
+  <main style="flex-grow: 1; display: flex; flex-direction: column">
+    <section style="background: var(--brick); color: #FFFFFF; padding: 20px 24px 0; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px">
+      <img src="/_blob/5bc8172d66702a09b8368bb2966b5020" alt="Logo Bánh Kẹp Chó Nóng" style="width: 180px; height: 148px; object-fit: contain">
+      <span class="display" style="font-size: 28px">Nóng hổi, kẹp liền tay!</span>
+      <span style="font-size: 14px; opacity: .92">Đặt món trong Zalo, đến quầy đọc số là nhận.</span>
+      <svg width="390" height="28" viewBox="0 0 390 28" preserveAspectRatio="none" aria-hidden="true" style="display: block; margin: 14px -24px 0"><path d="M0 28V12c32 0 32 12 65 12s32-16 65-16 32 16 65 16 32-16 65-16 32 16 65 16 32-12 65-12v16Z" fill="var(--bg-subtle)"/></svg>
+    </section>
+
+    <div style="padding: 8px 20px 0; display: flex; flex-direction: column; gap: 12px">
+      <section aria-labelledby="permTitle" style="padding: 20px; border-radius: 16px; background: var(--bg); border: 1px solid var(--border); box-shadow: var(--shadow-md); display: flex; flex-direction: column; gap: 12px">
+        <div style="display: flex; gap: 12px; align-items: flex-start">
+          <span style="width: 44px; height: 44px; flex-shrink: 0; border-radius: 12px; background: var(--primary-subtle); color: var(--primary-text); display: flex; align-items: center; justify-content: center">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
+          </span>
+          <div style="display: flex; flex-direction: column; gap: 4px">
+            <h1 id="permTitle" style="margin: 0; font-size: 17px; font-weight: 700">Cho phép quán lấy số điện thoại Zalo của bạn</h1>
+            <span style="font-size: 14px; color: var(--text-muted)">Quán dùng số này để gắn đơn và điểm thành viên của bạn, kể cả đơn mua tại quầy. Không cần nhập PIN.</span>
+          </div>
+        </div>
+        <a href="mobile-menu.dc.html" style="height: 52px; border-radius: 16px; background: var(--primary); color: var(--primary-fg); font-size: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; text-decoration: none">Cho phép</a>
+        <a href="mobile-menu.dc.html" style="height: 52px; box-sizing: border-box; border-radius: 16px; border: 1px solid var(--border-strong); background: var(--bg); color: var(--text); font-size: 16px; font-weight: 600; display: flex; align-items: center; justify-content: center; text-decoration: none">Để sau</a>
+      </section>
+
+      <div role="note" style="display: flex; gap: 10px; padding: 12px 14px; border-radius: 16px; background: var(--info-subtle); color: var(--info-text); font-size: 13px">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0"><path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20M12 16v-4M12 8h.01"/></svg>
+        <span>Chọn "Để sau" vẫn xem thực đơn được. Khi thanh toán, quán sẽ hỏi lại để gửi số thứ tự cho bạn.</span>
+      </div>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { themeClass: this.props.dark ? 'dark' : '' };
+  }
+}
+</script>
+</body>
+</html>

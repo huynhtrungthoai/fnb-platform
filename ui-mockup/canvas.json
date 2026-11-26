@@ -1,0 +1,1034 @@
+{
+  "v": 3,
+  "attachments": {},
+  "boards": {
+    "pos-sale.dc.html": {
+      "h": 800,
+      "is_interactive": true,
+      "page": "pos",
+      "title": "3 · Bán hàng",
+      "w": 1280,
+      "x": 2720,
+      "y": 3420
+    },
+    "admin-dashboard.dc.html": {
+      "expand": "fill",
+      "h": 900,
+      "page": "web",
+      "title": "A2 · Tổng quan",
+      "w": 1440,
+      "x": 1520,
+      "y": 3420
+    },
+    "admin-login.dc.html": {
+      "expand": "fill",
+      "h": 900,
+      "page": "web",
+      "title": "A1 · Đăng nhập quản trị",
+      "w": 1440,
+      "x": 0,
+      "y": 3420
+    },
+    "admin-menu-edit.dc.html": {
+      "expand": "fill",
+      "h": 1200,
+      "page": "web",
+      "title": "A4 · Sửa món",
+      "w": 1440,
+      "x": 4560,
+      "y": 3420
+    },
+    "admin-menu.dc.html": {
+      "expand": "fill",
+      "h": 900,
+      "page": "web",
+      "title": "A3 · Danh sách món",
+      "w": 1440,
+      "x": 3040,
+      "y": 3420
+    },
+    "customer-web-checkout.dc.html": {
+      "expand": "fill",
+      "h": 1100,
+      "page": "web",
+      "title": "K4 · Giỏ và thanh toán",
+      "w": 1440,
+      "x": 4560,
+      "y": 5040
+    },
+    "customer-web-home.dc.html": {
+      "expand": "fill",
+      "h": 1760,
+      "page": "web",
+      "title": "K1 · Trang chủ và thực đơn",
+      "w": 1440,
+      "x": 0,
+      "y": 5040
+    },
+    "customer-web-login.dc.html": {
+      "expand": "fill",
+      "h": 900,
+      "page": "web",
+      "title": "K3 · Đăng nhập khách (khi cần)",
+      "w": 1440,
+      "x": 3040,
+      "y": 5040
+    },
+    "customer-web-order.dc.html": {
+      "expand": "fill",
+      "h": 900,
+      "page": "web",
+      "title": "K6 · Theo dõi đơn",
+      "w": 1440,
+      "x": 7600,
+      "y": 5040
+    },
+    "customer-web-pay-qr.dc.html": {
+      "expand": "fill",
+      "h": 900,
+      "page": "web",
+      "title": "K5 · Quét QR",
+      "w": 1440,
+      "x": 6080,
+      "y": 5040
+    },
+    "customer-web-product.dc.html": {
+      "expand": "fill",
+      "h": 1000,
+      "page": "web",
+      "title": "K2 · Chi tiết món",
+      "w": 1440,
+      "x": 1520,
+      "y": 5040
+    },
+    "ds-foundations.dc.html": {
+      "h": 2959,
+      "page": "foundations",
+      "title": "Nền tảng: màu, chữ, khoảng cách, theme",
+      "w": 1418,
+      "x": 0,
+      "y": 0
+    },
+    "ds-mobile-components.dc.html": {
+      "h": 1960,
+      "page": "mobile",
+      "title": "Bảng component Mobile · theme mobile",
+      "w": 1280,
+      "x": 1520,
+      "y": 0
+    },
+    "ds-pos-components.dc.html": {
+      "h": 2393,
+      "page": "pos",
+      "title": "Bảng component POS · theme pos và kds",
+      "w": 1424,
+      "x": 1520,
+      "y": 0
+    },
+    "ds-web-components.dc.html": {
+      "h": 2200,
+      "page": "web",
+      "title": "Bảng component Web · theme admin",
+      "w": 1440,
+      "x": 1520,
+      "y": 0
+    },
+    "ds-web-customer.dc.html": {
+      "h": 1640,
+      "page": "web",
+      "title": "Bảng component Web · theme customer",
+      "w": 1440,
+      "x": 3040,
+      "y": 0
+    },
+    "kds-board.dc.html": {
+      "h": 1080,
+      "is_interactive": true,
+      "page": "pos",
+      "title": "7 · Bếp nhận phiếu (KDS)",
+      "w": 1920,
+      "x": 8160,
+      "y": 3420
+    },
+    "mobile-account.dc.html": {
+      "h": 844,
+      "page": "mobile",
+      "title": "M7 · Tài khoản",
+      "w": 390,
+      "x": 2820,
+      "y": 3420
+    },
+    "mobile-cart.dc.html": {
+      "h": 844,
+      "page": "mobile",
+      "title": "M4 · Giỏ hàng",
+      "w": 390,
+      "x": 1410,
+      "y": 3420
+    },
+    "mobile-checkout-qr.dc.html": {
+      "h": 844,
+      "page": "mobile",
+      "title": "M5 · Thanh toán QR",
+      "w": 390,
+      "x": 1880,
+      "y": 3420
+    },
+    "mobile-login.dc.html": {
+      "h": 844,
+      "page": "mobile",
+      "title": "M1 · Đăng nhập SĐT + PIN (web khách trong app WebView)",
+      "w": 390,
+      "x": 0,
+      "y": 3420
+    },
+    "mobile-menu.dc.html": {
+      "h": 844,
+      "page": "mobile",
+      "title": "M2 · Thực đơn",
+      "w": 390,
+      "x": 470,
+      "y": 3420
+    },
+    "mobile-order-status.dc.html": {
+      "h": 844,
+      "page": "mobile",
+      "title": "M6 · Theo dõi đơn",
+      "w": 390,
+      "x": 2350,
+      "y": 3420
+    },
+    "mobile-product.dc.html": {
+      "h": 844,
+      "page": "mobile",
+      "title": "M3 · Chọn món",
+      "w": 390,
+      "x": 940,
+      "y": 3420
+    },
+    "pos-close-shift.dc.html": {
+      "h": 800,
+      "page": "pos",
+      "title": "9 · Đóng ca",
+      "w": 1280,
+      "x": 11520,
+      "y": 3420
+    },
+    "pos-login.dc.html": {
+      "h": 800,
+      "page": "pos",
+      "title": "1 · Đăng nhập (chọn nhân viên + PIN)",
+      "w": 1280,
+      "x": 0,
+      "y": 3420
+    },
+    "pos-modifier.dc.html": {
+      "h": 800,
+      "page": "pos",
+      "title": "4 · Chọn tuỳ chọn món",
+      "w": 1280,
+      "x": 4080,
+      "y": 3420
+    },
+    "pos-open-shift.dc.html": {
+      "h": 800,
+      "page": "pos",
+      "title": "2 · Mở ca",
+      "w": 1280,
+      "x": 1360,
+      "y": 3420
+    },
+    "pos-orders.dc.html": {
+      "h": 800,
+      "is_interactive": true,
+      "page": "pos",
+      "title": "8 · Gọi số tại quầy",
+      "w": 1280,
+      "x": 10160,
+      "y": 3420
+    },
+    "pos-paid.dc.html": {
+      "h": 800,
+      "page": "pos",
+      "title": "6 · Thanh toán xong · số thứ tự",
+      "w": 1280,
+      "x": 6800,
+      "y": 3420
+    },
+    "pos-payment.dc.html": {
+      "h": 800,
+      "page": "pos",
+      "title": "5 · Thanh toán tiền mặt (mất mạng)",
+      "w": 1280,
+      "x": 5440,
+      "y": 3420
+    },
+    "spec-mobile.dc.html": {
+      "h": 3000,
+      "page": "mobile",
+      "title": "Đặc tả component Mobile",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "spec-pos.dc.html": {
+      "h": 3000,
+      "page": "pos",
+      "title": "Đặc tả component POS",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "spec-web.dc.html": {
+      "h": 3000,
+      "page": "web",
+      "title": "Đặc tả component Web",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "zalo-login.dc.html": {
+      "h": 844,
+      "page": "mobile",
+      "title": "Z1 · Zalo: xin quyền số điện thoại",
+      "w": 390,
+      "x": 0,
+      "y": 4684
+    },
+    "admin-branches.dc.html": {
+      "x": 0,
+      "y": 7520,
+      "w": 1440,
+      "h": 1180,
+      "title": "HT1 · Chi nhánh",
+      "page": "web",
+      "expand": "fill"
+    },
+    "admin-staff.dc.html": {
+      "x": 1520,
+      "y": 7520,
+      "w": 1440,
+      "h": 1180,
+      "title": "HT2 · Nhân viên",
+      "page": "web",
+      "expand": "fill"
+    },
+    "admin-staff-access.dc.html": {
+      "x": 3040,
+      "y": 7520,
+      "w": 1440,
+      "h": 1180,
+      "title": "HT3 · Phân quyền nhân viên",
+      "page": "web",
+      "expand": "fill"
+    },
+    "admin-roles.dc.html": {
+      "x": 4560,
+      "y": 7520,
+      "w": 1440,
+      "h": 1180,
+      "title": "HT4 · Nhóm quyền",
+      "page": "web",
+      "expand": "fill"
+    },
+    "admin-role-edit.dc.html": {
+      "x": 6080,
+      "y": 7520,
+      "w": 1440,
+      "h": 1640,
+      "title": "HT5 · Sửa nhóm quyền",
+      "page": "web",
+      "expand": "fill"
+    },
+    "admin-role-compare.dc.html": {
+      "x": 7600,
+      "y": 7520,
+      "w": 1440,
+      "h": 1180,
+      "title": "HT6 · So sánh nhóm quyền",
+      "page": "web",
+      "expand": "fill"
+    },
+    "admin-devices.dc.html": {
+      "x": 9120,
+      "y": 7520,
+      "w": 1440,
+      "h": 1240,
+      "title": "HT7 · Thiết bị và máy in",
+      "page": "web",
+      "expand": "fill"
+    },
+    "admin-print-templates.dc.html": {
+      "x": 10640,
+      "y": 7520,
+      "w": 1440,
+      "h": 1240,
+      "title": "HT8 · Mẫu in",
+      "page": "web",
+      "expand": "fill"
+    },
+    "admin-audit-log.dc.html": {
+      "x": 12160,
+      "y": 7520,
+      "w": 1440,
+      "h": 1180,
+      "title": "HT9 · Nhật ký",
+      "page": "web",
+      "expand": "fill"
+    },
+    "admin-categories.dc.html": {
+      "x": 0,
+      "y": 9880,
+      "w": 1440,
+      "h": 1320,
+      "title": "TD1 · Nhóm món",
+      "page": "web",
+      "expand": "fill"
+    },
+    "admin-modifiers.dc.html": {
+      "x": 1520,
+      "y": 9880,
+      "w": 1440,
+      "h": 1320,
+      "title": "TD2 · Nhóm tuỳ chọn",
+      "page": "web",
+      "expand": "fill"
+    },
+    "admin-branch-prices.dc.html": {
+      "x": 3040,
+      "y": 9880,
+      "w": 1440,
+      "h": 1320,
+      "title": "TD3 · Giá theo chi nhánh",
+      "page": "web",
+      "expand": "fill"
+    },
+    "admin-stations.dc.html": {
+      "x": 4560,
+      "y": 9880,
+      "w": 1440,
+      "h": 1320,
+      "title": "TD4 · Trạm chế biến",
+      "page": "web",
+      "expand": "fill"
+    },
+    "admin-orders.dc.html": {
+      "x": 6080,
+      "y": 9880,
+      "w": 1440,
+      "h": 1320,
+      "title": "BH1 · Đơn hàng",
+      "page": "web",
+      "expand": "fill"
+    },
+    "admin-order-detail.dc.html": {
+      "x": 7600,
+      "y": 9880,
+      "w": 1440,
+      "h": 1320,
+      "title": "BH2 · Chi tiết đơn · hoàn tiền",
+      "page": "web",
+      "expand": "fill"
+    },
+    "admin-shifts.dc.html": {
+      "x": 9120,
+      "y": 9880,
+      "w": 1440,
+      "h": 1320,
+      "title": "BH3 · Ca thu ngân",
+      "page": "web",
+      "expand": "fill"
+    },
+    "admin-cashbook.dc.html": {
+      "x": 10640,
+      "y": 9880,
+      "w": 1440,
+      "h": 1320,
+      "title": "BH4 · Sổ quỹ",
+      "page": "web",
+      "expand": "fill"
+    },
+    "admin-payments.dc.html": {
+      "x": 12160,
+      "y": 9880,
+      "w": 1440,
+      "h": 1800,
+      "title": "BH5 · Thanh toán",
+      "page": "web",
+      "expand": "fill"
+    },
+    "admin-ingredients.dc.html": {
+      "x": 0,
+      "y": 12400,
+      "w": 1440,
+      "h": 1360,
+      "title": "KH1 · Nguyên liệu và nhà cung cấp",
+      "page": "web",
+      "expand": "fill"
+    },
+    "admin-recipes.dc.html": {
+      "x": 1520,
+      "y": 12400,
+      "w": 1440,
+      "h": 1360,
+      "title": "KH2 · Định lượng theo món",
+      "page": "web",
+      "expand": "fill"
+    },
+    "admin-stock-docs.dc.html": {
+      "x": 3040,
+      "y": 12400,
+      "w": 1440,
+      "h": 1360,
+      "title": "KH3 · Phiếu kho",
+      "page": "web",
+      "expand": "fill"
+    },
+    "admin-stock-in.dc.html": {
+      "x": 4560,
+      "y": 12400,
+      "w": 1440,
+      "h": 1360,
+      "title": "KH4 · Tạo phiếu nhập",
+      "page": "web",
+      "expand": "fill"
+    },
+    "admin-stocktake.dc.html": {
+      "x": 6080,
+      "y": 12400,
+      "w": 1440,
+      "h": 1360,
+      "title": "KH5 · Kiểm kê",
+      "page": "web",
+      "expand": "fill"
+    },
+    "admin-stock.dc.html": {
+      "x": 7600,
+      "y": 12400,
+      "w": 1440,
+      "h": 1360,
+      "title": "KH6 · Tồn kho",
+      "page": "web",
+      "expand": "fill"
+    },
+    "admin-stock-card.dc.html": {
+      "x": 9120,
+      "y": 12400,
+      "w": 1440,
+      "h": 1360,
+      "title": "KH7 · Thẻ kho",
+      "page": "web",
+      "expand": "fill"
+    },
+    "admin-reports.dc.html": {
+      "x": 10640,
+      "y": 12400,
+      "w": 1440,
+      "h": 1600,
+      "title": "BC1 · Báo cáo bán hàng",
+      "page": "web",
+      "expand": "fill"
+    },
+    "admin-report-branches.dc.html": {
+      "x": 12160,
+      "y": 12400,
+      "w": 1440,
+      "h": 1600,
+      "title": "BC2 · So sánh chi nhánh và cuối ngày",
+      "page": "web",
+      "expand": "fill"
+    },
+    "admin-hr-profile.dc.html": {
+      "x": 0,
+      "y": 14720,
+      "w": 1440,
+      "h": 1400,
+      "title": "NS1 · Hồ sơ nhân viên",
+      "page": "web",
+      "expand": "fill"
+    },
+    "admin-schedule.dc.html": {
+      "x": 1520,
+      "y": 14720,
+      "w": 1440,
+      "h": 1300,
+      "title": "NS2 · Lịch làm việc",
+      "page": "web",
+      "expand": "fill"
+    },
+    "admin-timesheet.dc.html": {
+      "x": 3040,
+      "y": 14720,
+      "w": 1440,
+      "h": 1300,
+      "title": "NS3 · Bảng công",
+      "page": "web",
+      "expand": "fill"
+    },
+    "admin-hr-requests.dc.html": {
+      "x": 4560,
+      "y": 14720,
+      "w": 1440,
+      "h": 1300,
+      "title": "NS4 · Yêu cầu chờ duyệt",
+      "page": "web",
+      "expand": "fill"
+    },
+    "admin-payroll.dc.html": {
+      "x": 6080,
+      "y": 14720,
+      "w": 1440,
+      "h": 1300,
+      "title": "NS5 · Kỳ lương và bảng lương",
+      "page": "web",
+      "expand": "fill"
+    },
+    "admin-me.dc.html": {
+      "x": 7600,
+      "y": 14720,
+      "w": 390,
+      "h": 844,
+      "title": "NS6 · Trang của tôi (/me, điện thoại)",
+      "page": "web"
+    },
+    "admin-customers.dc.html": {
+      "x": 8070,
+      "y": 14720,
+      "w": 1440,
+      "h": 1300,
+      "title": "KC1 · Khách hàng",
+      "page": "web",
+      "expand": "fill"
+    },
+    "admin-vouchers.dc.html": {
+      "x": 9590,
+      "y": 14720,
+      "w": 1440,
+      "h": 1300,
+      "title": "KC2 · Ưu đãi và voucher",
+      "page": "web",
+      "expand": "fill"
+    },
+    "admin-online-config.dc.html": {
+      "x": 11110,
+      "y": 14720,
+      "w": 1440,
+      "h": 1400,
+      "title": "KC3 · Đặt món online",
+      "page": "web",
+      "expand": "fill"
+    },
+    "admin-membership.dc.html": {
+      "x": 12630,
+      "y": 14720,
+      "w": 1440,
+      "h": 1400,
+      "title": "KC4 · Thành viên",
+      "page": "web",
+      "expand": "fill"
+    },
+    "pos-order-list.dc.html": {
+      "x": 0,
+      "y": 5220,
+      "w": 1280,
+      "h": 800,
+      "title": "P10 · Danh sách đơn",
+      "page": "pos"
+    },
+    "pos-order-detail.dc.html": {
+      "x": 1360,
+      "y": 5220,
+      "w": 1280,
+      "h": 800,
+      "title": "P11 · Chi tiết đơn",
+      "page": "pos"
+    },
+    "pos-approval.dc.html": {
+      "x": 2720,
+      "y": 5220,
+      "w": 1280,
+      "h": 800,
+      "title": "P12 · Quản lý duyệt tại chỗ",
+      "page": "pos"
+    },
+    "pos-customer.dc.html": {
+      "x": 4080,
+      "y": 5220,
+      "w": 1280,
+      "h": 800,
+      "title": "P13 · Gắn khách và áp ưu đãi",
+      "page": "pos"
+    },
+    "pos-pay-qr.dc.html": {
+      "x": 5440,
+      "y": 5220,
+      "w": 1280,
+      "h": 800,
+      "title": "P14 · Thanh toán QR",
+      "page": "pos"
+    },
+    "pos-split-pay.dc.html": {
+      "x": 6800,
+      "y": 5220,
+      "w": 1280,
+      "h": 800,
+      "title": "P15 · Chia nhiều cách trả",
+      "page": "pos"
+    },
+    "pos-handheld-sale.dc.html": {
+      "x": 8160,
+      "y": 5220,
+      "w": 400,
+      "h": 860,
+      "title": "P16 · Máy cầm tay · Bán hàng",
+      "page": "pos"
+    },
+    "pos-handheld-pay.dc.html": {
+      "x": 8640,
+      "y": 5220,
+      "w": 400,
+      "h": 860,
+      "title": "P17 · Máy cầm tay · Thanh toán",
+      "page": "pos"
+    },
+    "pos-cash-inout.dc.html": {
+      "x": 0,
+      "y": 6800,
+      "w": 1280,
+      "h": 800,
+      "title": "P20 · Nộp/rút tiền giữa ca",
+      "page": "pos"
+    },
+    "pos-shift-summary.dc.html": {
+      "x": 1360,
+      "y": 6800,
+      "w": 1280,
+      "h": 800,
+      "title": "P21 · Xem nhanh ca và báo cáo ca",
+      "page": "pos"
+    },
+    "pos-printers.dc.html": {
+      "x": 2720,
+      "y": 6800,
+      "w": 1280,
+      "h": 800,
+      "title": "P22 · Máy in",
+      "page": "pos"
+    },
+    "pos-print-queue.dc.html": {
+      "x": 4080,
+      "y": 6800,
+      "w": 1280,
+      "h": 800,
+      "title": "P23 · Hàng đợi in",
+      "page": "pos"
+    },
+    "pos-device-register.dc.html": {
+      "x": 5440,
+      "y": 6800,
+      "w": 1280,
+      "h": 800,
+      "title": "P24 · Đăng ký thiết bị",
+      "page": "pos"
+    },
+    "pos-device-settings.dc.html": {
+      "x": 6800,
+      "y": 6800,
+      "w": 1280,
+      "h": 800,
+      "title": "P25 · Cài đặt thiết bị và đồng bộ",
+      "page": "pos"
+    },
+    "kds-history.dc.html": {
+      "x": 8160,
+      "y": 6800,
+      "w": 1920,
+      "h": 1080,
+      "title": "P26 · KDS · Phiếu đã xong",
+      "page": "pos"
+    }
+  },
+  "createdOnFiles": {
+    "at": "2026-11-26T09:00:00Z",
+    "v": 1
+  },
+  "designSystems": [],
+  "launch": {
+    "page": "pos",
+    "view": "canvas"
+  },
+  "noteOrder": [
+    "foundTitle",
+    "foundNote",
+    "posCompTitle",
+    "posFlowTitle",
+    "webCompTitle",
+    "webAdminTitle",
+    "webCustTitle",
+    "mobCompTitle",
+    "mobAppTitle",
+    "zaloTitle",
+    "zaloNote",
+    "adminHtTitle",
+    "adminSalesTitle",
+    "adminStockTitle",
+    "adminHrTitle",
+    "posSalesExtraTitle",
+    "posOpsTitle"
+  ],
+  "notes": {
+    "foundNote": {
+      "fill": "orange",
+      "page": "foundations",
+      "text": "Màu, bo góc, khoảng cách lấy theo plans/07-brand.md mục 3 và plans/03-design-system.md mục 4–5. Ba nền tảng component: POS, Web, Mobile (D-14); theme và sáng/tối (D-31). Mỗi artboard có tweak 'dark'. Giá và số liệu là dữ liệu mẫu. Logo dùng bản nền trong suốt brands/banhkepchonong-logo-transparent.png.",
+      "w": 380,
+      "x": 1520,
+      "y": 0
+    },
+    "foundTitle": {
+      "kind": "title1",
+      "maxW": 1440,
+      "page": "foundations",
+      "text": "Nền tảng · token và theme dùng chung cho mọi app",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "mobAppTitle": {
+      "kind": "title1",
+      "maxW": 3220,
+      "page": "mobile",
+      "text": "Luồng kênh khách trên điện thoại: thực đơn → chọn món → giỏ → QR → theo dõi đơn → tài khoản (Zalo dùng ui-mobile)",
+      "w": 240,
+      "x": 0,
+      "y": 3120
+    },
+    "mobCompTitle": {
+      "kind": "title1",
+      "maxW": 2800,
+      "page": "mobile",
+      "text": "Mobile · @fnb/ui-mobile: thiết kế chung, bản React DOM cho Zalo (D-43)",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "posCompTitle": {
+      "kind": "title1",
+      "maxW": 2960,
+      "page": "pos",
+      "text": "POS · component @fnb/ui-pos",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "posFlowTitle": {
+      "kind": "title1",
+      "maxW": 8000,
+      "page": "pos",
+      "text": "Luồng ca bán hàng tại quầy: đăng nhập → mở ca → bán → thanh toán → bếp → gọi số → đóng ca",
+      "w": 240,
+      "x": 0,
+      "y": 3120
+    },
+    "webAdminTitle": {
+      "kind": "title1",
+      "maxW": 6000,
+      "page": "web",
+      "text": "Luồng Admin chính: đăng nhập → tổng quan → danh sách món → sửa món (các màn tính năng ở các hàng dưới)",
+      "w": 240,
+      "x": 0,
+      "y": 3120
+    },
+    "webCompTitle": {
+      "kind": "title1",
+      "maxW": 4480,
+      "page": "web",
+      "text": "Web · component @fnb/ui-web (theme admin và customer)",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "webCustTitle": {
+      "kind": "title1",
+      "maxW": 8000,
+      "page": "web",
+      "text": "Luồng web khách: trang chủ → chọn món → (đăng nhập) → giỏ → QR → theo dõi đơn",
+      "w": 240,
+      "x": 0,
+      "y": 4740
+    },
+    "zaloNote": {
+      "fill": "blue",
+      "page": "mobile",
+      "text": "App khách là vỏ WebView bọc web khách (D-42): giao diện app chính là web khách theme customer ở bề rộng điện thoại; M1 minh hoạ đăng nhập SĐT + PIN của web khách. Zalo Mini App dùng @fnb/ui-mobile (D-43): đăng nhập Z1 bằng tài khoản Zalo, không PIN, rồi dùng M2 → M7, chừa thanh điều hướng của Zalo.",
+      "w": 360,
+      "x": 470,
+      "y": 4684
+    },
+    "zaloTitle": {
+      "kind": "title1",
+      "maxW": 1400,
+      "page": "mobile",
+      "text": "Luồng Zalo Mini App",
+      "w": 240,
+      "x": 0,
+      "y": 4384
+    },
+    "adminHtTitle": {
+      "kind": "title1",
+      "maxW": 15000,
+      "page": "web",
+      "text": "Admin · Hệ thống: chi nhánh, nhân viên, nhóm quyền, thiết bị, mẫu in, nhật ký",
+      "x": 0,
+      "y": 7220
+    },
+    "adminSalesTitle": {
+      "kind": "title1",
+      "maxW": 15000,
+      "page": "web",
+      "text": "Admin · Thực đơn và bán hàng: nhóm món, tuỳ chọn, giá chi nhánh, trạm, đơn hàng, ca, sổ quỹ, thanh toán",
+      "x": 0,
+      "y": 9580
+    },
+    "adminStockTitle": {
+      "kind": "title1",
+      "maxW": 15000,
+      "page": "web",
+      "text": "Admin · Kho và báo cáo: nguyên liệu, định lượng, phiếu kho, kiểm kê, tồn kho, thẻ kho, báo cáo",
+      "x": 0,
+      "y": 12100
+    },
+    "adminHrTitle": {
+      "kind": "title1",
+      "maxW": 15000,
+      "page": "web",
+      "text": "Admin · Nhân sự và khách hàng: hồ sơ, lịch, bảng công, duyệt, lương, /me, khách, ưu đãi, đặt online, thành viên",
+      "x": 0,
+      "y": 14420
+    },
+    "posSalesExtraTitle": {
+      "kind": "title1",
+      "maxW": 14000,
+      "page": "pos",
+      "text": "POS · bán hàng và thanh toán bổ sung: đơn trong ca, duyệt tại chỗ, khách và ưu đãi, QR, chia tiền, máy cầm tay (D-35)",
+      "x": 0,
+      "y": 4920
+    },
+    "posOpsTitle": {
+      "kind": "title1",
+      "maxW": 14000,
+      "page": "pos",
+      "text": "POS · ca, máy in, thiết bị và KDS: nộp/rút tiền, báo cáo ca, máy in, hàng đợi in, đăng ký và cài đặt thiết bị, lịch sử phiếu",
+      "x": 0,
+      "y": 6500
+    }
+  },
+  "order": [
+    "spec-web.dc.html",
+    "ds-web-components.dc.html",
+    "ds-web-customer.dc.html",
+    "admin-login.dc.html",
+    "admin-dashboard.dc.html",
+    "admin-menu.dc.html",
+    "admin-menu-edit.dc.html",
+    "customer-web-home.dc.html",
+    "customer-web-product.dc.html",
+    "customer-web-login.dc.html",
+    "customer-web-checkout.dc.html",
+    "customer-web-pay-qr.dc.html",
+    "customer-web-order.dc.html",
+    "spec-mobile.dc.html",
+    "ds-mobile-components.dc.html",
+    "mobile-login.dc.html",
+    "mobile-menu.dc.html",
+    "mobile-product.dc.html",
+    "mobile-cart.dc.html",
+    "mobile-checkout-qr.dc.html",
+    "mobile-order-status.dc.html",
+    "mobile-account.dc.html",
+    "zalo-login.dc.html",
+    "spec-pos.dc.html",
+    "ds-pos-components.dc.html",
+    "pos-login.dc.html",
+    "pos-open-shift.dc.html",
+    "pos-sale.dc.html",
+    "pos-modifier.dc.html",
+    "pos-payment.dc.html",
+    "pos-paid.dc.html",
+    "kds-board.dc.html",
+    "pos-orders.dc.html",
+    "pos-close-shift.dc.html",
+    "ds-foundations.dc.html",
+    "admin-branches.dc.html",
+    "admin-staff.dc.html",
+    "admin-staff-access.dc.html",
+    "admin-roles.dc.html",
+    "admin-role-edit.dc.html",
+    "admin-role-compare.dc.html",
+    "admin-devices.dc.html",
+    "admin-print-templates.dc.html",
+    "admin-audit-log.dc.html",
+    "admin-categories.dc.html",
+    "admin-modifiers.dc.html",
+    "admin-branch-prices.dc.html",
+    "admin-stations.dc.html",
+    "admin-orders.dc.html",
+    "admin-order-detail.dc.html",
+    "admin-shifts.dc.html",
+    "admin-cashbook.dc.html",
+    "admin-payments.dc.html",
+    "admin-ingredients.dc.html",
+    "admin-recipes.dc.html",
+    "admin-stock-docs.dc.html",
+    "admin-stock-in.dc.html",
+    "admin-stocktake.dc.html",
+    "admin-stock.dc.html",
+    "admin-stock-card.dc.html",
+    "admin-reports.dc.html",
+    "admin-report-branches.dc.html",
+    "admin-hr-profile.dc.html",
+    "admin-schedule.dc.html",
+    "admin-timesheet.dc.html",
+    "admin-hr-requests.dc.html",
+    "admin-payroll.dc.html",
+    "admin-me.dc.html",
+    "admin-customers.dc.html",
+    "admin-vouchers.dc.html",
+    "admin-online-config.dc.html",
+    "admin-membership.dc.html",
+    "pos-order-list.dc.html",
+    "pos-order-detail.dc.html",
+    "pos-approval.dc.html",
+    "pos-customer.dc.html",
+    "pos-pay-qr.dc.html",
+    "pos-split-pay.dc.html",
+    "pos-handheld-sale.dc.html",
+    "pos-handheld-pay.dc.html",
+    "pos-cash-inout.dc.html",
+    "pos-shift-summary.dc.html",
+    "pos-printers.dc.html",
+    "pos-print-queue.dc.html",
+    "pos-device-register.dc.html",
+    "pos-device-settings.dc.html",
+    "kds-history.dc.html"
+  ],
+  "pages": [
+    {
+      "id": "foundations",
+      "name": "Nền tảng"
+    },
+    {
+      "id": "pos",
+      "name": "POS · POS web + KDS"
+    },
+    {
+      "id": "web",
+      "name": "Web · Admin + web khách (app khách = WebView)"
+    },
+    {
+      "id": "mobile",
+      "name": "Mobile · Zalo Mini App"
+    }
+  ],
+  "title": "FNB POS & Admin mockup"
+}

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>POS thanh toán xong</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#CA0404}a:hover{color:#9C0303}
+.fnb{--bg:#FFFFFF;--bg-subtle:#F9F6F4;--bg-muted:#F1ECE8;--border:#E4DAD4;--border-strong:#9F8D7F;--text:#282019;--text-muted:#6D5D51;--text-subtle:#7A695C;--primary:#CA0404;--primary-fg:#FFFFFF;--accent:#ED6F03;--accent-subtle:#FEE8DC;--accent-text:#984502;--success:#2F7D46;--success-fg:#FFFFFF;--success-subtle:#E0F3E3;--success-text:#17592C;--warning-subtle:#F9ECCE;--warning-text:#795B03;--shadow-sm:0 1px 2px rgba(40,32,25,.08),0 1px 3px rgba(40,32,25,.06);font-family:'Be Vietnam Pro',system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.45}
+.fnb.dark{--bg:#1A1411;--bg-subtle:#282019;--bg-muted:#3E332A;--border:#55473D;--border-strong:#857366;--text:#F9F6F4;--text-muted:#D1C3B9;--text-subtle:#B8A79A;--primary:#F84839;--primary-fg:#1A1411;--accent:#FA8840;--accent-subtle:#3A1600;--accent-text:#FEB187;--success:#58A46B;--success-fg:#1A1411;--success-subtle:#002A0E;--success-text:#A0D5AB;--warning-subtle:#2C1F00;--warning-text:#E7C067;--shadow-sm:0 1px 2px rgba(0,0,0,.4)}
+.fnb button{font-family:inherit;cursor:pointer}
+.fnb .num{font-variant-numeric:tabular-nums}
+.fnb .spin{width:18px;height:18px;border-radius:999px;border:2px solid currentColor;border-right-color:transparent;animation:fnbspin .8s linear infinite}
+@keyframes fnbspin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.fnb .spin{animation:none}}
+</style>
+</helmet>
+<div class="fnb {{themeClass}}" style="width: 1280px; height: 800px; display: flex; flex-direction: column; overflow: hidden; background: var(--bg-subtle)">
+
+  <header style="height: 56px; flex-shrink: 0; display: flex; align-items: center; gap: 16px; padding: 0 16px; background: var(--bg); border-bottom: 1px solid var(--border)">
+    <img src="/_blob/dbbc95b08d47870e1964f1322682c11f" alt="Banhkepchonong" style="width: 40px; height: 40px; object-fit: contain">
+    <div style="display: flex; flex-direction: column">
+      <span style="font-size: 14px; font-weight: 600">Banhkepchonong · Chi nhánh Quận 1</span>
+      <span style="font-size: 12px; color: var(--text-muted)">Ca sáng · Thu ngân: Nguyễn Lan</span>
+    </div>
+    <div style="flex-grow: 1"></div>
+    <span style="display: inline-flex; align-items: center; height: 28px; padding: 0 10px; border-radius: 999px; background: var(--success-subtle); color: var(--success-text); font-size: 13px; font-weight: 500">Trực tuyến</span>
+    <span class="num" style="font-size: 15px; font-weight: 600">10:45</span>
+  </header>
+
+  <main style="flex-grow: 1; display: flex; gap: 24px; padding: 24px; min-height: 0">
+    <!-- Queue number -->
+    <section aria-labelledby="noTitle" style="flex: 1 1 0; border-radius: 16px; background: var(--success-subtle); border: 2px solid var(--success); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center">
+      <span style="display: inline-flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 700; color: var(--success-text)">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+        Đã thu 198.000 ₫ · Tiền mặt
+      </span>
+      <span id="noTitle" style="font-size: 16px; font-weight: 700; letter-spacing: .06em; color: var(--success-text)">SỐ THỨ TỰ</span>
+      <span class="num" style="font-size: 180px; font-weight: 800; line-height: 1; color: var(--text)">#045</span>
+      <span style="font-size: 18px; color: var(--text)">Ăn tại quán · 4 món · đọc số này cho khách</span>
+    </section>
+
+    <!-- Details -->
+    <aside style="width: 400px; flex-shrink: 0; display: flex; flex-direction: column; gap: 12px">
+      <div style="padding: 20px; border-radius: 16px; background: var(--bg); border: 1px solid var(--border); display: flex; flex-direction: column; gap: 8px">
+        <div style="display: flex; justify-content: space-between; font-size: 15px; color: var(--text-muted)"><span>Khách đưa</span><span class="num">300.000 ₫</span></div>
+        <div style="display: flex; justify-content: space-between; align-items: baseline"><span style="font-size: 17px; font-weight: 700">Tiền thừa trả khách</span><span class="num" style="font-size: 32px; font-weight: 800">102.000 ₫</span></div>
+      </div>
+      <div style="padding: 16px 20px; border-radius: 16px; background: var(--bg); border: 1px solid var(--border); display: flex; flex-direction: column; gap: 12px">
+        <span style="display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; color: var(--success-text)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+          Đã gửi bếp: Bếp nóng 3 món, Bar 1 món
+        </span>
+        <span role="status" style="display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; color: var(--warning-text)">
+          <span class="spin" aria-hidden="true"></span>
+          Đang in hoá đơn · Máy in quầy (K80)
+        </span>
+        <span style="display: flex; align-items: center; gap: 10px; font-size: 15px; color: var(--text-muted)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          Đã đồng bộ lên máy chủ
+        </span>
+      </div>
+      <div style="padding: 12px 16px; border-radius: 10px; background: var(--accent-subtle); color: var(--accent-text); font-size: 14px">Khi bếp báo xong, số #045 hiện ở màn Gọi số tại quầy.</div>
+    </aside>
+  </main>
+
+  <footer style="height: 80px; flex-shrink: 0; display: flex; align-items: center; gap: 8px; padding: 0 16px; background: var(--bg); border-top: 1px solid var(--border)">
+    <button type="button" style="height: 56px; padding: 0 20px; border-radius: 10px; border: 1px solid var(--border-strong); background: var(--bg); color: var(--text); font-size: 16px; font-weight: 600; display: flex; align-items: center; gap: 8px">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      In lại
+    </button>
+    <a href="pos-orders.dc.html" style="height: 56px; padding: 0 20px; box-sizing: border-box; border-radius: 10px; border: 1px solid var(--border-strong); background: var(--bg); color: var(--text); font-size: 16px; font-weight: 600; display: flex; align-items: center; text-decoration: none">Đơn đang làm</a>
+    <div style="flex-grow: 1"></div>
+    <a href="pos-sale.dc.html" style="height: 56px; min-width: 280px; box-sizing: border-box; padding: 0 20px; border-radius: 10px; background: var(--primary); color: var(--primary-fg); font-size: 17px; font-weight: 700; display: flex; align-items: center; justify-content: center; text-decoration: none">Đơn mới</a>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { themeClass: this.props.dark ? 'dark' : '' };
+  }
+}
+</script>
+</body>
+</html>

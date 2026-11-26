@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Admin hồ sơ nhân viên</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#CA0404}a:hover{color:#9C0303}
+.fnb{--bg:#FFFFFF;--bg-subtle:#F9F6F4;--bg-muted:#F1ECE8;--border:#E4DAD4;--border-strong:#9F8D7F;--text:#282019;--text-muted:#6D5D51;--text-subtle:#7A695C;--text-inverse:#FFFFFF;--primary:#CA0404;--primary-fg:#FFFFFF;--primary-subtle:#FEE7E3;--primary-text:#9C0303;--accent:#ED6F03;--accent-fg:#211510;--accent-subtle:#FEE8DC;--accent-text:#984502;--success:#2F7D46;--success-fg:#FFFFFF;--success-subtle:#E0F3E3;--success-text:#17592C;--warning:#F5BC09;--warning-fg:#211510;--warning-subtle:#F9ECCE;--warning-text:#795B03;--danger:#C2185B;--danger-fg:#FFFFFF;--danger-subtle:#FFE5EA;--danger-text:#8B023D;--info:#2563A8;--info-fg:#FFFFFF;--info-subtle:#E1EEFE;--info-text:#184B83;--scrim:rgba(40,32,25,.5);--shadow-sm:0 1px 2px rgba(40,32,25,.08),0 1px 3px rgba(40,32,25,.06);--shadow-lg:0 12px 32px rgba(40,32,25,.18);font-family:'Be Vietnam Pro',system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.45}
+.fnb.dark{--bg:#1A1411;--bg-subtle:#282019;--bg-muted:#3E332A;--border:#55473D;--border-strong:#857366;--text:#F9F6F4;--text-muted:#D1C3B9;--text-subtle:#B8A79A;--text-inverse:#1A1411;--primary:#F84839;--primary-fg:#1A1411;--primary-subtle:#470000;--primary-text:#FEAEA2;--accent:#FA8840;--accent-fg:#1A1411;--accent-subtle:#3A1600;--accent-text:#FEB187;--success:#58A46B;--success-fg:#1A1411;--success-subtle:#002A0E;--success-text:#A0D5AB;--warning:#F5BC09;--warning-fg:#1A1411;--warning-subtle:#2C1F00;--warning-text:#E7C067;--danger:#EF4B7F;--danger-fg:#1A1411;--danger-subtle:#45001A;--danger-text:#FEAABC;--info:#5693DC;--info-fg:#1A1411;--info-subtle:#012145;--info-text:#9DC9FF;--scrim:rgba(0,0,0,.6);--shadow-sm:0 1px 2px rgba(0,0,0,.4);--shadow-lg:0 12px 32px rgba(0,0,0,.6)}
+.fnb button{font-family:inherit;cursor:pointer}
+.fnb .num{font-variant-numeric:tabular-nums}
+.fnb .nav:hover{background:var(--bg-muted)}
+.fnb .btn{height:40px;padding:0 14px;border-radius:10px;font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border-strong);background:var(--bg);color:var(--text);white-space:nowrap}
+.fnb .btn.p{background:var(--primary);color:var(--primary-fg);border-color:transparent}
+.fnb .btn.d{color:var(--danger-text);border-color:var(--danger)}
+.fnb .btn.g{border-color:transparent;background:transparent}
+.fnb .card{border:1px solid var(--border);border-radius:16px;background:var(--bg);padding:20px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.fnb .h2{margin:0;font-size:17px;font-weight:700}
+.fnb .muted{color:var(--text-muted)}
+.fnb .tbl{width:100%;border-collapse:collapse;font-size:14px}
+.fnb .tbl th{text-align:left;padding:10px 12px;background:var(--bg-subtle);color:var(--text-muted);font-weight:600;border-bottom:1px solid var(--border);white-space:nowrap}
+.fnb .tbl td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+.fnb .inp{min-height:40px;box-sizing:border-box;padding:0 12px;border:1px solid var(--border-strong);border-radius:10px;background:var(--bg);color:var(--text);font:inherit;font-size:14px;display:flex;align-items:center;gap:8px}
+.fnb .lbl{display:flex;flex-direction:column;gap:6px;font-size:14px;min-width:0}
+.fnb .lbl>span:first-child{font-weight:600}
+.fnb .grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.fnb .badge{display:inline-flex;align-items:center;gap:4px;height:26px;padding:0 10px;border-radius:999px;font-size:13px;font-weight:600;white-space:nowrap}
+.fnb .b-ok{background:var(--success-subtle);color:var(--success-text)}.fnb .b-warn{background:var(--warning-subtle);color:var(--warning-text)}.fnb .b-bad{background:var(--danger-subtle);color:var(--danger-text)}.fnb .b-info{background:var(--info-subtle);color:var(--info-text)}.fnb .b-acc{background:var(--accent-subtle);color:var(--accent-text)}.fnb .b-neu{background:var(--bg-muted);color:var(--text-muted)}
+</style>
+</helmet>
+<div class="fnb {{themeClass}}" style="width: 100%; min-height: 1400px; display: flex; flex-wrap: wrap; background: var(--bg)">
+
+  <!-- Sidebar -->
+  <nav aria-label="Menu chính" style="flex: 1 1 248px; max-width: 100%; box-sizing: border-box; padding: 16px 12px; background: var(--bg-subtle); border-right: 1px solid var(--border); display: flex; flex-direction: column; gap: 2px">
+    <div style="display: flex; align-items: center; gap: 10px; padding: 4px 8px 12px">
+      <img src="/_blob/dbbc95b08d47870e1964f1322682c11f" alt="" style="width: 36px; height: 36px; object-fit: contain">
+      <div style="display: flex; flex-direction: column">
+        <span style="font-size: 15px; font-weight: 700">Banhkepchonong</span>
+        <span style="font-size: 12px; color: var(--text-muted)">Quản trị</span>
+      </div>
+    </div>
+    <sc-for list="{{ nav }}" as="n" hint-placeholder-count="20">
+      <sc-if value="{{ n.isGroup }}" hint-placeholder-val="{{ false }}">
+        <span style="padding: 12px 12px 4px; font-size: 12px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--text-subtle)">{{ n.label }}</span>
+      </sc-if>
+      <sc-if value="{{ n.isItem }}" hint-placeholder-val="{{ true }}">
+        <a href="#" class="nav" aria-current="{{ n.current }}" style="{{ n.style }}">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ n.icon }}"/></svg>
+          {{ n.label }}
+        </a>
+      </sc-if>
+    </sc-for>
+  </nav>
+
+  <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+    <!-- Top bar -->
+    <header style="min-height: 60px; display: flex; align-items: center; gap: 12px; padding: 0 24px; border-bottom: 1px solid var(--border); flex-wrap: wrap">
+      <button type="button" class="btn" style="font-weight: 500">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"/></svg>
+        Tất cả chi nhánh
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <div style="flex-grow: 1"></div>
+      <button type="button" aria-label="Giao diện sáng tối" style="width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg); color: var(--text-muted); display: flex; align-items: center; justify-content: center">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+      </button>
+      <div role="group" aria-label="Ngôn ngữ" style="display: flex; border: 1px solid var(--border); border-radius: 10px; overflow: hidden">
+        <button type="button" style="height: 38px; min-width: 44px; border: 0; background: var(--bg-muted); color: var(--text); font-size: 13px; font-weight: 600">VI</button>
+        <button type="button" style="height: 38px; min-width: 44px; border: 0; background: var(--bg); color: var(--text-muted); font-size: 13px; font-weight: 500">EN</button>
+      </div>
+      <button type="button" aria-label="Tài khoản" style="height: 40px; padding: 0 8px 0 4px; border-radius: 999px; border: 1px solid var(--border); background: var(--bg); color: var(--text); display: flex; align-items: center; gap: 8px; font-size: 14px">
+        <span style="width: 32px; height: 32px; border-radius: 999px; background: var(--accent-subtle); color: var(--accent-text); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px">LH</span>
+        Lê Hà · Quản lý
+      </button>
+    </header>
+
+    <main style="padding: 24px; display: flex; flex-direction: column; gap: 16px; max-width: 1280px; width: 100%; box-sizing: border-box">
+      <!-- PageHeader -->
+      <div style="display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap">
+        <div style="flex-grow: 1; display: flex; align-items: center; gap: 14px">
+          <span style="width: 56px; height: 56px; border-radius: 999px; background: var(--info-subtle); color: var(--info-text); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px">TM</span>
+          <div style="display: flex; flex-direction: column; gap: 4px">
+            <span style="font-size: 13px; color: var(--text-muted)">Nhân sự / Nhân viên / Hồ sơ</span>
+            <h1 style="margin: 0; font-size: 26px; font-weight: 700; line-height: 1.3">Trần Minh</h1>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap">
+              <span class="badge b-ok"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Đang làm</span>
+              <span class="badge b-neu">Thu ngân · Quận 1</span>
+              <span class="badge b-neu">Phục vụ · Thủ Đức</span>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11h14a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Đặt lại PIN
+        </button>
+        <button type="button" class="btn p">Lưu thay đổi</button>
+      </div>
+
+      <!-- Tabs -->
+      <div role="tablist" aria-label="Hồ sơ nhân viên" style="display: flex; gap: 24px; border-bottom: 1px solid var(--border); font-size: 14px">
+        <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+          <button type="button" role="tab" aria-selected="{{ t.sel }}" style="{{ t.style }}">{{ t.label }}</button>
+        </sc-for>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start">
+        <!-- Personal -->
+        <section class="card">
+          <h2 class="h2">Thông tin cá nhân</h2>
+          <div class="grid2">
+            <label class="lbl"><span>Họ tên</span><span class="inp">Trần Minh</span></label>
+            <label class="lbl"><span>Ngày sinh</span><span class="inp num">14/03/2001</span></label>
+            <label class="lbl"><span>Số điện thoại</span><span class="inp num">0903 112 458</span></label>
+            <label class="lbl"><span>CCCD</span><span class="inp num">079201•••••• 482</span></label>
+          </div>
+          <label class="lbl"><span>Địa chỉ</span><span class="inp">45 Nguyễn Trãi, Phường 2, Quận 5, TP.HCM</span></label>
+          <div class="grid2">
+            <label class="lbl"><span>Liên hệ khẩn cấp</span><span class="inp">Trần Thị Hoa (mẹ)</span></label>
+            <label class="lbl"><span>SĐT khẩn cấp</span><span class="inp num">0912 774 306</span></label>
+          </div>
+        </section>
+
+        <!-- Work -->
+        <section class="card">
+          <h2 class="h2">Công việc</h2>
+          <div class="grid2">
+            <label class="lbl"><span>Tên đăng nhập</span><span class="inp" style="font-family: ui-monospace, monospace">minh.tran</span></label>
+            <label class="lbl"><span>Chức danh</span><span class="inp" style="justify-content: space-between">Thu ngân<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span></label>
+            <label class="lbl"><span>Ngày vào làm</span><span class="inp num">02/09/2025</span></label>
+            <label class="lbl"><span>Loại hợp đồng</span><span class="inp" style="justify-content: space-between">Bán thời gian<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span></label>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 8px">
+            <span style="font-size: 14px; font-weight: 600">Chi nhánh làm việc</span>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap">
+              <span class="badge b-info">Quận 1 · chi nhánh chính</span>
+              <span class="badge b-neu">Thủ Đức</span>
+              <button type="button" class="btn g" style="height: 28px; padding: 0 8px; font-size: 13px">+ Thêm chi nhánh</button>
+            </div>
+            <span class="muted" style="font-size: 13px">Nhóm quyền gán theo từng chi nhánh ở tab Phân quyền (D-40).</span>
+          </div>
+          <div class="grid2">
+            <label class="lbl"><span>Ngân hàng</span><span class="inp">Vietcombank</span></label>
+            <label class="lbl"><span>Số tài khoản</span><span class="inp num">0071 •••• 2219</span></label>
+          </div>
+        </section>
+
+        <!-- Pay -->
+        <section class="card" style="grid-column: 1 / -1">
+          <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap">
+            <h2 class="h2" style="flex-grow: 1">Lương theo chi nhánh</h2>
+            <span class="muted" style="font-size: 13px">Mức mới có ngày hiệu lực; mức cũ giữ lại làm lịch sử (HR-02, HR-03)</span>
+            <button type="button" class="btn">+ Thêm mức lương</button>
+          </div>
+          <div style="border: 1px solid var(--border); border-radius: 10px; overflow-x: auto">
+            <table class="tbl" style="min-width: 760px">
+              <thead><tr><th scope="col">Chi nhánh</th><th scope="col">Loại lương</th><th scope="col" style="text-align: right">Mức</th><th scope="col">Hiệu lực từ</th><th scope="col">Trạng thái</th></tr></thead>
+              <tbody>
+                <sc-for list="{{ rates }}" as="r" hint-placeholder-count="3">
+                  <tr style="{{ r.rowStyle }}">
+                    <td style="font-weight: 600">{{ r.branch }}</td>
+                    <td>{{ r.type }}</td>
+                    <td class="num" style="text-align: right; font-weight: 600">{{ r.amount }}</td>
+                    <td class="num">{{ r.from }}</td>
+                    <td><span class="badge {{ r.cls }}">{{ r.status }}</span></td>
+                  </tr>
+                </sc-for>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Allowances -->
+        <section class="card">
+          <div style="display: flex; align-items: center; gap: 12px">
+            <h2 class="h2" style="flex-grow: 1">Phụ cấp</h2>
+            <button type="button" class="btn g" style="height: 32px; font-size: 13px">+ Thêm</button>
+          </div>
+          <sc-for list="{{ allowances }}" as="a" hint-placeholder-count="3">
+            <div style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px">
+              <div style="flex-grow: 1; display: flex; flex-direction: column">
+                <span style="font-weight: 600; font-size: 14px">{{ a.name }}</span>
+                <span class="muted" style="font-size: 13px">{{ a.rule }}</span>
+              </div>
+              <span class="num" style="font-weight: 700">{{ a.amount }}</span>
+            </div>
+          </sc-for>
+        </section>
+
+        <!-- Documents -->
+        <section class="card">
+          <div style="display: flex; align-items: center; gap: 12px">
+            <h2 class="h2" style="flex-grow: 1">Giấy tờ</h2>
+            <button type="button" class="btn g" style="height: 32px; font-size: 13px">Tải lên</button>
+          </div>
+          <sc-for list="{{ docs }}" as="d" hint-placeholder-count="3">
+            <div style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6"/></svg>
+              <div style="flex-grow: 1; display: flex; flex-direction: column">
+                <span style="font-weight: 600; font-size: 14px">{{ d.name }}</span>
+                <span class="muted" style="font-size: 13px">{{ d.meta }}</span>
+              </div>
+              <button type="button" aria-label="{{ d.aria }}" class="btn g" style="height: 32px; padding: 0 8px">Xem</button>
+            </div>
+          </sc-for>
+        </section>
+      </div>
+
+      <!-- FormActions -->
+      <div style="display: flex; align-items: center; gap: 12px; padding-top: 16px; border-top: 1px solid var(--border); flex-wrap: wrap">
+        <button type="button" class="btn d">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8M17 8l5 5M22 8l-5 5"/></svg>
+          Cho nghỉ việc
+        </button>
+        <span class="muted" style="font-size: 13px">Khoá tài khoản, giữ nguyên dữ liệu công và lương (HR-04)</span>
+        <div style="flex-grow: 1"></div>
+        <button type="button" class="btn">Huỷ</button>
+      </div>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":1440,"height":1400}}'>
+class Component extends DCLogic {
+  navItems(active) {
+    const I = {
+      home: 'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zM9 22V12h6v10',
+      receipt: 'M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1ZM16 8h-6M16 12H8M13 16H8',
+      wallet: 'M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4',
+      book: 'M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20',
+      card: 'M2 5h20v14H2zM2 10h20',
+      utensils: 'M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2M7 2v20M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7',
+      folder: 'M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z',
+      sliders: 'M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6',
+      flame: 'M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z',
+      box: 'M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16ZM3.3 7 12 12l8.7-5M12 22V12',
+      file: 'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M8 13h8M8 17h8',
+      check: 'M9 2h6v4H9zM16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2M9 14l2 2 4-4',
+      warehouse: 'M22 8.35V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8.35A2 2 0 0 1 3.26 6.5l8-3.2a2 2 0 0 1 1.48 0l8 3.2A2 2 0 0 1 22 8.35ZM6 18h12M6 14h12',
+      heart: 'M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z',
+      tag: 'M12 2H2v10l9.29 9.29a1 1 0 0 0 1.41 0l8.59-8.59a1 1 0 0 0 0-1.41ZM7 7h.01',
+      globe: 'M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10',
+      users: 'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75',
+      calendar: 'M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2',
+      clock: 'M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20M12 6v6l4 2',
+      money: 'M2 6h20v12H2zM12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6M6 12h.01M18 12h.01',
+      chart: 'M3 3v18h18M18 17V9M13 17V5M8 17v-3',
+      store: 'M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1',
+      shield: 'M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z',
+      printer: 'M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z',
+      template: 'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M10 9H8M16 13H8M16 17H8',
+      history: 'M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8M3 3v5h5M12 7v5l4 2'
+    };
+    const NAV = [
+      ['item', 'Tổng quan', 'home'],
+      ['group', 'Bán hàng'], ['item', 'Đơn hàng', 'receipt'], ['item', 'Ca thu ngân', 'wallet'], ['item', 'Sổ quỹ', 'book'], ['item', 'Thanh toán', 'card'],
+      ['group', 'Thực đơn'], ['item', 'Món', 'utensils'], ['item', 'Nhóm món', 'folder'], ['item', 'Tuỳ chọn', 'sliders'], ['item', 'Trạm chế biến', 'flame'],
+      ['group', 'Kho'], ['item', 'Nguyên liệu', 'box'], ['item', 'Phiếu kho', 'file'], ['item', 'Kiểm kê', 'check'], ['item', 'Tồn kho', 'warehouse'],
+      ['group', 'Khách hàng'], ['item', 'Khách hàng', 'heart'], ['item', 'Ưu đãi', 'tag'], ['item', 'Đặt món online', 'globe'],
+      ['group', 'Nhân sự'], ['item', 'Nhân viên', 'users'], ['item', 'Lịch làm việc', 'calendar'], ['item', 'Bảng công', 'clock'], ['item', 'Lương', 'money'],
+      ['item', 'Báo cáo', 'chart'],
+      ['group', 'Hệ thống'], ['item', 'Chi nhánh', 'store'], ['item', 'Nhóm quyền', 'shield'], ['item', 'Thiết bị và máy in', 'printer'], ['item', 'Mẫu in', 'template'], ['item', 'Nhật ký', 'history']
+    ];
+    const base = 'display: flex; align-items: center; gap: 10px; height: 36px; padding: 0 12px; border-radius: 10px; font-size: 14px; text-decoration: none; ';
+    return NAV.map(([kind, label, icon]) => ({
+      isGroup: kind === 'group', isItem: kind === 'item', label, icon: I[icon] ?? '',
+      current: kind === 'item' && label === active ? 'page' : 'false',
+      style: base + (kind === 'item' && label === active ? 'background: var(--primary-subtle); color: var(--primary-text); font-weight: 600;' : 'color: var(--text-muted); font-weight: 500;')
+    }));
+  }
+  renderVals() {
+    const tabs = ['Hồ sơ', 'Phân quyền', 'Lịch và công', 'Lương'].map((label, i) => ({
+      label, sel: i === 0 ? 'true' : 'false',
+      style: 'height: 44px; padding: 0; border: 0; background: transparent; font-size: 14px; ' + (i === 0 ? 'border-bottom: 2px solid var(--primary); color: var(--text); font-weight: 600;' : 'border-bottom: 2px solid transparent; color: var(--text-muted);')
+    }));
+    const rates = [
+      { branch: 'Quận 1', type: 'Theo giờ', amount: '28.000 ₫/giờ', from: '01/10/2026', status: 'Đang áp dụng', cls: 'b-ok', rowStyle: '' },
+      { branch: 'Thủ Đức', type: 'Theo giờ', amount: '30.000 ₫/giờ', from: '01/10/2026', status: 'Đang áp dụng', cls: 'b-ok', rowStyle: '' },
+      { branch: 'Quận 1', type: 'Theo giờ', amount: '25.000 ₫/giờ', from: '02/09/2025', status: 'Lịch sử', cls: 'b-neu', rowStyle: 'color: var(--text-muted);' }
+    ];
+    const allowances = [
+      { name: 'Ăn ca', rule: 'Theo ngày công', amount: '25.000 ₫/ngày' },
+      { name: 'Xăng xe', rule: 'Cố định hằng tháng', amount: '300.000 ₫' },
+      { name: 'Trách nhiệm thu ngân', rule: 'Cố định, chỉ ở Quận 1', amount: '500.000 ₫' }
+    ];
+    const docs = [
+      { name: 'CCCD mặt trước', meta: 'Ảnh · tải lên 02/09/2025' },
+      { name: 'CCCD mặt sau', meta: 'Ảnh · tải lên 02/09/2025' },
+      { name: 'Hợp đồng bán thời gian', meta: 'PDF · hết hạn 01/09/2027' }
+    ].map((d) => ({ ...d, aria: 'Xem ' + d.name }));
+    return { themeClass: this.props.dark ? 'dark' : '', nav: this.navItems('Nhân viên'), tabs, rates, allowances, docs };
+  }
+}
+</script>
+</body>
+</html>

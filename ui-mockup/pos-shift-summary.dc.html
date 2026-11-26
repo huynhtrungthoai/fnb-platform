@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>POS xem nhanh ca</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#CA0404}a:hover{color:#9C0303}
+.fnb{--bg:#FFFFFF;--bg-subtle:#F9F6F4;--bg-muted:#F1ECE8;--border:#E4DAD4;--border-strong:#9F8D7F;--text:#282019;--text-muted:#6D5D51;--text-subtle:#7A695C;--primary:#CA0404;--primary-fg:#FFFFFF;--success-subtle:#E0F3E3;--success-text:#17592C;--warning-subtle:#F9ECCE;--warning-text:#795B03;--danger-subtle:#FFE5EA;--danger-text:#8B023D;--paper:#FFFFFF;--ink:#1A1411;--shadow-md:0 4px 12px rgba(40,32,25,.12);font-family:'Be Vietnam Pro',system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.45}
+.fnb.dark{--bg:#1A1411;--bg-subtle:#282019;--bg-muted:#3E332A;--border:#55473D;--border-strong:#857366;--text:#F9F6F4;--text-muted:#D1C3B9;--text-subtle:#B8A79A;--primary:#F84839;--primary-fg:#1A1411;--success-subtle:#002A0E;--success-text:#A0D5AB;--warning-subtle:#2C1F00;--warning-text:#E7C067;--danger-subtle:#45001A;--danger-text:#FEAABC;--shadow-md:0 4px 12px rgba(0,0,0,.5)}
+.fnb button{font-family:inherit;cursor:pointer}
+.fnb .num{font-variant-numeric:tabular-nums}
+.fnb .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+</style>
+</helmet>
+<div class="fnb {{themeClass}}" style="width: 1280px; height: 800px; display: flex; flex-direction: column; overflow: hidden; background: var(--bg-subtle)">
+
+  <header style="height: 56px; flex-shrink: 0; display: flex; align-items: center; gap: 16px; padding: 0 16px; background: var(--bg); border-bottom: 1px solid var(--border)">
+    <img src="/_blob/dbbc95b08d47870e1964f1322682c11f" alt="Banhkepchonong" style="width: 40px; height: 40px; object-fit: contain">
+    <div style="display: flex; flex-direction: column">
+      <span style="font-size: 14px; font-weight: 600">Banhkepchonong · Chi nhánh Quận 1</span>
+      <span style="font-size: 12px; color: var(--text-muted)">Ca sáng · Thu ngân: Nguyễn Lan</span>
+    </div>
+    <div style="flex-grow: 1"></div>
+    <span style="display: inline-flex; align-items: center; height: 28px; padding: 0 10px; border-radius: 999px; background: var(--success-subtle); color: var(--success-text); font-size: 13px; font-weight: 500">Máy in sẵn sàng</span>
+    <span class="num" style="font-size: 15px; font-weight: 600">14:00</span>
+  </header>
+
+  <main style="flex-grow: 1; display: flex; gap: 24px; padding: 20px 24px; min-height: 0">
+    <section aria-labelledby="sumTitle" style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+      <div style="display: flex; align-items: baseline; gap: 12px">
+        <h1 id="sumTitle" style="margin: 0; font-size: 24px; font-weight: 700">Ca đang mở</h1>
+        <span style="font-size: 15px; color: var(--text-muted)">Mở 09:40 bởi Nguyễn Lan · máy POS-Q1-01 · đang mở 4 giờ 20 phút</span>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">
+        <sc-for list="{{ stats }}" as="s" hint-placeholder-count="6">
+          <div style="padding: 14px 16px; border-radius: 16px; background: var(--bg); border: 1px solid var(--border); display: flex; flex-direction: column; gap: 2px">
+            <span style="font-size: 14px; color: var(--text-muted)">{{ s.label }}</span>
+            <span class="num" style="font-size: 24px; font-weight: 800">{{ s.value }}</span>
+            <span style="font-size: 13px; color: var(--text-muted)">{{ s.note }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div style="padding: 16px 20px; border-radius: 16px; background: var(--bg); border: 1px solid var(--border); display: flex; flex-direction: column; gap: 8px; font-size: 15px">
+        <span style="font-weight: 700">Tiền mặt dự kiến trong két</span>
+        <sc-for list="{{ calc }}" as="c" hint-placeholder-count="5">
+          <div style="display: flex; justify-content: space-between; color: var(--text-muted)"><span>{{ c.label }}</span><span class="num">{{ c.value }}</span></div>
+        </sc-for>
+        <div style="display: flex; justify-content: space-between; font-weight: 800; font-size: 18px; padding-top: 8px; border-top: 1px dashed var(--border-strong)"><span>Dự kiến</span><span class="num">4.940.000 ₫</span></div>
+        <span style="font-size: 13px; color: var(--text-subtle)">Chỉ hiện với quyền xem tiền dự kiến (cash.view_expected).</span>
+      </div>
+      <div role="status" style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 10px; background: var(--warning-subtle); color: var(--warning-text); font-size: 14px">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3M12 9v4M12 17h.01"/></svg>
+        <span>Còn 1 đơn chưa thanh toán (#046, lưu tạm). Phải thu hoặc chuyển sang ca sau mới đóng ca được.</span>
+      </div>
+    </section>
+
+    <!-- ReceiptPreview K80 -->
+    <aside aria-label="Xem trước báo cáo ca khổ K80" style="width: 380px; flex-shrink: 0; display: flex; flex-direction: column; gap: 8px; min-height: 0">
+      <div style="display: flex; justify-content: space-between; align-items: center">
+        <span style="font-size: 15px; font-weight: 700">Báo cáo ca · K80</span>
+        <span style="font-size: 13px; color: var(--text-muted)">Bản in tiếng Việt</span>
+      </div>
+      <div class="mono" style="flex-grow: 1; overflow: hidden; padding: 16px 18px; background: var(--paper); color: var(--ink); border: 1px solid var(--border); box-shadow: var(--shadow-md); font-size: 12px; line-height: 1.5; display: flex; flex-direction: column; gap: 2px">
+        <span style="text-align: center; font-weight: 700; font-size: 14px">BANHKEPCHONONG · QUẬN 1</span>
+        <span style="text-align: center; font-weight: 700; font-size: 16px; margin: 4px 0">BÁO CÁO CA (TẠM)</span>
+        <span>Ca sáng · 26/11/2026 09:40–14:00</span>
+        <span>Thu ngân: Nguyễn Lan · POS-Q1-01</span>
+        <span>------------------------------------------</span>
+        <sc-for list="{{ receipt }}" as="r" hint-placeholder-count="8">
+          <span style="display: flex; justify-content: space-between"><span>{{ r.l }}</span><span>{{ r.v }}</span></span>
+        </sc-for>
+        <span>------------------------------------------</span>
+        <span style="display: flex; justify-content: space-between; font-weight: 700"><span>TIỀN MẶT DỰ KIẾN</span><span>4.940.000</span></span>
+        <span style="margin-top: 6px; text-align: center">In lúc 14:00 · bản xem trong ca</span>
+      </div>
+    </aside>
+  </main>
+
+  <footer style="height: 80px; flex-shrink: 0; display: flex; align-items: center; gap: 8px; padding: 0 16px; background: var(--bg); border-top: 1px solid var(--border)">
+    <a href="pos-sale.dc.html" style="height: 56px; padding: 0 20px; box-sizing: border-box; border-radius: 10px; border: 1px solid var(--border-strong); background: var(--bg); color: var(--text); font-size: 16px; font-weight: 600; display: flex; align-items: center; text-decoration: none">Quay lại bán hàng</a>
+    <a href="pos-cash-inout.dc.html" style="height: 56px; padding: 0 20px; box-sizing: border-box; border-radius: 10px; border: 1px solid var(--border-strong); background: var(--bg); color: var(--text); font-size: 16px; font-weight: 600; display: flex; align-items: center; text-decoration: none">Nộp / rút tiền</a>
+    <div style="flex-grow: 1"></div>
+    <button type="button" style="height: 56px; padding: 0 20px; border-radius: 10px; border: 1px solid var(--border-strong); background: var(--bg); color: var(--text); font-size: 16px; font-weight: 600; display: flex; align-items: center; gap: 8px">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg>
+      In lại báo cáo
+    </button>
+    <a href="pos-close-shift.dc.html" style="height: 56px; min-width: 240px; box-sizing: border-box; padding: 0 20px; border-radius: 10px; background: var(--primary); color: var(--primary-fg); font-size: 17px; font-weight: 700; display: flex; align-items: center; justify-content: center; text-decoration: none">Đóng ca</a>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const stats = [
+      { label: 'Doanh thu', value: '6.120.000 ₫', note: 'Đã gồm giảm giá 85.000 ₫' },
+      { label: 'Số đơn', value: '92', note: 'TB 66.500 ₫ / đơn' },
+      { label: 'Tiền mặt', value: '3.940.000 ₫', note: '61 đơn' },
+      { label: 'Chuyển khoản QR', value: '2.180.000 ₫', note: '31 đơn' },
+      { label: 'Nộp / rút', value: '+500.000 / −500.000', note: '2 phiếu' },
+      { label: 'Huỷ món · hoàn', value: '2 · 0', note: 'Huỷ 2× Gà viên chiên' }
+    ];
+    const calc = [
+      { label: 'Tiền đầu ca', value: '1.000.000 ₫' },
+      { label: '+ Thu tiền mặt', value: '3.940.000 ₫' },
+      { label: '− Hoàn tiền mặt', value: '0 ₫' },
+      { label: '+ Nộp vào', value: '500.000 ₫' },
+      { label: '− Rút ra', value: '500.000 ₫' }
+    ];
+    const receipt = [
+      { l: 'Số đơn', v: '92' }, { l: 'Doanh thu', v: '6.120.000' }, { l: ' Tiền mặt', v: '3.940.000' }, { l: ' Chuyển khoản QR', v: '2.180.000' },
+      { l: 'Giảm giá', v: '85.000' }, { l: 'Huỷ món (2)', v: '64.000' }, { l: 'Hoàn tiền', v: '0' }, { l: 'Đầu ca', v: '1.000.000' },
+      { l: 'Nộp vào', v: '500.000' }, { l: 'Rút ra', v: '500.000' }
+    ];
+    return { themeClass: this.props.dark ? 'dark' : '', stats, calc, receipt };
+  }
+}
+</script>
+</body>
+</html>

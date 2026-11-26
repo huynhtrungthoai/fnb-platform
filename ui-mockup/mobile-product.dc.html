@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Mobile chọn món</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&amp;family=Baloo+2:wght@700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#CA0404}a:hover{color:#9C0303}
+.fnb{--bg:#FFFFFF;--bg-subtle:#F9F6F4;--bg-muted:#F1ECE8;--border:#E4DAD4;--border-strong:#9F8D7F;--text:#282019;--text-muted:#6D5D51;--text-subtle:#7A695C;--primary:#CA0404;--primary-fg:#FFFFFF;--primary-subtle:#FEE7E3;--primary-text:#9C0303;--accent:#ED6F03;--accent-fg:#211510;--brick:#8A2A26;--scrim:rgba(40,32,25,.55);--shadow-lg:0 -8px 24px rgba(40,32,25,.18);font-family:'Be Vietnam Pro',system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.45}
+.fnb.dark{--bg:#1A1411;--bg-subtle:#282019;--bg-muted:#3E332A;--border:#55473D;--border-strong:#857366;--text:#F9F6F4;--text-muted:#D1C3B9;--text-subtle:#B8A79A;--primary:#F84839;--primary-fg:#1A1411;--primary-subtle:#470000;--primary-text:#FEAEA2;--accent:#FA8840;--accent-fg:#1A1411;--brick:#62211E;--scrim:rgba(0,0,0,.65);--shadow-lg:0 -8px 24px rgba(0,0,0,.5)}
+.fnb button{font-family:inherit;cursor:pointer}
+.fnb .num{font-variant-numeric:tabular-nums}
+.fnb .display{font-family:'Baloo 2',sans-serif;font-weight:800;line-height:1.15}
+</style>
+</helmet>
+<div class="fnb {{themeClass}}" style="position: relative; width: 390px; height: 844px; overflow: hidden; background: var(--bg)">
+
+  <!-- Menu behind (dimmed) -->
+  <div aria-hidden="true" style="position: absolute; inset: 0; display: flex; flex-direction: column">
+    <div style="height: 104px; background: var(--brick); display: flex; align-items: center; gap: 10px; padding: 0 16px">
+      <img src="/_blob/dbbc95b08d47870e1964f1322682c11f" alt="" style="width: 44px; height: 44px; object-fit: contain">
+      <span class="display" style="font-size: 22px; color: #FFFFFF">Banhkepchonong</span>
+    </div>
+    <div style="padding: 16px; display: flex; flex-direction: column; gap: 10px">
+      <div style="height: 98px; border-radius: 16px; background: var(--bg-muted)"></div>
+      <div style="height: 98px; border-radius: 16px; background: var(--bg-muted)"></div>
+    </div>
+  </div>
+  <div style="position: absolute; inset: 0; background: var(--scrim)"></div>
+
+  <!-- Sheet -->
+  <section role="dialog" aria-modal="true" aria-labelledby="pTitle" style="position: absolute; left: 0; right: 0; bottom: 0; top: 64px; border-radius: 24px 24px 0 0; background: var(--bg); box-shadow: var(--shadow-lg); display: flex; flex-direction: column; overflow: hidden">
+    <div style="position: relative; flex-shrink: 0; aspect-ratio: 4 / 3; max-height: 240px; background: var(--bg-muted); display: flex; align-items: center; justify-content: center; color: var(--text-subtle)">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2M7 2v20M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>
+      <span style="position: absolute; top: 8px; left: 50%; transform: translateX(-50%); width: 40px; height: 4px; border-radius: 999px; background: var(--border-strong)"></span>
+      <a href="mobile-menu.dc.html" aria-label="Đóng" style="position: absolute; top: 14px; right: 14px; width: 44px; height: 44px; border-radius: 999px; background: var(--bg); color: var(--text); display: flex; align-items: center; justify-content: center">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </a>
+      <span style="position: absolute; bottom: 12px; left: 16px; height: 24px; padding: 0 10px; border-radius: 999px; background: var(--accent); color: var(--accent-fg); font-size: 12px; font-weight: 800; display: flex; align-items: center">-20% Thứ Ba</span>
+    </div>
+
+    <div style="flex-grow: 1; overflow: hidden; display: flex; flex-direction: column">
+      <div style="padding: 14px 16px 10px; display: flex; flex-direction: column; gap: 2px">
+        <h1 id="pTitle" class="display" style="margin: 0; font-size: 26px">Hotdog phô mai</h1>
+        <span style="font-size: 14px; color: var(--text-muted)">Phô mai cheddar tan chảy, hành phi, bánh mì nướng giòn.</span>
+        <span class="num" style="font-size: 16px; font-weight: 800; margin-top: 4px">Từ 45.000 ₫</span>
+      </div>
+
+      <sc-for list="{{ groups }}" as="g" hint-placeholder-count="2">
+        <div style="padding: 10px 16px; background: var(--bg-subtle); display: flex; justify-content: space-between; align-items: baseline">
+          <span style="font-size: 15px; font-weight: 700">{{ g.title }}</span>
+          <span style="{{ g.ruleStyle }}">{{ g.rule }}</span>
+        </div>
+        <sc-for list="{{ g.options }}" as="o" hint-placeholder-count="2">
+          <label style="{{ o.rowStyle }}">
+            <input type="{{ g.inputType }}" name="{{ g.name }}" checked="{{ o.checked }}" disabled="{{ o.disabled }}" style="width: 20px; height: 20px; accent-color: var(--primary)">
+            <span style="flex-grow: 1">{{ o.label }}</span>
+            <span class="num" style="color: var(--text-muted)">{{ o.price }}</span>
+          </label>
+        </sc-for>
+      </sc-for>
+
+      <label style="padding: 10px 16px; display: flex; flex-direction: column; gap: 6px; font-size: 14px">
+        <span style="font-weight: 700">Ghi chú cho quán</span>
+        <span style="height: 44px; box-sizing: border-box; padding: 0 14px; border: 1px solid var(--border-strong); border-radius: 12px; display: flex; align-items: center; color: var(--text-subtle); font-size: 15px">Ví dụ: ít sốt, không hành</span>
+      </label>
+    </div>
+
+    <div style="flex-shrink: 0; display: flex; gap: 10px; padding: 12px 16px 28px; border-top: 1px solid var(--border)">
+      <div role="group" aria-label="Số lượng" style="display: flex; align-items: center; border: 1px solid var(--border-strong); border-radius: 16px; overflow: hidden">
+        <button type="button" aria-label="Giảm" style="width: 44px; height: 50px; border: 0; background: var(--bg); color: var(--text); font-size: 20px">−</button>
+        <span class="num" style="min-width: 28px; text-align: center; font-weight: 700">1</span>
+        <button type="button" aria-label="Tăng" style="width: 44px; height: 50px; border: 0; background: var(--bg); color: var(--text); font-size: 20px">+</button>
+      </div>
+      <a href="mobile-cart.dc.html" class="num" style="flex-grow: 1; height: 52px; border-radius: 16px; background: var(--primary); color: var(--primary-fg); font-size: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; text-decoration: none">Thêm · 55.000 ₫</a>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const row = (disabled) => 'display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 0 16px; border-bottom: 1px solid var(--border); font-size: 15px;' + (disabled ? ' color: var(--text-subtle);' : '');
+    const groups = [
+      {
+        title: 'Chọn sốt', name: 'sauce', inputType: 'radio', rule: 'Bắt buộc · chọn 1',
+        ruleStyle: 'font-size: 12px; font-weight: 700; color: var(--primary-text);',
+        options: [
+          { label: 'Sốt cay', price: '+0 ₫', checked: true },
+          { label: 'Sốt mù tạt mật ong', price: '+0 ₫' }
+        ]
+      },
+      {
+        title: 'Thêm topping', name: 'topping', inputType: 'checkbox', rule: 'Tuỳ chọn · tối đa 3',
+        ruleStyle: 'font-size: 12px; color: var(--text-muted);',
+        options: [
+          { label: 'Thêm phô mai', price: '+10.000 ₫', checked: true },
+          { label: 'Thêm xúc xích', price: '+15.000 ₫' },
+          { label: 'Hành phi · tạm hết', price: '', disabled: true }
+        ]
+      }
+    ].map((g) => ({
+      ...g,
+      options: g.options.map((o) => ({ ...o, checked: !!o.checked, disabled: !!o.disabled, rowStyle: row(!!o.disabled) }))
+    }));
+    return { themeClass: this.props.dark ? 'dark' : '', groups };
+  }
+}
+</script>
+</body>
+</html>
