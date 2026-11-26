@@ -79,7 +79,7 @@ Mỗi màu có thang 50 → 950 (sinh theo OKLCH, giữ sắc độ của màu g
 | 900 | `#6A0101` | `#582400` | `#4E2D02` | `#3E332A` |
 | 950 | `#470000` | `#3A1600` | `#331B00` | `#282019` |
 
-Màu ngoài thang: `brick` `#8A2A26` (tường quán, dùng cho bề mặt thương hiệu lớn), `cream` `#F6F1EA` (trắng ngà của mái hiên), `ink` `#1A1411` (nền chế độ tối, mực chữ trên nền màu).
+Màu ngoài thang: `brick` `#8A2A26` (tường quán, dùng cho bề mặt thương hiệu lớn), `cream` `#F6F1EA` (trắng ngà của mái hiên), `ink` `#1A1411` (nền chế độ tối, mực chữ trên nền màu). Ba giá trị mà mục 3 dùng nhưng không nằm trong thang cũng được khai báo trong lớp `palette` của `tokens.json` (M0-06), để lớp `semantic` chỉ trỏ tới `palette`: `white` `#FFFFFF`, `ink-soft` `#211510` (chữ trên nền `accent` và `warning` ở chế độ sáng), `brown.550` `#857366` (`border-strong` ở chế độ tối).
 
 Màu trạng thái. `yellow` lấy từ mù tạt trong logo (bậc 400); ba màu còn lại không có trong logo, chọn cho hợp tông ấm:
 
@@ -97,6 +97,15 @@ Màu trạng thái. `yellow` lấy từ mù tạt trong logo (bậc 400); ba mà
 ## 3. Màu theo vai trò (token dùng trong app)
 
 App chỉ dùng tên ở cột "Token"; không dùng trực tiếp bảng màu gốc. Mọi cặp chữ/nền dưới đây đã đo đạt WCAG AA (≥ 4,5:1 cho chữ, ≥ 3:1 cho viền điều khiển). Phép đo này được giữ bằng test tự động trong `packages/design-tokens` (`contrast.test.ts`, M0-06): mỗi cặp `-fg`/nền chính, `-text`/`-subtle`, `text*`/`bg*` ở cả sáng và tối phải đạt ngưỡng, đổi màu làm hỏng thì `pnpm verify` đỏ.
+
+**Hai cặp chưa đạt ở chế độ sáng** (đo bằng `contrast.test.ts` ở M0-06; bảng dưới giữ nguyên giá trị đã duyệt, test ghim hai ngoại lệ này để không tệ hơn):
+
+| Cặp | Đo được | Ngưỡng | Cách dùng cho tới khi đổi màu | Đề xuất đổi (chờ duyệt, mục 10) |
+|---|---|---|---|---|
+| `text-subtle` `#7A695C` trên `bg-muted` `#F1ECE8` | 4,47:1 | 4,5:1 | Không đặt gợi ý/placeholder trên `bg-muted`; dùng `text-muted` | `text-subtle` sáng → `#786759` (4,61:1) |
+| `border-strong` `#9F8D7F` trên `bg-subtle` `#F9F6F4` | 2,96:1 | 3:1 | Điều khiển có viền đặt trên thẻ phải có nền `bg` của riêng nó (viền so với nền trong đạt 3,19:1) | `border-strong` sáng → `#9C8A7C` (3,08:1) |
+
+Các cặp khác đều đạt ở cả hai theme `admin`, `pos` và hai chế độ.
 
 `warning` (vàng `#F5BC09`) chỉ dùng làm **nền** với chữ `warning-fg`; không dùng làm viền hay chữ trên nền sáng vì không đạt 3:1. Viền và chữ cảnh báo dùng `warning-text`.
 
@@ -127,7 +136,7 @@ Mỗi màu có bốn token: nền chính, chữ trên nền chính (`-fg`), nề
 | `danger` | `#C2185B` / `#FFFFFF` / `#FFE5EA` / `#8B023D` | `#EF4B7F` / `#1A1411` / `#45001A` / `#FEAABC` | Nguy hiểm, lỗi |
 | `info` | `#2563A8` / `#FFFFFF` / `#E1EEFE` / `#184B83` | `#5693DC` / `#1A1411` / `#012145` / `#9DC9FF` | Thông tin |
 
-Trạng thái tương tác của `primary` (sáng): hover `#B70202`, nhấn `#9C0303`, vòng focus `#F84839`.
+Trạng thái tương tác của `primary` (sáng): hover `#B70202`, nhấn `#9C0303`, vòng focus `#F84839`. Ở chế độ tối (chọn ở M0-06, chữ `primary-fg` trên các nền này đều đạt AA): hover `#FE806F`, nhấn `#FEAEA2`, vòng focus `#FE806F`. Token: `primary-hover`, `primary-active`, `ring`. Lớp phủ sau hộp thoại là token `overlay`: nâu đậm 50% (sáng), đen 65% (tối).
 
 ### 3.3 Vì màu chính là đỏ: phân biệt với `danger`
 
@@ -226,7 +235,7 @@ Mỗi dòng ứng với một theme trong `packages/design-tokens` (03 mục 5.2
 ## 9. Việc cần làm
 
 - [x] P-10: duyệt bộ màu (lấy theo mã đo từ logo), nút chính đỏ, tên thương hiệu.
-- [ ] M0-06: đưa các giá trị mục 2, 3, 5 vào `packages/design-tokens/tokens.json`; đóng gói phông; `contrast.test.ts` kiểm các cặp màu mục 3.
+- [x] M0-06: đưa các giá trị mục 2, 3, 5 vào `packages/design-tokens/tokens.json`; `contrast.test.ts` kiểm các cặp màu mục 3. Phông được đóng gói ở M0-07 cùng hai app (token chỉ giữ tên phông).
 - [ ] M0-07: trang mẫu `/dev/components` hiển thị bảng màu sáng/tối để soát bằng mắt; favicon từ `brands/logo-icon.png`.
 - [ ] M3: tạo logo đen trắng cho bill và in thử.
 - [ ] M7-13: khi chạy thử, theo dõi việc bấm nhầm nút chính và nút nguy hiểm (mục 3.3).
@@ -234,5 +243,6 @@ Mỗi dòng ứng với một theme trong `packages/design-tokens` (03 mục 5.2
 
 ## 10. Câu hỏi mở
 
+- **Hai cặp màu trung tính chưa đạt AA ở chế độ sáng** (mục 3): có đổi `text-subtle` sang `#786759` và `border-strong` sang `#9C8A7C` không? Đổi thì sửa `tokens.json`, bảng 3.1, mockup (`.fnb { --text-subtle, --border-strong }`) và xoá ngoại lệ trong `contrast.test.ts`.
 - Phông chữ Be Vietnam Pro và Baloo 2 (mục 4) là đề xuất của tôi, chưa được bạn xác nhận riêng; sẽ dùng nếu bạn không có ý kiến khác trước M0-06.
 - Chữ "HOTDOG S" trên ruy băng (mục 1.4). Bản nền trong suốt hiện tách từ ảnh PNG; khi có file vector gốc nên xuất lại cho nét hơn.

@@ -1,0 +1,7 @@
+{
+  "extends": "@fnb/config/tsconfig/library.json",
+  "compilerOptions": {
+    "rootDir": "."
+  },
+  "include": ["src", "tokens.json"]
+}

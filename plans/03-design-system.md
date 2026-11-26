@@ -21,6 +21,7 @@ Giá trị cụ thể (mã màu sáng/tối, thang màu gốc, độ tương ph�
 | Token | Dùng cho |
 |---|---|
 | `bg`, `bg-subtle`, `bg-muted` | Nền trang, nền thẻ, nền vùng phụ |
+| `overlay` | Lớp phủ sau hộp thoại và ngăn kéo |
 | `border`, `border-strong` | Đường viền, đường chia |
 | `text`, `text-muted`, `text-subtle`, `text-inverse` | Chữ chính, chữ phụ, gợi ý, chữ trên nền đậm |
 
@@ -106,6 +107,19 @@ Sinh ra cho từng nền tảng:
 | Biến CSS + theme Tailwind 4: `[data-theme="admin"]`, `[data-theme="customer"]`… kết hợp `[data-mode="light"|"dark"]` | `ui-web`, `ui-pos` |
 | Đối tượng theme TypeScript (NativeWind / StyleSheet), theo theme và chế độ | `ui-mobile` (bản React Native, nếu có), `pos-mobile` |
 | Biến CSS cho Mini App | `ui-mobile` trong Zalo |
+
+Cách dùng trên web (M0-06):
+
+| Thứ | Quy ước |
+|---|---|
+| File sinh ra | `@fnb/design-tokens/theme.css` (từ `pnpm --filter @fnb/design-tokens build`); app import sau `@import 'tailwindcss'` |
+| Biến CSS | `--fnb-<token>`: màu theo `[data-mode]`, metric của theme theo `[data-theme]`, đặt trên thẻ `<html>` |
+| Class Tailwind màu | Tên màu = tên token: `bg-bg`, `bg-bg-subtle`, `text-text`, `text-text-muted`, `border-border`, `bg-primary`, `text-primary-fg`, `bg-danger-subtle`… Bảng màu mặc định của Tailwind bị gỡ (`bg-red-500` không tồn tại) |
+| Metric theo theme | `h-control`, `rounded-control`, `text-control`, `text-body`: cùng class, admin ra 40 px, POS ra 56 px |
+| Metric cố định | `h-control-sm/md/lg/xl`, `min-h-touch-min`, `min-h-touch-pos`, `size-icon-sm/md/lg`, `max-w-dialog-sm/md/lg`, `max-w-content-max`, `w-sidebar`, `z-dropdown/sticky/drawer/dialog/toast`, `duration-fast/base` |
+| Đối tượng theme TypeScript | `themes[<theme>][<mode>]` và `metrics` từ `@fnb/design-tokens` (cho bản native) |
+
+Chưa có trong `tokens.json` ở M0, thêm khi tới mốc dùng: `status.*` (M3, M4, khi có enum trạng thái), `size-cart-panel`, `size-product-tile`, `size-receipt-k57/k80` (M3), `font-display` và theme `customer`, `kds`, `mobile`.
 
 - Không sửa file sinh ra; sửa `tokens.json` rồi chạy lại.
 - App và package `ui-*` không định nghĩa màu hay kích thước mới. Cần giá trị mới thì thêm token.
@@ -246,7 +260,7 @@ Mọi nền tảng hiển thị các trạng thái sau bằng component cùng t�
 
 ## 10. Việc cần làm
 
-- [ ] M0: `packages/design-tokens` ba lớp (`palette`, `semantic`, `theme`) với theme `admin` và `pos`; bộ sinh biến CSS/Tailwind theo `data-theme` × `data-mode`. `packages/ui-web` và `packages/ui-pos` nền: `Button`, `Input`, `Card`, `Dialog`, `Toast`, `Spinner`, `Skeleton`, `EmptyState`, `ErrorState`, `LanguageSwitcher`, `ThemeSwitcher`, README; trang mẫu trong `apps/admin` và `apps/pos`.
+- [ ] M0 (token xong ở M0-06, component ở M0-07): `packages/design-tokens` ba lớp (`palette`, `semantic`, `theme`) với theme `admin` và `pos`; bộ sinh biến CSS/Tailwind theo `data-theme` × `data-mode`. `packages/ui-web` và `packages/ui-pos` nền: `Button`, `Input`, `Card`, `Dialog`, `Toast`, `Spinner`, `Skeleton`, `EmptyState`, `ErrorState`, `LanguageSwitcher`, `ThemeSwitcher`, README; trang mẫu trong `apps/admin` và `apps/pos`.
 - [ ] M1 (`ui-web`): `AppShell`, `Sidebar`, `PageHeader`, `DataTable`, `FilterBar`, bộ form, `ConfirmDialog`, `Can`, `NoPermission`, `LocalizedInput`. App admin: `PermissionMatrix` trong `src/shared-components`.
 - [ ] M2 (`ui-web`): `ImageUpload`, `MoneyInput`, `Money`, `ProductImage`, sắp xếp kéo thả.
 - [ ] M3 (`ui-pos`): `PosShell`, `ActionBar`, `ProductTile`, `CategoryTabs`, `CartLine`, `ModifierGroupPicker`, `NumPad`, `PinInput`, `ApprovalDialog`, `OfflineBanner`, `SyncStatus`, `PaymentMethodTile`, `Money`, `ConfirmDialog`, `Can`, `CashCountInput`, `PrinterStatus`, `ReceiptPreview`.
