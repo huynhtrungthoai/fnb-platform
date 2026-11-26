@@ -21,6 +21,11 @@ export const AUDIT_ACTIONS = [
   'auth.login',
   'auth.login_failed',
   'auth.logout',
+  'auth.account_locked',
+  'auth.change_pin',
+  'auth.change_password',
+  'user.reset_pin',
+  'user.unlock',
 ] as const satisfies readonly string[];
 
 /** An action written to the audit log. */

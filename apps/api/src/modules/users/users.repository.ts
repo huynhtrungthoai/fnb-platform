@@ -1,5 +1,18 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { and, asc, count, eq, gt, ilike, inArray, isNotNull, isNull, lte, or } from 'drizzle-orm';
+import {
+  and,
+  asc,
+  count,
+  eq,
+  gt,
+  ilike,
+  inArray,
+  isNotNull,
+  isNull,
+  lte,
+  or,
+  sql,
+} from 'drizzle-orm';
 
 import { toLimitOffset } from '../../common/http/pagination.js';
 import { DB } from '../../db/database.js';
@@ -96,6 +109,16 @@ export class UsersRepository {
   ): Promise<UserRow | undefined> {
     const [row] = await executor.update(users).set(values).where(eq(users.id, id)).returning();
     return row;
+  }
+
+  /** Adds one wrong attempt and returns the new count, atomically. */
+  async incrementFailedAttempts(id: string): Promise<number> {
+    const [row] = await this.db
+      .update(users)
+      .set({ failedAttempts: sql`${users.failedAttempts} + 1` })
+      .where(eq(users.id, id))
+      .returning({ failedAttempts: users.failedAttempts });
+    return row?.failedAttempts ?? 0;
   }
 
   /** How many of these users are active. */

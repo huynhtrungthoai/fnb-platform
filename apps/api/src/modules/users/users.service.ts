@@ -70,7 +70,7 @@ export function toUser(row: UserRow, now: Date = new Date()): User {
 }
 
 /** Branch of an audit row about these assignments: the one branch they share, else business level. */
-function auditBranchOf(branchIds: readonly (string | null)[]): string | null {
+export function auditBranchOf(branchIds: readonly (string | null)[]): string | null {
   const distinct = new Set(branchIds);
   const [only] = [...distinct];
   return distinct.size === 1 && only !== undefined ? only : null;
@@ -375,7 +375,7 @@ export class UsersService {
   }
 
   /** A user the caller may act on with `code`: visible, and covered at every place (06 section 8). */
-  private async requireManageable(
+  async requireManageable(
     caller: AuthContext,
     id: string,
     code: PermissionCode,

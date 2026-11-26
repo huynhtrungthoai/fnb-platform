@@ -103,7 +103,7 @@ Các nhóm Bếp, Thủ kho, Kế toán vẫn có sẵn để dùng khi cần (0
 | Phân biệt lúc đăng nhập | Màn hình đăng nhập Admin có hai ô: "Tên đăng nhập" và "PIN hoặc mật khẩu". Ô thứ hai nhận chuỗi bất kỳ, không ép 6 số. **Server** tra tài khoản rồi so với đúng loại thông tin của tài khoản đó (`credential_type`: `pin` hoặc `password`). Người dùng không phải chọn loại, và màn hình không tiết lộ tài khoản nào là super admin |
 | Thông báo lỗi | Luôn là "Sai tên đăng nhập hoặc PIN/mật khẩu", giống nhau cho mọi trường hợp |
 | Sai 5 lần | Khoá, **tự mở sau 30 phút** (không ai khác mở được cho tài khoản này); có tin báo vào Discord (D-33) |
-| Quên mật khẩu | Đặt lại bằng lệnh chạy trên server (`pnpm --filter api cli reset-owner-password`), cần quyền truy cập máy chủ |
+| Quên mật khẩu | Đặt lại bằng lệnh chạy trên server (`pnpm --filter @fnb/api cli reset-owner-password`; mật khẩu mới lấy từ biến `NEW_OWNER_PASSWORD`, không có thì sinh ngẫu nhiên và in ra một lần), cần quyền truy cập máy chủ |
 | Lưu trữ | `users.credential_type`, `password_hash` (chỉ super admin), `pin_hash`; đều băm Argon2id |
 - Chi nhánh ngừng hoạt động thì không tạo được đơn mới, dữ liệu cũ vẫn xem được.
 - Mã chi nhánh và mã thiết bị không đổi sau khi đã có hoá đơn. Thiết bị đã thu hồi mà đăng ký lại thì nhận mã mới.
@@ -149,6 +149,17 @@ Các nhóm Bếp, Thủ kho, Kế toán vẫn có sẵn để dùng khi cần (0
 | Lỗi | Sai tên hoặc sai PIN/mật khẩu: cùng một lỗi `401 INVALID_CREDENTIALS` (tên không tồn tại vẫn chạy so mã băm để thời gian như nhau). Tài khoản vô hiệu hoá: `403 ACCOUNT_DISABLED`, chỉ báo khi PIN đúng. Refresh hỏng: `401 UNAUTHENTICATED` |
 | `/auth/me` | Hồ sơ, `hasAllBranches`, mỗi chi nhánh được gán (chi nhánh, nhóm, quyền thực tế, hạn mức), `businessPermissions`, `permissionsVersion` (băm của toàn bộ phần quyền; đổi khi quyền đổi) |
 | Nhật ký | `auth.login`, `auth.login_failed` (kèm tên đăng nhập và lý do, không kèm PIN), `auth.logout`; cấp doanh nghiệp, có IP |
+
+### PIN, khoá tài khoản, mật khẩu super admin (M1-09)
+
+| Mục | Quy định |
+|---|---|
+| Bộ đếm | `UserCredentialsService.checkSecret()` là nơi duy nhất so PIN/mật khẩu (Admin, đổi PIN, sau này POS và duyệt tại chỗ). Sai thì `failed_attempts + 1` (tăng nguyên tử); đúng thì về 0. Lần sai thứ 5 (`MAX_FAILED_ATTEMPTS`) đặt `locked_at`, ghi `auth.account_locked`. Đang khoá thì trả `423 ACCOUNT_LOCKED`, kể cả khi PIN đúng |
+| Super admin | Khoá có `locked_until = locked_at + 30 phút` (`SUPER_ADMIN_LOCK_MINUTES`), tự mở khi hết hạn; `423` kèm `params.lockedUntil`. Không ai mở khoá hay đặt lại PIN cho tài khoản này qua API (`403 ACCOUNT_PROTECTED`). Báo Discord khi khoá làm ở M7-07 |
+| PIN tạm | Access token mang cờ `mcp`. Guard trả `403 PIN_CHANGE_REQUIRED` cho mọi endpoint trừ endpoint gắn `@AllowTemporaryPin()`: `GET /auth/me`, `POST /auth/logout`, `POST /auth/change-pin` |
+| Tự đổi | `POST /auth/change-pin` (`currentPin`, `newPin` khác PIN cũ), `POST /auth/change-password` (chỉ super admin). PIN cũ sai tính vào bộ đếm. Đổi xong: kết thúc mọi phiên, trả bộ token mới |
+| Quản lý | `POST /users/:id/reset-pin` (`{ pin }`: PIN tạm, mở khoá, kết thúc mọi phiên) và `POST /users/:id/unlock` (giữ PIN), quyền `user.reset_credentials` tại mọi chi nhánh của người đó, không làm cho chính mình; log `user.reset_pin`, `user.unlock` theo chi nhánh |
+| Lệnh server | `reset-owner-password`: đặt mật khẩu mới, mở khoá, thu hồi refresh token của super admin; access token đang dùng hết hạn sau tối đa 15 phút |
 
 ### Audit log (M1-14)
 

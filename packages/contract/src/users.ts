@@ -186,3 +186,36 @@ export const userAccessSchema = z.object({
 
 /** Response of `GET /users/:id/access`. */
 export type UserAccessView = z.infer<typeof userAccessSchema>;
+
+/** Wrong PINs or passwords in a row before the account locks (D-29). */
+export const MAX_FAILED_ATTEMPTS = 5;
+/** A locked super admin account unlocks by itself after this many minutes. */
+export const SUPER_ADMIN_LOCK_MINUTES = 30;
+
+/** Body of `POST /users/:id/reset-pin`: the new PIN is temporary (D-29). */
+export const resetPinSchema = z.object({ pin: pinSchema });
+
+/** Body of `POST /users/:id/reset-pin`. */
+export type ResetPin = z.infer<typeof resetPinSchema>;
+
+/** Body of `POST /auth/change-pin`: the caller changes their own PIN. */
+export const changePinSchema = z
+  .object({ currentPin: pinSchema, newPin: pinSchema })
+  .refine((value) => value.currentPin !== value.newPin, {
+    path: ['newPin'],
+    error: 'The new PIN must differ from the current one',
+  });
+
+/** Body of `POST /auth/change-pin`. */
+export type ChangePin = z.infer<typeof changePinSchema>;
+
+/** Body of `POST /auth/change-password`: the super admin changes their own password. */
+export const changePasswordSchema = z
+  .object({ currentPassword: z.string().min(1).max(200), newPassword: passwordSchema })
+  .refine((value) => value.currentPassword !== value.newPassword, {
+    path: ['newPassword'],
+    error: 'The new password must differ from the current one',
+  });
+
+/** Body of `POST /auth/change-password`. */
+export type ChangePassword = z.infer<typeof changePasswordSchema>;

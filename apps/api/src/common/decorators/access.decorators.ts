@@ -10,6 +10,8 @@ export { IS_PUBLIC_KEY, Public } from './public.decorator.js';
 
 /** Metadata key of `@RequirePermission`. */
 export const REQUIRED_PERMISSION_KEY = 'fnb:requiredPermission';
+/** Metadata key of `@AllowTemporaryPin`. */
+export const ALLOWS_TEMPORARY_PIN_KEY = 'fnb:allowsTemporaryPin';
 /** Metadata key of `@Authenticated`. */
 export const IS_AUTHENTICATED_KEY = 'fnb:isAuthenticated';
 
@@ -45,6 +47,12 @@ export const RequirePermission = (
 
 /** The endpoint only needs a signed-in caller, for example to read the caller's own profile. */
 export const Authenticated = (): MethodDecorator => SetMetadata(IS_AUTHENTICATED_KEY, true);
+
+/**
+ * The endpoint stays open to a session whose PIN is temporary (D-29). Every other endpoint
+ * answers `403 PIN_CHANGE_REQUIRED` until the PIN is changed.
+ */
+export const AllowTemporaryPin = (): MethodDecorator => SetMetadata(ALLOWS_TEMPORARY_PIN_KEY, true);
 
 /** Who is calling and where, as established by the access guard. */
 export interface AuthContext {

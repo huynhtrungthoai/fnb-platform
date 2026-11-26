@@ -66,6 +66,8 @@ export function applyTestEnv(): TestEnv {
   process.env.FNB_TEST_ADMIN_DATABASE_URL = env.adminDatabaseUrl;
   process.env.DATABASE_URL = env.databaseUrl;
   process.env.REDIS_URL = env.redisUrl;
+  // Tests log in far more often than a person; the per-IP limit has its own unit test.
+  process.env.LOGIN_RATE_LIMIT_MAX = '10000';
   process.env.FNB_TEST_ENV_APPLIED = '1';
   return env;
 }

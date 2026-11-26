@@ -3,6 +3,7 @@ import { Controller, Delete, Get, HttpCode, Patch, Post, Put } from '@nestjs/com
 import {
   assignmentBranchParamSchema,
   createUserSchema,
+  resetPinSchema,
   setAssignmentSchema,
   updateUserSchema,
   userAccessSchema,
@@ -13,12 +14,14 @@ import {
 import { Auth, RequirePermission } from '../../common/decorators/access.decorators.js';
 import { UuidParam, ZBody, ZParam, ZQuery, ZResponse } from '../../common/zod/zod.decorators.js';
 import { Audited } from '../audit/audited.interceptor.js';
+import { UserCredentialsService } from './user-credentials.service.js';
 import { UsersService } from './users.service.js';
 
 import type { AuthContext } from '../../common/decorators/access.decorators.js';
 import type { Paginated } from '../../common/http/pagination.js';
 import type {
   CreateUser,
+  ResetPin,
   SetAssignment,
   UpdateUser,
   UserAccessView,
@@ -32,7 +35,10 @@ import type {
  */
 @Controller('users')
 export class UsersController {
-  constructor(private readonly users: UsersService) {}
+  constructor(
+    private readonly users: UsersService,
+    private readonly credentials: UserCredentialsService,
+  ) {}
 
   @RequirePermission('user.view', { branch: 'any' })
   @ZResponse(userWithAssignmentsSchema, {
@@ -128,5 +134,29 @@ export class UsersController {
     @ZParam('branchId', assignmentBranchParamSchema) branchId: string | null,
   ): Promise<UserWithAssignments> {
     return this.users.unassign(auth, id, branchId);
+  }
+
+  /** Sets a temporary PIN, unlocks the account and ends its sessions (CORE-14). */
+  @RequirePermission('user.reset_credentials', { branch: 'any' })
+  @Audited('user.reset_pin')
+  @ZResponse(userWithAssignmentsSchema)
+  @HttpCode(200)
+  @Post(':id/reset-pin')
+  resetPin(
+    @Auth() auth: AuthContext,
+    @UuidParam() id: string,
+    @ZBody(resetPinSchema) body: ResetPin,
+  ): Promise<UserWithAssignments> {
+    return this.credentials.resetPin(auth, id, body.pin);
+  }
+
+  /** Unlocks an account locked after five wrong PINs; the PIN does not change. */
+  @RequirePermission('user.reset_credentials', { branch: 'any' })
+  @Audited('user.unlock')
+  @ZResponse(userWithAssignmentsSchema)
+  @HttpCode(200)
+  @Post(':id/unlock')
+  unlock(@Auth() auth: AuthContext, @UuidParam() id: string): Promise<UserWithAssignments> {
+    return this.credentials.unlock(auth, id);
   }
 }

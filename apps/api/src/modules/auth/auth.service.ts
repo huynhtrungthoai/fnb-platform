@@ -7,12 +7,21 @@ import { AuditService } from '../audit/audit.service.js';
 import { BranchesService } from '../branches/branches.service.js';
 import { businessPermissions, resolveEffectiveAccess } from '../rbac/access.js';
 import { CredentialHasher } from '../users/credential-hasher.js';
+import { UserCredentialsService } from '../users/user-credentials.service.js';
 import { UsersService } from '../users/users.service.js';
 import { SessionService } from './session/session.service.js';
 
 import type { AuthContext } from '../../common/decorators/access.decorators.js';
+import type { SecretCheck } from '../users/user-credentials.service.js';
 import type { UserRow } from '../users/users.repository.js';
-import type { AuthTokens, LoginInput, Me, MeBranch } from '@fnb/contract';
+import type {
+  AuthTokens,
+  ChangePassword,
+  ChangePin,
+  LoginInput,
+  Me,
+  MeBranch,
+} from '@fnb/contract';
 
 const invalidCredentials = (): AppError =>
   new AppError('INVALID_CREDENTIALS', 'Wrong username or PIN/password');
@@ -30,6 +39,7 @@ export class AuthService {
   constructor(
     private readonly users: UsersService,
     private readonly hasher: CredentialHasher,
+    private readonly credentials: UserCredentialsService,
     private readonly sessions: SessionService,
     private readonly branches: BranchesService,
     private readonly audit: AuditService,
@@ -43,10 +53,20 @@ export class AuthService {
       await this.recordFailure(null, input.username, 'unknown_username');
       throw invalidCredentials();
     }
-    const storedHash = user.credentialType === 'password' ? user.passwordHash : user.pinHash;
-    if (!(await this.hasher.verify(storedHash, input.secret))) {
+    // The server picks the secret by account: the super admin's PIN never opens Admin (D-29).
+    const kind = user.credentialType === 'password' ? 'password' : 'pin';
+    let check: SecretCheck;
+    try {
+      check = await this.credentials.checkSecret(user, input.secret, kind, now);
+    } catch (error) {
+      await this.recordFailure(user, input.username, 'locked');
+      throw error;
+    }
+    if (!check.isValid) {
       await this.recordFailure(user, input.username, 'wrong_secret');
-      throw invalidCredentials();
+      throw check.isLocked
+        ? new AppError('ACCOUNT_LOCKED', 'Account locked after too many wrong attempts')
+        : invalidCredentials();
     }
     if (!user.isActive) {
       await this.recordFailure(user, input.username, 'disabled');
@@ -101,6 +121,22 @@ export class AuthService {
       branchId: null,
       metadata: { everywhere: true },
     });
+  }
+
+  /** The caller sets a new PIN; ends the caller's other sessions and returns fresh tokens. */
+  async changePin(auth: AuthContext, input: ChangePin): Promise<AuthTokens> {
+    const row = await this.credentials.changeOwnPin(auth.userId, input.currentPin, input.newPin);
+    return this.sessions.start({ userId: row.id, mustChangePin: false });
+  }
+
+  /** The super admin sets a new password; ends the other sessions and returns fresh tokens. */
+  async changePassword(auth: AuthContext, input: ChangePassword): Promise<AuthTokens> {
+    const row = await this.credentials.changeOwnPassword(
+      auth.userId,
+      input.currentPassword,
+      input.newPassword,
+    );
+    return this.sessions.start({ userId: row.id, mustChangePin: false });
   }
 
   /** The caller and what they may do at each branch (06 section 7.2). */

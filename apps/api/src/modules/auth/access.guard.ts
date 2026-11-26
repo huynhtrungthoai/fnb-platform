@@ -6,6 +6,7 @@ import { getPermission } from '@fnb/contract';
 
 import { RequestContext } from '../../common/context/request-context.js';
 import {
+  ALLOWS_TEMPORARY_PIN_KEY,
   BRANCH_HEADER,
   IS_AUTHENTICATED_KEY,
   IS_PUBLIC_KEY,
@@ -73,7 +74,14 @@ export class AccessGuard implements CanActivate {
     }
 
     const request = context.switchToHttp().getRequest<Request & AuthenticatedRequest>();
-    const auth = await this.authenticate(request);
+    const { auth, mustChangePin } = await this.authenticate(request);
+    if (
+      mustChangePin &&
+      !this.reflector.get<boolean | undefined>(ALLOWS_TEMPORARY_PIN_KEY, context.getHandler())
+    ) {
+      // A temporary PIN may only be used to set a new one (D-29).
+      throw new AppError('PIN_CHANGE_REQUIRED', 'Change the temporary PIN first');
+    }
     request.auth = auth;
     RequestContext.assign({ userId: auth.userId, deviceId: auth.deviceId });
 
@@ -90,7 +98,9 @@ export class AccessGuard implements CanActivate {
     return true;
   }
 
-  private async authenticate(request: Request): Promise<AuthContext> {
+  private async authenticate(
+    request: Request,
+  ): Promise<{ auth: AuthContext; mustChangePin: boolean }> {
     const token = extractBearerToken(request.headers.authorization);
     if (!token) {
       throw new AppError('UNAUTHENTICATED', 'Missing bearer token');
@@ -101,10 +111,13 @@ export class AccessGuard implements CanActivate {
       throw new AppError('TOKEN_EXPIRED', 'Session is no longer active');
     }
     return {
-      userId: claims.userId,
-      sessionId: claims.sessionId,
-      ...(claims.deviceId ? { deviceId: claims.deviceId } : {}),
-      access: await this.rbac.getUserAccess(claims.userId),
+      auth: {
+        userId: claims.userId,
+        sessionId: claims.sessionId,
+        ...(claims.deviceId ? { deviceId: claims.deviceId } : {}),
+        access: await this.rbac.getUserAccess(claims.userId),
+      },
+      mustChangePin: claims.mustChangePin ?? false,
     };
   }
 

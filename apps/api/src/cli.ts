@@ -4,6 +4,7 @@ import { loadEnv } from './config/env.js';
 import { createDatabase, createPool } from './db/database.js';
 import { runMigrations } from './db/migrate.js';
 import { runSeed } from './db/seed.js';
+import { generatePassword, resetOwnerPassword } from './modules/users/reset-owner-password.js';
 
 import type { Env } from './config/env.js';
 
@@ -38,6 +39,17 @@ const COMMANDS: Record<string, Command> = {
     withDatabase(env, async (db) => {
       await runSeed(db, undefined, print);
       print('Seed completed.');
+    }),
+  /** New super admin password: from NEW_OWNER_PASSWORD, or a generated one printed once. */
+  'reset-owner-password': (env) =>
+    withDatabase(env, async (db) => {
+      const given = process.env.NEW_OWNER_PASSWORD ?? '';
+      const password = given.length > 0 ? given : generatePassword();
+      const { username } = await resetOwnerPassword(db, env, password);
+      print(`Password of super admin "${username}" reset; the account is unlocked.`);
+      if (given.length === 0) {
+        print(`New password (shown once): ${password}`);
+      }
     }),
 };
 

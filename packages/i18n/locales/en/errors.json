@@ -17,5 +17,8 @@
   "ROLE_ESCALATION": "You can only grant permissions you hold yourself.",
   "LAST_OWNER": "At least one active owner account must remain.",
   "INVALID_CREDENTIALS": "Wrong username or PIN/password.",
-  "ACCOUNT_DISABLED": "This account has been disabled. Contact your manager."
+  "ACCOUNT_DISABLED": "This account has been disabled. Contact your manager.",
+  "ACCOUNT_LOCKED": "This account is locked after too many wrong attempts. Ask a manager to unlock it.",
+  "ACCOUNT_PROTECTED": "This action does not apply to the super admin account.",
+  "PIN_CHANGE_REQUIRED": "Change your temporary PIN before continuing."
 }
