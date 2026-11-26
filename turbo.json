@@ -20,5 +20,6 @@
       "persistent": true
     }
   },
-  "globalDependencies": ["eslint.config.mjs", "packages/config/**"]
+  "globalDependencies": ["eslint.config.mjs", "packages/config/**"],
+  "ui": "stream"
 }

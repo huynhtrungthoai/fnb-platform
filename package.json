@@ -8,14 +8,22 @@
     "node": ">=24"
   },
   "scripts": {
+    "dev": "turbo run dev",
     "build": "turbo run build",
     "typecheck": "turbo run typecheck",
     "lint": "turbo run lint && eslint \"*.mjs\" scripts && node scripts/check-filenames.mjs && node scripts/check-i18n.mjs",
     "lint:fix": "turbo run lint -- --fix && eslint \"*.mjs\" scripts --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test": "turbo run test && node --test \"scripts/*.test.mjs\"",
-    "verify": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm test && pnpm build"
+    "test": "node scripts/run-tests.mjs",
+    "verify": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm test && pnpm build",
+    "infra:up": "docker compose up -d --wait",
+    "infra:down": "docker compose down",
+    "infra:ps": "docker compose ps",
+    "infra:logs": "docker compose logs -f --tail=100",
+    "db:generate": "node scripts/db-task.mjs generate",
+    "db:migrate": "node scripts/db-task.mjs migrate",
+    "db:seed": "node scripts/db-task.mjs seed"
   },
   "devDependencies": {
     "@fnb/config": "workspace:*",

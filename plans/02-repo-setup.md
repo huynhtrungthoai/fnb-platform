@@ -112,8 +112,12 @@ Lệnh gốc:
 | `pnpm lint` | ESLint + `check-filenames` + `check-i18n` + `check-permissions` |
 | `pnpm lint:fix` | ESLint tự sửa |
 | `pnpm format` / `pnpm format:check` | Prettier ghi / chỉ kiểm tra |
-| `pnpm test` | Vitest mọi package; `pnpm test -- <path>` cho một file |
+| `pnpm dev` | API (4000) + Admin (5173) + POS (5174), kèm `tsc --watch` của các package được build |
+| `pnpm build` | Build mọi package và app qua Turborepo |
+| `pnpm test` | Vitest mọi package và `node --test` cho `scripts/`; `pnpm test -- <path>` chạy một file (`scripts/run-tests.mjs` chọn package theo đường dẫn) |
 | `pnpm verify` | typecheck + lint + format:check + test + build |
+| `pnpm infra:up` / `infra:down` / `infra:ps` / `infra:logs` | Docker Compose: bật (chờ tới khi sẵn sàng), tắt, xem trạng thái, xem log. Không có lệnh xoá volume |
+| `pnpm db:generate` / `db:migrate` / `db:seed` | Có tên từ M0 nhưng **chưa chạy được**: báo lỗi rõ và thoát mã 1 cho tới khi M1-01 dựng Drizzle (`scripts/db-task.mjs`) |
 
 Danh sách rule ESLint bắt buộc, cấu hình Prettier và các cờ TypeScript: `docs/code-style.md` mục 4 và 5.
 
