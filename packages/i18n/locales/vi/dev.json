@@ -1,0 +1,55 @@
+{
+  "title": "Trang mẫu component",
+  "subtitle": "Bộ component của nền tảng trong theme của app. Chỉ có ở môi trường dev.",
+  "sections": {
+    "colors": "Màu theo vai trò",
+    "buttons": "Nút",
+    "inputs": "Ô nhập",
+    "cards": "Thẻ",
+    "feedback": "Phản hồi",
+    "states": "Trạng thái",
+    "settings": "Ngôn ngữ và giao diện"
+  },
+  "buttons": {
+    "primary": "Nút chính",
+    "secondary": "Nút phụ",
+    "ghost": "Nút mờ",
+    "loading": "Đang lưu",
+    "disabled": "Vô hiệu",
+    "withIcon": "Thêm món",
+    "small": "Nhỏ",
+    "medium": "Vừa",
+    "large": "Lớn",
+    "pay": "Thanh toán"
+  },
+  "inputs": {
+    "nameLabel": "Tên món",
+    "namePlaceholder": "Ví dụ: Hotdog phô mai",
+    "nameHint": "Tối đa 60 ký tự.",
+    "codeLabel": "Mã món",
+    "codeError": "Mã món đã tồn tại.",
+    "disabledLabel": "Ô vô hiệu"
+  },
+  "cards": {
+    "title": "Thẻ nội dung",
+    "body": "Thẻ dùng nền phụ, viền mảnh và bóng nhẹ.",
+    "action": "Hành động"
+  },
+  "feedback": {
+    "openDialog": "Mở hộp thoại",
+    "dialogTitle": "Hộp thoại mẫu",
+    "dialogDescription": "Hộp thoại giữ focus và đóng bằng phím Esc.",
+    "dialogBody": "Nội dung của hộp thoại nằm ở đây.",
+    "showSuccess": "Thông báo thành công",
+    "showError": "Thông báo lỗi",
+    "successMessage": "Đã lưu thay đổi.",
+    "errorMessage": "Không lưu được. Thử lại sau.",
+    "spinner": "Đang xử lý",
+    "skeleton": "Khung chờ nội dung"
+  },
+  "states": {
+    "emptyDescription": "Thêm món đầu tiên để bắt đầu bán.",
+    "emptyAction": "Thêm món",
+    "retried": "Đã thử lại."
+  }
+}

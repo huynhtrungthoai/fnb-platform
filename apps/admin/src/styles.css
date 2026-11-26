@@ -1,0 +1,6 @@
+@import 'tailwindcss';
+@import '@fnb/design-tokens/theme.css';
+@import '@fnb/ui-web/styles.css';
+
+/* The component package is consumed as source, so Tailwind must scan it for class names. */
+@source '../../../packages/ui-web/src';

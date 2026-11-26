@@ -25,5 +25,13 @@
   },
   "notifications": {
     "label": "Thông báo"
+  },
+  "app": {
+    "admin": "Quản trị",
+    "pos": "Bán hàng",
+    "scaffoldReady": "Khung ứng dụng đã sẵn sàng. Các màn hình nghiệp vụ được thêm từ mốc M1.",
+    "openComponents": "Xem trang mẫu component",
+    "notFound": "Không tìm thấy trang",
+    "backHome": "Về trang chính"
   }
 }

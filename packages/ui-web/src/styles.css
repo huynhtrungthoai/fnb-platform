@@ -1,0 +1,30 @@
+/*
+ * Base styles of the Web platform (admin, customer-web).
+ * Import order in an app stylesheet:
+ *   @import 'tailwindcss';
+ *   @import '@fnb/design-tokens/theme.css';
+ *   @import '@fnb/ui-web/styles.css';
+ *   @source '<path to>/packages/ui-web/src';
+ */
+
+/* Be Vietnam Pro is bundled with the app, never loaded from an external host (plans/07-brand.md section 4). */
+@import '@fontsource/be-vietnam-pro/400.css';
+@import '@fontsource/be-vietnam-pro/500.css';
+@import '@fontsource/be-vietnam-pro/600.css';
+@import '@fontsource/be-vietnam-pro/700.css';
+
+@layer base {
+  html {
+    font-family: var(--fnb-font-sans);
+    font-size: 100%;
+    line-height: var(--fnb-leading-normal);
+    background-color: var(--fnb-bg);
+    color: var(--fnb-text);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    min-height: 100dvh;
+    font-size: var(--fnb-body-text);
+  }
+}

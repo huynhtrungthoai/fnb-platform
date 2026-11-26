@@ -77,13 +77,15 @@ ESLint (`no-restricted-imports`, `import-x/no-restricted-paths`, `import-x/no-cy
 | API | NestJS (ESM), build bằng `nest build`, test bằng Vitest + `unplugin-swc` (SWC sinh metadata cho decorator) | 12.6 (05: D-10) |
 | CSDL | PostgreSQL + Drizzle ORM + drizzle-kit | 17 · 0.45 |
 | Validate | Zod | 4.6 |
-| Web | Vite, React, TanStack Router, TanStack Query | 8 · 19.3 · 1.170 · 5 |
+| Web | Vite, React, TanStack Router (file-based, `src/route-tree.gen.ts` sinh tự động và được commit), TanStack Query (thêm ở M1-17) | 8.3 · 19.3 · 1.170 · 5 |
+| Component | `radix-ui` (gói gộp), `class-variance-authority`, `clsx`, `lucide-react`; phông `@fontsource/be-vietnam-pro` | 1.8 · 0.7 · 2.1 · 1.80 · 5.3 |
 | CSS | Tailwind | 4.3 |
 | Đa ngôn ngữ | i18next + react-i18next | 27.2 · 18.0 (xác nhận ở M0-11) |
 | Lint | ESLint flat config + typescript-eslint + `eslint-plugin-import-x` (bản `eslint-plugin-import` 2.32 chưa hỗ trợ ESLint 10) | 10.15 · 8.74 · 4.18 |
 | Format | Prettier + plugin Tailwind | 3.10 |
-| Test | Vitest, Testcontainers, Playwright | 5 · 12 |
+| Test | Vitest (jsdom + Testing Library cho giao diện), Testcontainers (M1-05), Playwright (M7) | 5.1 · 12 |
 | Hạ tầng local | Docker Compose: Postgres, Redis, MinIO | |
+| Cổng local | API 4000 · Admin 5173 · POS 5174 (`strictPort`) | |
 | CI | GitHub Actions | |
 
 pnpm 11 chỉ cài bản đã phát hành quá 24 giờ (`minimumReleaseAge`). Bản vừa ra trong ngày thì hạ khoảng phiên bản trong `catalog` của `pnpm-workspace.yaml` xuống bản liền trước (ví dụ NestJS 12.6.2 thay cho 12.6.3 ngày 2026-11-26); không thêm `minimumReleaseAgeExclude`.

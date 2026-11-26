@@ -260,7 +260,7 @@ Mọi nền tảng hiển thị các trạng thái sau bằng component cùng t�
 
 ## 10. Việc cần làm
 
-- [ ] M0 (token xong ở M0-06, component ở M0-07): `packages/design-tokens` ba lớp (`palette`, `semantic`, `theme`) với theme `admin` và `pos`; bộ sinh biến CSS/Tailwind theo `data-theme` × `data-mode`. `packages/ui-web` và `packages/ui-pos` nền: `Button`, `Input`, `Card`, `Dialog`, `Toast`, `Spinner`, `Skeleton`, `EmptyState`, `ErrorState`, `LanguageSwitcher`, `ThemeSwitcher`, README; trang mẫu trong `apps/admin` và `apps/pos`.
+- [x] M0 (token ở M0-06, component ở M0-07): `packages/design-tokens` ba lớp (`palette`, `semantic`, `theme`) với theme `admin` và `pos`; bộ sinh biến CSS/Tailwind theo `data-theme` × `data-mode`. `packages/ui-web` và `packages/ui-pos` nền: `Button`, `Input`, `Card`, `Dialog`, `Toast` (`Toaster` + `toast()`), `Spinner`, `Skeleton`, `EmptyState`, `ErrorState`, `Icon`, `LanguageSwitcher`, `ThemeSwitcher`, `ThemeProvider`, README; trang mẫu `/dev/components` trong `apps/admin` và `apps/pos`. Hai package `ui-*` được app dùng thẳng từ mã nguồn (không build riêng), nên stylesheet của app phải có `@source` trỏ tới `packages/ui-<nền tảng>/src`.
 - [ ] M1 (`ui-web`): `AppShell`, `Sidebar`, `PageHeader`, `DataTable`, `FilterBar`, bộ form, `ConfirmDialog`, `Can`, `NoPermission`, `LocalizedInput`. App admin: `PermissionMatrix` trong `src/shared-components`.
 - [ ] M2 (`ui-web`): `ImageUpload`, `MoneyInput`, `Money`, `ProductImage`, sắp xếp kéo thả.
 - [ ] M3 (`ui-pos`): `PosShell`, `ActionBar`, `ProductTile`, `CategoryTabs`, `CartLine`, `ModifierGroupPicker`, `NumPad`, `PinInput`, `ApprovalDialog`, `OfflineBanner`, `SyncStatus`, `PaymentMethodTile`, `Money`, `ConfirmDialog`, `Can`, `CashCountInput`, `PrinterStatus`, `ReceiptPreview`.

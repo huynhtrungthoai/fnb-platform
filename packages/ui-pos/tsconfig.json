@@ -1,0 +1,4 @@
+{
+  "extends": "@fnb/config/tsconfig/react.json",
+  "include": ["src", "vitest.config.ts"]
+}

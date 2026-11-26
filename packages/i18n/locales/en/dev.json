@@ -1,0 +1,55 @@
+{
+  "title": "Component sample page",
+  "subtitle": "The platform component set in this app's theme. Available in development only.",
+  "sections": {
+    "colors": "Role colors",
+    "buttons": "Buttons",
+    "inputs": "Inputs",
+    "cards": "Cards",
+    "feedback": "Feedback",
+    "states": "States",
+    "settings": "Language and appearance"
+  },
+  "buttons": {
+    "primary": "Primary",
+    "secondary": "Secondary",
+    "ghost": "Ghost",
+    "loading": "Saving",
+    "disabled": "Disabled",
+    "withIcon": "Add item",
+    "small": "Small",
+    "medium": "Medium",
+    "large": "Large",
+    "pay": "Pay"
+  },
+  "inputs": {
+    "nameLabel": "Item name",
+    "namePlaceholder": "For example: Cheese hotdog",
+    "nameHint": "Up to 60 characters.",
+    "codeLabel": "Item code",
+    "codeError": "This item code already exists.",
+    "disabledLabel": "Disabled field"
+  },
+  "cards": {
+    "title": "Content card",
+    "body": "A card uses the subtle surface, a thin border and a light shadow.",
+    "action": "Action"
+  },
+  "feedback": {
+    "openDialog": "Open dialog",
+    "dialogTitle": "Sample dialog",
+    "dialogDescription": "The dialog traps focus and closes with the Esc key.",
+    "dialogBody": "The dialog content goes here.",
+    "showSuccess": "Success toast",
+    "showError": "Error toast",
+    "successMessage": "Changes saved.",
+    "errorMessage": "Could not save. Try again later.",
+    "spinner": "Working",
+    "skeleton": "Content placeholder"
+  },
+  "states": {
+    "emptyDescription": "Add the first item to start selling.",
+    "emptyAction": "Add item",
+    "retried": "Tried again."
+  }
+}

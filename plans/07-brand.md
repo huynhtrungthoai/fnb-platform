@@ -236,7 +236,7 @@ Mỗi dòng ứng với một theme trong `packages/design-tokens` (03 mục 5.2
 
 - [x] P-10: duyệt bộ màu (lấy theo mã đo từ logo), nút chính đỏ, tên thương hiệu.
 - [x] M0-06: đưa các giá trị mục 2, 3, 5 vào `packages/design-tokens/tokens.json`; `contrast.test.ts` kiểm các cặp màu mục 3. Phông được đóng gói ở M0-07 cùng hai app (token chỉ giữ tên phông).
-- [ ] M0-07: trang mẫu `/dev/components` hiển thị bảng màu sáng/tối để soát bằng mắt; favicon từ `brands/logo-icon.png`.
+- [x] M0-07: trang mẫu `/dev/components` hiển thị bảng màu sáng/tối để soát bằng mắt; favicon là bản sao của `brands/logo-icon-transparent.png` trong `apps/<app>/public/favicon.png`. Phông Be Vietnam Pro (400, 500, 600, 700; giấy phép OFL, có bộ chữ `vietnamese`) đóng gói qua `@fontsource/be-vietnam-pro`, không tải từ mạng ngoài.
 - [ ] M3: tạo logo đen trắng cho bill và in thử.
 - [ ] M7-13: khi chạy thử, theo dõi việc bấm nhầm nút chính và nút nguy hiểm (mục 3.3).
 - [ ] M10: hoạ tiết sóng và tiêu đề thương hiệu cho web khách.

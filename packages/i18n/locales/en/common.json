@@ -25,5 +25,13 @@
   },
   "notifications": {
     "label": "Notifications"
+  },
+  "app": {
+    "admin": "Admin",
+    "pos": "POS",
+    "scaffoldReady": "The app shell is ready. Feature screens are added from milestone M1.",
+    "openComponents": "Open the component sample page",
+    "notFound": "Page not found",
+    "backHome": "Back to home"
   }
 }
