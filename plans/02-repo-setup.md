@@ -102,7 +102,7 @@ Ba kiểm tra này bắt buộc và có ba lớp chặn:
 | `.githooks/pre-commit` | ESLint và Prettier trên file đã stage; `check-filenames` | Mỗi commit |
 | CI | `pnpm verify` | Mỗi PR; đỏ thì không merge |
 
-Bật hook một lần sau khi clone: `git config core.hooksPath .githooks`.
+Bật hook một lần sau khi clone: `git config core.hooksPath .githooks`. Hook gọi `scripts/pre-commit.mjs`: chỉ xét file đã stage (thêm, sửa, đổi tên), chạy theo thứ tự tên file → `prettier --check` → `eslint`; hook không tự sửa file, chạy `pnpm format` và `pnpm lint:fix` rồi stage lại. ESLint có rule dùng kiểu nên cần đã `pnpm build` ít nhất một lần.
 
 Lệnh gốc:
 

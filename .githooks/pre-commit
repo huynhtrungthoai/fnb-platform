@@ -1,0 +1,4 @@
+#!/bin/sh
+# Checks staged files: file names, Prettier, ESLint (plans/02-repo-setup.md section 3.1).
+# Enable once after cloning: git config core.hooksPath .githooks
+exec node scripts/pre-commit.mjs
