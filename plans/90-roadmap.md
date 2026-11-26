@@ -16,7 +16,7 @@ Cập nhật lần cuối: **2026-11-26**
 | Giai đoạn | Mốc | Nội dung | Trạng thái | Task |
 |---|---|---|---|---|
 | Chuẩn bị | P | Tài liệu, quy chuẩn, chốt quyết định | Đang làm | 10/13 |
-| GĐ 0 | M0 | Scaffold monorepo | Đang làm | 2/14 |
+| GĐ 0 | M0 | Scaffold monorepo | Đang làm | 3/14 |
 | GĐ 0 | M1 | Nền tảng: auth, phân quyền, chi nhánh, realtime, hàng đợi | Chưa bắt đầu | 0/26 |
 | GĐ 1 | M2 | Thực đơn | Chưa bắt đầu | 0/16 |
 | GĐ 1 | M3 | POS bán hàng, ca, sổ quỹ, máy in và mẫu in, offline | Chưa bắt đầu | 0/34 |
@@ -66,7 +66,7 @@ Kết quả: clone repo, chạy 3 lệnh là có API + Admin + POS trống chạ
 - [x] **M0-02** `packages/config`: tsconfig strict, ESLint flat config với các rule bắt buộc (`docs/code-style.md` mục 5), Prettier
 - [~] **M0-03** `docker-compose.yml`: Postgres 17, Redis, MinIO; file `.env.example` — *File đã viết, `docker compose config` hợp lệ. **Chưa kiểm:** chưa chạy `docker compose up` vì Docker daemon tắt trên máy dev (2026-11-26); chưa thử image MinIO `cgr.dev/chainguard/minio` (image `minio/minio` không kéo được từ Docker Hub). Tick khi đã bật Docker và ba dịch vụ lên `healthy`.*
 - [ ] **M0-04** `apps/api`: NestJS khung, endpoint `/health`, đọc và kiểm tra biến môi trường
-- [ ] **M0-05** `packages/contract`, `packages/utils` (tiền VND, ngày giờ, UUID v7) kèm unit test
+- [x] **M0-05** `packages/contract`, `packages/utils` (tiền VND, ngày giờ, UUID v7) kèm unit test
 - [ ] **M0-06** `packages/design-tokens`: `tokens.json` ba lớp `palette` → `semantic` (sáng/tối) → `theme` (`admin`, `pos` trước) + bộ sinh biến CSS/Tailwind 4 theo `data-theme` × `data-mode` và theme native (03 mục 5); giá trị màu, bo góc, phông lấy từ 07; `contrast.test.ts` kiểm tương phản mọi theme × hai chế độ (07 mục 3)
 - [ ] **M0-07** `packages/ui-web` và `packages/ui-pos` nền (shadcn trên token, README); `apps/admin` (theme `admin`) và `apps/pos` (theme `pos`): Vite + React + TanStack Router, trang mẫu `/dev/components`; `LanguageSwitcher` và `ThemeSwitcher` (Theo hệ thống / Sáng / Tối, lưu trên thiết bị) chạy được (03 mục 5.3, 7, 10)
 - [ ] **M0-08** Script gốc: `dev`, `build`, `typecheck`, `lint`, `lint:fix`, `format`, `format:check`, `test`, `verify`, `db:*`, `infra:*`

@@ -18,6 +18,8 @@ catalog:
   # TypeScript stays on 6.0.x until the NestJS and typescript-eslint toolchain supports 7 (D-11).
   typescript: ~6.0.3
   typescript-eslint: ^8.74.0
+  vitest: ^5.1.2
+  zod: ^4.6.7
 
 # Dependency build scripts are blocked unless listed here (pnpm 11).
 allowBuilds: {}

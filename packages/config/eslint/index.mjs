@@ -55,6 +55,7 @@ export function createConfig({ rootDir }) {
         'import-x/resolver-next': [
           createTypeScriptImportResolver({
             project: ['apps/*/tsconfig.json', 'packages/*/tsconfig.json'],
+            noWarnOnMultipleProjects: true,
           }),
         ],
       },
