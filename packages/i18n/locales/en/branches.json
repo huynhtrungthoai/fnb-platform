@@ -1,0 +1,82 @@
+{
+  "title": "Branches",
+  "description_one": "{{count}} active branch · each branch has its own settings",
+  "description_other": "{{count}} active branches · each branch has its own settings",
+  "listLabel": "Branch list",
+  "add": "Add branch",
+  "empty": "No branches yet.",
+  "emptyAction": "Create the first branch to get started.",
+  "status": {
+    "active": "Active",
+    "inactive": "Inactive"
+  },
+  "tabs": {
+    "label": "Branch settings",
+    "info": "Details and sales",
+    "receipt": "Receipt details"
+  },
+  "sections": {
+    "info": "Details",
+    "hours": "Hours and business day",
+    "tax": "Tax and charges",
+    "receipt": "Printed on the receipt",
+    "receiptDescription": "Printed at the top and bottom of the receipt. Left empty, the branch name and address are used.",
+    "bank": "Account for QR transfers",
+    "bankDescription": "Leave all three fields empty if the branch does not take QR yet."
+  },
+  "fields": {
+    "name": "Branch name",
+    "code": "Branch code",
+    "codeHint": "2–6 capital letters or digits. Prefix of invoice numbers; fixed once the branch has sold.",
+    "phone": "Phone",
+    "address": "Address",
+    "latitude": "Latitude",
+    "longitude": "Longitude",
+    "coordinatesHint": "Used for GPS clock-in. Leave empty if not needed yet.",
+    "timezone": "Time zone",
+    "openTime": "Opening time",
+    "closeTime": "Closing time",
+    "dayCutoffTime": "Business day cutoff",
+    "dayCutoffHint": "Daily reports start at this time. A change applies from the next business day.",
+    "pendingCutoff": "The new cutoff {{time}} applies from {{date}}.",
+    "taxRatePercent": "Default tax rate (%)",
+    "taxHint": "Listed prices already include tax; at 0 the receipt has no VAT line.",
+    "serviceChargePercent": "Service charge (%)",
+    "businessName": "Name on the receipt",
+    "receiptAddress": "Address on the receipt",
+    "receiptPhone": "Phone on the receipt",
+    "taxCode": "Tax code",
+    "footer": "Closing message",
+    "bankCode": "Bank code",
+    "bankCodeHint": "For example VCB, TCB, MB.",
+    "accountNumber": "Account number",
+    "accountName": "Account holder"
+  },
+  "errors": {
+    "coordinate": "Invalid coordinate",
+    "percent": "0 to 100, at most two decimals",
+    "bankIncomplete": "Fill in all three fields or leave them all empty"
+  },
+  "actions": {
+    "save": "Save changes",
+    "cancel": "Cancel",
+    "deactivate": "Deactivate",
+    "activate": "Reactivate",
+    "create": "Create branch"
+  },
+  "readOnly": "You can only view this part.",
+  "confirmDeactivate": {
+    "title": "Deactivate {{name}}?",
+    "description": "The branch will take no new orders and register no new devices. Its history stays readable, and it can be reactivated later."
+  },
+  "toast": {
+    "saved": "Saved the changes to {{name}}.",
+    "created": "Created {{name}}.",
+    "deactivated": "{{name}} is now inactive.",
+    "activated": "{{name}} is active again."
+  },
+  "createDialog": {
+    "title": "Add branch",
+    "description": "A new branch starts with the default settings: open 10:00–22:00, day cutoff 00:00, tax 0%."
+  }
+}

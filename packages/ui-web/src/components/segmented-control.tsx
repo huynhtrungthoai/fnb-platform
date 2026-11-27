@@ -21,8 +21,9 @@ export interface SegmentedControlProps<TValue extends string> {
 }
 
 /**
- * A row of mutually exclusive choices. Internal building block of `LanguageSwitcher` and
- * `ThemeSwitcher`; the selected item is marked by surface, weight and `aria-checked`.
+ * A row of mutually exclusive choices: the base of `LanguageSwitcher` and `ThemeSwitcher`, and
+ * quick filters (permission matrix, branch to inspect). The selected item is marked by surface,
+ * weight and `aria-checked`.
  */
 export function SegmentedControl<TValue extends string>({
   label,

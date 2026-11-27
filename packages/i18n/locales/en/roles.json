@@ -1,0 +1,118 @@
+{
+  "title": "Permission groups",
+  "description": "{{system}} default groups · {{custom}} custom groups · {{permissions}} feature permissions",
+  "tableLabel": "Permission group list",
+  "compare": "Compare groups",
+  "create": "Create group",
+  "newBanner": "An update added new permissions. Default groups received them as configured; custom groups marked \"New\" need your review.",
+  "footnote": "The Owner group always holds every permission and cannot be edited or deleted. Default groups can be edited and restored; a custom group can only be deleted when nobody is assigned to it.",
+  "columns": {
+    "name": "Group",
+    "type": "Type",
+    "permissions": "Permissions",
+    "members": "Staff",
+    "limits": "Main limits",
+    "updated": "Updated",
+    "actions": "Actions"
+  },
+  "type": {
+    "locked": "Locked",
+    "system": "Default",
+    "custom": "Custom"
+  },
+  "noLimits": "No limits",
+  "actions": {
+    "edit": "Edit",
+    "view": "View",
+    "clone": "Duplicate",
+    "delete": "Delete",
+    "save": "Save group",
+    "cancel": "Cancel",
+    "restore": "Restore defaults",
+    "swap": "Swap the two groups",
+    "editRole": "Edit {{name}}"
+  },
+  "cloneDialog": {
+    "title": "Duplicate {{name}}",
+    "description": "The new group is a custom group with the same permissions and limits.",
+    "name": "New group name",
+    "submit": "Duplicate",
+    "copyOf": "{{name}} (copy)"
+  },
+  "deleteDialog": {
+    "title": "Delete the group {{name}}?",
+    "description": "Nobody is assigned to it. This cannot be undone."
+  },
+  "restoreDialog": {
+    "title": "Restore {{name}} to its defaults?",
+    "description": "Permissions and limits go back to the installation values, at once for everyone in the group."
+  },
+  "toast": {
+    "saved": "Saved {{name}}. It applies now.",
+    "created": "Created the group {{name}}.",
+    "cloned": "Created {{name}}.",
+    "deleted": "Deleted the group {{name}}.",
+    "restored": "Restored {{name}} to its defaults."
+  },
+  "edit": {
+    "newTitle": "New permission group",
+    "description": "{{permissions}} permissions · {{members}} staff · applies as soon as it is saved",
+    "newDescription": "Custom group: tick permissions by module and set limits",
+    "tabs": {
+      "label": "Group content",
+      "permissions": "Permissions and limits",
+      "members": "Staff in the group · {{count}}"
+    },
+    "infoTitle": "Group details",
+    "name": "Name",
+    "descriptionField": "Description",
+    "codeNote": "The group code {{code}} cannot be changed.",
+    "limitsTitle": "Limits",
+    "limitsDescription": "Above a limit the POS asks a manager to approve with a PIN. Leave empty for no limit.",
+    "maxDiscountPercent": "Maximum discount (%)",
+    "maxPayOutAmount": "Maximum cash out per slip (₫)",
+    "maxRefundAmount": "Maximum refund per order (₫)",
+    "rulesNote": "You can only grant permissions you hold, and you cannot edit your own group.",
+    "lockedNote": "The Owner group always holds every permission and cannot be edited.",
+    "ownRoleNote": "You belong to this group, so you cannot edit it (no self-escalation).",
+    "readOnlyNote": "You can only view permission groups.",
+    "membersEmpty": "Nobody is in this group yet.",
+    "membersLabel": "Staff in the group",
+    "nameRequired": "Enter the Vietnamese name",
+    "amountInvalid": "A whole, non-negative VND amount",
+    "percentInvalid": "0 to 100"
+  },
+  "matrix": {
+    "label": "Permission table",
+    "search": "Search permissions",
+    "searchPlaceholder": "Search permissions by name or code",
+    "filterAll": "All",
+    "filterSensitive": "Sensitive",
+    "filterOn": "On",
+    "filterNew": "New · {{count}}",
+    "selectModule": "Select the whole {{module}} group",
+    "count": "{{on}}/{{total}}",
+    "empty": "No permission matches the filters.",
+    "requires": "Needs: {{codes}}",
+    "notHeld": "You don't hold this permission, so you cannot grant it"
+  },
+  "compareView": {
+    "title": "Compare permission groups",
+    "description": "Put two groups side by side to see how their permissions and limits differ",
+    "roleA": "Group A",
+    "roleB": "Group B",
+    "onlyDiff": "Only show differences",
+    "summary": "{{diff}} differences · {{same}} the same · A: {{a}} permissions · B: {{b}} permissions",
+    "column": "Permission or limit",
+    "pick": "Pick two groups to compare.",
+    "same": "The two groups are identical.",
+    "tableLabel": "Comparison table",
+    "has": "Yes",
+    "hasNot": "No"
+  },
+  "members": {
+    "name": "Staff",
+    "username": "Username",
+    "branch": "Branch"
+  }
+}

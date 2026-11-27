@@ -86,7 +86,7 @@ Bảng màu biểu đồ là token riêng (`chart-1` … `chart-8`, giá trị �
 | Vùng chạm | `touch-min` (44 px), `touch-pos` (56 px) |
 | Kích thước điều khiển | `control-sm` (36), `control-md` (40), `control-lg` (48), `control-xl` (56); theme chọn mức mặc định (mục 5.2) |
 | Kích thước bố cục | `size-sidebar`, `size-content-max`, `size-cart-panel`, `size-dialog-sm/md/lg`, `size-product-tile`, `size-receipt-k57`, `size-receipt-k80` (xem trước bill) |
-| Thứ tự lớp | `z-dropdown`, `z-sticky`, `z-drawer`, `z-dialog`, `z-toast` |
+| Thứ tự lớp | `z-dropdown`, `z-sticky`, `z-drawer`, `z-dialog`, `z-popover` (danh sách bật ra của `Select`, `Menu`: nằm trên hộp thoại vì có thể mở từ trong hộp thoại), `z-toast` |
 
 ## 5. Token, theme và chế độ sáng/tối
 
@@ -116,7 +116,7 @@ Cách dùng trên web (M0-06):
 | Biến CSS | `--fnb-<token>`: màu theo `[data-mode]`, metric của theme theo `[data-theme]`, đặt trên thẻ `<html>` |
 | Class Tailwind màu | Tên màu = tên token: `bg-bg`, `bg-bg-subtle`, `text-text`, `text-text-muted`, `border-border`, `bg-primary`, `text-primary-fg`, `bg-danger-subtle`… Bảng màu mặc định của Tailwind bị gỡ (`bg-red-500` không tồn tại) |
 | Metric theo theme | `h-control`, `rounded-control`, `text-control`, `text-body`: cùng class, admin ra 40 px, POS ra 56 px |
-| Metric cố định | `h-control-sm/md/lg/xl`, `min-h-touch-min`, `min-h-touch-pos`, `size-icon-sm/md/lg`, `max-w-dialog-sm/md/lg`, `max-w-content-max`, `w-sidebar`, `z-dropdown/sticky/drawer/dialog/toast`, `duration-fast/base` |
+| Metric cố định | `h-control-sm/md/lg/xl`, `min-h-touch-min`, `min-h-touch-pos`, `size-icon-sm/md/lg`, `max-w-dialog-sm/md/lg`, `max-w-content-max`, `w-sidebar`, `z-dropdown/sticky/drawer/dialog/popover/toast`, `duration-fast/base` |
 | Đối tượng theme TypeScript | `themes[<theme>][<mode>]` và `metrics` từ `@fnb/design-tokens` (cho bản native) |
 
 Chưa có trong `tokens.json` ở M0, thêm khi tới mốc dùng: `status.*` (M3, M4, khi có enum trạng thái), `size-cart-panel`, `size-product-tile`, `size-receipt-k57/k80` (M3), `font-display` và theme `customer`, `kds`, `mobile`.
@@ -261,7 +261,7 @@ Mọi nền tảng hiển thị các trạng thái sau bằng component cùng t�
 ## 10. Việc cần làm
 
 - [x] M0 (token ở M0-06, component ở M0-07): `packages/design-tokens` ba lớp (`palette`, `semantic`, `theme`) với theme `admin` và `pos`; bộ sinh biến CSS/Tailwind theo `data-theme` × `data-mode`. `packages/ui-web` và `packages/ui-pos` nền: `Button`, `Input`, `Card`, `Dialog`, `Toast` (`Toaster` + `toast()`), `Spinner`, `Skeleton`, `EmptyState`, `ErrorState`, `Icon`, `LanguageSwitcher`, `ThemeSwitcher`, `ThemeProvider`, README; trang mẫu `/dev/components` trong `apps/admin` và `apps/pos`. Hai package `ui-*` được app dùng thẳng từ mã nguồn (không build riêng), nên stylesheet của app phải có `@source` trỏ tới `packages/ui-<nền tảng>/src`.
-- [ ] M1 (`ui-web`): `AppShell`, `Sidebar`, `PageHeader`, `DataTable`, `FilterBar`, bộ form, `ConfirmDialog`, `Can`, `NoPermission`, `LocalizedInput`. App admin: `PermissionMatrix` trong `src/shared-components`.
+- [~] M1 (`ui-web`): `AppShell`, `Sidebar`, `PageHeader`, `DataTable`, `FilterBar`, bộ form, `ConfirmDialog`, `Can`, `NoPermission`, `LocalizedInput`. App admin: `PermissionMatrix` trong `src/shared-components`. *M1-18 xong: `AppShell`, `Sidebar`, `PageHeader`, `Select`, `Menu`, `PermissionProvider` + `usePermission` + `Can`, `NoPermission`, `FormSection`, `FormActions`; M1-19: `Badge`, `Tabs`, `DangerButton`, `IconButton`, `ConfirmDialog`, `Card` thêm `padding`; M1-20: `DataTable`, `FilterBar`, `Pagination`, `Checkbox`, `LocalizedInput`, export `SegmentedControl`; app admin có `PermissionMatrix`, `FormTextField`, `PermissionGate` trong `shared-components`. Form dùng react-hook-form + `zodResolver` (`@hookform/resolvers`) với schema của contract; lỗi ô nhập dịch theo mã lỗi Zod (`common:validation.*`), không hiện câu của Zod.*
 - [ ] M2 (`ui-web`): `ImageUpload`, `MoneyInput`, `Money`, `ProductImage`, sắp xếp kéo thả.
 - [ ] M3 (`ui-pos`): `PosShell`, `ActionBar`, `ProductTile`, `CategoryTabs`, `CartLine`, `ModifierGroupPicker`, `NumPad`, `PinInput`, `ApprovalDialog`, `OfflineBanner`, `SyncStatus`, `PaymentMethodTile`, `Money`, `ConfirmDialog`, `Can`, `CashCountInput`, `PrinterStatus`, `ReceiptPreview`.
 - [ ] M4 (`ui-pos`): theme `kds`, `KdsShell`, `TicketCard` (`TableTile` hoãn theo D-26).

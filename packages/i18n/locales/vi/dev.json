@@ -8,7 +8,10 @@
     "cards": "Thẻ",
     "feedback": "Phản hồi",
     "states": "Trạng thái",
-    "settings": "Ngôn ngữ và giao diện"
+    "settings": "Ngôn ngữ và giao diện",
+    "layout": "Khung và điều hướng",
+    "actions": "Nhãn, tab, hành động nguy hiểm",
+    "data": "Danh sách và dữ liệu"
   },
   "buttons": {
     "primary": "Nút chính",
@@ -51,5 +54,58 @@
     "emptyDescription": "Thêm món đầu tiên để bắt đầu bán.",
     "emptyAction": "Thêm món",
     "retried": "Đã thử lại."
+  },
+  "layout": {
+    "pageTitle": "Chi nhánh",
+    "pageDescription": "PageHeader: tiêu đề, đường dẫn và hành động chính",
+    "crumb": "Hệ thống",
+    "add": "Thêm chi nhánh",
+    "menu": "Menu mẫu",
+    "hidden": "Nhân viên (ẩn vì thiếu quyền)",
+    "select": "Select",
+    "optionOne": "Chi nhánh Quận 1",
+    "optionTwo": "Chi nhánh Quận 3",
+    "menuButton": "Thao tác",
+    "menuEdit": "Sửa",
+    "menuDelete": "Xoá",
+    "formSection": "FormSection",
+    "formDescription": "Nhóm ô nhập có tiêu đề; FormActions bên dưới",
+    "save": "Lưu",
+    "cancel": "Huỷ",
+    "branchName": "Tên chi nhánh",
+    "branchCode": "Mã chi nhánh"
+  },
+  "actions": {
+    "neutral": "Trung tính",
+    "success": "Đang hoạt động",
+    "warning": "Sắp hết hạn",
+    "danger": "Đã khoá",
+    "info": "Mới",
+    "edit": "Sửa",
+    "more": "Thao tác khác",
+    "tabOne": "Thông tin",
+    "tabTwo": "Thông tin in trên bill",
+    "tabOneBody": "Nội dung tab thứ nhất.",
+    "tabTwoBody": "Nội dung tab thứ hai.",
+    "deactivate": "Ngừng hoạt động",
+    "confirmTitle": "Ngừng hoạt động chi nhánh?",
+    "confirmDescription": "Hành động nguy hiểm luôn qua ConfirmDialog; mẫu này bắt nhập lý do.",
+    "done": "Đã ngừng hoạt động."
+  },
+  "data": {
+    "name": "Nhân viên",
+    "status": "Trạng thái",
+    "locked": "Bị khoá",
+    "active": "Đang dùng",
+    "search": "Tìm theo tên",
+    "allStatuses": "Trạng thái: Tất cả",
+    "state": "Trạng thái bảng",
+    "stateRows": "Bảng: có dòng",
+    "stateLoading": "Bảng: đang tải",
+    "stateEmpty": "Bảng: rỗng",
+    "stateError": "Bảng: lỗi",
+    "tick": "Xem chi nhánh",
+    "localized": "Tên nhóm",
+    "nameVi": "Thu ngân"
   }
 }

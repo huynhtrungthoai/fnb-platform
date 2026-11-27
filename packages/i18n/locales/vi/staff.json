@@ -1,0 +1,130 @@
+{
+  "title": "Nhân viên",
+  "description_other": "{{count}} tài khoản · đăng nhập bằng tên đăng nhập + PIN 6 số · sai 5 lần tự khoá",
+  "tableLabel": "Danh sách nhân viên",
+  "add": "Thêm nhân viên",
+  "rolesLink": "Nhóm quyền",
+  "lockedBanner_other": "{{count}} tài khoản đang bị khoá do nhập sai PIN 5 lần. Mở khoá hoặc đặt lại PIN để họ đăng nhập lại.",
+  "filters": {
+    "search": "Tìm nhân viên",
+    "searchPlaceholder": "Tìm theo tên, tên đăng nhập, số điện thoại",
+    "branch": "Chi nhánh",
+    "allBranches": "Chi nhánh: Tất cả",
+    "role": "Nhóm quyền",
+    "allRoles": "Nhóm quyền: Tất cả",
+    "status": "Trạng thái",
+    "statusAll": "Trạng thái: Tất cả",
+    "statusActive": "Đang dùng",
+    "statusLocked": "Bị khoá",
+    "statusDisabled": "Ngừng làm"
+  },
+  "columns": {
+    "staff": "Nhân viên",
+    "username": "Tên đăng nhập",
+    "assignments": "Chi nhánh · nhóm quyền",
+    "status": "Trạng thái",
+    "lastLogin": "Đăng nhập gần nhất",
+    "actions": "Thao tác"
+  },
+  "status": {
+    "active": "Đang dùng",
+    "locked": "Bị khoá · sai PIN 5 lần",
+    "disabled": "Ngừng làm",
+    "mustChangePin": "Chờ đổi PIN tạm",
+    "superAdmin": "Super admin"
+  },
+  "allBranches": "Tất cả chi nhánh",
+  "noAssignment": "Chưa được gán",
+  "never": "Chưa đăng nhập",
+  "empty": "Không có nhân viên nào khớp bộ lọc.",
+  "emptyAction": "Thêm nhân viên đầu tiên",
+  "rowMenu": "Thao tác khác cho {{name}}",
+  "actions": {
+    "open": "Xem chi tiết",
+    "unlock": "Mở khoá",
+    "resetPin": "Đặt lại PIN",
+    "disable": "Ngừng làm",
+    "enable": "Cho làm lại",
+    "save": "Lưu thay đổi",
+    "cancel": "Huỷ",
+    "saveAccess": "Lưu phân quyền",
+    "create": "Tạo tài khoản",
+    "newPin": "Tạo PIN khác"
+  },
+  "resetPin": {
+    "title": "Đặt lại PIN cho {{name}}?",
+    "description": "Hệ thống tạo PIN tạm 6 số, chỉ hiện một lần để bạn đưa cho nhân viên. Tài khoản được mở khoá, mọi phiên đang đăng nhập bị đăng xuất, nhân viên phải đổi PIN ở lần đăng nhập tới.",
+    "note": "Thao tác được ghi vào Nhật ký. Không áp dụng với tài khoản super admin."
+  },
+  "tempPin": {
+    "title": "PIN tạm của {{name}}",
+    "description": "Đưa PIN này cho nhân viên. PIN chỉ hiện một lần; nhân viên phải đổi PIN ở lần đăng nhập đầu tiên.",
+    "label": "PIN tạm",
+    "done": "Đã ghi lại"
+  },
+  "disable": {
+    "title": "Cho {{name}} ngừng làm?",
+    "description": "Tài khoản không đăng nhập được nữa và mọi phiên đang mở bị đăng xuất ngay. Lịch sử vẫn giữ nguyên; có thể cho làm lại sau."
+  },
+  "toast": {
+    "saved": "Đã lưu thông tin của {{name}}.",
+    "created": "Đã tạo tài khoản {{name}}.",
+    "unlocked": "Đã mở khoá {{name}}.",
+    "disabled": "{{name}} đã ngừng làm.",
+    "enabled": "{{name}} đã được cho làm lại.",
+    "accessSaved": "Đã lưu phân quyền của {{name}}. Có hiệu lực ngay."
+  },
+  "fields": {
+    "fullName": "Họ tên",
+    "phone": "Số điện thoại",
+    "username": "Tên đăng nhập",
+    "usernameHint": "3–30 chữ thường không dấu hoặc số. Không đổi được sau khi tạo.",
+    "pin": "PIN tạm",
+    "pinHint": "6 chữ số. Nhân viên đổi PIN ở lần đăng nhập đầu tiên.",
+    "branch": "Chi nhánh",
+    "role": "Nhóm quyền"
+  },
+  "createDialog": {
+    "title": "Thêm nhân viên",
+    "description": "Mỗi chi nhánh một nhóm quyền. Gán thêm chi nhánh ở trang chi tiết sau khi tạo."
+  },
+  "detail": {
+    "breadcrumb": "Nhân viên",
+    "tabs": {
+      "label": "Thông tin nhân viên",
+      "info": "Thông tin",
+      "access": "Phân quyền",
+      "login": "Đăng nhập và PIN"
+    },
+    "infoSection": "Thông tin cá nhân",
+    "accessTitle": "Chi nhánh × nhóm quyền",
+    "accessDescription": "Mỗi chi nhánh một nhóm quyền; quyền ở chi nhánh này không có hiệu lực ở chi nhánh khác. Bạn chỉ gán được nhóm có quyền nằm trong quyền của chính bạn.",
+    "accessNote": "Đổi nhóm quyền có hiệu lực ngay với mọi phiên đang đăng nhập và được ghi vào Nhật ký (trước/sau).",
+    "notWorkingHere": "Không làm ở chi nhánh này",
+    "since": "Từ ngày",
+    "branchColumn": "Chi nhánh",
+    "roleColumn": "Nhóm quyền",
+    "effectiveTitle": "Quyền thực tế",
+    "effectiveDescription": "Tại chi nhánh đang chọn, gồm hạn mức",
+    "effectiveBranch": "Chi nhánh xem quyền",
+    "effectiveEmpty": "Nhân viên chưa có quyền ở chi nhánh nào.",
+    "granted": "Có",
+    "notGranted": "Không có",
+    "approvable": "Không có · xin duyệt tại chỗ",
+    "viaAllBranches": "Theo bản gán tất cả chi nhánh: {{role}}",
+    "roleAt": "Nhóm {{role}}",
+    "loginStatus": "Trạng thái tài khoản",
+    "lastLogin": "Đăng nhập gần nhất",
+    "credential": "Cách đăng nhập Admin",
+    "credentialPin": "Tên đăng nhập + PIN 6 số",
+    "credentialPassword": "Tên đăng nhập + mật khẩu (super admin)",
+    "lockedUntil": "Tự mở khoá lúc {{time}}",
+    "superAdminNote": "Mật khẩu super admin chỉ đặt lại được bằng lệnh trên máy chủ.",
+    "selfNote": "Đây là tài khoản của bạn. Đổi PIN ở menu tài khoản."
+  },
+  "limits": {
+    "maxDiscountPercent": "Giảm giá tối đa {{value}}%",
+    "maxPayOutAmount": "Chi tiền két tối đa {{value}}",
+    "maxRefundAmount": "Hoàn tiền tối đa {{value}}"
+  }
+}

@@ -4,18 +4,32 @@
     "cancel": "Cancel",
     "confirm": "Confirm",
     "close": "Close",
-    "retry": "Try again"
+    "retry": "Try again",
+    "edit": "Edit",
+    "delete": "Delete",
+    "add": "Add",
+    "search": "Search",
+    "clearFilters": "Clear filters",
+    "back": "Back",
+    "more": "More actions"
   },
   "states": {
     "loading": "Loading",
     "emptyTitle": "Nothing here yet",
     "errorTitle": "Something went wrong",
-    "errorDescription": "The data could not be loaded. Check the connection and try again."
+    "errorDescription": "The data could not be loaded. Check the connection and try again.",
+    "noPermissionTitle": "You don't have access to this",
+    "noPermissionDescription": "Ask a manager for access if you need it.",
+    "noPermissionNeeds": "Needs the \"{{permission}}\" permission. Ask a manager for access if you need it."
   },
   "language": {
     "label": "Language",
     "vi": "Tiếng Việt",
-    "en": "English"
+    "en": "English",
+    "short": {
+      "vi": "VI",
+      "en": "EN"
+    }
   },
   "theme": {
     "label": "Appearance",
@@ -33,5 +47,31 @@
     "openComponents": "Open the component sample page",
     "notFound": "Page not found",
     "backHome": "Back to home"
+  },
+  "shell": {
+    "breadcrumb": "Breadcrumb",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "validation": {
+    "required": "Required",
+    "too_small": "Too short or too small",
+    "too_big": "Too long or too large",
+    "invalid_format": "Invalid format",
+    "invalid_type": "Invalid value",
+    "invalid_value": "Invalid value",
+    "custom": "Invalid value"
+  },
+  "confirm": {
+    "reason": "Reason"
+  },
+  "pagination": {
+    "label": "Pagination",
+    "summary": "Showing {{from}}–{{to}} of {{total}}",
+    "previous": "Previous page",
+    "next": "Next page"
+  },
+  "localized": {
+    "missingEnglish": "No English name yet; the Vietnamese one is shown."
   }
 }

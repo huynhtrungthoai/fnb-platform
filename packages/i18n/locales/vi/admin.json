@@ -1,0 +1,62 @@
+{
+  "login": {
+    "title": "Đăng nhập quản trị",
+    "username": "Tên đăng nhập",
+    "secret": "PIN hoặc mật khẩu",
+    "submit": "Đăng nhập",
+    "lockWarning": "Sai 5 lần sẽ khoá tài khoản. Quản lý hoặc super admin mở lại và đặt lại PIN.",
+    "samePin": "Dùng cùng tài khoản và PIN với POS."
+  },
+  "changePin": {
+    "titlePin": "Đổi PIN",
+    "titlePassword": "Đổi mật khẩu",
+    "forcedDescription": "PIN hiện tại là PIN tạm. Đặt PIN mới trước khi tiếp tục.",
+    "description": "Các phiên đăng nhập khác của bạn sẽ bị đăng xuất.",
+    "currentPin": "PIN hiện tại",
+    "newPin": "PIN mới",
+    "confirmPin": "Nhập lại PIN mới",
+    "currentPassword": "Mật khẩu hiện tại",
+    "newPassword": "Mật khẩu mới",
+    "confirmPassword": "Nhập lại mật khẩu mới",
+    "pinHint": "Đúng 6 chữ số.",
+    "passwordHint": "Tối thiểu 10 ký tự, có chữ và số.",
+    "mismatch": "Hai lần nhập không khớp",
+    "sameAsCurrent": "Phải khác giá trị hiện tại",
+    "submit": "Lưu",
+    "done": "Đã đổi. Các phiên khác đã bị đăng xuất."
+  },
+  "shell": {
+    "brand": "Banhkepchonong",
+    "brandSub": "Quản trị",
+    "menu": "Menu chính",
+    "branch": "Chi nhánh đang làm việc",
+    "noBranch": "Chưa được gán chi nhánh",
+    "inactiveBranch": "Ngừng hoạt động",
+    "allBranches": "Tất cả chi nhánh",
+    "account": "Tài khoản",
+    "changePin": "Đổi PIN",
+    "changePassword": "Đổi mật khẩu",
+    "logout": "Đăng xuất",
+    "logoutEverywhere": "Đăng xuất mọi thiết bị",
+    "branchChanged": "Đang làm việc tại {{branch}}"
+  },
+  "nav": {
+    "groups": {
+      "people": "Nhân sự",
+      "system": "Hệ thống"
+    },
+    "home": "Tổng quan",
+    "staff": "Nhân viên",
+    "branches": "Chi nhánh",
+    "roles": "Nhóm quyền",
+    "devices": "Thiết bị",
+    "audit": "Nhật ký"
+  },
+  "home": {
+    "title": "Tổng quan",
+    "greeting": "Xin chào, {{name}}",
+    "description": "Số liệu bán hàng có từ khi POS chạy (M3). Hiện có thể quản lý chi nhánh, nhân viên, nhóm quyền, thiết bị và xem nhật ký.",
+    "role": "Nhóm quyền tại {{branch}}: {{role}}",
+    "noAssignment": "Tài khoản chưa được gán vào chi nhánh nào. Nhờ quản lý gán nhóm quyền."
+  }
+}

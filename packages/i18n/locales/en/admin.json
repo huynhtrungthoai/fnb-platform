@@ -1,0 +1,62 @@
+{
+  "login": {
+    "title": "Admin sign in",
+    "username": "Username",
+    "secret": "PIN or password",
+    "submit": "Sign in",
+    "lockWarning": "Five wrong attempts lock the account. A manager or the super admin can unlock it and reset the PIN.",
+    "samePin": "Use the same account and PIN as on the POS."
+  },
+  "changePin": {
+    "titlePin": "Change PIN",
+    "titlePassword": "Change password",
+    "forcedDescription": "Your current PIN is temporary. Set a new PIN to continue.",
+    "description": "Your other sessions will be signed out.",
+    "currentPin": "Current PIN",
+    "newPin": "New PIN",
+    "confirmPin": "Repeat the new PIN",
+    "currentPassword": "Current password",
+    "newPassword": "New password",
+    "confirmPassword": "Repeat the new password",
+    "pinHint": "Exactly 6 digits.",
+    "passwordHint": "At least 10 characters, with letters and digits.",
+    "mismatch": "The two entries do not match",
+    "sameAsCurrent": "Must differ from the current one",
+    "submit": "Save",
+    "done": "Changed. Your other sessions were signed out."
+  },
+  "shell": {
+    "brand": "Banhkepchonong",
+    "brandSub": "Admin",
+    "menu": "Main menu",
+    "branch": "Working branch",
+    "noBranch": "No branch assigned",
+    "inactiveBranch": "Inactive",
+    "allBranches": "All branches",
+    "account": "Account",
+    "changePin": "Change PIN",
+    "changePassword": "Change password",
+    "logout": "Sign out",
+    "logoutEverywhere": "Sign out on every device",
+    "branchChanged": "Now working at {{branch}}"
+  },
+  "nav": {
+    "groups": {
+      "people": "People",
+      "system": "System"
+    },
+    "home": "Overview",
+    "staff": "Staff",
+    "branches": "Branches",
+    "roles": "Permission groups",
+    "devices": "Devices",
+    "audit": "Activity log"
+  },
+  "home": {
+    "title": "Overview",
+    "greeting": "Hello, {{name}}",
+    "description": "Sales figures arrive once the POS is running (M3). For now you can manage branches, staff, permission groups and devices, and read the activity log.",
+    "role": "Permission group at {{branch}}: {{role}}",
+    "noAssignment": "This account is not assigned to any branch yet. Ask a manager to assign a permission group."
+  }
+}

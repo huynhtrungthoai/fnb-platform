@@ -4,18 +4,32 @@
     "cancel": "Huỷ",
     "confirm": "Xác nhận",
     "close": "Đóng",
-    "retry": "Thử lại"
+    "retry": "Thử lại",
+    "edit": "Sửa",
+    "delete": "Xoá",
+    "add": "Thêm",
+    "search": "Tìm",
+    "clearFilters": "Xoá bộ lọc",
+    "back": "Quay lại",
+    "more": "Thao tác khác"
   },
   "states": {
     "loading": "Đang tải",
     "emptyTitle": "Chưa có dữ liệu",
     "errorTitle": "Đã xảy ra lỗi",
-    "errorDescription": "Không tải được dữ liệu. Kiểm tra kết nối rồi thử lại."
+    "errorDescription": "Không tải được dữ liệu. Kiểm tra kết nối rồi thử lại.",
+    "noPermissionTitle": "Bạn không có quyền xem mục này",
+    "noPermissionDescription": "Nhờ quản lý cấp quyền nếu bạn cần dùng mục này.",
+    "noPermissionNeeds": "Cần quyền \"{{permission}}\". Nhờ quản lý cấp quyền nếu bạn cần dùng mục này."
   },
   "language": {
     "label": "Ngôn ngữ",
     "vi": "Tiếng Việt",
-    "en": "English"
+    "en": "English",
+    "short": {
+      "vi": "VI",
+      "en": "EN"
+    }
   },
   "theme": {
     "label": "Giao diện",
@@ -33,5 +47,31 @@
     "openComponents": "Xem trang mẫu component",
     "notFound": "Không tìm thấy trang",
     "backHome": "Về trang chính"
+  },
+  "shell": {
+    "breadcrumb": "Đường dẫn",
+    "openMenu": "Mở menu",
+    "closeMenu": "Đóng menu"
+  },
+  "validation": {
+    "required": "Bắt buộc nhập",
+    "too_small": "Quá ngắn hoặc quá nhỏ",
+    "too_big": "Quá dài hoặc quá lớn",
+    "invalid_format": "Sai định dạng",
+    "invalid_type": "Giá trị không hợp lệ",
+    "invalid_value": "Giá trị không hợp lệ",
+    "custom": "Giá trị không hợp lệ"
+  },
+  "confirm": {
+    "reason": "Lý do"
+  },
+  "pagination": {
+    "label": "Phân trang",
+    "summary": "Hiển thị {{from}}–{{to}} trên {{total}}",
+    "previous": "Trang trước",
+    "next": "Trang sau"
+  },
+  "localized": {
+    "missingEnglish": "Chưa có tên tiếng Anh; sẽ hiện tên tiếng Việt."
   }
 }

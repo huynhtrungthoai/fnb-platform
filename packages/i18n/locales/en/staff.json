@@ -1,0 +1,132 @@
+{
+  "title": "Staff",
+  "description_one": "{{count}} account · sign in with username + 6-digit PIN · locks after 5 wrong tries",
+  "description_other": "{{count}} accounts · sign in with username + 6-digit PIN · locks after 5 wrong tries",
+  "tableLabel": "Staff list",
+  "add": "Add staff",
+  "rolesLink": "Permission groups",
+  "lockedBanner_one": "{{count}} account is locked after 5 wrong PINs. Unlock it or reset the PIN so the person can sign in again.",
+  "lockedBanner_other": "{{count}} accounts are locked after 5 wrong PINs. Unlock them or reset the PIN so they can sign in again.",
+  "filters": {
+    "search": "Search staff",
+    "searchPlaceholder": "Search by name, username or phone",
+    "branch": "Branch",
+    "allBranches": "Branch: All",
+    "role": "Permission group",
+    "allRoles": "Group: All",
+    "status": "Status",
+    "statusAll": "Status: All",
+    "statusActive": "Active",
+    "statusLocked": "Locked",
+    "statusDisabled": "Disabled"
+  },
+  "columns": {
+    "staff": "Staff",
+    "username": "Username",
+    "assignments": "Branch · group",
+    "status": "Status",
+    "lastLogin": "Last sign-in",
+    "actions": "Actions"
+  },
+  "status": {
+    "active": "Active",
+    "locked": "Locked · 5 wrong PINs",
+    "disabled": "Disabled",
+    "mustChangePin": "Temporary PIN",
+    "superAdmin": "Super admin"
+  },
+  "allBranches": "All branches",
+  "noAssignment": "Not assigned",
+  "never": "Never signed in",
+  "empty": "No staff match the filters.",
+  "emptyAction": "Add the first staff member",
+  "rowMenu": "More actions for {{name}}",
+  "actions": {
+    "open": "View details",
+    "unlock": "Unlock",
+    "resetPin": "Reset PIN",
+    "disable": "Disable",
+    "enable": "Enable",
+    "save": "Save changes",
+    "cancel": "Cancel",
+    "saveAccess": "Save access",
+    "create": "Create account",
+    "newPin": "Generate another PIN"
+  },
+  "resetPin": {
+    "title": "Reset the PIN of {{name}}?",
+    "description": "A temporary 6-digit PIN is created and shown once for you to hand over. The account is unlocked, every open session is signed out, and the person must change the PIN at the next sign-in.",
+    "note": "Recorded in the activity log. Not available for the super admin account."
+  },
+  "tempPin": {
+    "title": "Temporary PIN of {{name}}",
+    "description": "Hand this PIN to the person. It is shown only once; they must change it at their first sign-in.",
+    "label": "Temporary PIN",
+    "done": "Noted"
+  },
+  "disable": {
+    "title": "Disable {{name}}?",
+    "description": "The account can no longer sign in and every open session is signed out now. History is kept; the account can be enabled again later."
+  },
+  "toast": {
+    "saved": "Saved the details of {{name}}.",
+    "created": "Created the account of {{name}}.",
+    "unlocked": "Unlocked {{name}}.",
+    "disabled": "{{name}} is disabled.",
+    "enabled": "{{name}} is enabled again.",
+    "accessSaved": "Saved the access of {{name}}. It applies now."
+  },
+  "fields": {
+    "fullName": "Full name",
+    "phone": "Phone",
+    "username": "Username",
+    "usernameHint": "3–30 lower-case letters without accents or digits. Cannot be changed later.",
+    "pin": "Temporary PIN",
+    "pinHint": "6 digits. The person changes it at the first sign-in.",
+    "branch": "Branch",
+    "role": "Permission group"
+  },
+  "createDialog": {
+    "title": "Add staff",
+    "description": "One permission group per branch. Assign more branches on the detail page after creating."
+  },
+  "detail": {
+    "breadcrumb": "Staff",
+    "tabs": {
+      "label": "Staff details",
+      "info": "Details",
+      "access": "Access",
+      "login": "Sign-in and PIN"
+    },
+    "infoSection": "Personal details",
+    "accessTitle": "Branch × permission group",
+    "accessDescription": "One group per branch; access at one branch does not apply at another. You can only assign groups whose permissions you hold yourself.",
+    "accessNote": "A group change applies at once to every open session and is recorded in the activity log (before/after).",
+    "notWorkingHere": "Does not work at this branch",
+    "since": "Since",
+    "branchColumn": "Branch",
+    "roleColumn": "Permission group",
+    "effectiveTitle": "Effective permissions",
+    "effectiveDescription": "At the selected branch, with limits",
+    "effectiveBranch": "Branch to inspect",
+    "effectiveEmpty": "This person has no access at any branch.",
+    "granted": "Yes",
+    "notGranted": "No",
+    "approvable": "No · can ask for approval on the spot",
+    "viaAllBranches": "From the all-branches assignment: {{role}}",
+    "roleAt": "Group {{role}}",
+    "loginStatus": "Account status",
+    "lastLogin": "Last sign-in",
+    "credential": "Admin sign-in",
+    "credentialPin": "Username + 6-digit PIN",
+    "credentialPassword": "Username + password (super admin)",
+    "lockedUntil": "Unlocks by itself at {{time}}",
+    "superAdminNote": "The super admin password can only be reset with a command on the server.",
+    "selfNote": "This is your own account. Change your PIN from the account menu."
+  },
+  "limits": {
+    "maxDiscountPercent": "Discount up to {{value}}%",
+    "maxPayOutAmount": "Cash out up to {{value}}",
+    "maxRefundAmount": "Refund up to {{value}}"
+  }
+}

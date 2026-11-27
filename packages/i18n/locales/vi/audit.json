@@ -1,0 +1,94 @@
+{
+  "title": "Nhật ký",
+  "description": "Thao tác nhạy cảm: ai, lúc nào, chi nhánh, thiết bị, dữ liệu trước và sau. Chỉ xem, không sửa được.",
+  "tableLabel": "Nhật ký thao tác",
+  "filters": {
+    "actor": "Người",
+    "allActors": "Người: Tất cả",
+    "action": "Loại",
+    "allActions": "Loại: Tất cả",
+    "scope": "Phạm vi",
+    "scopeBranch": "Chi nhánh đang chọn",
+    "scopeBusiness": "Cấp doanh nghiệp",
+    "from": "Từ ngày",
+    "to": "Đến ngày"
+  },
+  "groups": {
+    "auth": "Đăng nhập",
+    "user": "Nhân viên",
+    "role": "Nhóm quyền",
+    "branch": "Chi nhánh",
+    "device": "Thiết bị",
+    "approval": "Duyệt tại chỗ",
+    "media": "Ảnh"
+  },
+  "columns": {
+    "time": "Thời gian",
+    "actor": "Người · thiết bị",
+    "branch": "Chi nhánh",
+    "action": "Hành động",
+    "entity": "Đối tượng"
+  },
+  "system": "Hệ thống",
+  "unknownActor": "Không rõ",
+  "businessLevel": "Doanh nghiệp",
+  "empty": "Không có sự kiện nào khớp bộ lọc.",
+  "detail": {
+    "title": "Chi tiết sự kiện",
+    "field": "Trường",
+    "before": "Trước",
+    "after": "Sau",
+    "metadata": "Thông tin thêm",
+    "noChanges": "Sự kiện không ghi dữ liệu trước/sau.",
+    "request": "Mã sự kiện {{id}} · yêu cầu {{requestId}}",
+    "open": "Xem chi tiết",
+    "ip": "IP {{ip}}"
+  },
+  "actions": {
+    "branch": {
+      "create": "Tạo chi nhánh",
+      "update": "Sửa chi nhánh",
+      "deactivate": "Ngừng hoạt động chi nhánh",
+      "activate": "Cho chi nhánh hoạt động lại",
+      "settings_update": "Sửa cấu hình chi nhánh"
+    },
+    "user": {
+      "create": "Tạo nhân viên",
+      "update": "Sửa nhân viên",
+      "disable": "Cho nhân viên ngừng làm",
+      "enable": "Cho nhân viên làm lại",
+      "assign_role": "Gán nhóm quyền",
+      "unassign_role": "Gỡ nhóm quyền",
+      "reset_pin": "Đặt lại PIN",
+      "unlock": "Mở khoá tài khoản"
+    },
+    "auth": {
+      "login": "Đăng nhập",
+      "login_failed": "Đăng nhập sai",
+      "logout": "Đăng xuất",
+      "account_locked": "Khoá tài khoản do sai PIN",
+      "change_pin": "Đổi PIN",
+      "change_password": "Đổi mật khẩu"
+    },
+    "approval": {
+      "grant": "Duyệt tại chỗ",
+      "reject": "Từ chối duyệt"
+    },
+    "media": {
+      "upload": "Tải ảnh lên"
+    },
+    "device": {
+      "register": "Đăng ký thiết bị",
+      "revoke": "Thu hồi thiết bị",
+      "session_open": "Mở phiên trên thiết bị"
+    },
+    "role": {
+      "create": "Tạo nhóm quyền",
+      "update": "Sửa nhóm quyền",
+      "delete": "Xoá nhóm quyền",
+      "restore_default": "Khôi phục nhóm quyền mặc định"
+    }
+  },
+  "staffTab": "Nhật ký",
+  "staffTabEmpty": "Chưa có sự kiện nào về nhân viên này ở phạm vi bạn xem được."
+}

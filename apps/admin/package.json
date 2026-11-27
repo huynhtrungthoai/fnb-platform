@@ -18,11 +18,15 @@
     "@fnb/i18n": "workspace:*",
     "@fnb/ui-web": "workspace:*",
     "@fnb/utils": "workspace:*",
+    "@hookform/resolvers": "catalog:",
+    "@tanstack/react-query": "catalog:",
     "@tanstack/react-router": "catalog:",
     "i18next": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "react-i18next": "catalog:"
+    "react-hook-form": "catalog:",
+    "react-i18next": "catalog:",
+    "zod": "catalog:"
   },
   "devDependencies": {
     "@fnb/config": "workspace:*",

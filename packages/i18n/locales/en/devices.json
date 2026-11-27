@@ -1,0 +1,55 @@
+{
+  "title": "Devices",
+  "description_one": "{{count}} POS/KDS device in use",
+  "description_other": "{{count}} POS/KDS devices in use",
+  "tableLabel": "Device list",
+  "register": "Register device",
+  "subtitle": "The device code prefixes invoice numbers issued offline",
+  "registerDialog": {
+    "title": "Register a device",
+    "description": "A device registers on the POS or kitchen screen itself, so that it receives its own key.",
+    "done": "Got it",
+    "step1": "Open the POS app on the new device and choose \"Register device\".",
+    "step2": "A manager signs in with username and PIN and picks the branch.",
+    "step3": "Name the device, pick its kind (POS, handheld, kitchen screen) and register.",
+    "step4": "It receives a code (for example Q1-P02) and appears in this list."
+  },
+  "filters": {
+    "branch": "Branch",
+    "allBranches": "Branch: All",
+    "status": "Status",
+    "active": "In use",
+    "revoked": "Revoked",
+    "all": "Status: All"
+  },
+  "columns": {
+    "device": "Device",
+    "branch": "Branch",
+    "code": "Code",
+    "status": "Status",
+    "lastSeen": "Last sync",
+    "version": "Version",
+    "lastUser": "In use by",
+    "actions": "Actions"
+  },
+  "kind": {
+    "pos": "Counter POS",
+    "handheld": "Handheld",
+    "kds": "Kitchen screen"
+  },
+  "status": {
+    "active": "In use",
+    "revoked": "Revoked"
+  },
+  "never": "Never connected",
+  "nobody": "—",
+  "empty": "No devices yet.",
+  "emptyAction": "Register the first POS on that device.",
+  "revoke": "Revoke",
+  "revokeDialog": {
+    "title": "Revoke {{name}}?",
+    "description": "The device is signed out now and can no longer be used; the code {{code}} is never reissued. Orders not yet synced on it can no longer be sent."
+  },
+  "revoked": "Revoked {{name}}.",
+  "branchTab": "Devices · {{count}}"
+}

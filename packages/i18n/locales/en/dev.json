@@ -8,7 +8,10 @@
     "cards": "Cards",
     "feedback": "Feedback",
     "states": "States",
-    "settings": "Language and appearance"
+    "settings": "Language and appearance",
+    "layout": "Frame and navigation",
+    "actions": "Badges, tabs, dangerous actions",
+    "data": "Lists and data"
   },
   "buttons": {
     "primary": "Primary",
@@ -51,5 +54,58 @@
     "emptyDescription": "Add the first item to start selling.",
     "emptyAction": "Add item",
     "retried": "Tried again."
+  },
+  "layout": {
+    "pageTitle": "Branches",
+    "pageDescription": "PageHeader: title, breadcrumb and main action",
+    "crumb": "System",
+    "add": "Add branch",
+    "menu": "Sample menu",
+    "hidden": "Staff (hidden, no permission)",
+    "select": "Select",
+    "optionOne": "District 1 branch",
+    "optionTwo": "District 3 branch",
+    "menuButton": "Actions",
+    "menuEdit": "Edit",
+    "menuDelete": "Delete",
+    "formSection": "FormSection",
+    "formDescription": "A titled group of fields; FormActions below",
+    "save": "Save",
+    "cancel": "Cancel",
+    "branchName": "Branch name",
+    "branchCode": "Branch code"
+  },
+  "actions": {
+    "neutral": "Neutral",
+    "success": "Active",
+    "warning": "Expiring",
+    "danger": "Locked",
+    "info": "New",
+    "edit": "Edit",
+    "more": "More actions",
+    "tabOne": "Details",
+    "tabTwo": "Receipt details",
+    "tabOneBody": "Content of the first tab.",
+    "tabTwoBody": "Content of the second tab.",
+    "deactivate": "Deactivate",
+    "confirmTitle": "Deactivate the branch?",
+    "confirmDescription": "Dangerous actions always go through ConfirmDialog; this sample asks for a reason.",
+    "done": "Deactivated."
+  },
+  "data": {
+    "name": "Staff",
+    "status": "Status",
+    "locked": "Locked",
+    "active": "Active",
+    "search": "Search by name",
+    "allStatuses": "Status: All",
+    "state": "Table state",
+    "stateRows": "Table: rows",
+    "stateLoading": "Table: loading",
+    "stateEmpty": "Table: empty",
+    "stateError": "Table: error",
+    "tick": "View branches",
+    "localized": "Group name",
+    "nameVi": "Thu ngân"
   }
 }

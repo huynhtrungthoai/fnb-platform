@@ -1,0 +1,94 @@
+{
+  "title": "Activity log",
+  "description": "Sensitive actions: who, when, branch, device, data before and after. Read-only.",
+  "tableLabel": "Activity log",
+  "filters": {
+    "actor": "Person",
+    "allActors": "Person: All",
+    "action": "Type",
+    "allActions": "Type: All",
+    "scope": "Scope",
+    "scopeBranch": "Selected branch",
+    "scopeBusiness": "Business level",
+    "from": "From",
+    "to": "To"
+  },
+  "groups": {
+    "auth": "Sign-in",
+    "user": "Staff",
+    "role": "Permission groups",
+    "branch": "Branches",
+    "device": "Devices",
+    "approval": "Approvals",
+    "media": "Images"
+  },
+  "columns": {
+    "time": "Time",
+    "actor": "Person · device",
+    "branch": "Branch",
+    "action": "Action",
+    "entity": "Target"
+  },
+  "system": "System",
+  "unknownActor": "Unknown",
+  "businessLevel": "Business",
+  "empty": "No events match the filters.",
+  "detail": {
+    "title": "Event details",
+    "field": "Field",
+    "before": "Before",
+    "after": "After",
+    "metadata": "More facts",
+    "noChanges": "This event records no before/after data.",
+    "request": "Event {{id}} · request {{requestId}}",
+    "open": "View details",
+    "ip": "IP {{ip}}"
+  },
+  "actions": {
+    "branch": {
+      "create": "Create branch",
+      "update": "Edit branch",
+      "deactivate": "Deactivate branch",
+      "activate": "Reactivate branch",
+      "settings_update": "Edit branch settings"
+    },
+    "user": {
+      "create": "Create staff",
+      "update": "Edit staff",
+      "disable": "Disable staff",
+      "enable": "Enable staff",
+      "assign_role": "Assign group",
+      "unassign_role": "Remove group",
+      "reset_pin": "Reset PIN",
+      "unlock": "Unlock account"
+    },
+    "auth": {
+      "login": "Sign in",
+      "login_failed": "Failed sign-in",
+      "logout": "Sign out",
+      "account_locked": "Account locked after wrong PINs",
+      "change_pin": "Change PIN",
+      "change_password": "Change password"
+    },
+    "approval": {
+      "grant": "On-the-spot approval",
+      "reject": "Reject approval"
+    },
+    "media": {
+      "upload": "Upload image"
+    },
+    "device": {
+      "register": "Register device",
+      "revoke": "Revoke device",
+      "session_open": "Open session on device"
+    },
+    "role": {
+      "create": "Create group",
+      "update": "Edit group",
+      "delete": "Delete group",
+      "restore_default": "Restore default group"
+    }
+  },
+  "staffTab": "Activity",
+  "staffTabEmpty": "No events about this person within what you can see."
+}

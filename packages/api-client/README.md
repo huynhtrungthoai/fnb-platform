@@ -29,6 +29,11 @@ export const queryClient = createQueryClient();
 | `ApiProvider`, `useApi` | Cấp client và cache cho cây React. Phiên kết thúc hẳn thì `me` thành `null` và cache khác bị xoá |
 | `queryKeys` | Key của mọi query, để invalidate khớp với hook |
 | `useMe`, `useLogin`, `useLogout`, `useChangePin`, `useChangePassword`, `meQueryOptions` | Hook của module `auth`. `useMe` trả `null` khi chưa đăng nhập, không gọi API |
+| `useBranches`, `useBranch`, `useBranchSettings`, `useCreateBranch`, `useUpdateBranch`, `useSetBranchActive`, `useUpdateBranchSettings` | Module `branches` (M1-19). Mutation tải lại danh sách chi nhánh và `me` (`me` chứa tên, trạng thái chi nhánh) |
+| `useUsers`, `useUser`, `useUserAccess`, `useCreateUser`, `useUpdateUser`, `useSetUserActive`, `useAssignRole`, `useResetPin`, `useUnlockUser` | Module `users` (M1-20). `useUsers` giữ trang cũ khi tải trang mới. PIN tạm khi đặt lại do màn hình sinh rồi gửi lên |
+| `usePermissionCatalog`, `useRoles`, `useRole`, `useCreateRole`, `useCloneRole`, `useUpdateRole`, `useRestoreRoleDefault`, `useDeleteRole` | Module nhóm quyền (M1-20). Mutation tải lại nhóm, nhân viên và `me` vì quyền của người đang dùng có thể đổi theo |
+| `useDevices`, `useRevokeDevice` | Module `devices` phía Admin (M1-21); đăng ký thiết bị chạy trên POS |
+| `useAuditLogs` | Module `audit` (M1-21): tìm nhật ký theo người, tiền tố hành động, đối tượng, khoảng thời gian, phạm vi |
 
 ## Header gửi kèm
 

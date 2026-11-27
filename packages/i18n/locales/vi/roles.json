@@ -1,0 +1,118 @@
+{
+  "title": "Nhóm quyền",
+  "description": "{{system}} nhóm mặc định · {{custom}} nhóm tuỳ chỉnh · {{permissions}} quyền theo tính năng",
+  "tableLabel": "Danh sách nhóm quyền",
+  "compare": "So sánh nhóm",
+  "create": "Tạo nhóm quyền",
+  "newBanner": "Có quyền mới từ bản cập nhật. Nhóm mặc định đã nhận theo cấu hình gốc; nhóm tuỳ chỉnh có nhãn \"Mới\" cần bạn rà lại.",
+  "footnote": "Nhóm Chủ luôn có mọi quyền, không sửa, không xoá. Nhóm mặc định sửa được và có \"Khôi phục mặc định\"; nhóm tuỳ chỉnh chỉ xoá được khi không còn ai được gán.",
+  "columns": {
+    "name": "Nhóm quyền",
+    "type": "Loại",
+    "permissions": "Số quyền",
+    "members": "Nhân viên",
+    "limits": "Hạn mức chính",
+    "updated": "Cập nhật",
+    "actions": "Thao tác"
+  },
+  "type": {
+    "locked": "Khoá",
+    "system": "Mặc định",
+    "custom": "Tuỳ chỉnh"
+  },
+  "noLimits": "Không giới hạn",
+  "actions": {
+    "edit": "Sửa",
+    "view": "Xem",
+    "clone": "Nhân bản",
+    "delete": "Xoá",
+    "save": "Lưu nhóm quyền",
+    "cancel": "Huỷ",
+    "restore": "Khôi phục mặc định",
+    "swap": "Đổi chỗ hai nhóm",
+    "editRole": "Sửa {{name}}"
+  },
+  "cloneDialog": {
+    "title": "Nhân bản {{name}}",
+    "description": "Nhóm mới là nhóm tuỳ chỉnh, chép đủ quyền và hạn mức.",
+    "name": "Tên nhóm mới",
+    "submit": "Nhân bản",
+    "copyOf": "{{name}} (bản sao)"
+  },
+  "deleteDialog": {
+    "title": "Xoá nhóm {{name}}?",
+    "description": "Nhóm không còn ai được gán. Thao tác không hoàn tác được."
+  },
+  "restoreDialog": {
+    "title": "Khôi phục {{name}} về mặc định?",
+    "description": "Quyền và hạn mức trở về cấu hình gốc, có hiệu lực ngay với mọi nhân viên trong nhóm."
+  },
+  "toast": {
+    "saved": "Đã lưu nhóm {{name}}. Có hiệu lực ngay.",
+    "created": "Đã tạo nhóm {{name}}.",
+    "cloned": "Đã tạo {{name}}.",
+    "deleted": "Đã xoá nhóm {{name}}.",
+    "restored": "Đã khôi phục {{name}} về mặc định."
+  },
+  "edit": {
+    "newTitle": "Nhóm quyền mới",
+    "description": "{{permissions}} quyền · {{members}} nhân viên · lưu xong có hiệu lực ngay",
+    "newDescription": "Nhóm tuỳ chỉnh: tick quyền theo module, đặt hạn mức",
+    "tabs": {
+      "label": "Nội dung nhóm quyền",
+      "permissions": "Quyền và hạn mức",
+      "members": "Nhân viên trong nhóm · {{count}}"
+    },
+    "infoTitle": "Thông tin nhóm",
+    "name": "Tên",
+    "descriptionField": "Mô tả",
+    "codeNote": "Mã nhóm {{code}} không đổi được.",
+    "limitsTitle": "Hạn mức",
+    "limitsDescription": "Vượt hạn mức thì POS mở hộp duyệt, quản lý nhập PIN. Để trống là không giới hạn.",
+    "maxDiscountPercent": "Giảm giá tối đa (%)",
+    "maxPayOutAmount": "Chi tiền két tối đa mỗi phiếu (₫)",
+    "maxRefundAmount": "Hoàn tiền tối đa mỗi đơn (₫)",
+    "rulesNote": "Bạn chỉ cấp được quyền mình đang có; không sửa được nhóm của chính bạn.",
+    "lockedNote": "Nhóm Chủ luôn có mọi quyền, không sửa được.",
+    "ownRoleNote": "Bạn đang thuộc nhóm này nên không sửa được (chống tự nâng quyền).",
+    "readOnlyNote": "Bạn chỉ có quyền xem nhóm quyền.",
+    "membersEmpty": "Chưa có ai trong nhóm này.",
+    "membersLabel": "Nhân viên trong nhóm",
+    "nameRequired": "Nhập tên tiếng Việt",
+    "amountInvalid": "Số nguyên VND không âm",
+    "percentInvalid": "Từ 0 đến 100"
+  },
+  "matrix": {
+    "label": "Bảng quyền",
+    "search": "Tìm quyền",
+    "searchPlaceholder": "Tìm quyền theo tên hoặc mã",
+    "filterAll": "Tất cả",
+    "filterSensitive": "Nhạy cảm",
+    "filterOn": "Đang bật",
+    "filterNew": "Mới · {{count}}",
+    "selectModule": "Chọn cả nhóm {{module}}",
+    "count": "{{on}}/{{total}}",
+    "empty": "Không có quyền nào khớp bộ lọc.",
+    "requires": "Cần kèm: {{codes}}",
+    "notHeld": "Bạn không có quyền này nên không cấp được"
+  },
+  "compareView": {
+    "title": "So sánh nhóm quyền",
+    "description": "Đặt hai nhóm cạnh nhau để thấy khác biệt về quyền và hạn mức",
+    "roleA": "Nhóm A",
+    "roleB": "Nhóm B",
+    "onlyDiff": "Chỉ hiện khác biệt",
+    "summary": "{{diff}} khác biệt · {{same}} giống nhau · A: {{a}} quyền · B: {{b}} quyền",
+    "column": "Quyền hoặc hạn mức",
+    "pick": "Chọn hai nhóm để so sánh.",
+    "same": "Hai nhóm giống hệt nhau.",
+    "tableLabel": "Bảng so sánh",
+    "has": "Có",
+    "hasNot": "Không"
+  },
+  "members": {
+    "name": "Nhân viên",
+    "username": "Tên đăng nhập",
+    "branch": "Chi nhánh"
+  }
+}

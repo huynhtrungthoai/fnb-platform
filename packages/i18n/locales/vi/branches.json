@@ -1,0 +1,81 @@
+{
+  "title": "Chi nhánh",
+  "description_other": "{{count}} chi nhánh đang hoạt động · cấu hình riêng từng chi nhánh",
+  "listLabel": "Danh sách chi nhánh",
+  "add": "Thêm chi nhánh",
+  "empty": "Chưa có chi nhánh nào.",
+  "emptyAction": "Tạo chi nhánh đầu tiên để bắt đầu.",
+  "status": {
+    "active": "Đang hoạt động",
+    "inactive": "Ngừng hoạt động"
+  },
+  "tabs": {
+    "label": "Cấu hình chi nhánh",
+    "info": "Thông tin và bán hàng",
+    "receipt": "Thông tin in trên bill"
+  },
+  "sections": {
+    "info": "Thông tin",
+    "hours": "Giờ và ngày kinh doanh",
+    "tax": "Thuế và phí",
+    "receipt": "Thông tin in trên bill",
+    "receiptDescription": "In ở đầu và cuối bill. Để trống thì lấy tên và địa chỉ của chi nhánh.",
+    "bank": "Tài khoản nhận chuyển khoản QR",
+    "bankDescription": "Để trống cả ba ô nếu chi nhánh chưa nhận QR."
+  },
+  "fields": {
+    "name": "Tên chi nhánh",
+    "code": "Mã chi nhánh",
+    "codeHint": "2–6 chữ hoa hoặc số. Dùng làm tiền tố số hoá đơn, không đổi sau khi đã bán.",
+    "phone": "Số điện thoại",
+    "address": "Địa chỉ",
+    "latitude": "Vĩ độ",
+    "longitude": "Kinh độ",
+    "coordinatesHint": "Dùng cho chấm công GPS. Để trống nếu chưa cần.",
+    "timezone": "Múi giờ",
+    "openTime": "Giờ mở cửa",
+    "closeTime": "Giờ đóng cửa",
+    "dayCutoffTime": "Giờ chốt ngày kinh doanh",
+    "dayCutoffHint": "Báo cáo theo ngày tính từ giờ này. Đổi giờ chỉ áp dụng từ ngày kinh doanh kế tiếp.",
+    "pendingCutoff": "Giờ chốt mới {{time}} áp dụng từ ngày {{date}}.",
+    "taxRatePercent": "Thuế suất mặc định (%)",
+    "taxHint": "Hộ kinh doanh, giá niêm yết đã gồm thuế; để 0 thì bill không có dòng VAT.",
+    "serviceChargePercent": "Phí dịch vụ (%)",
+    "businessName": "Tên trên bill",
+    "receiptAddress": "Địa chỉ trên bill",
+    "receiptPhone": "Số điện thoại trên bill",
+    "taxCode": "Mã số thuế",
+    "footer": "Lời chào cuối bill",
+    "bankCode": "Mã ngân hàng",
+    "bankCodeHint": "Ví dụ: VCB, TCB, MB.",
+    "accountNumber": "Số tài khoản",
+    "accountName": "Tên chủ tài khoản"
+  },
+  "errors": {
+    "coordinate": "Toạ độ không hợp lệ",
+    "percent": "Từ 0 đến 100, tối đa hai chữ số thập phân",
+    "bankIncomplete": "Nhập đủ ba ô hoặc để trống cả ba"
+  },
+  "actions": {
+    "save": "Lưu thay đổi",
+    "cancel": "Huỷ",
+    "deactivate": "Ngừng hoạt động",
+    "activate": "Hoạt động lại",
+    "create": "Tạo chi nhánh"
+  },
+  "readOnly": "Bạn chỉ có quyền xem phần này.",
+  "confirmDeactivate": {
+    "title": "Ngừng hoạt động {{name}}?",
+    "description": "Chi nhánh sẽ không nhận đơn mới và không đăng ký thêm thiết bị. Dữ liệu cũ vẫn xem được, có thể cho hoạt động lại sau."
+  },
+  "toast": {
+    "saved": "Đã lưu thay đổi của {{name}}.",
+    "created": "Đã tạo {{name}}.",
+    "deactivated": "{{name}} đã ngừng hoạt động.",
+    "activated": "{{name}} đã hoạt động lại."
+  },
+  "createDialog": {
+    "title": "Thêm chi nhánh",
+    "description": "Chi nhánh mới dùng cấu hình mặc định: mở 10:00–22:00, chốt ngày 00:00, thuế 0%."
+  }
+}

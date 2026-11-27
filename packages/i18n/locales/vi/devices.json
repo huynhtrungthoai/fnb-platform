@@ -1,0 +1,54 @@
+{
+  "title": "Thiết bị",
+  "description_other": "{{count}} thiết bị POS/KDS đang dùng",
+  "tableLabel": "Danh sách thiết bị",
+  "register": "Đăng ký thiết bị",
+  "subtitle": "Mã thiết bị là tiền tố số hoá đơn khi bán offline",
+  "registerDialog": {
+    "title": "Đăng ký thiết bị",
+    "description": "Thiết bị được đăng ký ngay trên máy POS hoặc màn hình bếp, để máy nhận khoá riêng của nó.",
+    "done": "Đã hiểu",
+    "step1": "Mở app POS trên máy mới, chọn \"Đăng ký thiết bị\".",
+    "step2": "Quản lý đăng nhập bằng tên đăng nhập và PIN, chọn chi nhánh.",
+    "step3": "Đặt tên máy và loại (POS, máy cầm tay, màn hình bếp), bấm Đăng ký.",
+    "step4": "Máy nhận mã (ví dụ Q1-P02) và xuất hiện trong danh sách này."
+  },
+  "filters": {
+    "branch": "Chi nhánh",
+    "allBranches": "Chi nhánh: Tất cả",
+    "status": "Trạng thái",
+    "active": "Đang dùng",
+    "revoked": "Đã thu hồi",
+    "all": "Trạng thái: Tất cả"
+  },
+  "columns": {
+    "device": "Thiết bị",
+    "branch": "Chi nhánh",
+    "code": "Mã",
+    "status": "Trạng thái",
+    "lastSeen": "Đồng bộ",
+    "version": "Phiên bản",
+    "lastUser": "Đang dùng",
+    "actions": "Thao tác"
+  },
+  "kind": {
+    "pos": "POS quầy",
+    "handheld": "Máy cầm tay",
+    "kds": "Màn hình bếp"
+  },
+  "status": {
+    "active": "Đang dùng",
+    "revoked": "Đã thu hồi"
+  },
+  "never": "Chưa kết nối",
+  "nobody": "—",
+  "empty": "Chưa có thiết bị nào.",
+  "emptyAction": "Đăng ký máy POS đầu tiên ngay trên máy đó.",
+  "revoke": "Thu hồi",
+  "revokeDialog": {
+    "title": "Thu hồi {{name}}?",
+    "description": "Máy bị đăng xuất ngay và không dùng được nữa; mã {{code}} không được cấp lại. Đơn chưa đồng bộ trên máy sẽ không gửi lên được."
+  },
+  "revoked": "Đã thu hồi {{name}}.",
+  "branchTab": "Thiết bị · {{count}}"
+}
