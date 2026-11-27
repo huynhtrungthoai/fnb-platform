@@ -41,17 +41,14 @@ a{color:#CA0404}a:hover{color:#9C0303}
         <input type="text" value="lan.nguyen" autocomplete="username" style="height: 40px; box-sizing: border-box; padding: 0 12px; border: 1px solid var(--border-strong); border-radius: 10px; background: var(--bg); color: var(--text); font: inherit; font-size: 15px">
       </label>
 
-      <div style="display: flex; flex-direction: column; gap: 6px; font-size: 14px">
-        <span id="pinLabel" style="font-weight: 600">Mã PIN 6 số</span>
-        <div role="group" aria-labelledby="pinLabel" style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px">
-          <sc-for list="{{ pin }}" as="d" hint-placeholder-count="6">
-            <span class="num" style="{{ d.style }}">{{ d.v }}</span>
-          </sc-for>
-        </div>
-        <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--danger-text)">
+      <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px">
+        <span style="font-weight: 600">PIN hoặc mật khẩu</span>
+        <input type="password" value="123456" autocomplete="current-password" style="height: 40px; box-sizing: border-box; padding: 0 12px; border: 1px solid var(--border-strong); border-radius: 10px; background: var(--bg); color: var(--text); font: inherit; font-size: 15px">
+      </label>
+
+      <div role="alert" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 12px; border-radius: 10px; background: var(--danger-subtle); font-size: 13px; color: var(--danger-text)">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20M12 8v4M12 16h.01"/></svg>
-          PIN chưa đúng. Còn 3 lần thử.
-        </span>
+        Sai tên đăng nhập hoặc PIN/mật khẩu.
       </div>
 
       <div style="display: flex; gap: 8px; padding: 10px 12px; border-radius: 10px; background: var(--warning-subtle); color: var(--warning-text); font-size: 13px">
@@ -68,12 +65,7 @@ a{color:#CA0404}a:hover{color:#9C0303}
 <script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":1440,"height":900}}'>
 class Component extends DCLogic {
   renderVals() {
-    const pin = [0, 1, 2, 3, 4, 5].map((i) => ({
-      v: i < 4 ? '•' : '',
-      style: 'height: 48px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 700; background: var(--bg); '
-        + (i === 4 ? 'border: 2px solid var(--primary);' : 'border: 1px solid var(--danger);')
-    }));
-    return { themeClass: this.props.dark ? 'dark' : '', pin };
+    return { themeClass: this.props.dark ? 'dark' : '' };
   }
 }
 </script>

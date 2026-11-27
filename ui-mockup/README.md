@@ -4,7 +4,7 @@ Bản thiết kế mẫu (mockup) của POS, KDS, Admin, web khách, app khách 
 
 Bản sống trên canvas (riêng tư, chủ sở hữu chia sẻ qua menu Share): https://claude.ai/artifact/B2DQi4zSqiw4iVURwHxkjw
 
-Lưu ngày 2026-11-26, khớp phiên bản canvas `1795706752-b8f6`, **trừ `pos-sale.dc.html`**: file này đã sửa trong repo (thêm hộp chọn tuỳ chọn khi chạm món) và chưa đưa lên canvas. Canvas có bốn trang: **Nền tảng**, **POS**, **Web**, **Mobile**. Mỗi trang nền tảng có hàng trên là đặc tả và bảng component, các hàng dưới là luồng màn hình đánh số theo thứ tự người dùng đi.
+Lưu ngày 2026-11-26, khớp phiên bản canvas `1795706752-b8f6`, **trừ `pos-sale.dc.html`** (thêm hộp chọn tuỳ chọn khi chạm món) và **`admin-login.dc.html`** (2026-11-27, M1-18: sáu ô PIN thay bằng một ô "PIN hoặc mật khẩu" theo plan 10): hai file này đã sửa trong repo và chưa đưa lên canvas. Canvas có bốn trang: **Nền tảng**, **POS**, **Web**, **Mobile**. Mỗi trang nền tảng có hàng trên là đặc tả và bảng component, các hàng dưới là luồng màn hình đánh số theo thứ tự người dùng đi.
 
 Cách đọc khi làm một component: mở `spec-<nền tảng>.dc.html` để lấy tên, props, biến thể, trạng thái và màn hình dùng; xem hình ở `ds-<nền tảng>-*.dc.html`; xem nó nằm trong luồng nào ở các màn đánh số.
 
@@ -58,7 +58,7 @@ Luồng Admin (trang co giãn, mẫu 1440):
 
 | Bước | File | Màn |
 |---|---|---|
-| A1 | `admin-login.dc.html` | Đăng nhập: tên đăng nhập + PIN 6 số |
+| A1 | `admin-login.dc.html` | Đăng nhập: tên đăng nhập + một ô "PIN hoặc mật khẩu" (plan 10, D-29; super admin dùng mật khẩu, màn hình không tiết lộ loại) |
 | A2 | `admin-dashboard.dc.html` | Tổng quan |
 | A3 | `admin-menu.dc.html` | Danh sách món |
 | A4 | `admin-menu-edit.dc.html` | Sửa món (vi/en, biến thể, tuỳ chọn, giá theo chi nhánh) |

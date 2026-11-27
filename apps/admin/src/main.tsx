@@ -11,7 +11,7 @@ import { routeTree } from './route-tree.gen';
 
 import './styles.css';
 
-const router = createRouter({ routeTree });
+const router = createRouter({ routeTree, context: { api, queryClient } });
 
 declare module '@tanstack/react-router' {
   interface Register {

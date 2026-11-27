@@ -1,8 +1,17 @@
-import { createRootRoute, Outlet, useNavigate, useRouter } from '@tanstack/react-router';
+import { createRootRouteWithContext, Outlet, useNavigate, useRouter } from '@tanstack/react-router';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Button, EmptyState, ErrorState, ThemeProvider, Toaster } from '@fnb/ui-web';
+
+import type { ApiClient } from '@fnb/api-client';
+import type { QueryClient } from '@tanstack/react-query';
+
+/** What every route's `beforeLoad` and loader can use. */
+export interface RouterContext {
+  api: ApiClient;
+  queryClient: QueryClient;
+}
 
 function RootLayout() {
   const { t, i18n } = useTranslation('common');
@@ -37,7 +46,7 @@ function RouteError() {
   return <ErrorState onRetry={() => void router.invalidate()} />;
 }
 
-export const Route = createRootRoute({
+export const Route = createRootRouteWithContext<RouterContext>()({
   component: RootLayout,
   notFoundComponent: NotFound,
   errorComponent: RouteError,

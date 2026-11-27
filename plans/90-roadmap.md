@@ -17,7 +17,7 @@ Cập nhật lần cuối: **2026-11-27**
 |---|---|---|---|---|
 | Chuẩn bị | P | Tài liệu, quy chuẩn, chốt quyết định | Đang làm | 10/13 |
 | GĐ 0 | M0 | Scaffold monorepo | Đang làm | 13/14 |
-| GĐ 0 | M1 | Nền tảng: auth, phân quyền, chi nhánh, realtime, hàng đợi | Đang làm | 20/26 |
+| GĐ 0 | M1 | Nền tảng: auth, phân quyền, chi nhánh, realtime, hàng đợi | Đang làm | 21/26 |
 | GĐ 1 | M2 | Thực đơn | Chưa bắt đầu | 0/16 |
 | GĐ 1 | M3 | POS bán hàng, ca, sổ quỹ, máy in và mẫu in, offline | Chưa bắt đầu | 0/34 |
 | GĐ 1 | M4 | Bếp (phần bàn hoãn, D-26) | Chưa bắt đầu | 0/9 (6 hoãn) |
@@ -106,7 +106,7 @@ Nghiệp vụ
 
 Admin
 - [x] **M1-17** `packages/api-client`: HTTP client, tự refresh token, hook Query — *dùng thẳng mã nguồn như `ui-web` (không build); refresh dùng chung một lần và khoá Web Lock giữa các tab; Admin đã gắn `ApiProvider`, POS gắn ở M3 (phiên thiết bị). Socket client làm ở M1-26.*
-- [ ] **M1-18** Đăng nhập, layout, menu theo quyền, bộ chọn chi nhánh — CORE-03
+- [x] **M1-18** Đăng nhập, layout, menu theo quyền, bộ chọn chi nhánh — CORE-03 — *một ô "PIN hoặc mật khẩu" theo plan 10 (mockup A1 đã sửa trong repo); chi nhánh đang chọn lưu trên máy (`fnb.admin.branch`), đổi chi nhánh thì xoá cache dữ liệu; quyền của màn hình = quyền tại chi nhánh đang chọn + quyền cấp doanh nghiệp*
 - [ ] **M1-19** Màn hình Chi nhánh
 - [ ] **M1-20** Màn hình Nhân viên (phân quyền theo chi nhánh, xem quyền thực tế), Nhóm quyền (`PermissionMatrix`, hạn mức, so sánh) — CORE-29
 - [ ] **M1-21** Màn hình Thiết bị, Nhật ký — CORE-41
@@ -386,3 +386,4 @@ Danh sách ứng viên ở [29-extensions.md](29-extensions.md). Chọn và lên
 | 2026-11-26 | **M0 (scaffold) làm xong 13/14 task**, mỗi task một commit trên `dev`, chưa push. Có: workspace pnpm 11.29 + Turborepo; `packages/config` (tsconfig strict, ESLint 10 flat config, Prettier); Docker Compose (Postgres 17, Redis 8, MinIO) đã chạy thật; `apps/api` NestJS 12 ESM với `/health`; `contract`, `utils`, `i18n` (i18next 27), `design-tokens` (theme `admin`, `pos`, test tương phản), `ui-web`, `ui-pos`, `apps/admin`, `apps/pos` với `/dev/components`; script kiểm tên file và i18n; rule ESLint ranh giới; pre-commit hook; workflow CI. Còn `[~]` M0-09: workflow chưa chạy trên GitHub vì chưa push. Lệch so với plan, đã sửa plan: `eslint-plugin-import-x` thay `eslint-plugin-import`; NestJS 12.6.2, Vite 8.3.8, lucide 1.80 (pnpm chỉ cài bản phát hành quá 24 giờ); image MinIO của Chainguard; Postgres ra cổng host 5433; `localizedTextSchema` làm sớm ở M0-05; `pnpm db:*` chỉ là lệnh giữ chỗ tới M1-01. Phát hiện: hai cặp màu trung tính chưa đạt AA ở chế độ sáng (07 mục 3, chờ duyệt). |
 | 2026-11-27 | Xong M1-17: `packages/api-client` (`createApiClient`, `createHttpClient` parse Zod và bóc `{ data }`, `ApiError` + `errorMessageKey`, `TokenStore`, `createQueryClient`, `ApiProvider`, hook `auth`). Tự refresh khi `TOKEN_EXPIRED`, dùng chung một lần refresh, khoá Web Lock giữa các tab để không dùng lại refresh token đã xoay. Thêm TanStack Query 5.108 vào catalog. Đã chạy thử với API thật: đăng nhập, `/auth/me`, tự refresh sau khi access token hết hạn, đăng xuất. |
 | 2026-11-27 | Xong M1-24: `apps/api/src/route-permissions.int.test.ts` duyệt mọi endpoint của `AppModule`: phải khai báo `@Public` / `@Authenticated` / `@RequirePermission`, danh sách endpoint `@Public` cố định trong test (mở thêm phải sửa test), mã quyền đã khai báo và tham số chi nhánh có trên route; gọi thật: không token → `401`, nhóm không có quyền → `403`, sai chi nhánh → `403`. `scripts/check-permissions.mjs` (trong `pnpm lint`, test `scripts/check-permissions.test.mjs`) đọc mã nguồn contract: quyền thiếu tên/mô tả vi, en; quyền không endpoint nào dùng; `@RequirePermission` với mã chưa khai báo; bảng 06 mục 4 lệch nhóm mặc định hay ghi chú DN/N/D. |
+| 2026-11-27 | Xong M1-18: Admin có màn đăng nhập (tên + một ô PIN hoặc mật khẩu, lỗi chung cho mọi trường hợp sai), màn đổi PIN/mật khẩu (bắt buộc khi PIN tạm), route guard `/_app` dựa trên `/auth/me` (chưa đăng nhập → `/login?redirect=`, PIN tạm → `/change-pin`), `AdminShell` với menu theo quyền, bộ chọn chi nhánh (gửi `X-Branch-Id`), ngôn ngữ, sáng/tối, menu tài khoản. `ui-web` thêm `AppShell`, `Sidebar`, `PageHeader`, `Select`, `Menu`, `Can`, `NoPermission`, `FormSection`, `FormActions`. Thêm react-hook-form 7.92 và `@hookform/resolvers` 7.0.9 vào catalog. Namespace i18n `admin`. |

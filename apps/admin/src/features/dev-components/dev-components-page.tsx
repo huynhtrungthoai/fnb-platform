@@ -14,6 +14,7 @@ import {
 } from '@fnb/ui-web';
 
 import { SettingsBar } from '../../shared-components/settings-bar';
+import { DevLayoutSamples } from './dev-layout-samples';
 
 import type { Locale } from '@fnb/contract';
 
@@ -154,6 +155,8 @@ export function DevComponentsPage({ onLocaleChange }: DevComponentsPageProps) {
           <ErrorState onRetry={() => toast({ tone: 'info', message: t('states.retried') })} />
         </div>
       </Card>
+
+      <DevLayoutSamples />
 
       <Dialog
         open={isDialogOpen}

@@ -1,35 +1,54 @@
 import { useNavigate } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
-import { Button, Card } from '@fnb/ui-web';
+import { useMe } from '@fnb/api-client';
+import { localize, resolveLocale } from '@fnb/i18n';
+import { Button, Card, EmptyState, PageHeader } from '@fnb/ui-web';
 
-import { changeLocale } from '../../lib/i18n';
-import { SettingsBar } from '../../shared-components/settings-bar';
+import { resolveWorkingAccess } from '../../lib/access';
+import { useSelectedBranchId } from '../../lib/branch-store';
 
-/** Placeholder landing screen of the scaffold; replaced by login and the dashboard in M1. */
+/** Overview of the Admin. Sales figures and charts arrive with the POS (M3) and reports (M7). */
 export function HomePage() {
-  const { t } = useTranslation('common');
+  const { t, i18n } = useTranslation(['admin', 'common']);
   const navigate = useNavigate();
+  const me = useMe();
+  const access = resolveWorkingAccess(me.data, useSelectedBranchId());
+  const locale = resolveLocale(i18n.language);
 
   return (
-    <main className="max-w-content-max mx-auto flex flex-col gap-6 p-6">
-      <header className="flex flex-wrap items-center justify-between gap-4">
-        <h1 className="text-text text-2xl font-bold">{t('app.admin')}</h1>
-        <SettingsBar onLocaleChange={(locale) => void changeLocale(locale)} />
-      </header>
+    <>
+      <PageHeader
+        title={t('home.title')}
+        description={t('home.greeting', { name: me.data?.user.fullName ?? '' })}
+      />
       <Card>
-        <p className="text-text-muted mb-4">{t('app.scaffoldReady')}</p>
-        {import.meta.env.DEV ? (
+        {access.current ? (
+          <div className="flex flex-col gap-2">
+            <p className="text-text">
+              {t('home.role', {
+                branch: access.current.branch.name,
+                role: localize(access.current.role.name, locale),
+              })}
+            </p>
+            <p className="text-text-muted text-sm">{t('home.description')}</p>
+          </div>
+        ) : (
+          <EmptyState description={t('home.noAssignment')} />
+        )}
+      </Card>
+      {import.meta.env.DEV ? (
+        <div>
           <Button
-            variant="primary"
+            variant="ghost"
             icon="chevron-right"
             iconPosition="end"
             onClick={() => void navigate({ to: '/dev/components' })}
           >
-            {t('app.openComponents')}
+            {t('common:app.openComponents')}
           </Button>
-        ) : null}
-      </Card>
-    </main>
+        </div>
+      ) : null}
+    </>
   );
 }

@@ -6,6 +6,8 @@ Object.assign(Element.prototype, {
   hasPointerCapture: () => false,
   setPointerCapture: () => undefined,
   releasePointerCapture: () => undefined,
+  // Radix Select scrolls the chosen option into view; jsdom has no layout.
+  scrollIntoView: () => undefined,
 });
 
 afterEach(() => {
