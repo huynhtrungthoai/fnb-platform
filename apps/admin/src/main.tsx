@@ -3,6 +3,9 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { I18nextProvider } from 'react-i18next';
 
+import { ApiProvider } from '@fnb/api-client';
+
+import { api, queryClient } from './lib/api';
 import { i18n } from './lib/i18n';
 import { routeTree } from './route-tree.gen';
 
@@ -24,7 +27,9 @@ if (!rootElement) {
 createRoot(rootElement).render(
   <StrictMode>
     <I18nextProvider i18n={i18n}>
-      <RouterProvider router={router} />
+      <ApiProvider client={api} queryClient={queryClient}>
+        <RouterProvider router={router} />
+      </ApiProvider>
     </I18nextProvider>
   </StrictMode>,
 );

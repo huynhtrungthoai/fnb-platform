@@ -79,7 +79,7 @@ ESLint (`no-restricted-imports`, `import-x/no-restricted-paths`, `import-x/no-cy
 | API | NestJS (ESM), build bằng `nest build`, test bằng Vitest + `unplugin-swc` (SWC sinh metadata cho decorator) | 12.6 (05: D-10) |
 | CSDL | PostgreSQL + Drizzle ORM + drizzle-kit | 17 · 0.45 |
 | Validate | Zod | 4.6 |
-| Web | Vite, React, TanStack Router (file-based, `src/route-tree.gen.ts` sinh tự động và được commit), TanStack Query (thêm ở M1-17) | 8.3 · 19.3 · 1.170 · 5 |
+| Web | Vite, React, TanStack Router (file-based, `src/route-tree.gen.ts` sinh tự động và được commit), TanStack Query (thêm ở M1-17, nằm trong `packages/api-client`) | 8.3 · 19.3 · 1.170 · 5.108 |
 | Component | `radix-ui` (gói gộp), `class-variance-authority`, `clsx`, `lucide-react`; phông `@fontsource/be-vietnam-pro` | 1.8 · 0.7 · 2.1 · 1.80 · 5.3 |
 | CSS | Tailwind | 4.3 |
 | Đa ngôn ngữ | i18next + react-i18next | 27.2 · 18.0 (xác nhận ở M0-11) |

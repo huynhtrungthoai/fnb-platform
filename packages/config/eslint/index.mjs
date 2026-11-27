@@ -120,6 +120,16 @@ export function createConfig({ rootDir }) {
         'i18next/no-literal-string': ['error', { framework: 'react', mode: 'jsx-text-only' }],
       },
     },
+    {
+      // Query hooks live in plain .ts files, outside UI_FILES.
+      files: ['packages/api-client/src/**/*.{ts,tsx}'],
+      plugins: { 'react-hooks': reactHooks },
+      languageOptions: { globals: globals.browser },
+      rules: {
+        'react-hooks/rules-of-hooks': 'error',
+        'react-hooks/exhaustive-deps': 'error',
+      },
+    },
     // Import boundaries and token-only UI code (M0-14).
     ...createBoundaryConfigs({ rootDir, importX }),
     {

@@ -128,6 +128,12 @@ Quy tắc: module chỉ ghi vào bảng của mình. Muốn thay đổi dữ li�
 - Validate (M1-03, D-10): `@ZBody(schema)`, `@ZQuery(schema)`, `@ZParam(name, schema)`, `@UuidParam()` trong `apps/api/src/common/zod/` parse bằng schema Zod của `@fnb/contract` và ghi schema lên handler; `@ZResponse(schema, { isPage })` mô tả `data`. Tài liệu OpenAPI 3.1 sinh từ các schema đó bằng `z.toJSONSchema`, xem ở `GET /openapi.json` (không phục vụ khi `NODE_ENV=production`).
 - Controller trả giá trị thường hoặc `Paginated`; `ResponseInterceptor` bọc. `@RawResponse()` chỉ dùng cho `/health`, `/openapi.json` và luồng file.
 
+### API client (M1-17)
+
+- `packages/api-client` (dùng thẳng mã nguồn, không build): `createApiClient({ baseUrl, tokenStore, getBranchId, getHeaders })` trả `{ http, auth }`. Mỗi lời gọi truyền schema Zod của `@fnb/contract`; client bóc `{ data }` và parse, sai thì `INVALID_RESPONSE`. Mọi lỗi là `ApiError` (`code`, `status`, `params`, `issues`, `requestId`); mã do client tự sinh: `NETWORK_ERROR`, `INVALID_RESPONSE`. Màn hình dịch bằng `errorMessageKey(error)` → `errors:<CODE>`.
+- Token: `401 TOKEN_EXPIRED` → refresh một lần (dùng chung cho mọi request hỏng cùng lúc, khoá Web Lock giữa các tab, đọc lại token trước khi refresh) rồi gửi lại. Refresh bị từ chối → xoá token, báo `onSessionExpired`, `me` thành `null`. Mất mạng khi refresh → giữ token.
+- Query chỉ tự thử lại khi mất mạng hoặc 5xx; mutation không tự thử lại. Cách thêm module: `packages/api-client/README.md`.
+
 ### Request id, log, giới hạn tần suất (M1-04)
 
 - Mỗi request có một `requestId` (UUID v7; giữ lại id do proxy gửi qua header `X-Request-Id` nếu đúng dạng). Id nằm trong header phản hồi, trong `error.requestId` và trên mọi dòng log của request đó (`AppLogger`, đọc từ `RequestContext` dựa trên `AsyncLocalStorage`). Log dạng JSON khi `NODE_ENV=production`, dạng chữ khi dev. Dòng access log chỉ ghi đường dẫn, không ghi query string.

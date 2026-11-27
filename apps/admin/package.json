@@ -12,6 +12,7 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@fnb/api-client": "workspace:*",
     "@fnb/contract": "workspace:*",
     "@fnb/design-tokens": "workspace:*",
     "@fnb/i18n": "workspace:*",
