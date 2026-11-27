@@ -4,6 +4,7 @@ import { and, count, desc, eq, gte, isNull, like, lte } from 'drizzle-orm';
 import { RequestContext } from '../../common/context/request-context.js';
 import { Paginated, toLimitOffset } from '../../common/http/pagination.js';
 import { DB } from '../../db/database.js';
+import { users } from '../users/schema.js';
 import { redactSecrets } from './redact.js';
 import { auditLogs } from './schema.js';
 
@@ -31,6 +32,9 @@ export type AuditDetails = Omit<AuditEntry, 'action'>;
 
 /** An audit row as stored. */
 export type AuditLogRow = typeof auditLogs.$inferSelect;
+
+/** An audit row with the name of whoever did it, for the log screen. */
+export type AuditLogView = AuditLogRow & { actorName: string | null };
 
 /**
  * The only writer of the audit log (CORE-40). Two ways to record:
@@ -72,7 +76,7 @@ export class AuditService {
    * Searches the log, newest first. `branchId` limits the rows to one branch; `null` returns the
    * business-level rows.
    */
-  async search(query: AuditLogQuery, branchId: string | null): Promise<Paginated<AuditLogRow>> {
+  async search(query: AuditLogQuery, branchId: string | null): Promise<Paginated<AuditLogView>> {
     const conditions: SQL[] = [
       branchId === null ? isNull(auditLogs.branchId) : eq(auditLogs.branchId, branchId),
     ];
@@ -102,15 +106,21 @@ export class AuditService {
     const { limit, offset } = toLimitOffset(query);
 
     const [rows, totals] = await Promise.all([
+      // Read-only join for display: the log keeps ids, the screen shows who that was.
       this.db
-        .select()
+        .select({ row: auditLogs, actorName: users.fullName })
         .from(auditLogs)
+        .leftJoin(users, eq(users.id, auditLogs.actorUserId))
         .where(where)
         .orderBy(desc(auditLogs.occurredAt), desc(auditLogs.id))
         .limit(limit)
         .offset(offset),
       this.db.select({ total: count() }).from(auditLogs).where(where),
     ]);
-    return new Paginated(rows, totals[0]?.total ?? 0, query);
+    return new Paginated(
+      rows.map(({ row, actorName }) => ({ ...row, actorName })),
+      totals[0]?.total ?? 0,
+      query,
+    );
   }
 }

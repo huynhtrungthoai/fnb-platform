@@ -204,6 +204,9 @@ describe('GET /audit-logs', () => {
     expect(body.meta).toMatchObject({ total: 3, totalPages: 2, pageSize: 2 });
     expect(body.data.map((row) => row.action)).toEqual(['branch.settings_update', 'user.disable']);
     expect(body.data.every((row) => row.branchId === BRANCH_1)).toBe(true);
+    // The screen shows who did it, not an id (`ensureUser` names test accounts "Test user");
+    // a row without an actor has no name.
+    expect(body.data.map((row) => row.actorName)).toEqual(['Test user', null]);
   });
 
   it('filters by person, action, entity and time', async () => {

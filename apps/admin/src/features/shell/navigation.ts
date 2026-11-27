@@ -42,6 +42,20 @@ export function buildNavigation(t: TFunction<['admin', 'common']>): NavGroup[] {
           href: '/roles',
           permission: 'role.view',
         },
+        {
+          key: 'devices',
+          label: t('admin:nav.devices'),
+          icon: 'device',
+          href: '/devices',
+          permission: 'device.manage',
+        },
+        {
+          key: 'audit-log',
+          label: t('admin:nav.audit'),
+          icon: 'scroll-text',
+          href: '/audit-log',
+          permission: 'audit.view',
+        },
       ],
     },
   ];

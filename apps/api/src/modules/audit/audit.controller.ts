@@ -13,7 +13,7 @@ import { AuditService } from './audit.service.js';
 
 import type { AuthContext } from '../../common/decorators/access.decorators.js';
 import type { Paginated } from '../../common/http/pagination.js';
-import type { AuditLogRow } from './audit.service.js';
+import type { AuditLogRow, AuditLogView } from './audit.service.js';
 import type { AuditLog, AuditLogQuery } from '@fnb/contract';
 
 /** Converts a stored row to the response shape. */
@@ -36,6 +36,8 @@ export function toAuditLog(row: AuditLogRow, actorName: string | null = null): A
   };
 }
 
+const withName = (row: AuditLogView): AuditLog => toAuditLog(row, row.actorName);
+
 @Controller('audit-logs')
 export class AuditController {
   constructor(private readonly audit: AuditService) {}
@@ -53,8 +55,8 @@ export class AuditController {
       if (!auth.access.allBranches?.permissions.includes('audit.view')) {
         throw permissionDenied('audit.view');
       }
-      return (await this.audit.search(query, null)).map((row) => toAuditLog(row));
+      return (await this.audit.search(query, null)).map(withName);
     }
-    return (await this.audit.search(query, requireBranchId(auth))).map((row) => toAuditLog(row));
+    return (await this.audit.search(query, requireBranchId(auth))).map(withName);
   }
 }

@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useMe, useUser } from '@fnb/api-client';
 import { Card, ErrorState, PageHeader, Skeleton, Tabs, usePermission } from '@fnb/ui-web';
 
+import { AuditTable } from '../audit/audit-table';
 import { StaffAccessTab } from './staff-access-tab';
 import { UserAvatar, UserStatusBadge } from './staff-badges';
 import { StaffInfoTab } from './staff-info-tab';
@@ -16,12 +17,13 @@ export interface StaffDetailPageProps {
 
 /** One staff member: details, access per branch, sign-in and PIN. */
 export function StaffDetailPage({ userId, onBack }: StaffDetailPageProps) {
-  const { t } = useTranslation(['staff', 'admin']);
+  const { t } = useTranslation(['staff', 'admin', 'audit']);
   const [tab, setTab] = useState('access');
   const me = useMe();
   const user = useUser(userId);
   const canManage = usePermission('user.manage');
   const canReset = usePermission('user.reset_credentials');
+  const canViewAudit = usePermission('audit.view');
   const isSelf = me.data?.user.id === userId;
 
   if (user.isError) {
@@ -79,6 +81,25 @@ export function StaffDetailPage({ userId, onBack }: StaffDetailPageProps) {
               label: t('detail.tabs.login'),
               content: <StaffLoginTab user={data} canReset={canReset} isSelf={isSelf} />,
             },
+            ...(canViewAudit
+              ? [
+                  {
+                    value: 'activity',
+                    label: t('audit:staffTab'),
+                    // Account events belong to no branch, so only all-branches callers see them all.
+                    content: (
+                      <AuditTable
+                        query={{
+                          entityType: 'user',
+                          entityId: data.id,
+                          scope: me.data?.hasAllBranches ? 'business' : 'branch',
+                        }}
+                        emptyText={t('audit:staffTabEmpty')}
+                      />
+                    ),
+                  },
+                ]
+              : []),
           ]}
         />
       </Card>

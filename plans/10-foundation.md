@@ -184,7 +184,8 @@ Các nhóm Bếp, Thủ kho, Kế toán vẫn có sẵn để dùng khi cần (0
 | Thu hồi | `POST /devices/:id/revoke` (`device.manage` tại chi nhánh của máy): token máy hết hiệu lực (`401 DEVICE_REVOKED`), mọi phiên trên máy kết thúc ngay. Đăng ký lại thì nhận mã mới |
 | Danh sách | `GET /devices?branchId=&status=active\|revoked\|all`, lọc theo chi nhánh người gọi có `device.manage`; có lần thấy cuối, phiên bản app, người dùng cuối |
 | Nhật ký | `device.register`, `device.revoke`, `device.session_open`, theo chi nhánh của máy |
-| Làm ở mốc khác | Bộ đếm số hoá đơn theo thiết bị, trạng thái đồng bộ (M3); máy in (M3, 18) |
+| Màn hình (M1-21) | `/devices` (HT7, phần thiết bị): lọc chi nhánh, trạng thái; thu hồi qua `ConfirmDialog` kiểu nguy hiểm. Nút "Đăng ký thiết bị" mở hướng dẫn đăng ký **trên chính máy POS** (Admin không cấp token cho máy khác). Màn Chi nhánh có tab "Thiết bị" cho người có `device.manage` tại chi nhánh đó |
+| Làm ở mốc khác | Bộ đếm số hoá đơn theo thiết bị, trạng thái đồng bộ (M3); máy in và phần "Máy in" của mockup HT7 (M3, 18) |
 
 ### Audit log (M1-14)
 
@@ -195,6 +196,7 @@ Các nhóm Bếp, Thủ kho, Kế toán vẫn có sẵn để dùng khi cần (0
 | Cách ghi | Endpoint gắn `@Audited('user.create')`; service gọi `AuditService.describe({ entityType, entityId, before, after, metadata })`; dòng log được ghi sau khi handler chạy xong, thao tác lỗi thì không ghi. Sự kiện ngoài luồng đó (đăng nhập sai) gọi `AuditService.record()` trực tiếp |
 | Bí mật | Mọi khoá có tên chứa `pin`, `password`, `secret`, `token`, `hash` bị thay bằng `[redacted]` trước khi lưu |
 | Tra cứu | `GET /audit-logs` (quyền `audit.view`): lọc theo người, hành động (`user.create` hoặc tiền tố `user.`), đối tượng, khoảng thời gian; phân trang, mới nhất trước. Mặc định chỉ thấy log của chi nhánh đang chọn; `scope=business` xem log cấp doanh nghiệp, chỉ dành cho người được gán tất cả chi nhánh |
+| Màn hình (M1-21) | `/audit-log` (HT9): lọc theo người (cần `user.view`), loại (tiền tố `auth.`, `user.`, `role.`…), phạm vi (chi nhánh đang chọn / cấp doanh nghiệp, chỉ người được gán tất cả chi nhánh), từ ngày, đến ngày; mỗi dòng mở hộp thoại trường trước/sau và thông tin thêm. Phản hồi có `actorName` (đọc `users.full_name`, chỉ đọc). Tab "Nhật ký" ở trang nhân viên lọc `entityType=user`, `entityId=<id>`. **Chưa làm**: nút "Xuất CSV" và ô tìm theo mã đơn của mockup (chưa có task) |
 
 ### Upload ảnh (M1-15)
 

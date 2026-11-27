@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useBranch, useBranchSettings, useMe } from '@fnb/api-client';
+import { useBranch, useBranchSettings, useDevices, useMe } from '@fnb/api-client';
 import { resolveLocale } from '@fnb/i18n';
 import { Badge, Card, ErrorState, Skeleton, Tabs } from '@fnb/ui-web';
 
 import { permissionsAt } from '../../lib/access';
+import { DeviceList } from '../devices/device-list';
 import { BranchInfoTab } from './branch-info-tab';
 import { BranchReceiptTab } from './branch-receipt-tab';
 
@@ -15,7 +16,7 @@ export interface BranchDetailProps {
 
 /** Right column of the branch screen: one branch with its settings, in tabs. */
 export function BranchDetail({ branchId }: BranchDetailProps) {
-  const { t, i18n } = useTranslation('branches');
+  const { t, i18n } = useTranslation(['branches', 'devices']);
   const [tab, setTab] = useState('info');
   const me = useMe();
   const branch = useBranch(branchId);
@@ -23,6 +24,8 @@ export function BranchDetail({ branchId }: BranchDetailProps) {
   const granted = permissionsAt(me.data, branchId);
   const canManage = granted.has('branch.manage');
   const canEditSettings = granted.has('branch.settings');
+  const canManageDevices = granted.has('device.manage');
+  const devices = useDevices({ branchId, status: 'active' }, { enabled: canManageDevices });
 
   if (branch.isError || settings.isError) {
     return (
@@ -93,6 +96,24 @@ export function BranchDetail({ branchId }: BranchDetailProps) {
                 />
               ),
             },
+            ...(canManageDevices
+              ? [
+                  {
+                    value: 'devices',
+                    label: t('devices:branchTab', { count: devices.data?.length ?? 0 }),
+                    content: (
+                      <DeviceList
+                        devices={devices.data}
+                        loading={devices.isPending}
+                        error={devices.isError}
+                        onRetry={() => void devices.refetch()}
+                        showBranch={false}
+                        canRevoke
+                      />
+                    ),
+                  },
+                ]
+              : []),
           ]}
         />
       </div>

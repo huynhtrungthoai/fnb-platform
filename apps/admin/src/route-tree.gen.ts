@@ -13,7 +13,9 @@ import { Route as AppRouteImport } from './routes/_app'
 import { Route as ChangePinRouteImport } from './routes/change-pin'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AppIndexRouteImport } from './routes/_app/index'
+import { Route as AppAuditLogRouteImport } from './routes/_app/audit-log'
 import { Route as AppBranchesRouteImport } from './routes/_app/branches'
+import { Route as AppDevicesRouteImport } from './routes/_app/devices'
 import { Route as DevComponentsRouteImport } from './routes/dev.components'
 import { Route as AppRolesIndexRouteImport } from './routes/_app/roles/index'
 import { Route as AppRolesIdRouteImport } from './routes/_app/roles/$id'
@@ -41,9 +43,19 @@ const AppIndexRoute = AppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AppRoute,
 } as any)
+const AppAuditLogRoute = AppAuditLogRouteImport.update({
+  id: '/audit-log',
+  path: '/audit-log',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppBranchesRoute = AppBranchesRouteImport.update({
   id: '/branches',
   path: '/branches',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppDevicesRoute = AppDevicesRouteImport.update({
+  id: '/devices',
+  path: '/devices',
   getParentRoute: () => AppRoute,
 } as any)
 const DevComponentsRoute = DevComponentsRouteImport.update({
@@ -86,7 +98,9 @@ export interface FileRoutesByFullPath {
   '/': typeof AppIndexRoute
   '/change-pin': typeof ChangePinRoute
   '/login': typeof LoginRoute
+  '/audit-log': typeof AppAuditLogRoute
   '/branches': typeof AppBranchesRoute
+  '/devices': typeof AppDevicesRoute
   '/dev/components': typeof DevComponentsRoute
   '/roles/$id': typeof AppRolesIdRoute
   '/roles/compare': typeof AppRolesCompareRoute
@@ -98,7 +112,9 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/change-pin': typeof ChangePinRoute
   '/login': typeof LoginRoute
+  '/audit-log': typeof AppAuditLogRoute
   '/branches': typeof AppBranchesRoute
+  '/devices': typeof AppDevicesRoute
   '/dev/components': typeof DevComponentsRoute
   '/': typeof AppIndexRoute
   '/roles/$id': typeof AppRolesIdRoute
@@ -113,7 +129,9 @@ export interface FileRoutesById {
   '/_app': typeof AppRouteWithChildren
   '/change-pin': typeof ChangePinRoute
   '/login': typeof LoginRoute
+  '/_app/audit-log': typeof AppAuditLogRoute
   '/_app/branches': typeof AppBranchesRoute
+  '/_app/devices': typeof AppDevicesRoute
   '/dev/components': typeof DevComponentsRoute
   '/_app/': typeof AppIndexRoute
   '/_app/roles/$id': typeof AppRolesIdRoute
@@ -129,7 +147,9 @@ export interface FileRouteTypes {
     | '/'
     | '/change-pin'
     | '/login'
+    | '/audit-log'
     | '/branches'
+    | '/devices'
     | '/dev/components'
     | '/roles/$id'
     | '/roles/compare'
@@ -141,7 +161,9 @@ export interface FileRouteTypes {
   to:
     | '/change-pin'
     | '/login'
+    | '/audit-log'
     | '/branches'
+    | '/devices'
     | '/dev/components'
     | '/'
     | '/roles/$id'
@@ -155,7 +177,9 @@ export interface FileRouteTypes {
     | '/_app'
     | '/change-pin'
     | '/login'
+    | '/_app/audit-log'
     | '/_app/branches'
+    | '/_app/devices'
     | '/dev/components'
     | '/_app/'
     | '/_app/roles/$id'
@@ -203,11 +227,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/audit-log': {
+      id: '/_app/audit-log'
+      path: '/audit-log'
+      fullPath: '/audit-log'
+      preLoaderRoute: typeof AppAuditLogRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/branches': {
       id: '/_app/branches'
       path: '/branches'
       fullPath: '/branches'
       preLoaderRoute: typeof AppBranchesRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/devices': {
+      id: '/_app/devices'
+      path: '/devices'
+      fullPath: '/devices'
+      preLoaderRoute: typeof AppDevicesRouteImport
       parentRoute: typeof AppRoute
     }
     '/dev/components': {
@@ -263,7 +301,9 @@ declare module '@tanstack/react-router' {
 }
 
 interface AppRouteChildren {
+  AppAuditLogRoute: typeof AppAuditLogRoute
   AppBranchesRoute: typeof AppBranchesRoute
+  AppDevicesRoute: typeof AppDevicesRoute
   AppIndexRoute: typeof AppIndexRoute
   AppRolesIdRoute: typeof AppRolesIdRoute
   AppRolesCompareRoute: typeof AppRolesCompareRoute
@@ -274,7 +314,9 @@ interface AppRouteChildren {
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppAuditLogRoute: AppAuditLogRoute,
   AppBranchesRoute: AppBranchesRoute,
+  AppDevicesRoute: AppDevicesRoute,
   AppIndexRoute: AppIndexRoute,
   AppRolesIdRoute: AppRolesIdRoute,
   AppRolesCompareRoute: AppRolesCompareRoute,
