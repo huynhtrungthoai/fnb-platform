@@ -15,3 +15,11 @@ afterEach(() => {
   window.localStorage.clear();
   document.documentElement.removeAttribute('data-mode');
 });
+
+// Radix measures some controls (a checkbox inside a form); jsdom has no layout to observe.
+class NoopResizeObserver {
+  observe = (): undefined => undefined;
+  unobserve = (): undefined => undefined;
+  disconnect = (): undefined => undefined;
+}
+globalThis.ResizeObserver ??= NoopResizeObserver;

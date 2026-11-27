@@ -15,6 +15,12 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as AppIndexRouteImport } from './routes/_app/index'
 import { Route as AppBranchesRouteImport } from './routes/_app/branches'
 import { Route as DevComponentsRouteImport } from './routes/dev.components'
+import { Route as AppRolesIndexRouteImport } from './routes/_app/roles/index'
+import { Route as AppRolesIdRouteImport } from './routes/_app/roles/$id'
+import { Route as AppRolesCompareRouteImport } from './routes/_app/roles/compare'
+import { Route as AppRolesNewRouteImport } from './routes/_app/roles/new'
+import { Route as AppStaffIndexRouteImport } from './routes/_app/staff/index'
+import { Route as AppStaffIdRouteImport } from './routes/_app/staff/$id'
 
 const AppRoute = AppRouteImport.update({
   id: '/_app',
@@ -45,6 +51,36 @@ const DevComponentsRoute = DevComponentsRouteImport.update({
   path: '/dev/components',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppRolesIndexRoute = AppRolesIndexRouteImport.update({
+  id: '/roles/',
+  path: '/roles/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppRolesIdRoute = AppRolesIdRouteImport.update({
+  id: '/roles/$id',
+  path: '/roles/$id',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppRolesCompareRoute = AppRolesCompareRouteImport.update({
+  id: '/roles/compare',
+  path: '/roles/compare',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppRolesNewRoute = AppRolesNewRouteImport.update({
+  id: '/roles/new',
+  path: '/roles/new',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppStaffIndexRoute = AppStaffIndexRouteImport.update({
+  id: '/staff/',
+  path: '/staff/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppStaffIdRoute = AppStaffIdRouteImport.update({
+  id: '/staff/$id',
+  path: '/staff/$id',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AppIndexRoute
@@ -52,6 +88,12 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/branches': typeof AppBranchesRoute
   '/dev/components': typeof DevComponentsRoute
+  '/roles/$id': typeof AppRolesIdRoute
+  '/roles/compare': typeof AppRolesCompareRoute
+  '/roles/new': typeof AppRolesNewRoute
+  '/staff/$id': typeof AppStaffIdRoute
+  '/roles/': typeof AppRolesIndexRoute
+  '/staff/': typeof AppStaffIndexRoute
 }
 export interface FileRoutesByTo {
   '/change-pin': typeof ChangePinRoute
@@ -59,6 +101,12 @@ export interface FileRoutesByTo {
   '/branches': typeof AppBranchesRoute
   '/dev/components': typeof DevComponentsRoute
   '/': typeof AppIndexRoute
+  '/roles/$id': typeof AppRolesIdRoute
+  '/roles/compare': typeof AppRolesCompareRoute
+  '/roles/new': typeof AppRolesNewRoute
+  '/staff/$id': typeof AppStaffIdRoute
+  '/roles': typeof AppRolesIndexRoute
+  '/staff': typeof AppStaffIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -68,12 +116,40 @@ export interface FileRoutesById {
   '/_app/branches': typeof AppBranchesRoute
   '/dev/components': typeof DevComponentsRoute
   '/_app/': typeof AppIndexRoute
+  '/_app/roles/$id': typeof AppRolesIdRoute
+  '/_app/roles/compare': typeof AppRolesCompareRoute
+  '/_app/roles/new': typeof AppRolesNewRoute
+  '/_app/staff/$id': typeof AppStaffIdRoute
+  '/_app/roles/': typeof AppRolesIndexRoute
+  '/_app/staff/': typeof AppStaffIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/change-pin' | '/login' | '/branches' | '/dev/components'
+  fullPaths:
+    | '/'
+    | '/change-pin'
+    | '/login'
+    | '/branches'
+    | '/dev/components'
+    | '/roles/$id'
+    | '/roles/compare'
+    | '/roles/new'
+    | '/staff/$id'
+    | '/roles/'
+    | '/staff/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/change-pin' | '/login' | '/branches' | '/dev/components' | '/'
+  to:
+    | '/change-pin'
+    | '/login'
+    | '/branches'
+    | '/dev/components'
+    | '/'
+    | '/roles/$id'
+    | '/roles/compare'
+    | '/roles/new'
+    | '/staff/$id'
+    | '/roles'
+    | '/staff'
   id:
     | '__root__'
     | '/_app'
@@ -82,6 +158,12 @@ export interface FileRouteTypes {
     | '/_app/branches'
     | '/dev/components'
     | '/_app/'
+    | '/_app/roles/$id'
+    | '/_app/roles/compare'
+    | '/_app/roles/new'
+    | '/_app/staff/$id'
+    | '/_app/roles/'
+    | '/_app/staff/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -135,17 +217,71 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DevComponentsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_app/roles/': {
+      id: '/_app/roles/'
+      path: '/roles'
+      fullPath: '/roles/'
+      preLoaderRoute: typeof AppRolesIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/roles/$id': {
+      id: '/_app/roles/$id'
+      path: '/roles/$id'
+      fullPath: '/roles/$id'
+      preLoaderRoute: typeof AppRolesIdRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/roles/compare': {
+      id: '/_app/roles/compare'
+      path: '/roles/compare'
+      fullPath: '/roles/compare'
+      preLoaderRoute: typeof AppRolesCompareRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/roles/new': {
+      id: '/_app/roles/new'
+      path: '/roles/new'
+      fullPath: '/roles/new'
+      preLoaderRoute: typeof AppRolesNewRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/staff/': {
+      id: '/_app/staff/'
+      path: '/staff'
+      fullPath: '/staff/'
+      preLoaderRoute: typeof AppStaffIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/staff/$id': {
+      id: '/_app/staff/$id'
+      path: '/staff/$id'
+      fullPath: '/staff/$id'
+      preLoaderRoute: typeof AppStaffIdRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
 interface AppRouteChildren {
   AppBranchesRoute: typeof AppBranchesRoute
   AppIndexRoute: typeof AppIndexRoute
+  AppRolesIdRoute: typeof AppRolesIdRoute
+  AppRolesCompareRoute: typeof AppRolesCompareRoute
+  AppRolesNewRoute: typeof AppRolesNewRoute
+  AppStaffIdRoute: typeof AppStaffIdRoute
+  AppRolesIndexRoute: typeof AppRolesIndexRoute
+  AppStaffIndexRoute: typeof AppStaffIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
   AppBranchesRoute: AppBranchesRoute,
   AppIndexRoute: AppIndexRoute,
+  AppRolesIdRoute: AppRolesIdRoute,
+  AppRolesCompareRoute: AppRolesCompareRoute,
+  AppRolesNewRoute: AppRolesNewRoute,
+  AppStaffIdRoute: AppStaffIdRoute,
+  AppRolesIndexRoute: AppRolesIndexRoute,
+  AppStaffIndexRoute: AppStaffIndexRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)

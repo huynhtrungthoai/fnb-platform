@@ -17,7 +17,7 @@ Cập nhật lần cuối: **2026-11-27**
 |---|---|---|---|---|
 | Chuẩn bị | P | Tài liệu, quy chuẩn, chốt quyết định | Đang làm | 10/13 |
 | GĐ 0 | M0 | Scaffold monorepo | Đang làm | 13/14 |
-| GĐ 0 | M1 | Nền tảng: auth, phân quyền, chi nhánh, realtime, hàng đợi | Đang làm | 22/26 |
+| GĐ 0 | M1 | Nền tảng: auth, phân quyền, chi nhánh, realtime, hàng đợi | Đang làm | 23/26 |
 | GĐ 1 | M2 | Thực đơn | Chưa bắt đầu | 0/16 |
 | GĐ 1 | M3 | POS bán hàng, ca, sổ quỹ, máy in và mẫu in, offline | Chưa bắt đầu | 0/34 |
 | GĐ 1 | M4 | Bếp (phần bàn hoãn, D-26) | Chưa bắt đầu | 0/9 (6 hoãn) |
@@ -108,7 +108,7 @@ Admin
 - [x] **M1-17** `packages/api-client`: HTTP client, tự refresh token, hook Query — *dùng thẳng mã nguồn như `ui-web` (không build); refresh dùng chung một lần và khoá Web Lock giữa các tab; Admin đã gắn `ApiProvider`, POS gắn ở M3 (phiên thiết bị). Socket client làm ở M1-26.*
 - [x] **M1-18** Đăng nhập, layout, menu theo quyền, bộ chọn chi nhánh — CORE-03 — *một ô "PIN hoặc mật khẩu" theo plan 10 (mockup A1 đã sửa trong repo); chi nhánh đang chọn lưu trên máy (`fnb.admin.branch`), đổi chi nhánh thì xoá cache dữ liệu; quyền của màn hình = quyền tại chi nhánh đang chọn + quyền cấp doanh nghiệp*
 - [x] **M1-19** Màn hình Chi nhánh — *tab Thiết bị của mockup làm ở M1-21*
-- [ ] **M1-20** Màn hình Nhân viên (phân quyền theo chi nhánh, xem quyền thực tế), Nhóm quyền (`PermissionMatrix`, hạn mức, so sánh) — CORE-29
+- [x] **M1-20** Màn hình Nhân viên (phân quyền theo chi nhánh, xem quyền thực tế), Nhóm quyền (`PermissionMatrix`, hạn mức, so sánh) — CORE-29
 - [ ] **M1-21** Màn hình Thiết bị, Nhật ký — CORE-41
 - [ ] **M1-22** Test tích hợp: phân quyền theo chi nhánh, vòng đời token, khoá tài khoản sau 5 lần sai PIN và mở khoá
 - [x] **M1-24** `route-permissions.test.ts` (mọi endpoint có khai báo quyền) và `scripts/check-permissions.mjs` — 06 mục 11 — *file test là `apps/api/src/route-permissions.int.test.ts` vì khởi động `AppModule` thật (02 mục 3.4)*
@@ -388,3 +388,4 @@ Danh sách ứng viên ở [29-extensions.md](29-extensions.md). Chọn và lên
 | 2026-11-27 | Xong M1-24: `apps/api/src/route-permissions.int.test.ts` duyệt mọi endpoint của `AppModule`: phải khai báo `@Public` / `@Authenticated` / `@RequirePermission`, danh sách endpoint `@Public` cố định trong test (mở thêm phải sửa test), mã quyền đã khai báo và tham số chi nhánh có trên route; gọi thật: không token → `401`, nhóm không có quyền → `403`, sai chi nhánh → `403`. `scripts/check-permissions.mjs` (trong `pnpm lint`, test `scripts/check-permissions.test.mjs`) đọc mã nguồn contract: quyền thiếu tên/mô tả vi, en; quyền không endpoint nào dùng; `@RequirePermission` với mã chưa khai báo; bảng 06 mục 4 lệch nhóm mặc định hay ghi chú DN/N/D. |
 | 2026-11-27 | Xong M1-18: Admin có màn đăng nhập (tên + một ô PIN hoặc mật khẩu, lỗi chung cho mọi trường hợp sai), màn đổi PIN/mật khẩu (bắt buộc khi PIN tạm), route guard `/_app` dựa trên `/auth/me` (chưa đăng nhập → `/login?redirect=`, PIN tạm → `/change-pin`), `AdminShell` với menu theo quyền, bộ chọn chi nhánh (gửi `X-Branch-Id`), ngôn ngữ, sáng/tối, menu tài khoản. `ui-web` thêm `AppShell`, `Sidebar`, `PageHeader`, `Select`, `Menu`, `Can`, `NoPermission`, `FormSection`, `FormActions`. Thêm react-hook-form 7.92 và `@hookform/resolvers` 7.0.9 vào catalog. Namespace i18n `admin`. |
 | 2026-11-27 | Xong M1-19: màn Chi nhánh `/branches` (HT1): danh sách và trạng thái, tạo chi nhánh, sửa thông tin, giờ và ngày kinh doanh, thuế và phí, thông tin bill, tài khoản nhận QR; ngừng/hoạt động lại qua `ConfirmDialog`. Ô bị khoá theo quyền tại chính chi nhánh đang xem (`permissionsAt`). `api-client` thêm module `branches`; `ui-web` thêm `Badge`, `Tabs`, `DangerButton`, `IconButton`, `ConfirmDialog`. Namespace i18n `branches`. |
+| 2026-11-27 | Xong M1-20: màn Nhân viên `/staff` (mẫu chuẩn cho các màn danh sách sau), chi tiết nhân viên (thông tin, phân quyền theo chi nhánh, quyền thực tế, đăng nhập và PIN; PIN tạm do màn hình sinh và hiện một lần), Nhóm quyền `/roles` (danh sách, nhân bản, xoá), sửa/tạo nhóm với `PermissionMatrix` và hạn mức, khôi phục mặc định, so sánh hai nhóm. `ui-web` thêm `DataTable`, `FilterBar`, `Pagination`, `Checkbox`, `LocalizedInput`; token `z-popover` (1350) để `Select`/`Menu` mở được trong hộp thoại. `api-client` thêm module `users`, `roles`. Namespace i18n `staff`, `roles`. |

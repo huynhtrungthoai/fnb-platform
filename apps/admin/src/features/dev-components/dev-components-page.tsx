@@ -15,6 +15,7 @@ import {
 
 import { SettingsBar } from '../../shared-components/settings-bar';
 import { DevActionSamples } from './dev-action-samples';
+import { DevDataSamples } from './dev-data-samples';
 import { DevLayoutSamples } from './dev-layout-samples';
 
 import type { Locale } from '@fnb/contract';
@@ -160,6 +161,8 @@ export function DevComponentsPage({ onLocaleChange }: DevComponentsPageProps) {
       <DevLayoutSamples />
 
       <DevActionSamples />
+
+      <DevDataSamples />
 
       <Dialog
         open={isDialogOpen}

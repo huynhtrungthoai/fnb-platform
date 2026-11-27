@@ -1,4 +1,12 @@
-import type { Me, MeBranch, PermissionCode, User } from '@fnb/contract';
+import type {
+  Me,
+  MeBranch,
+  PermissionCode,
+  PermissionInfo,
+  Role,
+  User,
+  UserWithAssignments,
+} from '@fnb/contract';
 
 /** Ids used across admin tests. */
 export const IDS = {
@@ -52,4 +60,52 @@ export function makeMe(values: Partial<Me> = {}): Me {
     permissionsVersion: 'v1',
     ...values,
   };
+}
+
+/** A staff member with assignments, as `GET /users` returns. */
+export function makeUserWithAssignments(
+  values: Partial<UserWithAssignments> = {},
+): UserWithAssignments {
+  return { ...makeUser(), assignments: [], ...values };
+}
+
+/** A permission group. */
+export function makeRole(values: Partial<Role> = {}): Role {
+  return {
+    id: IDS.roleManager,
+    code: 'manager',
+    name: { vi: 'Quản lý chi nhánh', en: 'Branch manager' },
+    description: null,
+    isSystem: true,
+    isLocked: false,
+    permissions: ['branch.view', 'user.view'],
+    limits: { maxDiscountPercent: null, maxPayOutAmount: null, maxRefundAmount: null },
+    version: 1,
+    memberCount: 0,
+    createdAt: '2026-11-01T00:00:00.000Z',
+    updatedAt: '2026-11-20T00:00:00.000Z',
+    ...values,
+  };
+}
+
+/** The foundation permission catalog, as `GET /permissions` returns. */
+export function makeCatalog(): PermissionInfo[] {
+  const at = '2026-11-01T00:00:00.000Z';
+  const info = (code: PermissionCode, values: Partial<PermissionInfo> = {}): PermissionInfo => ({
+    code,
+    module: 'foundation',
+    scope: 'branch',
+    isSensitive: false,
+    isApprovable: false,
+    requires: [],
+    addedAt: at,
+    ...values,
+  });
+  return [
+    info('branch.view'),
+    info('branch.manage', { scope: 'business', isSensitive: true, requires: ['branch.view'] }),
+    info('user.view'),
+    info('user.manage', { isSensitive: true, requires: ['user.view'] }),
+    info('audit.view', { addedAt: '2026-11-25T00:00:00.000Z' }),
+  ];
 }

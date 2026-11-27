@@ -137,6 +137,7 @@ Các nhóm Bếp, Thủ kho, Kế toán vẫn có sẵn để dùng khi cần (0
 | Gán, gỡ nhóm | `role.assign` tại nơi gán; không tự gán cho mình; không đổi nhóm của người đang có nhiều quyền hơn mình ở đó. Nhóm Chủ chỉ do người thuộc nhóm Chủ gán, và chỉ ở bản "tất cả chi nhánh" |
 | Chủ cuối cùng | Không vô hiệu hoá, gỡ hay đổi nhóm của tài khoản Chủ đang hoạt động cuối cùng (`409 LAST_OWNER`) |
 | Nhật ký | `user.create`, `user.update`, `user.disable`, `user.enable`, `user.assign_role`, `user.unassign_role`; ghi theo chi nhánh khi thao tác chỉ chạm một chi nhánh, còn lại ở cấp doanh nghiệp. Mã băm không bao giờ vào log hay phản hồi |
+| Màn hình (M1-20) | `/staff`: danh sách chuẩn của Admin (`FilterBar` tìm theo tên/tên đăng nhập/SĐT, chi nhánh, nhóm, trạng thái; `DataTable`; `Pagination`), bộ lọc nằm trên URL; băng cảnh báo số tài khoản đang khoá; mở khoá, đặt lại PIN, ngừng làm/cho làm lại. Đặt lại PIN và tạo nhân viên: **màn hình sinh PIN tạm ngẫu nhiên** (`crypto.getRandomValues`), gửi lên `POST /users/:id/reset-pin` / `POST /users`, rồi hiện PIN đúng một lần. `/staff/:id`: tab Thông tin, Phân quyền (bảng chi nhánh × nhóm, lưu một lần; quyền thực tế theo chi nhánh kèm hạn mức), Đăng nhập và PIN. Tab "Nhật ký" của mockup làm cùng M1-21 |
 | Làm ở task khác | Đăng nhập, phiên (M1-08); đổi, đặt lại PIN, mở khoá (M1-09); ảnh đại diện (M1-15) |
 
 ### Đăng nhập và phiên (M1-08)

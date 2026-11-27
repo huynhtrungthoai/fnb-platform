@@ -12,6 +12,19 @@ export function buildNavigation(t: TFunction<['admin', 'common']>): NavGroup[] {
       items: [{ key: 'home', label: t('admin:nav.home'), icon: 'home', href: '/' }],
     },
     {
+      key: 'people',
+      label: t('admin:nav.groups.people'),
+      items: [
+        {
+          key: 'staff',
+          label: t('admin:nav.staff'),
+          icon: 'users',
+          href: '/staff',
+          permission: 'user.view',
+        },
+      ],
+    },
+    {
       key: 'system',
       label: t('admin:nav.groups.system'),
       items: [
@@ -21,6 +34,13 @@ export function buildNavigation(t: TFunction<['admin', 'common']>): NavGroup[] {
           icon: 'store',
           href: '/branches',
           permission: 'branch.view',
+        },
+        {
+          key: 'roles',
+          label: t('admin:nav.roles'),
+          icon: 'shield',
+          href: '/roles',
+          permission: 'role.view',
         },
       ],
     },
