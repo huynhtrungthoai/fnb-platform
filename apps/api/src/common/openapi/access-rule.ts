@@ -16,7 +16,7 @@ export type AccessRule =
 
 /**
  * Reads which of `@Public`, `@Authenticated` or `@RequirePermission` an endpoint declares.
- * Shared by the OpenAPI document and `route-permissions.test.ts`.
+ * Shared by the OpenAPI document and `route-permissions.int.test.ts`.
  */
 export function describeAccessRule(
   route: Pick<RouteInfo, 'handler' | 'controllerClass'>,

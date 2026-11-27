@@ -44,7 +44,7 @@ function joinPath(prefix: string, path: string): string {
 
 /**
  * Lists every HTTP endpoint with its handler, by walking the registered controllers.
- * Used by the OpenAPI document and by `route-permissions.test.ts` (every endpoint declares access).
+ * Used by the OpenAPI document and by `route-permissions.int.test.ts` (every endpoint declares access).
  */
 export function exploreRoutes(discovery: DiscoveryService): RouteInfo[] {
   const scanner = new MetadataScanner();

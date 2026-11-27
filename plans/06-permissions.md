@@ -282,7 +282,7 @@ Vượt hạn mức thì xử lý như thiếu quyền: xin duyệt tại chỗ 
 
 ### 7.1 API
 
-- Mỗi endpoint khai báo một trong ba: `@RequirePermission('order.void_item')`, `@Authenticated()` (chỉ cần đăng nhập, ví dụ xem hồ sơ của mình), `@Public()` (đăng nhập, webhook). **Không khai báo thì bị từ chối** và test `route-permissions.test.ts` đỏ.
+- Mỗi endpoint khai báo một trong ba: `@RequirePermission('order.void_item')`, `@Authenticated()` (chỉ cần đăng nhập, ví dụ xem hồ sơ của mình), `@Public()` (đăng nhập, webhook). **Không khai báo thì bị từ chối** và test `apps/api/src/route-permissions.int.test.ts` đỏ.
 - Guard chạy theo thứ tự: xác thực → xác định chi nhánh của request → người dùng có được gán ở chi nhánh đó → nhóm có quyền (và đúng `scope`) → hạn mức (kiểm tra trong service vì cần dữ liệu nghiệp vụ).
 - Thiếu quyền trả `403` với mã lỗi `PERMISSION_DENIED` và `requiredPermission`; vượt hạn mức trả `LIMIT_EXCEEDED`.
 - Sự kiện Socket.IO và việc vào room chi nhánh cũng qua cùng bộ kiểm tra.
@@ -378,7 +378,7 @@ Tick ở `90-roadmap.md`.
 - [x] M1-12: duyệt tại chỗ bằng PIN. Module `approvals`: `GET /approvals/approvers?permission=` (người có quyền tại chi nhánh, chọn theo tên), `POST /approvals` (PIN người duyệt, lý do) trả token dùng một lần, hạn 120 giây; gửi kèm hành động trong header `X-Approval-Token`, guard nhận thay cho quyền còn thiếu nếu quyền đó `approvable`. Vượt hạn mức thì service gọi `ApprovalsService.consume()`. Audit: `approval.grant`, `approval.reject`, và hành động được duyệt có `metadata.approval` (người duyệt, lý do).
 - [ ] M1-20: màn hình nhóm quyền, `PermissionMatrix`, gán nhóm cho nhân viên.
 - [x] M1-23: nhóm tuỳ chỉnh, nhân bản, hạn mức, quy tắc mục 8, cache quyền và tín hiệu `permissions.changed` (gateway Socket.IO: M1-26). Endpoint: `GET /permissions` (danh mục kèm `addedAt` để hiện nhãn "Mới": quyền có `addedAt` sau `updatedAt` của nhóm), `GET /roles`, `GET /roles/:id`, `POST /roles`, `POST /roles/:id/clone`, `PATCH /roles/:id`, `POST /roles/:id/restore-default`, `DELETE /roles/:id`; thành viên của nhóm lấy qua `GET /users?roleId=`. API tự thêm quyền trong `requires`. Chống tự nâng quyền: chỉ kiểm tra quyền **được thêm** (bỏ bớt quyền không phải nâng quyền); không sửa nhóm mình đang thuộc. Mọi thay đổi gọi `RbacService.invalidateUsers()`, hàm này xoá cache và phát `permissions.changed` qua Redis pub/sub (kênh `events:permissions.changed`, payload `{ userIds }`). Nhóm Chủ chỉ người thuộc nhóm Chủ gán được, và chỉ ở bản "tất cả chi nhánh". Hạn mức chưa bị giới hạn theo hạn mức của người sửa (mục 8 không yêu cầu).
-- [ ] M1-24: `route-permissions.test.ts`, `scripts/check-permissions.mjs`.
+- [x] M1-24: `apps/api/src/route-permissions.int.test.ts` (mọi endpoint khai báo quyền; danh sách endpoint `@Public` cố định; không token `401`, thiếu quyền `403`, sai chi nhánh `403`) và `scripts/check-permissions.mjs` (chạy trong `pnpm lint`). Quyền có trong bảng mục 4 mà chưa khai báo trong code được bỏ qua; quyền đã khai báo phải có dòng trong bảng, cùng nhóm mặc định (● và ◐) và ghi chú DN/N/D.
 - [ ] M2 → M6, M9, M10: mỗi mốc khai báo quyền của module mình theo mục 11.
 - [ ] M3: quyền và PIN trong snapshot offline; đánh dấu lệnh offline trái quyền.
 - [ ] M7-09: rà soát toàn bộ quyền trước khi chạy thử.
