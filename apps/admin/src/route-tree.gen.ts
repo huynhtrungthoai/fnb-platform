@@ -13,6 +13,7 @@ import { Route as AppRouteImport } from './routes/_app'
 import { Route as ChangePinRouteImport } from './routes/change-pin'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AppIndexRouteImport } from './routes/_app/index'
+import { Route as AppBranchesRouteImport } from './routes/_app/branches'
 import { Route as DevComponentsRouteImport } from './routes/dev.components'
 
 const AppRoute = AppRouteImport.update({
@@ -34,6 +35,11 @@ const AppIndexRoute = AppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AppRoute,
 } as any)
+const AppBranchesRoute = AppBranchesRouteImport.update({
+  id: '/branches',
+  path: '/branches',
+  getParentRoute: () => AppRoute,
+} as any)
 const DevComponentsRoute = DevComponentsRouteImport.update({
   id: '/dev/components',
   path: '/dev/components',
@@ -44,11 +50,13 @@ export interface FileRoutesByFullPath {
   '/': typeof AppIndexRoute
   '/change-pin': typeof ChangePinRoute
   '/login': typeof LoginRoute
+  '/branches': typeof AppBranchesRoute
   '/dev/components': typeof DevComponentsRoute
 }
 export interface FileRoutesByTo {
   '/change-pin': typeof ChangePinRoute
   '/login': typeof LoginRoute
+  '/branches': typeof AppBranchesRoute
   '/dev/components': typeof DevComponentsRoute
   '/': typeof AppIndexRoute
 }
@@ -57,19 +65,21 @@ export interface FileRoutesById {
   '/_app': typeof AppRouteWithChildren
   '/change-pin': typeof ChangePinRoute
   '/login': typeof LoginRoute
+  '/_app/branches': typeof AppBranchesRoute
   '/dev/components': typeof DevComponentsRoute
   '/_app/': typeof AppIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/change-pin' | '/login' | '/dev/components'
+  fullPaths: '/' | '/change-pin' | '/login' | '/branches' | '/dev/components'
   fileRoutesByTo: FileRoutesByTo
-  to: '/change-pin' | '/login' | '/dev/components' | '/'
+  to: '/change-pin' | '/login' | '/branches' | '/dev/components' | '/'
   id:
     | '__root__'
     | '/_app'
     | '/change-pin'
     | '/login'
+    | '/_app/branches'
     | '/dev/components'
     | '/_app/'
   fileRoutesById: FileRoutesById
@@ -111,6 +121,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/branches': {
+      id: '/_app/branches'
+      path: '/branches'
+      fullPath: '/branches'
+      preLoaderRoute: typeof AppBranchesRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/dev/components': {
       id: '/dev/components'
       path: '/dev/components'
@@ -122,10 +139,12 @@ declare module '@tanstack/react-router' {
 }
 
 interface AppRouteChildren {
+  AppBranchesRoute: typeof AppBranchesRoute
   AppIndexRoute: typeof AppIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppBranchesRoute: AppBranchesRoute,
   AppIndexRoute: AppIndexRoute,
 }
 

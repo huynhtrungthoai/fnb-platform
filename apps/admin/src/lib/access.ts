@@ -31,3 +31,15 @@ export function resolveWorkingAccess(
   ];
   return { current, branches, permissions };
 }
+
+/**
+ * Permissions at one particular branch (not the working one), for screens that act on another
+ * branch by id, such as the branch settings: that branch's grant plus the business-wide ones.
+ */
+export function permissionsAt(
+  me: Me | null | undefined,
+  branchId: string | null,
+): ReadonlySet<PermissionCode> {
+  const entry = (me?.branches ?? []).find((candidate) => candidate.branch.id === branchId);
+  return new Set([...(entry?.permissions ?? []), ...(me?.businessPermissions ?? [])]);
+}

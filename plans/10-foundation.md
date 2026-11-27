@@ -122,6 +122,7 @@ Các nhóm Bếp, Thủ kho, Kế toán vẫn có sẵn để dùng khi cần (0
 | Đổi giờ chốt ngày | Giá trị mới nằm ở `pending_day_cutoff_time` cùng `pending_day_cutoff_from` (ngày kinh doanh kế tiếp); `BranchesService.getSettings()` tự áp dụng khi ngày đó bắt đầu. Chọn lại đúng giờ đang dùng thì huỷ thay đổi đang chờ |
 | Quyền | Danh sách và chi tiết: `branch.view` (danh sách tự lọc theo chi nhánh người gọi có quyền). Tạo, sửa, ngừng: `branch.manage` (cấp doanh nghiệp). Cấu hình: `branch.settings` tại chính chi nhánh đó |
 | Nhật ký | `branch.create`, `branch.update`, `branch.deactivate`, `branch.activate` ghi ở cấp doanh nghiệp; `branch.settings_update` ghi theo chi nhánh |
+| Màn hình (M1-19) | `/branches?id=`: danh sách bên trái, chi nhánh đang chọn bên phải với hai tab. Tab "Thông tin và bán hàng" có một nút Lưu: phần thông tin (cần `branch.manage`) gửi `PATCH /branches/:id`, phần giờ và thuế (cần `branch.settings` tại chính chi nhánh đó) gửi `PUT /branches/:id/settings`, chỉ phần đã sửa mới gửi; thiếu quyền thì ô bị khoá. Tab "Thông tin in trên bill" gồm thông tin bill và tài khoản nhận QR (để trống cả ba ô ngân hàng là không nhận QR). Ngừng hoạt động qua `ConfirmDialog` kiểu nguy hiểm. Giờ chốt mới đang chờ hiện dưới ô kèm ngày áp dụng |
 | Chưa làm ở M1 | Các ô trong mockup `admin-branches` thuộc mốc khác: làm tròn tiền (POS-15, M3), bán kính chấm công GPS (HR-21, M9), phương thức thanh toán tại chi nhánh (M5), tab Thiết bị (M1-21) |
 
 ### Nhân viên và gán nhóm (M1-07)
