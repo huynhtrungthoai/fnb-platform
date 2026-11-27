@@ -17,7 +17,7 @@ Cập nhật lần cuối: **2026-11-27**
 |---|---|---|---|---|
 | Chuẩn bị | P | Tài liệu, quy chuẩn, chốt quyết định | Đang làm | 10/13 |
 | GĐ 0 | M0 | Scaffold monorepo | Đang làm | 13/14 |
-| GĐ 0 | M1 | Nền tảng: auth, phân quyền, chi nhánh, realtime, hàng đợi | Đang làm | 24/26 |
+| GĐ 0 | M1 | Nền tảng: auth, phân quyền, chi nhánh, realtime, hàng đợi | Đang làm | 25/26 |
 | GĐ 1 | M2 | Thực đơn | Chưa bắt đầu | 0/16 |
 | GĐ 1 | M3 | POS bán hàng, ca, sổ quỹ, máy in và mẫu in, offline | Chưa bắt đầu | 0/34 |
 | GĐ 1 | M4 | Bếp (phần bàn hoãn, D-26) | Chưa bắt đầu | 0/9 (6 hoãn) |
@@ -110,7 +110,7 @@ Admin
 - [x] **M1-19** Màn hình Chi nhánh — *tab Thiết bị của mockup làm ở M1-21*
 - [x] **M1-20** Màn hình Nhân viên (phân quyền theo chi nhánh, xem quyền thực tế), Nhóm quyền (`PermissionMatrix`, hạn mức, so sánh) — CORE-29
 - [x] **M1-21** Màn hình Thiết bị, Nhật ký — CORE-41 — *chưa có "Xuất CSV" của mockup Nhật ký*
-- [ ] **M1-22** Test tích hợp: phân quyền theo chi nhánh, vòng đời token, khoá tài khoản sau 5 lần sai PIN và mở khoá
+- [x] **M1-22** Test tích hợp: phân quyền theo chi nhánh, vòng đời token, khoá tài khoản sau 5 lần sai PIN và mở khoá — *`apps/api/src/foundation-flows.int.test.ts`*
 - [x] **M1-24** `route-permissions.test.ts` (mọi endpoint có khai báo quyền) và `scripts/check-permissions.mjs` — 06 mục 11 — *file test là `apps/api/src/route-permissions.int.test.ts` vì khởi động `AppModule` thật (02 mục 3.4)*
 
 ---
@@ -390,3 +390,4 @@ Danh sách ứng viên ở [29-extensions.md](29-extensions.md). Chọn và lên
 | 2026-11-27 | Xong M1-19: màn Chi nhánh `/branches` (HT1): danh sách và trạng thái, tạo chi nhánh, sửa thông tin, giờ và ngày kinh doanh, thuế và phí, thông tin bill, tài khoản nhận QR; ngừng/hoạt động lại qua `ConfirmDialog`. Ô bị khoá theo quyền tại chính chi nhánh đang xem (`permissionsAt`). `api-client` thêm module `branches`; `ui-web` thêm `Badge`, `Tabs`, `DangerButton`, `IconButton`, `ConfirmDialog`. Namespace i18n `branches`. |
 | 2026-11-27 | Xong M1-20: màn Nhân viên `/staff` (mẫu chuẩn cho các màn danh sách sau), chi tiết nhân viên (thông tin, phân quyền theo chi nhánh, quyền thực tế, đăng nhập và PIN; PIN tạm do màn hình sinh và hiện một lần), Nhóm quyền `/roles` (danh sách, nhân bản, xoá), sửa/tạo nhóm với `PermissionMatrix` và hạn mức, khôi phục mặc định, so sánh hai nhóm. `ui-web` thêm `DataTable`, `FilterBar`, `Pagination`, `Checkbox`, `LocalizedInput`; token `z-popover` (1350) để `Select`/`Menu` mở được trong hộp thoại. `api-client` thêm module `users`, `roles`. Namespace i18n `staff`, `roles`. |
 | 2026-11-27 | Xong M1-21: màn Thiết bị `/devices` (lọc, thu hồi; hướng dẫn đăng ký trên máy POS), tab Thiết bị trong màn Chi nhánh, màn Nhật ký `/audit-log` (lọc người, loại, phạm vi, ngày; hộp thoại trước/sau), tab Nhật ký ở trang nhân viên. API: `GET /audit-logs` trả thêm `actorName` (trước đây luôn `null`). `api-client` thêm module `devices`, `audit`. Namespace i18n `devices`, `audit`. Còn thiếu so với mockup: nút "Xuất CSV" và ô tìm theo mã đơn ở Nhật ký. |
+| 2026-11-27 | Xong M1-22: `apps/api/src/foundation-flows.int.test.ts` chạy ba luồng chỉ qua HTTP, đăng nhập thật: chủ tạo chi nhánh và quản lý (PIN tạm → buộc đổi PIN → chỉ làm được ở chi nhánh được gán; thêm, gỡ chi nhánh có hiệu lực ngay với token đang dùng; quyền không cộng dồn giữa chi nhánh); vòng đời token (access hết hạn, refresh xoay vòng, dùng lại refresh cũ kết thúc phiên, đăng xuất, refresh quá hạn); khoá sau 5 lần sai PIN, chủ thấy trong danh sách bị khoá, mở khoá, đặt lại PIN, nhật ký có đủ sự kiện kèm tên người làm. Test module chi tiết từng quy tắc vẫn ở các file `*.int.test.ts` của module. |
