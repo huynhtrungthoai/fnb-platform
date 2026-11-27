@@ -132,6 +132,10 @@ Tắt một rule tại chỗ chỉ khi có comment tiếng Anh nêu lý do ngay 
 - Loại: `feat`, `fix`, `refactor`, `test`, `docs`, `chore`, `build`, `ci`.
 - Nhánh: `feat/<name>`, `fix/<name>`, `docs/<name>`. Không push thẳng `main`.
 - Thay đổi contract, API và client của nó nằm trong cùng một commit.
+- **Mỗi task một commit**, message kèm mã task: code, test, tick roadmap, dòng nhật ký và phần plan của task đó đi cùng nhau.
+- Phần dùng chung cho nhiều task (component `packages/ui-*`, module `api-client`, file ngôn ngữ `i18n`, token, thư viện mới trong `catalog` cùng `pnpm-lock.yaml`) gom vào **một** commit riêng, đặt **trước** các commit task, ghi dải mã task: `feat(ui-web): add table and form components (M1-18 → M1-21)`.
+- Làm nhiều task liền rồi mới commit: tách theo task theo thứ tự trên. File bị nhiều task sửa (menu, `plans/90-roadmap.md`, plan tính năng) thì mỗi commit chỉ mang phần của task đó; dựng từng commit trong `git worktree` tạm để không đụng cây làm việc, và mỗi commit phải qua `pnpm verify` trước khi tạo.
+- Không bỏ qua hook (`--no-verify`); hook đỏ thì sửa rồi commit lại.
 
 ## 9. Trước khi xong
 

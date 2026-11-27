@@ -75,6 +75,7 @@ Nếu code và plan mâu thuẫn, dừng lại và nói rõ. Plan sai thì sửa
 - **Dev làm UI xem mockup trước khi dựng**: tên, props, biến thể, trạng thái lấy từ `spec-<nền tảng>.dc.html`; bố cục và luồng lấy từ các màn đánh số. Code lệch mockup thì sửa code, hoặc sửa mockup và plan nếu mockup sai.
 - Mục "Đề xuất" và "Mở" trong `plans/05-decisions.md` chưa được xác nhận. Hỏi trước khi làm việc phụ thuộc vào chúng.
 - Không commit, không push, không deploy khi chưa được yêu cầu. Không push thẳng `main`.
+- **Mỗi task một commit** (mẫu và cách tách: `docs/code-style.md` mục 8). Commit của task gồm code, test và phần plan/roadmap của chính task đó. Phần dùng chung cho nhiều task (`packages/ui-*`, `api-client`, `i18n`, `design-tokens`, `catalog` và lockfile) được gom vào **một** commit riêng, đặt trước các commit task dùng nó. Làm liền nhiều task thì vẫn tách theo task; mỗi commit phải qua `pnpm verify`.
 - **Không sao chép code** từ `../hotdog-web-app`, từ Odoo hay bất kỳ sản phẩm nào trong `plans/00-sources.md`. Chỉ tham khảo ý tưởng nghiệp vụ.
 - Tra Context7 trước khi dùng API của thư viện (NestJS 12 đã chuyển ESM, TypeScript 6, Vite 8…); không dựa trí nhớ.
 
